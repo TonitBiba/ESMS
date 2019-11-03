@@ -1,0 +1,59 @@
+﻿@page
+@model ESMS.Pages.Configurations._MenuListModel
+@{ 
+    Layout = null;
+}
+<table id="tblListMenus" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>Emri menus shqip</th>
+            <th>Emri menus anglisht</th>
+            <td>Ikona</td>
+            <th>Data insertimit</th>
+            <th>Veprimet</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.menus)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => item.VcMenNameSq)</td>
+                <td>@Html.DisplayFor(m => item.VcMenNameSq)</td>
+                <td>@Html.DisplayFor(m => item.VcIcon)</td>
+                <td>@Html.DisplayFor(m => item.DtInserted)</td>
+                <td>
+                    <div class="table-data-feature" style="justify-content: flex-start">
+                        <button title="" class="item" aria-describedby="tooltip502552" data-original-title="Edit" data-placement="top" data-toggle="tooltip">
+                            <i class="zmdi zmdi-edit"></i>
+                        </button>
+                        <button title="" class="item" data-original-title="Delete" data-placement="top" data-toggle="tooltip">
+                            <i class="zmdi zmdi-delete"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $('#tblListMenus').DataTable({
+            "lengthChange":false,
+            "language": {
+                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
+                "zeroRecords": "Nuk ka asnjë të dhënë",
+                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+                "infoEmpty": "Nuk ka asnjë të dhënë",
+                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
+                "search": "Kërko",
+                "paginate": {
+                    "previous": "Prapa",
+                    "first": "E para",
+                    "last": "E fundit",
+                    "next": "Tjetra"
+                }
+            }
+
+        });
+    })
+</script>

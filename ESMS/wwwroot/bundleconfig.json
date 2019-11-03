@@ -1,0 +1,44 @@
+[
+  {
+    "outputFileName": "wwwroot/css/login.min.css",
+    "inputFiles": [
+      "wwwroot/Templeate/css/font-face.css",
+      "wwwroot/Templeate/vendor/font-awesome-4.7/css/font-awesome.css",
+      "wwwroot/Templeate/vendor/font-awesome-5/css/fontawesome-all.min.css",
+      "wwwroot/Templeate/vendor/mdi-font/css/material-design-iconic-font.css",
+      "wwwroot/Templeate/vendor/bootstrap-4.1/bootstrap.min.css",
+      "wwwroot/Templeate/vendor/animsition/animsition.min.css",
+      "wwwroot/Templeate/vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css",
+      "wwwroot/Templeate/vendor/wow/animate.css",
+      "wwwroot/Templeate/vendor/css-hamburgers/hamburgers.css",
+      "wwwroot/Templeate/vendor/slick/slick-theme.css",
+      "wwwroot/Templeate/vendor/select2/select2.min.css",
+      "wwwroot/Templeate/vendor/perfect-scrollbar/perfect-scrollbar.css",
+      "wwwroot/Templeate/css/theme.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/login.min.js",
+    "inputFiles": [
+      "wwwroot/Templeate/vendor/jquery-3.2.1.min.js",
+      "wwwroot/Templeate/vendor/bootstrap-4.1/popper.min.js",
+      "wwwroot/Templeate/vendor/bootstrap-4.1/bootstrap.min.js",
+      "wwwroot/Templeate/vendor/bootstrap-progressbar/bootstrap-progressbar.min.js",
+      "wwwroot/Templeate/vendor/slick/slick.js",
+      "wwwroot/Templeate/vendor/wow/wow.min.js",
+      "wwwroot/Templeate/vendor/animsition/animsition.min.js",
+      "wwwroot/Templeate/vendor/counter-up/jquery.waypoints.min.js",
+      "wwwroot/Templeate/vendor/counter-up/jquery.counterup.min.js",
+      "wwwroot/Templeate/vendor/circle-progress/circle-progress.js",
+      "wwwroot/Templeate/vendor/perfect-scrollbar/perfect-scrollbar.js",
+      "wwwroot/Templeate/vendor/chartjs/Chart.bundle.min.js",
+      "wwwroot/Templeate/vendor/select2/select2.min.js",
+      "wwwroot/Templeate/js/main.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    "sourceMap": false
+  }
+]

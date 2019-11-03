@@ -1,0 +1,66 @@
+﻿@page
+@model ESMS.Pages.Configurations.MenuModel
+@using ESMS
+@{
+    ViewData["Title"] = "Menu";
+}
+
+<section>
+    <div class="section__content section__content--p30 m-t-30">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body card-block">
+                    <h4> Regjistrimi i menyve</h4>
+                    <hr />
+                    <form method="post">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Input.MenuName"></label>
+                                    <input asp-for="Input.MenuName" class="form-control" />
+                                    <span asp-validation-for="Input.MenuName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Input.Icon"></label>
+                                    <input asp-for="Input.Icon" class="form-control" />
+                                    <span asp-validation-for="Input.Icon" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Input.Controller"></label>
+                                    <input asp-for="Input.Controller" class="form-control" />
+                                    <span asp-validation-for="Input.Controller" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label asp-for="Input.Method"></label>
+                                    <input asp-for="Input.Method" class="form-control" />
+                                    <span asp-validation-for="Input.Method" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="submit" class="btn btn-primary" value="Regjistro" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-body">
+                    <h4>Lista e menyve te regjistruara</h4>
+                    <hr />
+                    <div id="ListOfMenus">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $("#ListOfMenus").load('/Configurations/_MenuList')
+    })
+</script>
