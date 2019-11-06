@@ -18,6 +18,19 @@ namespace ESMS.Pages.Configurations
 
         public IList<Menu> menus { get; set; }
 
+        public async Task<JsonResult> deleteMenu()
+        {
+            try
+            {
+                
+            }
+            catch
+            {
+
+            }
+            return new JsonResult(null);
+        }
+
 
     }
 }

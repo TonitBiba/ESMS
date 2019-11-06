@@ -126,8 +126,17 @@
   <data name="emriMenus" xml:space="preserve">
     <value>Emri menus</value>
   </data>
+  <data name="emriMenusAnglisht" xml:space="preserve">
+    <value>Emri menus anglisht</value>
+  </data>
+  <data name="emriMenusShqip" xml:space="preserve">
+    <value>Emri menus shqip</value>
+  </data>
   <data name="fjalekalimi" xml:space="preserve">
     <value>Fjalëkalimi</value>
+  </data>
+  <data name="fshije" xml:space="preserve">
+    <value>Fshije</value>
   </data>
   <data name="ikona" xml:space="preserve">
     <value>Ikona</value>
@@ -146,5 +155,14 @@
   </data>
   <data name="metoda" xml:space="preserve">
     <value>Metoda</value>
+  </data>
+  <data name="ndrysho" xml:space="preserve">
+    <value>Ndrysho</value>
+  </data>
+  <data name="regjistroNenMenu" xml:space="preserve">
+    <value>Regjistro nën-menu</value>
+  </data>
+  <data name="veprimet" xml:space="preserve">
+    <value>Veprimet</value>
   </data>
 </root>

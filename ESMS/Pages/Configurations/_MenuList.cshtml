@@ -22,13 +22,14 @@
                 <td>@Html.DisplayFor(m => item.VcIcon)</td>
                 <td>@Html.DisplayFor(m => item.DtInserted)</td>
                 <td>
-                    <div class="table-data-feature" style="justify-content: flex-start">
-                        <button title="" class="item" aria-describedby="tooltip502552" data-original-title="Edit" data-placement="top" data-toggle="tooltip">
-                            <i class="zmdi zmdi-edit"></i>
-                        </button>
-                        <button title="" class="item" data-original-title="Delete" data-placement="top" data-toggle="tooltip">
-                            <i class="zmdi zmdi-delete"></i>
-                        </button>
+                    <div class="btn-group w-100">
+                        <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.veprimet</button>
+                        <div class="dropdown-menu">
+                            <button onclick="" class="dropdown-item btn btn-secondary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp; @Resource.ndrysho</button>
+                            <button class="dropdown-item"><i class="fa fa-plus"></i>&nbsp; @Resource.regjistroNenMenu</button>
+                            <div class="dropdown-divider"></div>
+                            <button class="dropdown-item" onclick="DeleteMenu(@item.NMenuId)"><i class="fa fa-trash"></i>&nbsp; @Resource.fshije</button>
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -53,7 +54,22 @@
                     "next": "Para"
                 }
             }
-
         });
     })
+            function DeleteMenu(menuId) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'Kujdes!',
+              text: 'Fshirja e menus eshte veprim i pakthyeshem.',
+              cancelButtonText: "Anulo",
+              confirmButtonText: "Ne rregull",
+              showCancelButton: true
+            }).then(response => {
+                if (response) {
+                    $.ajax({
+                        url:'@Url.Action("")'
+                    })
+                }
+            })
+        }
 </script>

@@ -88,11 +88,38 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Emri menus anglisht.
+        /// </summary>
+        public static string emriMenusAnglisht {
+            get {
+                return ResourceManager.GetString("emriMenusAnglisht", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emri menus shqip.
+        /// </summary>
+        public static string emriMenusShqip {
+            get {
+                return ResourceManager.GetString("emriMenusShqip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fjalëkalimi.
         /// </summary>
         public static string fjalekalimi {
             get {
                 return ResourceManager.GetString("fjalekalimi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fshije.
+        /// </summary>
+        public static string fshije {
+            get {
+                return ResourceManager.GetString("fshije", resourceCulture);
             }
         }
         
@@ -147,6 +174,33 @@ namespace ESMS {
         public static string metoda {
             get {
                 return ResourceManager.GetString("metoda", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ndrysho.
+        /// </summary>
+        public static string ndrysho {
+            get {
+                return ResourceManager.GetString("ndrysho", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regjistro nën-menu.
+        /// </summary>
+        public static string regjistroNenMenu {
+            get {
+                return ResourceManager.GetString("regjistroNenMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Veprimet.
+        /// </summary>
+        public static string veprimet {
+            get {
+                return ResourceManager.GetString("veprimet", resourceCulture);
             }
         }
     }
