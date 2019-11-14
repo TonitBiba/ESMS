@@ -160,6 +160,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mbylle.
+        /// </summary>
+        public static string mbylle {
+            get {
+                return ResourceManager.GetString("mbylle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Më kujto?.
         /// </summary>
         public static string meKujto {
@@ -178,6 +187,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ndryshimi i të dhënave.
+        /// </summary>
+        public static string ndryshimTeDhenave {
+            get {
+                return ResourceManager.GetString("ndryshimTeDhenave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ndrysho.
         /// </summary>
         public static string ndrysho {
@@ -187,11 +205,29 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Regjistrimi nën menysë.
+        /// </summary>
+        public static string regjistrimiNenMenu {
+            get {
+                return ResourceManager.GetString("regjistrimiNenMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Regjistro nën-menu.
         /// </summary>
         public static string regjistroNenMenu {
             get {
                 return ResourceManager.GetString("regjistroNenMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ruaj.
+        /// </summary>
+        public static string ruaj {
+            get {
+                return ResourceManager.GetString("ruaj", resourceCulture);
             }
         }
         

@@ -260,6 +260,18 @@ section {
     }
 }
 
+@media all and (min-width: 991px){
+    .headerLength {
+        margin-top:75px
+    }
+}
+
+@media all and (max-width: 991px) {
+    .headerLength {
+        margin-top: 5px;
+    }
+}
+
 .section__content--p35 {
     padding: 0 35px;
 }

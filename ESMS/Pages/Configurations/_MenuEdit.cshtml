@@ -1,0 +1,44 @@
+﻿@page
+@model ESMS.Pages.Configurations._MenuEditModel
+@{
+    Layout = null;
+}
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">@Resource.ndryshimTeDhenave</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form method="post" asp-action="_MenuEdit" id="frmUpdateMenu">
+        @Html.HiddenFor(m=>m.Input.MEnc)
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Input.MenuName_Sq"></label>
+                    <input asp-for="Input.MenuName_Sq" class="form-control" />
+                    <span asp-validation-for="Input.MenuName_Sq" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Input.MenuName_En"></label>
+                    <input asp-for="Input.MenuName_En" class="form-control" />
+                    <span asp-validation-for="Input.MenuName_En" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Input.Icon"></label>
+                    <input asp-for="Input.Icon" class="form-control" />
+                    <span asp-validation-for="Input.Icon" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">@Resource.mbylle</button>
+    <button type="button" class="btn btn-primary float-right" onclick="$('#frmUpdateMenu').submit()" data->@Resource.ruaj</button>
+</div>
+

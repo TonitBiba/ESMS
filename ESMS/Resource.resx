@@ -150,17 +150,29 @@
   <data name="loginText" xml:space="preserve">
     <value>Përdorni llogarinë për tu kyqur.</value>
   </data>
+  <data name="mbylle" xml:space="preserve">
+    <value>Mbylle</value>
+  </data>
   <data name="meKujto" xml:space="preserve">
     <value>Më kujto?</value>
   </data>
   <data name="metoda" xml:space="preserve">
     <value>Metoda</value>
   </data>
+  <data name="ndryshimTeDhenave" xml:space="preserve">
+    <value>Ndryshimi i të dhënave</value>
+  </data>
   <data name="ndrysho" xml:space="preserve">
     <value>Ndrysho</value>
   </data>
+  <data name="regjistrimiNenMenu" xml:space="preserve">
+    <value>Regjistrimi nën menysë</value>
+  </data>
   <data name="regjistroNenMenu" xml:space="preserve">
     <value>Regjistro nën-menu</value>
+  </data>
+  <data name="ruaj" xml:space="preserve">
+    <value>Ruaj</value>
   </data>
   <data name="veprimet" xml:space="preserve">
     <value>Veprimet</value>

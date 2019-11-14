@@ -22,8 +22,11 @@ namespace ESMS.Areas.Identity.Pages.Account
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGet()
         {
+            TempData["ErrorMessage"] = "Qkyqja me suskses!";
+            await _signInManager.SignOutAsync();
+            return RedirectToPage("./Login");
         }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
@@ -36,7 +39,8 @@ namespace ESMS.Areas.Identity.Pages.Account
             }
             else
             {
-                return RedirectToPage();
+                TempData["ErrorMessage"] = "Qkyqja me suskses!";
+                return RedirectToPage("./Login");
             }
         }
     }

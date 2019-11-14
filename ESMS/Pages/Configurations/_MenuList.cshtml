@@ -1,6 +1,7 @@
-﻿@page
-@model ESMS.Pages.Configurations._MenuListModel
-@{ 
+﻿@using ESMS.Security;
+@model IEnumerable<ESMS.Data.Model.Menu>
+
+@{
     Layout = null;
 }
 <table id="tblListMenus" class="table table-striped table-bordered" style="width:100%">
@@ -8,27 +9,28 @@
         <tr>
             <th>Emri menus shqip</th>
             <th>Emri menus anglisht</th>
-            <td>Ikona</td>
+            <th>Ikona</th>
             <th>Data insertimit</th>
             <th>Veprimet</th>
-        </tr> 
+        </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.menus)
+        @foreach (var item in Model)
         {
             <tr>
+                @Html.AntiForgeryToken()
                 <td>@Html.DisplayFor(m => item.VcMenNameSq)</td>
-                <td>@Html.DisplayFor(m => item.VcMenNameSq)</td>
+                <td>@Html.DisplayFor(m => item.VcMenuNameEn)</td>
                 <td>@Html.DisplayFor(m => item.VcIcon)</td>
-                <td>@Html.DisplayFor(m => item.DtInserted)</td>
+                <td>@Html.Raw(item.DtInserted.ToString("dd/MM/yyyy")) </td>
                 <td>
                     <div class="btn-group w-100">
                         <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.veprimet</button>
                         <div class="dropdown-menu">
-                            <button onclick="" class="dropdown-item btn btn-secondary"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp; @Resource.ndrysho</button>
-                            <button class="dropdown-item"><i class="fa fa-plus"></i>&nbsp; @Resource.regjistroNenMenu</button>
+                            <button onclick="EditMenu('@Confidenciality.Enkrypt(item.NMenuId)')" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; @Resource.ndrysho</button>
+                            <button onclick="AddSubMenu('@Confidenciality.Enkrypt(item.NMenuId)')" class="dropdown-item"><i class="fa fa-plus"></i>&nbsp; @Resource.regjistroNenMenu</button>
                             <div class="dropdown-divider"></div>
-                            <button class="dropdown-item" onclick="DeleteMenu(@item.NMenuId)"><i class="fa fa-trash"></i>&nbsp; @Resource.fshije</button>
+                            <button class="dropdown-item" onclick="DeleteMenu('@Confidenciality.Enkrypt(item.NMenuId)')"><i class="far fa-trash-alt"></i>&nbsp; @Resource.fshije</button>
                         </div>
                     </div>
                 </td>
@@ -53,23 +55,50 @@
                     "last": "E fundit",
                     "next": "Para"
                 }
-            }
+            },
+            responsive: true
         });
     })
-            function DeleteMenu(menuId) {
-            Swal.fire({
-              icon: 'warning',
-              title: 'Kujdes!',
-              text: 'Fshirja e menus eshte veprim i pakthyeshem.',
-              cancelButtonText: "Anulo",
-              confirmButtonText: "Ne rregull",
-              showCancelButton: true
-            }).then(response => {
-                if (response) {
-                    $.ajax({
-                        url:'@Url.Action("")'
-                    })
-                }
-            })
-        }
+    function DeleteMenu(MEnc) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Kujdes!',
+          text: 'Fshirja e menus eshte veprim i pakthyeshem. Ju lutem konfirmojeni kete veprim',
+          confirmButtonText: "Ne rregull",
+          cancelButtonText: "Anulo",
+          showCancelButton: true
+        }).then(response => {
+            if (response.value) {
+                 $.post("/Configurations/Menu?handler=Fshije",
+                {
+                    MEnc: MEnc,            
+                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                     }, function (response) {
+                    if (response.nError == 1) {
+                        Swal.fire(
+                          'Sukses!',
+                          response.errorDescription,
+                            'success').then(t => {
+                                window.location.href='/Configurations/Menu'
+                            })
+                    } else {
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Gabim',
+                          text: response.errorDescription
+                        })
+                    }
+
+                 })
+            }
+        })
+    }
+
+    function EditMenu(MEnc) {
+        $('#modal').modal('show').find('#modalBody').load('/Configurations/_MenuEdit?MEnc='+MEnc)
+    }
+
+    function AddSubMenu(MEnc) {
+        $('#modal').modal('show').find('#modalBody').load('/Configurations/_RegisterSubMenu?MEncId='+MEnc)
+    }
 </script>

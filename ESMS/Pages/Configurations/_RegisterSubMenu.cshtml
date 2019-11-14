@@ -1,0 +1,58 @@
+﻿@page
+@model ESMS.Pages.Configurations._RegisterSubMenuModel
+@{
+    Layout = null;
+}
+
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">@Resource.regjistrimiNenMenu</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form asp-action="_RegisterSubMenu" method="post" id="frmRegisterSubMenu">
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.input.MEnc)
+        <div class="row">
+            <div class="col-md-4">
+                <label asp-for="input.MenuName" class="required" />
+                <input asp-for="input.MenuName" disabled class="form-control" />
+                <span asp-validation-for="input.MenuName" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="input.SubMenu_Sq" class="required" />
+                <input asp-for="input.SubMenu_Sq" class="form-control" />
+                <span asp-validation-for="input.SubMenu_Sq" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="input.SubMenu_En" class="required" />
+                <input asp-for="input.SubMenu_En" class="form-control" />
+                <span asp-validation-for="input.SubMenu_En" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="input.Controller" class="required" />
+                <input asp-for="input.Controller" class="form-control" />
+                <span asp-validation-for="input.Controller" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                <label asp-for="input.Page" class="required" />
+                <input asp-for="input.Page" class="form-control" />
+                <span asp-validation-for="input.Page" class="text-danger"></span>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">@Resource.mbylle</button>
+    <button type="button" id="btnSave" class="btn btn-primary">@Resource.ruaj</button>
+</div>
+
+<script>
+    $('#btnSave').click(function () {
+        if ($('#frmRegisterSubMenu').valid()) {
+            $('#frmRegisterSubMenu').submit()
+        }
+    })
+</script>
+<partial action="/Shared/_ValidationScriptsPartial"/>
