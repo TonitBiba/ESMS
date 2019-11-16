@@ -1,19 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
+using ESMS.Areas.Identity;
 using ESMS.Data;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ESMS.Services;
-using Microsoft.Extensions.Logging;
 
 namespace ESMS
 {
@@ -34,7 +26,7 @@ namespace ESMS
                 options.UseSqlServer(
                     Configuration.GetConnectionString("esmsConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddRazorPages();
 
@@ -44,8 +36,14 @@ namespace ESMS
             //    options.Filters.Add(new OnActionFilter());
             //}
             );
-
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ReadMenu", policy => policy.RequireClaim("CanReadMenu"));
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

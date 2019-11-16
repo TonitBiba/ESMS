@@ -1,26 +1,24 @@
 ﻿@page
-@model ESMS.Pages.Configurations._RegisterSubMenuModel
-@{
-    Layout = null;
-}
+@model ESMS.Pages.Configurations._SubMenuEditModel
+@{ Layout = null; }
 
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">@Resource.regjistrimiNenMenu</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Ndryshim nen menyse</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <div class="modal-body">
-    <form asp-action="_RegisterSubMenu" method="post" id="frmRegisterSubMenu">
-        @Html.HiddenFor(m => m.Input.MEnc)
+    <form asp-action="_RegisterSubMenu" method="post" id="frmEditSubMenu">
+        @Html.HiddenFor(m => m.Input.SMEnc)
         <div class="row">
             <div class="col-md-4">
-                @Html.LabelFor(m=>m.Input.MenuName)
+                @Html.LabelFor(m => m.Input.MenuName)
                 <input asp-for="Input.MenuName" disabled class="form-control" />
                 <span asp-validation-for="Input.MenuName" class="text-danger"></span>
             </div>
             <div class="col-md-4">
-                @Html.LabelFor(m=>m.Input.SubMenu_Sq)
+                @Html.LabelFor(m => m.Input.SubMenu_Sq)
                 <input asp-for="Input.SubMenu_Sq" class="form-control" />
                 <span asp-validation-for="Input.SubMenu_Sq" class="text-danger"></span>
             </div>
@@ -49,9 +47,9 @@
 
 <script>
     $('#btnSave').click(function () {
-        if ($('#frmRegisterSubMenu').valid()) {
-            $('#frmRegisterSubMenu').submit()
+        if ($('#frmEditSubMenu').valid()) {
+            $('#frmEditSubMenu').submit()
         }
     })
 </script>
-<partial action="/Shared/_ValidationScriptsPartial"/>
+<partial action="/Shared/_ValidationScriptsPartial" />

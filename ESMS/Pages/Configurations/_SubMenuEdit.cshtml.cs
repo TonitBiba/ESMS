@@ -1,0 +1,80 @@
+﻿using ESMS.General_Classes;
+using ESMS.Pages.Shared;
+using ESMS.Security;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace ESMS.Pages.Configurations
+{
+    public class _SubMenuEditModel : BaseModel
+    {
+        public void OnGet(string SMEnc)
+        {
+            int subMenuId = Confidenciality.Decrypt<int>(SMEnc);
+            Input = dbContext.SubMenu.Where(S => S.NSubMenuId == subMenuId).Select(S => new InputModel
+            {
+                Controller = S.VcController,
+                Page = S.VcPage,
+                MenuName = S.NMenu.VcMenNameSq,
+                SubMenu_En = S.VcSubMenuEn,
+                SubMenu_Sq = S.VcSubMenuSq,
+                SMEnc = SMEnc
+            }).FirstOrDefault();
+
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            try
+            {
+                int subMenuId = Confidenciality.Decrypt<int>(Input.SMEnc);
+                if (ModelState.IsValid)
+                {
+                    var subMenu = dbContext.SubMenu.Where(S => S.NSubMenuId == subMenuId).FirstOrDefault();
+                    subMenu.VcController = Input.Controller;
+                    subMenu.VcPage = Input.Page;
+                    subMenu.VcSubMenuSq = Input.SubMenu_Sq;
+                    subMenu.VcSubMenuEn = Input.SubMenu_En;
+                    subMenu.DtModify = DateTime.Now;
+                    await dbContext.SaveChangesAsync();
+                }
+                TempData.Set("error", new Error { nError = 1, ErrorDescription = "Te dhenat jane ruajtur me sukses!" });
+            }
+            catch(Exception ex)
+            {
+                TempData.Set("error", new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" });
+            }
+            return RedirectToPage("./Menu");
+        }
+
+        [BindProperty]
+        public InputModel Input { get; set; }
+
+        public class InputModel
+        {
+            public string SMEnc { get; set; }
+
+            [Display(Name = "emriMenus", ResourceType = typeof(Resource))]
+            public string MenuName { get; set; }
+
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [Display(Name = "emriNenMenusSQ", ResourceType = typeof(Resource))]
+            public string SubMenu_Sq { get; set; }
+
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [Display(Name = "emriNenMenusEN", ResourceType = typeof(Resource))]
+            public string SubMenu_En { get; set; }
+
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [Display(Name = "controller", ResourceType = typeof(Resource))]
+            public string Controller { get; set; }
+
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [Display(Name = "page", ResourceType = typeof(Resource))]
+            public string Page { get; set; }
+        }
+    }
+}

@@ -118,7 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="controller" xml:space="preserve">
-    <value>Controller</value>
+    <value>Kontrolleri</value>
+  </data>
+  <data name="dtInsertimit" xml:space="preserve">
+    <value>Data insertimit</value>
   </data>
   <data name="emailAdresa" xml:space="preserve">
     <value>Email</value>
@@ -132,11 +135,20 @@
   <data name="emriMenusShqip" xml:space="preserve">
     <value>Emri menus shqip</value>
   </data>
+  <data name="emriNenMenusEN" xml:space="preserve">
+    <value>Emri nen-menus anglisht</value>
+  </data>
+  <data name="emriNenMenusSQ" xml:space="preserve">
+    <value>Emri nen-menus shqip</value>
+  </data>
   <data name="fjalekalimi" xml:space="preserve">
     <value>Fjalëkalimi</value>
   </data>
   <data name="fshije" xml:space="preserve">
     <value>Fshije</value>
+  </data>
+  <data name="fusheObligative" xml:space="preserve">
+    <value>Kjo fushë është obligative</value>
   </data>
   <data name="ikona" xml:space="preserve">
     <value>Ikona</value>
@@ -164,6 +176,9 @@
   </data>
   <data name="ndrysho" xml:space="preserve">
     <value>Ndrysho</value>
+  </data>
+  <data name="page" xml:space="preserve">
+    <value>Page</value>
   </data>
   <data name="regjistrimiNenMenu" xml:space="preserve">
     <value>Regjistrimi nën menysë</value>

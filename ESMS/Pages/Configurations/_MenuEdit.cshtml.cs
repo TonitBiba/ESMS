@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Data.Entity;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using ESMS.General_Classes;
+﻿using ESMS.General_Classes;
 using ESMS.Pages.Shared;
 using ESMS.Security;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace ESMS.Pages.Configurations
 {
@@ -18,7 +15,7 @@ namespace ESMS.Pages.Configurations
         public void OnGet(string MEnc)
         {
             int menuId = Confidenciality.Decrypt<int>(MEnc);
-            Input = dbContext.Menu.Where(M => M.NMenuId == menuId).Select(M => new InputModel { Icon = M.VcIcon, MenuName_En = M.VcMenuNameEn, MenuName_Sq = M.VcMenNameSq, MEnc = MEnc}).FirstOrDefault();
+            Input = dbContext.Menu.Where(M => M.NMenuId == menuId).Select(M => new InputModel { Icon = M.VcIcon, MenuName_En = M.VcMenuNameEn, MenuName_Sq = M.VcMenNameSq, MEnc = MEnc }).FirstOrDefault();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -35,9 +32,10 @@ namespace ESMS.Pages.Configurations
                 await dbContext.SaveChangesAsync();
 
                 TempData.Set("error", new Error { nError = 1, ErrorDescription = "Te dhenat jane ruajtur me sukses!" });
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                TempData.Set("error", new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" });              
+                TempData.Set("error", new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" });
             }
             return RedirectToPage("./Menu");
         }

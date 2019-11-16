@@ -61,11 +61,20 @@ namespace ESMS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Controller.
+        ///   Looks up a localized string similar to Kontrolleri.
         /// </summary>
         public static string controller {
             get {
                 return ResourceManager.GetString("controller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data insertimit.
+        /// </summary>
+        public static string dtInsertimit {
+            get {
+                return ResourceManager.GetString("dtInsertimit", resourceCulture);
             }
         }
         
@@ -106,6 +115,24 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Emri nen-menus anglisht.
+        /// </summary>
+        public static string emriNenMenusEN {
+            get {
+                return ResourceManager.GetString("emriNenMenusEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emri nen-menus shqip.
+        /// </summary>
+        public static string emriNenMenusSQ {
+            get {
+                return ResourceManager.GetString("emriNenMenusSQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fjalëkalimi.
         /// </summary>
         public static string fjalekalimi {
@@ -120,6 +147,15 @@ namespace ESMS {
         public static string fshije {
             get {
                 return ResourceManager.GetString("fshije", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kjo fushë është obligative.
+        /// </summary>
+        public static string fusheObligative {
+            get {
+                return ResourceManager.GetString("fusheObligative", resourceCulture);
             }
         }
         
@@ -201,6 +237,15 @@ namespace ESMS {
         public static string ndrysho {
             get {
                 return ResourceManager.GetString("ndrysho", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page.
+        /// </summary>
+        public static string page {
+            get {
+                return ResourceManager.GetString("page", resourceCulture);
             }
         }
         

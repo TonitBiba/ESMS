@@ -2,6 +2,7 @@
 using ESMS.General_Classes;
 using ESMS.Pages.Shared;
 using ESMS.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -13,12 +14,14 @@ using System.Threading.Tasks;
 
 namespace ESMS.Pages.Configurations
 {
+    [Authorize(Policy = "ReadMenu")]
     public class MenuModel : BaseModel
     {
 
         public void OnGet()
         {
             menus = dbContext.Menu.ToList();
+            subMenus = dbContext.SubMenu.ToList();
             error = TempData.Get<Error>("error");
         }
 
@@ -57,6 +60,8 @@ namespace ESMS.Pages.Configurations
         public InputModel Input { get; set; }
 
         public IList<Menu> menus { get; set; }
+
+        public IList<SubMenu> subMenus { get; set; }
 
         public Error error { get; set; }
 

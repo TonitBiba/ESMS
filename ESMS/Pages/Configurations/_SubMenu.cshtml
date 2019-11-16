@@ -1,0 +1,103 @@
+﻿@using ESMS.Data.Model
+@using ESMS.Security
+@model IEnumerable<SubMenu>
+@{
+    Layout = null;
+}
+<table id="tblListSubMenus" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>@Resource.emriMenus</th>
+            <th>@Resource.emriNenMenusSQ</th>
+            <th>@Resource.emriNenMenusEN</th>
+            <th>@Resource.controller</th>
+            <th>@Resource.page</th>
+            <th>@Resource.dtInsertimit</th>
+            <th>@Resource.veprimet</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            @Html.AntiForgeryToken()
+            <td>@Html.DisplayFor(m => item.NMenu.VcMenNameSq)</td>
+            <td>@Html.DisplayFor(m => item.VcSubMenuSq)</td>
+            <td>@Html.DisplayFor(m => item.VcSubMenuEn)</td>
+            <td>@Html.DisplayFor(m => item.VcController)</td>
+            <td>@Html.DisplayFor(m => item.VcPage)</td>
+            <td>@Html.Raw(item.DtInserted.ToString("dd/MM/yyyy")) </td>
+            <td>
+                <div class="btn-group w-100">
+                    <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.veprimet</button>
+                    <div class="dropdown-menu">
+                        <button onclick="EditSubMenu('@Confidenciality.Enkrypt(item.NSubMenuId)')" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; @Resource.ndrysho</button>
+                        <div class="dropdown-divider"></div>
+                        <button class="dropdown-item" onclick="DeleteSubMenu('@Confidenciality.Enkrypt(item.NSubMenuId)')"><i class="far fa-trash-alt"></i>&nbsp; @Resource.fshije</button>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $('#tblListSubMenus').DataTable({
+            "lengthChange":false,
+            "language": {
+                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
+                "zeroRecords": "Nuk ka asnjë të dhënë",
+                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+                "infoEmpty": "Nuk ka asnjë të dhënë",
+                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
+                "search": "Kërko",
+                "paginate": {
+                    "previous": "Prapa",
+                    "first": "E para",
+                    "last": "E fundit",
+                    "next": "Para"
+                }
+            },
+            responsive: true
+        });
+    })
+    function DeleteSubMenu(SMEnc) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Kujdes!',
+          text: 'Fshirja e nen menus eshte veprim i pakthyeshem. Ju lutem konfirmojeni kete veprim',
+          confirmButtonText: "Ne rregull",
+          cancelButtonText: "Anulo",
+          showCancelButton: true
+        }).then(response => {
+            if (response.value) {
+                 $.post("/Configurations/_RegisterSubMenu?handler=DeleteSub",
+                {
+                    SMEnc: SMEnc,
+                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                     }, function (response) {
+                    if (response.nError == 1) {
+                        Swal.fire(
+                          'Sukses!',
+                          response.ErrorDescription,
+                            'success').then(t => {
+                                window.location.href='/Configurations/Menu'
+                            })
+                    } else {
+                        Swal.fire({
+                          icon: 'error',
+                          title: 'Gabim',
+                          text: response.ErrorDescription
+                        })
+                    }
+
+                 })
+            }
+        })
+    }
+
+    function EditSubMenu(SMEnc) {
+        $('#modal').modal('show').find('#modalBody').load('/Configurations/_SubMenuEdit?SMEnc='+SMEnc)
+    }
+</script>

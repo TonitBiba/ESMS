@@ -202,6 +202,8 @@ namespace ESMS.Data.Model
                     .HasColumnName("page")
                     .HasMaxLength(128);
 
+                entity.Property(e => e.Url).HasColumnName("url");
+
                 entity.Property(e => e.UserId)
                     .HasColumnName("userId")
                     .HasMaxLength(450);
@@ -273,8 +275,6 @@ namespace ESMS.Data.Model
                     .HasMaxLength(450);
 
                 entity.Property(e => e.NMenuId).HasColumnName("nMenuID");
-
-                entity.Property(e => e.NModifyId).HasColumnName("nModifyID");
 
                 entity.Property(e => e.VcController)
                     .IsRequired()

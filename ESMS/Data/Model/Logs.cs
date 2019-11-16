@@ -12,5 +12,7 @@ namespace ESMS.Data.Model
         public DateTime? DtInserted { get; set; }
         public string Page { get; set; }
         public string Method { get; set; }
+        public string Url { get; set; }
+        public int? StatusCode { get; set; }
     }
 }

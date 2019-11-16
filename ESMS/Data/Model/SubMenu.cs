@@ -18,7 +18,6 @@ namespace ESMS.Data.Model
         public string VcPage { get; set; }
         public string NInsertedId { get; set; }
         public DateTime DtInserted { get; set; }
-        public int? NModifyId { get; set; }
         public DateTime? DtModify { get; set; }
 
         public virtual AspNetUsers NInserted { get; set; }

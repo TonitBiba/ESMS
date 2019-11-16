@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using ESMS.Data.Model;
+﻿using ESMS.Data.Model;
 using ESMS.General_Classes;
 using ESMS.Pages.Shared;
 using ESMS.Security;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace ESMS.Pages.Configurations
 {
@@ -18,9 +16,9 @@ namespace ESMS.Pages.Configurations
         public void OnGet(string MEncId)
         {
             int menuId = Confidenciality.Decrypt<int>(MEncId);
-            input = new InputModel
-            { 
-                MenuName = dbContext.Menu.Where(t=>t.NMenuId == menuId).FirstOrDefault().VcMenNameSq,
+            Input = new InputModel
+            {
+                MenuName = dbContext.Menu.Where(t => t.NMenuId == menuId).FirstOrDefault().VcMenNameSq,
                 MEnc = MEncId
             };
         }
@@ -29,16 +27,16 @@ namespace ESMS.Pages.Configurations
         {
             try
             {
-                int menuId = Confidenciality.Decrypt<int>(input.MEnc);
+                int menuId = Confidenciality.Decrypt<int>(Input.MEnc);
                 dbContext.SubMenu.Add(new SubMenu
                 {
                     DtInserted = DateTime.Now,
                     NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                     NMenuId = menuId,
-                    VcController = input.Controller,
-                    VcPage = input.Page,
-                    VcSubMenuSq = input.SubMenu_Sq,
-                    VcSubMenuEn = input.SubMenu_En
+                    VcController = Input.Controller,
+                    VcPage = Input.Page,
+                    VcSubMenuSq = Input.SubMenu_Sq,
+                    VcSubMenuEn = Input.SubMenu_En
                 });
                 await dbContext.SaveChangesAsync();
                 TempData.Set("error", new Error { nError = 1, ErrorDescription = "Te dhenat jane ruajtur me sukses!" });
@@ -50,8 +48,25 @@ namespace ESMS.Pages.Configurations
             return RedirectToPage("Menu");
         }
 
+        public async Task<JsonResult> OnPostDeleteSub(string SMEnc)
+        {
+            Error error = new Error { nError = 1, ErrorDescription = "Te dhenat jane ruajtur me sukses!" };
+
+            try
+            {
+                int subMenuId = Confidenciality.Decrypt<int>(SMEnc);
+                dbContext.SubMenu.Remove(dbContext.SubMenu.Where(S => S.NSubMenuId == subMenuId).FirstOrDefault());
+                await dbContext.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                error = new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" };
+            }
+            return new JsonResult(error);
+        }
+
         [BindProperty]
-        public InputModel input { get; set; }
+        public InputModel Input { get; set; }
 
         public class InputModel
         {
@@ -60,14 +75,20 @@ namespace ESMS.Pages.Configurations
             [Display(Name = "emriMenus", ResourceType = typeof(Resource))]
             public string MenuName { get; set; }
 
-            [Display(Name ="Emri nen menuse")]
-            [Required]
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [Display(Name = "emriNenMenusSQ", ResourceType = typeof(Resource))]
             public string SubMenu_Sq { get; set; }
-            [Required]
+
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [Display(Name = "emriNenMenusEN", ResourceType = typeof(Resource))]
             public string SubMenu_En { get; set; }
-            [Required]
+
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [Display(Name = "controller", ResourceType = typeof(Resource))]
             public string Controller { get; set; }
-            [Required]
+
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [Display(Name = "page", ResourceType = typeof(Resource))]
             public string Page { get; set; }
         }
     }

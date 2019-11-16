@@ -43,10 +43,10 @@
         <div class="menu-sidebar2__content js-scrollbar1">
             <div class="account2">
                 <div class="image img-cir img-120">
-                    <img src="~/Templeate/images/icon/avatar-01.jpg" />
+                    <a href="/Identity/Account/Manage"><img src="~/Templeate/images/icon/avatar-01.jpg" href="/Identity/Account/Manage" /></a>
                 </div>
-                <h4 class="name">john doe</h4>
-                <a href="/Identity/Account/Logout">Qkyqu</a>
+                <h4 class="name"><a href="/Identity/Account/Manage">Tonit Biba</a></h4>
+                <a href="/Identity/Account/Logout">Q'kyqu</a>
             </div>
             <nav class="navbar-sidebar2 loadMenu">
                 <partial name="~/Pages/Shared/_MenuList.cshtml" model="null" />
@@ -239,19 +239,6 @@
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content" id="modalBody">
-                @*<div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>*@
             </div>
         </div>
     </div>
