@@ -1,0 +1,85 @@
+﻿@page
+@model ESMS.Pages.Configurations._ListClaimsAuthorizationModel
+@using ESMS.Security
+@{
+    Layout = null;
+}
+<div class="card-body card-block">
+    <h4>Lista e autorizimeve në nivel të grupit</h4>
+    <hr />
+    <table id="tblListClaims" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Rregulla</th>
+                <th>Qasja</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.listOfClaims)
+            {
+                <tr>
+                    @Html.AntiForgeryToken()
+                    <td>
+                        @item.vcClaimType
+                    </td>
+                    <td>
+                        <label class="switch switch-3d switch-primary mr-3">
+                            <input onchange="ChangePermission('@Confidenciality.Enkrypt(item.nPolicyId)')" type="checkbox" class="switch-input" @Html.Raw(item.vcAccess==true?"checked":"")/>
+                            <span class="switch-label"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#tblListClaims').DataTable({
+            "lengthChange": false,
+            "language": {
+                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
+                "zeroRecords": "Nuk ka asnjë të dhënë",
+                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+                "infoEmpty": "Nuk ka asnjë të dhënë",
+                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
+                "search": "Kërko",
+                "paginate": {
+                    "previous": "Prapa",
+                    "first": "E para",
+                    "last": "E fundit",
+                    "next": "Para"
+                }
+            },
+            responsive: true
+        });
+    })
+
+    function ChangePermission(PEnc) {
+        $.post("/Configurations/_ListClaimsAuthorization?handler=ChangePermission",
+        {
+            PEnc: PEnc,
+            groupId: $('#groupiID').val(),
+            __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+             }, function (response) {
+            if (response.nError == 1) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Sukses!",
+                    text: response.ErrorDescription
+                }).then(t => {
+                        $('#listOfPolicies').load('/Configurations/_ListClaimsAuthorization?groupId='+$('#groupiID').val())
+                    })
+            } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Gabim',
+                  text: response.ErrorDescription
+                })
+            }
+        
+         })
+    }
+</script>

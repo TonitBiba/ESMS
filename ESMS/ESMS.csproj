@@ -40,4 +40,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Pages\Staff\" />
+  </ItemGroup>
+
 </Project>

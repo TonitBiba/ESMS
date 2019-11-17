@@ -25,6 +25,7 @@ namespace ESMS.Data.Model
         public virtual DbSet<GroupMenu> GroupMenu { get; set; }
         public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
+        public virtual DbSet<Policy> Policy { get; set; }
         public virtual DbSet<SubMenu> SubMenu { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -127,7 +128,19 @@ namespace ESMS.Data.Model
                     .IsUnique()
                     .HasFilter("([NormalizedUserName] IS NOT NULL)");
 
+                entity.Property(e => e.BirthDate).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+
                 entity.Property(e => e.Email).HasMaxLength(256);
+
+                entity.Property(e => e.FirstName)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasDefaultValueSql("(N'')");
+
+                entity.Property(e => e.LastName)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasDefaultValueSql("(N'')");
 
                 entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
 
@@ -254,6 +267,46 @@ namespace ESMS.Data.Model
                     .HasConstraintName("FK_Menu_AspNetUsers");
             });
 
+            modelBuilder.Entity<Policy>(entity =>
+            {
+                entity.HasKey(e => e.NPolicyId);
+
+                entity.Property(e => e.NPolicyId).HasColumnName("nPolicyID");
+
+                entity.Property(e => e.BActive).HasColumnName("bActive");
+
+                entity.Property(e => e.DtInserted)
+                    .HasColumnName("dtInserted")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.DtModify)
+                    .HasColumnName("dtModify")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.NInsertedId)
+                    .IsRequired()
+                    .HasColumnName("nInsertedID")
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.NModifyId)
+                    .HasColumnName("nModifyID")
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.VcClaimType)
+                    .IsRequired()
+                    .HasColumnName("vcClaimType")
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.VcClaimValue)
+                    .HasColumnName("vcClaimValue")
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.VcPolicyName)
+                    .IsRequired()
+                    .HasColumnName("vcPolicyName")
+                    .HasMaxLength(256);
+            });
+
             modelBuilder.Entity<SubMenu>(entity =>
             {
                 entity.HasKey(e => e.NSubMenuId)
@@ -275,6 +328,10 @@ namespace ESMS.Data.Model
                     .HasMaxLength(450);
 
                 entity.Property(e => e.NMenuId).HasColumnName("nMenuID");
+
+                entity.Property(e => e.VcClaim)
+                    .HasColumnName("vcClaim")
+                    .HasMaxLength(256);
 
                 entity.Property(e => e.VcController)
                     .IsRequired()

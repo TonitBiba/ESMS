@@ -117,14 +117,53 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="and" xml:space="preserve">
+    <value>dhe</value>
+  </data>
+  <data name="anulimi2FADescription" xml:space="preserve">
+    <value>Anulimi i 2FA nuk i ndryshon çelësat që përdoren në applikacionin për autentifikim. Nëse dëshironi ti ndryshoni çelësat që përdoren në aplikacionin për autentifikim ju duhet të</value>
+  </data>
+  <data name="anulimi2FAReset" xml:space="preserve">
+    <value>resetoni çelësat për autentifikim.</value>
+  </data>
+  <data name="anulo2FA" xml:space="preserve">
+    <value>Anulo 2FA</value>
+  </data>
+  <data name="anuloTOTP" xml:space="preserve">
+    <value>Anulo autentifikimin 2-hapësh</value>
+  </data>
+  <data name="autentifikimi2Hapesh" xml:space="preserve">
+    <value>Autentifikimi dy hapësh</value>
+  </data>
+  <data name="autentifikimiDyHapesh" xml:space="preserve">
+    <value>Autentifikimi dy-hapësh (2FA)</value>
+  </data>
+  <data name="claim" xml:space="preserve">
+    <value>Claim</value>
+  </data>
+  <data name="claimValue" xml:space="preserve">
+    <value>Claim vlera</value>
+  </data>
   <data name="controller" xml:space="preserve">
     <value>Kontrolleri</value>
+  </data>
+  <data name="dergoEmailPerVerifikim" xml:space="preserve">
+    <value>Dërgo email adresën për verifikim</value>
   </data>
   <data name="dtInsertimit" xml:space="preserve">
     <value>Data insertimit</value>
   </data>
+  <data name="email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="emailAdresa" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="emailAdresaRe" xml:space="preserve">
+    <value>Email adresa re</value>
+  </data>
+  <data name="emri" xml:space="preserve">
+    <value>Emri</value>
   </data>
   <data name="emriMenus" xml:space="preserve">
     <value>Emri menus</value>
@@ -141,8 +180,26 @@
   <data name="emriNenMenusSQ" xml:space="preserve">
     <value>Emri nen-menus shqip</value>
   </data>
+  <data name="FA2KonfiguroniAplikacionin" xml:space="preserve">
+    <value>Konfiguroni aplikacionin për autentifikim</value>
+  </data>
   <data name="fjalekalimi" xml:space="preserve">
     <value>Fjalëkalimi</value>
+  </data>
+  <data name="fjalekalimiAktual" xml:space="preserve">
+    <value>Fjalëkalimi aktual</value>
+  </data>
+  <data name="fjalekalimiNukPerputhet" xml:space="preserve">
+    <value>Fjalëkalimi i ri dhe fjalëkalimi konfirmues nuk përputhet.</value>
+  </data>
+  <data name="fjalekalimiRi" xml:space="preserve">
+    <value>Fjalëkalimi ri</value>
+  </data>
+  <data name="fjalekalimiVendosur" xml:space="preserve">
+    <value>Fjalëkalimi juaj është vendosur.</value>
+  </data>
+  <data name="formatiNrTelGabim" xml:space="preserve">
+    <value>Formati i numrit nuk eshte valid</value>
   </data>
   <data name="fshije" xml:space="preserve">
     <value>Fshije</value>
@@ -150,11 +207,59 @@
   <data name="fusheObligative" xml:space="preserve">
     <value>Kjo fushë është obligative</value>
   </data>
+  <data name="gjatesiaFjalekalimit" xml:space="preserve">
+    <value>{0} duhet të jetë minimum {2} dhe maksimum {1} karaktere i gjatë.</value>
+  </data>
+  <data name="gjenerimiKodeve2FA" xml:space="preserve">
+    <value>Gjenerimi i kodeve për rivendose me 2FA</value>
+  </data>
+  <data name="gjenerimiKoditTeRiPerApp" xml:space="preserve">
+    <value>Gjenerimi i kodeve të reja për rikthim nuk ndryshon çelësat që përdoren në aplikacionet për autentifikim. Nëse dëshironi të ndryshoni çelësin që përdoret në aplikacionin për autentifikim ju duhet </value>
+  </data>
+  <data name="gjeneroKodetPerRivendosje" xml:space="preserve">
+    <value>Gjenero kodet për rivendosje</value>
+  </data>
+  <data name="grupi" xml:space="preserve">
+    <value>Grupi</value>
+  </data>
+  <data name="harrojeniShfletuesin" xml:space="preserve">
+    <value>Harrojeni këtë shfletues</value>
+  </data>
   <data name="ikona" xml:space="preserve">
     <value>Ikona</value>
   </data>
+  <data name="juDuhet" xml:space="preserve">
+    <value>Ju duhet</value>
+  </data>
+  <data name="juKeni" xml:space="preserve">
+    <value>Ju keni</value>
+  </data>
+  <data name="juMundeni" xml:space="preserve">
+    <value>Ju mundeni</value>
+  </data>
   <data name="keniHarruarFjalekalimin" xml:space="preserve">
     <value>Keni harruar fjalëkalimin?</value>
+  </data>
+  <data name="kodeTeMbetura" xml:space="preserve">
+    <value>kode të mbetura</value>
+  </data>
+  <data name="kodeTeReja" xml:space="preserve">
+    <value>të gjeneroni një bashkësi të re të kodeve</value>
+  </data>
+  <data name="kodetMbetura" xml:space="preserve">
+    <value>kodet e mbetura.</value>
+  </data>
+  <data name="kodetPerKthim" xml:space="preserve">
+    <value>Kodet për kthim</value>
+  </data>
+  <data name="kodiPerVerifikim" xml:space="preserve">
+    <value>Kodi për verifikim</value>
+  </data>
+  <data name="konfiguroApp2FA" xml:space="preserve">
+    <value>Konfiguro aplikacionin për autentifikim</value>
+  </data>
+  <data name="konfirmoFjalekalimin" xml:space="preserve">
+    <value>Konfirmo fjalëkalimin</value>
   </data>
   <data name="login" xml:space="preserve">
     <value>Kyqu</value>
@@ -162,14 +267,35 @@
   <data name="loginText" xml:space="preserve">
     <value>Përdorni llogarinë për tu kyqur.</value>
   </data>
+  <data name="loseRecoveryCodes" xml:space="preserve">
+    <value>Nëse e humbni pajisjen dhe nuk keni kodet për rikthim ju do të humbni çasjen në llogari.</value>
+  </data>
+  <data name="mbiemri" xml:space="preserve">
+    <value>Mbiemri</value>
+  </data>
   <data name="mbylle" xml:space="preserve">
     <value>Mbylle</value>
   </data>
   <data name="meKujto" xml:space="preserve">
     <value>Më kujto?</value>
   </data>
+  <data name="menaxhimiEmail" xml:space="preserve">
+    <value>Menaxhimi i Email adresës</value>
+  </data>
+  <data name="menaxhoniLlogarine" xml:space="preserve">
+    <value>Menaxhoni llogarinë tuaj</value>
+  </data>
   <data name="metoda" xml:space="preserve">
     <value>Metoda</value>
+  </data>
+  <data name="msgEmailAdresa" xml:space="preserve">
+    <value>Email adresa për verifikim është dërguar. Ju lutem shikoni email adresën për verifikim.</value>
+  </data>
+  <data name="msgGabimRuajtja" xml:space="preserve">
+    <value>Ka ndodhur një gabim gjatë ruajtjes.</value>
+  </data>
+  <data name="msgRuajtjaSukses" xml:space="preserve">
+    <value>Të dhënat janë ruajtur me sukses.</value>
   </data>
   <data name="ndryshimTeDhenave" xml:space="preserve">
     <value>Ndryshimi i të dhënave</value>
@@ -177,8 +303,65 @@
   <data name="ndrysho" xml:space="preserve">
     <value>Ndrysho</value>
   </data>
+  <data name="ndryshoEmailAdresen" xml:space="preserve">
+    <value>Ndrysho email adresën</value>
+  </data>
+  <data name="ndryshoniTeDhenatLlogarise" xml:space="preserve">
+    <value>Ndryshoni të dhënat e llogarisë</value>
+  </data>
+  <data name="neAplikacionin2FA" xml:space="preserve">
+    <value>në aplikacionin për autentifikim dy hapësh. Hapsirat dhe lidhëset nuk kanë rëndësi.</value>
+  </data>
+  <data name="njeKodMbetur" xml:space="preserve">
+    <value>Ju keni një kod të mbetur.</value>
+  </data>
+  <data name="nrKaraktereve" xml:space="preserve">
+    <value>Munde te shtypi 1 deri 100 karektere</value>
+  </data>
+  <data name="nrTel" xml:space="preserve">
+    <value>Numri telefonit</value>
+  </data>
+  <data name="nukKaLlogari" xml:space="preserve">
+    <value>Ju nuk keni të krijuar një llogari në këtë aplikacion. Krijoni një llogari ashtu që të mund të kyqeni pa çasje të jashtme.</value>
+  </data>
+  <data name="nukKaRecoveryCodes" xml:space="preserve">
+    <value>Ju nuk keni asnjë kod të gjeneruar.</value>
+  </data>
+  <data name="or" xml:space="preserve">
+    <value>ose</value>
+  </data>
   <data name="page" xml:space="preserve">
     <value>Page</value>
+  </data>
+  <data name="paraSeTekyqeni" xml:space="preserve">
+    <value>para se të kyqeni me këto kode.</value>
+  </data>
+  <data name="per" xml:space="preserve">
+    <value>për</value>
+  </data>
+  <data name="perditesimiFjalekalimit" xml:space="preserve">
+    <value>Përditësimi fjalëkalimit</value>
+  </data>
+  <data name="perditesimiMeSukses" xml:space="preserve">
+    <value>Te dhenat jane perditesuar me sukses!</value>
+  </data>
+  <data name="perditesoFjalekalimi" xml:space="preserve">
+    <value>Përditëso fjalëkalimin</value>
+  </data>
+  <data name="perdorimiIAplikacioninPerAutentifikim" xml:space="preserve">
+    <value>Për të përdorur aplikacionin për autentifikim duhet të ndjekni hapat vijues:</value>
+  </data>
+  <data name="personalData" xml:space="preserve">
+    <value>Të dhënat personale</value>
+  </data>
+  <data name="policy" xml:space="preserve">
+    <value>Rregulla</value>
+  </data>
+  <data name="procesi2FA" xml:space="preserve">
+    <value>Ky proces anulon 2FA derisa ju të konfiguroni aplikacionin për autenfikim. Nëse nuk kompletoni konfigurimin e aplikacionit për autenfikim ju mund të humbni çasjen në llogarinë tuaj.</value>
+  </data>
+  <data name="profili" xml:space="preserve">
+    <value>Profili</value>
   </data>
   <data name="regjistrimiNenMenu" xml:space="preserve">
     <value>Regjistrimi nën menysë</value>
@@ -186,10 +369,61 @@
   <data name="regjistroNenMenu" xml:space="preserve">
     <value>Regjistro nën-menu</value>
   </data>
+  <data name="resetAuthenticatorKey" xml:space="preserve">
+    <value>Rivendos çelësat për autentifikim</value>
+  </data>
+  <data name="resetRecoverCodesMessage" xml:space="preserve">
+    <value>Nëse i rivendosni çelësat për autentifikim, aplikacioni për autentifkim nuk do të punoj përderisa ju nuk e rikonfikuroni atë.</value>
+  </data>
+  <data name="rivendos2FA" xml:space="preserve">
+    <value>Rivendos aplikacionin për autentifikim</value>
+  </data>
+  <data name="rivendosKodet" xml:space="preserve">
+    <value>Rivendos kodet</value>
+  </data>
   <data name="ruaj" xml:space="preserve">
     <value>Ruaj</value>
   </data>
+  <data name="safeRecoveryCodes" xml:space="preserve">
+    <value>Vendosni këto kode në një vend të sigurtë.</value>
+  </data>
+  <data name="shfletuesiFshire" xml:space="preserve">
+    <value>Shfletuesi aktual është fshirë. Kur të kyqeni nga ky shfletues do të kërkohen kodet 2FA.</value>
+  </data>
+  <data name="shkarkoniAplikacioniPer2FA" xml:space="preserve">
+    <value>Shkarko një aplikacion për autentifikim dy hapësh sikurse Microsoft Authenticator për</value>
+  </data>
+  <data name="shtoAplikacionin2FA" xml:space="preserve">
+    <value>Shto aplikacion për autentifikim</value>
+  </data>
+  <data name="skanimiQRKodeveMeApp" xml:space="preserve">
+    <value>Pasi të keni skanuar QR kodin or të keni shtypur çelësin e dhënë më sipër, aplikacionin juaj për autentifikim dy-hapësh do të gjeneroj një çelës unik për ju. Vendoseni këtë çelës në fushën e mëposhtme.</value>
+  </data>
+  <data name="skanoQRKode" xml:space="preserve">
+    <value>Skano QR kodin ose shtype këtë çelës</value>
+  </data>
+  <data name="TOTPDeaktivizuar" xml:space="preserve">
+    <value>2FA është deaktivizuar. You mund të vendosni përsëri 2FA pasi ta konfiguroni aplikacionin për autentifikim.</value>
+  </data>
+  <data name="username" xml:space="preserve">
+    <value>Emri perdoruesit</value>
+  </data>
+  <data name="vendosFjalekalimin" xml:space="preserve">
+    <value>Vendos fjalëkalimin</value>
+  </data>
+  <data name="vendosFjalekaliminTuaj" xml:space="preserve">
+    <value>Vendos fjalëkalimin tuaj</value>
+  </data>
   <data name="veprimet" xml:space="preserve">
     <value>Veprimet</value>
+  </data>
+  <data name="veprimTOTP" xml:space="preserve">
+    <value>Ky veprim do të anuloj 2FA.</value>
+  </data>
+  <data name="verifiko" xml:space="preserve">
+    <value>Verifiko</value>
+  </data>
+  <data name="youMust" xml:space="preserve">
+    <value>Ju patjeter duhet</value>
   </data>
 </root>

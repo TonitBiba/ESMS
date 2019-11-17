@@ -1,0 +1,70 @@
+﻿@page
+@model ESMS.Pages.Configurations.PolicyModel
+@using ESMS.Pages.Shared
+@using ESMS
+@{
+    ViewData["Title"] = Resource.policy;
+}
+
+<div class="container-fluid p-0">
+    <div class="card">
+        <div class="card-body card-block">
+            <h4> Regjistrimi i rregullave</h4>
+            <hr />
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label asp-for="Input.policyName"></label>
+                            <input asp-for="Input.policyName" class="form-control" />
+                            <span asp-validation-for="Input.policyName" class="text-danger" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label asp-for="Input.ClaimType"></label>
+                            <input asp-for="Input.ClaimType" class="form-control" />
+                            <span asp-validation-for="Input.ClaimType" class="text-danger" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label asp-for="Input.ClaimValue"></label>
+                            <input asp-for="Input.ClaimValue" class="form-control" />
+                            <span asp-validation-for="Input.ClaimValue" class="text-danger" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary w-100" value="@Resource.ruaj" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="card-body">
+            <h4>Lista e rregullave te regjistruara</h4>
+            <hr />
+            <div id="ListOfMenus">
+                <partial name="_PolicyList" for="policies" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#Input_RoleId').select2()
+    })
+</script>
+
+@if (Model.error != null)
+{
+    <script>
+        $(document).ready(function (){
+            showAlert(@Model.error.nError, '@Model.error.ErrorDescription')
+        })
+    </script>
+}

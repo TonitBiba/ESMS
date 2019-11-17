@@ -16,6 +16,7 @@ namespace ESMS.Data.Model
         public string VcSubMenuEn { get; set; }
         public string VcController { get; set; }
         public string VcPage { get; set; }
+        public string VcClaim { get; set; }
         public string NInsertedId { get; set; }
         public DateTime DtInserted { get; set; }
         public DateTime? DtModify { get; set; }

@@ -1,7 +1,8 @@
 ﻿@page
 @model Disable2faModel
+@using ESMS
 @{
-    ViewData["Title"] = "Disable two-factor authentication (2FA)";
+    ViewData["Title"] = Resource.anuloTOTP;
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
@@ -10,16 +11,15 @@
 
 <div class="alert alert-warning" role="alert">
     <p>
-        <strong>This action only disables 2FA.</strong>
+        <strong>@Resource.veprimTOTP</strong>
     </p>
     <p>
-        Disabling 2FA does not change the keys used in authenticator apps. If you wish to change the key
-        used in an authenticator app you should <a asp-page="./ResetAuthenticator">reset your authenticator keys.</a>
+        @Html.Raw(Resource.anulimi2FADescription) <a asp-page="./ResetAuthenticator">@Html.Raw(Resource.anulimi2FAReset)</a>
     </p>
 </div>
 
 <div>
     <form method="post" class="form-group">
-        <button class="btn btn-danger" type="submit">Disable 2FA</button>
+        <button class="btn btn-danger" type="submit">@Resource.anulo2FA</button>
     </form>
 </div>

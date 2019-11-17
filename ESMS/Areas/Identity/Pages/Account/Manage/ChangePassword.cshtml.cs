@@ -33,20 +33,20 @@ namespace ESMS.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             [DataType(DataType.Password)]
-            [Display(Name = "Current password")]
+            [Display(Name = "fjalekalimiAktual", ResourceType = typeof(Resource))]
             public string OldPassword { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [StringLength(100, ErrorMessageResourceName = "gjatesiaFjalekalimit", MinimumLength = 6, ErrorMessageResourceType = typeof(Resource))]
             [DataType(DataType.Password)]
-            [Display(Name = "New password")]
+            [Display(Name = "fjalekalimiRi", ResourceType = typeof(Resource))]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm new password")]
-            [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+            [Display(Name = "konfirmoFjalekalimin", ResourceType = typeof(Resource))]
+            [Compare("NewPassword", ErrorMessageResourceName = "fjalekalimiNukPerputhet", ErrorMessageResourceType = typeof(Resource))]
             public string ConfirmPassword { get; set; }
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ESMS.Data.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -22,6 +23,7 @@ namespace ESMS.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
+        [Display(Name = "username", ResourceType = typeof(Resource))]
         public string Username { get; set; }
 
         [TempData]
@@ -32,9 +34,21 @@ namespace ESMS.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Phone]
-            [Display(Name = "Phone number")]
+            [Phone(ErrorMessageResourceName = "formatiNrTelGabim", ErrorMessageResourceType = typeof(Resource))]
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [Display(Name = "nrTel", ResourceType = typeof(Resource))]
             public string PhoneNumber { get; set; }
+
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [Display(Name = "emri", ResourceType = typeof(Resource))]
+            [StringLength(100, MinimumLength = 1, ErrorMessageResourceName = "nrKaraktereve", ErrorMessageResourceType = typeof(Resource))]
+            public string FirstName { get; set; }
+
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [Display(Name = "mbiemri", ResourceType = typeof(Resource))]
+            [StringLength(100, MinimumLength = 1, ErrorMessageResourceName = "nrKaraktereve", ErrorMessageResourceType = typeof(Resource))]
+            public string LastName { get; set; }
+
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -46,7 +60,9 @@ namespace ESMS.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName
             };
         }
 
@@ -87,8 +103,19 @@ namespace ESMS.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            using (ESMSContext eSMSContext = new ESMSContext()) {
+                var dataToBeChanged = eSMSContext.AspNetUsers.Where(A => A.Id == _userManager.GetUserId(User)).FirstOrDefault();
+                dataToBeChanged.FirstName = Input.FirstName;
+                dataToBeChanged.LastName = Input.LastName;
+                await eSMSContext.SaveChangesAsync();
+            }
+
+
+            user.FirstName = Input.FirstName;
+            user.LastName = Input.LastName;
+            
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = Resource.perditesimiMeSukses;
             return RedirectToPage();
         }
     }

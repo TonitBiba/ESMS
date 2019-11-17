@@ -10,31 +10,36 @@
                            subMenu = SM.VcSubMenuSq,
                            controller = SM.VcController,
                            page = SM.VcPage,
-                           icon = M.VcIcon
+                           icon = M.VcIcon,
+                           claim = SM.VcClaim
                        }).ToList();
 }
 
-    <ul class="list-unstyled navbar__list">
-        @foreach (var menu in listOfMenus.Select(M => new { M.menu, M.icon }).Distinct())
-        {
-            <li class="active has-sub">
-                <a class="js-arrow" href="#">
-                    <i class="@menu.icon"></i>@menu.menu
-                    <span class="arrow">
-                        <i class="fas fa-angle-down"></i>
-                    </span>
-                </a>
-                <ul class="list-unstyled navbar__sub-list js-sub-list">
-                    @foreach (var subMenu in listOfMenus.Where(M => M.menu == menu.menu))
+<ul class="list-unstyled navbar__list">
+    @foreach (var menu in listOfMenus.Select(M => new { M.menu, M.icon }).Distinct())
+    {
+        <li class="active has-sub">
+            <a class="js-arrow" href="#">
+                <i class="@menu.icon"></i>@menu.menu
+                <span class="arrow">
+                    <i class="fas fa-angle-down"></i>
+                </span>
+            </a>
+            <ul class="list-unstyled navbar__sub-list js-sub-list">
+                @foreach (var subMenu in listOfMenus.Where(M => M.menu == menu.menu))
+                {
+                    @if (User.HasClaim(subMenu.claim, "1"))
                     {
                         <li>
                             <a href="/@subMenu.controller/@subMenu.page">
                                 @subMenu.subMenu
                             </a>
                         </li>
-                    }
 
-                </ul>
-            </li>
-        }
-    </ul>
+                    }
+                }
+
+            </ul>
+        </li>
+    }
+</ul>

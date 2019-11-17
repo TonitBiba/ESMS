@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ESMS.Pages.Shared
 {
@@ -19,5 +20,15 @@ namespace ESMS.Pages.Shared
         {
             dbContext = new ESMSContext();
         }
+
+
+        public static List<SelectListItem> GetGroups()
+        {
+            using (ESMSContext dbContext = new ESMSContext())
+            {
+                return dbContext.AspNetRoles.Select(R => new SelectListItem { Text = R.Name, Value = R.Id }).ToList();
+            }
+        }
+
     }
 }

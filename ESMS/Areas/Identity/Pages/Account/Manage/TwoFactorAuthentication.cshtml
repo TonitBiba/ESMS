@@ -1,7 +1,8 @@
 ﻿@page
 @model TwoFactorAuthenticationModel
+@using ESMS
 @{
-    ViewData["Title"] = "Two-factor authentication (2FA)";
+    ViewData["Title"] = Resource.autentifikimiDyHapesh;
     ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
 }
 
@@ -12,44 +13,44 @@
     if (Model.RecoveryCodesLeft == 0)
     {
         <div class="alert alert-danger">
-            <strong>You have no recovery codes left.</strong>
-            <p>You must <a asp-page="./GenerateRecoveryCodes">generate a new set of recovery codes</a> before you can log in with a recovery code.</p>
+            <strong>@Resource.nukKaRecoveryCodes</strong>
+            <p>@Resource.youMust <a asp-page="./GenerateRecoveryCodes">@Resource.kodeTeReja</a> @Resource.paraSeTekyqeni</p>
         </div>
     }
     else if (Model.RecoveryCodesLeft == 1)
     {
         <div class="alert alert-danger">
-            <strong>You have 1 recovery code left.</strong>
-            <p>You can <a asp-page="./GenerateRecoveryCodes">generate a new set of recovery codes</a>.</p>
+            <strong>@Resource.njeKodMbetur</strong>
+            <p>@Resource.juMundeni <a asp-page="./GenerateRecoveryCodes">@Resource.kodeTeReja</a>.</p>
         </div>
     }
     else if (Model.RecoveryCodesLeft <= 3)
     {
         <div class="alert alert-warning">
-            <strong>You have @Model.RecoveryCodesLeft recovery codes left.</strong>
-            <p>You should <a asp-page="./GenerateRecoveryCodes">generate a new set of recovery codes</a>.</p>
+            <strong>@Resource.juKeni @Model.RecoveryCodesLeft @Resource.kodeTeMbetura</strong>
+            <p>@Resource.juDuhet <a asp-page="./GenerateRecoveryCodes">@Resource.kodeTeReja</a>.</p>
         </div>
     }
 
     if (Model.IsMachineRemembered)
     {
         <form method="post" style="display: inline-block">
-            <button type="submit" class="btn btn-primary">Forget this browser</button>
+            <button type="submit" class="btn btn-primary">@Resource.harrojeniShfletuesin</button>
         </form>
     }
-    <a asp-page="./Disable2fa" class="btn btn-primary">Disable 2FA</a>
-    <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">Reset recovery codes</a>
+    <a asp-page="./Disable2fa" class="btn btn-primary">@Resource.anulo2FA</a>
+    <a asp-page="./GenerateRecoveryCodes" class="btn btn-primary">@Resource.rivendosKodet</a>
 }
 
 <h5>Authenticator app</h5>
 @if (!Model.HasAuthenticator)
 {
-    <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Add authenticator app</a>
+    <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">@Resource.shtoAplikacionin2FA</a>
 }
 else
 {
-    <a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">Setup authenticator app</a>
-    <a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-primary">Reset authenticator app</a>
+<a id="enable-authenticator" asp-page="./EnableAuthenticator" class="btn btn-primary">@Resource.konfiguroApp2FA</a>
+<a id="reset-authenticator" asp-page="./ResetAuthenticator" class="btn btn-primary">@Resource.rivendos2FA</a>
 }
 
 @section Scripts {

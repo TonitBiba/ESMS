@@ -1,22 +1,27 @@
 ﻿@{
-Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+    Layout = "/Pages/Shared/_Layout.cshtml";
 }
+@using ESMS
 
-<h1>Manage your account</h1>
-
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
-            @RenderBody()
+<div class="container-fluid p-0">
+    <div class="card">
+        <div class="card-body card-block">
+            <h1>@Resource.menaxhoniLlogarine</h1>
+            <div>
+                <h4>@Resource.ndryshoniTeDhenatLlogarise</h4>
+                <hr />
+                <div class="row">
+                    <div class="col-md-3">
+                        <partial name="_ManageNav" />
+                    </div>
+                    <div class="col-md-9">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 @section Scripts {
     @RenderSection("Scripts", required: false)
 }

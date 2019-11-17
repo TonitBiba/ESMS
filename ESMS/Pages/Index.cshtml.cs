@@ -22,7 +22,7 @@ namespace ESMS.Pages
 
         public void OnGet()
         {
-
+            var us = User;
         }
     }
 }

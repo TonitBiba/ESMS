@@ -61,11 +61,101 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to dhe.
+        /// </summary>
+        public static string and {
+            get {
+                return ResourceManager.GetString("and", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anulimi i 2FA nuk i ndryshon çelësat që përdoren në applikacionin për autentifikim. Nëse dëshironi ti ndryshoni çelësat që përdoren në aplikacionin për autentifikim ju duhet të.
+        /// </summary>
+        public static string anulimi2FADescription {
+            get {
+                return ResourceManager.GetString("anulimi2FADescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to resetoni çelësat për autentifikim..
+        /// </summary>
+        public static string anulimi2FAReset {
+            get {
+                return ResourceManager.GetString("anulimi2FAReset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anulo 2FA.
+        /// </summary>
+        public static string anulo2FA {
+            get {
+                return ResourceManager.GetString("anulo2FA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Anulo autentifikimin 2-hapësh.
+        /// </summary>
+        public static string anuloTOTP {
+            get {
+                return ResourceManager.GetString("anuloTOTP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Autentifikimi dy hapësh.
+        /// </summary>
+        public static string autentifikimi2Hapesh {
+            get {
+                return ResourceManager.GetString("autentifikimi2Hapesh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Autentifikimi dy-hapësh (2FA).
+        /// </summary>
+        public static string autentifikimiDyHapesh {
+            get {
+                return ResourceManager.GetString("autentifikimiDyHapesh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Claim.
+        /// </summary>
+        public static string claim {
+            get {
+                return ResourceManager.GetString("claim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Claim vlera.
+        /// </summary>
+        public static string claimValue {
+            get {
+                return ResourceManager.GetString("claimValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrolleri.
         /// </summary>
         public static string controller {
             get {
                 return ResourceManager.GetString("controller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dërgo email adresën për verifikim.
+        /// </summary>
+        public static string dergoEmailPerVerifikim {
+            get {
+                return ResourceManager.GetString("dergoEmailPerVerifikim", resourceCulture);
             }
         }
         
@@ -81,9 +171,36 @@ namespace ESMS {
         /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
+        public static string email {
+            get {
+                return ResourceManager.GetString("email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
         public static string emailAdresa {
             get {
                 return ResourceManager.GetString("emailAdresa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email adresa re.
+        /// </summary>
+        public static string emailAdresaRe {
+            get {
+                return ResourceManager.GetString("emailAdresaRe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emri.
+        /// </summary>
+        public static string emri {
+            get {
+                return ResourceManager.GetString("emri", resourceCulture);
             }
         }
         
@@ -133,11 +250,65 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Konfiguroni aplikacionin për autentifikim.
+        /// </summary>
+        public static string FA2KonfiguroniAplikacionin {
+            get {
+                return ResourceManager.GetString("FA2KonfiguroniAplikacionin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fjalëkalimi.
         /// </summary>
         public static string fjalekalimi {
             get {
                 return ResourceManager.GetString("fjalekalimi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fjalëkalimi aktual.
+        /// </summary>
+        public static string fjalekalimiAktual {
+            get {
+                return ResourceManager.GetString("fjalekalimiAktual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fjalëkalimi i ri dhe fjalëkalimi konfirmues nuk përputhet..
+        /// </summary>
+        public static string fjalekalimiNukPerputhet {
+            get {
+                return ResourceManager.GetString("fjalekalimiNukPerputhet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fjalëkalimi ri.
+        /// </summary>
+        public static string fjalekalimiRi {
+            get {
+                return ResourceManager.GetString("fjalekalimiRi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fjalëkalimi juaj është vendosur..
+        /// </summary>
+        public static string fjalekalimiVendosur {
+            get {
+                return ResourceManager.GetString("fjalekalimiVendosur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Formati i numrit nuk eshte valid.
+        /// </summary>
+        public static string formatiNrTelGabim {
+            get {
+                return ResourceManager.GetString("formatiNrTelGabim", resourceCulture);
             }
         }
         
@@ -160,6 +331,60 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} duhet të jetë minimum {2} dhe maksimum {1} karaktere i gjatë..
+        /// </summary>
+        public static string gjatesiaFjalekalimit {
+            get {
+                return ResourceManager.GetString("gjatesiaFjalekalimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gjenerimi i kodeve për rivendose me 2FA.
+        /// </summary>
+        public static string gjenerimiKodeve2FA {
+            get {
+                return ResourceManager.GetString("gjenerimiKodeve2FA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gjenerimi i kodeve të reja për rikthim nuk ndryshon çelësat që përdoren në aplikacionet për autentifikim. Nëse dëshironi të ndryshoni çelësin që përdoret në aplikacionin për autentifikim ju duhet .
+        /// </summary>
+        public static string gjenerimiKoditTeRiPerApp {
+            get {
+                return ResourceManager.GetString("gjenerimiKoditTeRiPerApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gjenero kodet për rivendosje.
+        /// </summary>
+        public static string gjeneroKodetPerRivendosje {
+            get {
+                return ResourceManager.GetString("gjeneroKodetPerRivendosje", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Grupi.
+        /// </summary>
+        public static string grupi {
+            get {
+                return ResourceManager.GetString("grupi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Harrojeni këtë shfletues.
+        /// </summary>
+        public static string harrojeniShfletuesin {
+            get {
+                return ResourceManager.GetString("harrojeniShfletuesin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ikona.
         /// </summary>
         public static string ikona {
@@ -169,11 +394,101 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ju duhet.
+        /// </summary>
+        public static string juDuhet {
+            get {
+                return ResourceManager.GetString("juDuhet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ju keni.
+        /// </summary>
+        public static string juKeni {
+            get {
+                return ResourceManager.GetString("juKeni", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ju mundeni.
+        /// </summary>
+        public static string juMundeni {
+            get {
+                return ResourceManager.GetString("juMundeni", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Keni harruar fjalëkalimin?.
         /// </summary>
         public static string keniHarruarFjalekalimin {
             get {
                 return ResourceManager.GetString("keniHarruarFjalekalimin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kode të mbetura.
+        /// </summary>
+        public static string kodeTeMbetura {
+            get {
+                return ResourceManager.GetString("kodeTeMbetura", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to të gjeneroni një bashkësi të re të kodeve.
+        /// </summary>
+        public static string kodeTeReja {
+            get {
+                return ResourceManager.GetString("kodeTeReja", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kodet e mbetura..
+        /// </summary>
+        public static string kodetMbetura {
+            get {
+                return ResourceManager.GetString("kodetMbetura", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kodet për kthim.
+        /// </summary>
+        public static string kodetPerKthim {
+            get {
+                return ResourceManager.GetString("kodetPerKthim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kodi për verifikim.
+        /// </summary>
+        public static string kodiPerVerifikim {
+            get {
+                return ResourceManager.GetString("kodiPerVerifikim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Konfiguro aplikacionin për autentifikim.
+        /// </summary>
+        public static string konfiguroApp2FA {
+            get {
+                return ResourceManager.GetString("konfiguroApp2FA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Konfirmo fjalëkalimin.
+        /// </summary>
+        public static string konfirmoFjalekalimin {
+            get {
+                return ResourceManager.GetString("konfirmoFjalekalimin", resourceCulture);
             }
         }
         
@@ -196,6 +511,24 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nëse e humbni pajisjen dhe nuk keni kodet për rikthim ju do të humbni çasjen në llogari..
+        /// </summary>
+        public static string loseRecoveryCodes {
+            get {
+                return ResourceManager.GetString("loseRecoveryCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mbiemri.
+        /// </summary>
+        public static string mbiemri {
+            get {
+                return ResourceManager.GetString("mbiemri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mbylle.
         /// </summary>
         public static string mbylle {
@@ -214,11 +547,56 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Menaxhimi i Email adresës.
+        /// </summary>
+        public static string menaxhimiEmail {
+            get {
+                return ResourceManager.GetString("menaxhimiEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menaxhoni llogarinë tuaj.
+        /// </summary>
+        public static string menaxhoniLlogarine {
+            get {
+                return ResourceManager.GetString("menaxhoniLlogarine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Metoda.
         /// </summary>
         public static string metoda {
             get {
                 return ResourceManager.GetString("metoda", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email adresa për verifikim është dërguar. Ju lutem shikoni email adresën për verifikim..
+        /// </summary>
+        public static string msgEmailAdresa {
+            get {
+                return ResourceManager.GetString("msgEmailAdresa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ka ndodhur një gabim gjatë ruajtjes..
+        /// </summary>
+        public static string msgGabimRuajtja {
+            get {
+                return ResourceManager.GetString("msgGabimRuajtja", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Të dhënat janë ruajtur me sukses..
+        /// </summary>
+        public static string msgRuajtjaSukses {
+            get {
+                return ResourceManager.GetString("msgRuajtjaSukses", resourceCulture);
             }
         }
         
@@ -241,11 +619,182 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ndrysho email adresën.
+        /// </summary>
+        public static string ndryshoEmailAdresen {
+            get {
+                return ResourceManager.GetString("ndryshoEmailAdresen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ndryshoni të dhënat e llogarisë.
+        /// </summary>
+        public static string ndryshoniTeDhenatLlogarise {
+            get {
+                return ResourceManager.GetString("ndryshoniTeDhenatLlogarise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to në aplikacionin për autentifikim dy hapësh. Hapsirat dhe lidhëset nuk kanë rëndësi..
+        /// </summary>
+        public static string neAplikacionin2FA {
+            get {
+                return ResourceManager.GetString("neAplikacionin2FA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ju keni një kod të mbetur..
+        /// </summary>
+        public static string njeKodMbetur {
+            get {
+                return ResourceManager.GetString("njeKodMbetur", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Munde te shtypi 1 deri 100 karektere.
+        /// </summary>
+        public static string nrKaraktereve {
+            get {
+                return ResourceManager.GetString("nrKaraktereve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Numri telefonit.
+        /// </summary>
+        public static string nrTel {
+            get {
+                return ResourceManager.GetString("nrTel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ju nuk keni të krijuar një llogari në këtë aplikacion. Krijoni një llogari ashtu që të mund të kyqeni pa çasje të jashtme..
+        /// </summary>
+        public static string nukKaLlogari {
+            get {
+                return ResourceManager.GetString("nukKaLlogari", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ju nuk keni asnjë kod të gjeneruar..
+        /// </summary>
+        public static string nukKaRecoveryCodes {
+            get {
+                return ResourceManager.GetString("nukKaRecoveryCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ose.
+        /// </summary>
+        public static string or {
+            get {
+                return ResourceManager.GetString("or", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Page.
         /// </summary>
         public static string page {
             get {
                 return ResourceManager.GetString("page", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to para se të kyqeni me këto kode..
+        /// </summary>
+        public static string paraSeTekyqeni {
+            get {
+                return ResourceManager.GetString("paraSeTekyqeni", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to për.
+        /// </summary>
+        public static string per {
+            get {
+                return ResourceManager.GetString("per", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Përditësimi fjalëkalimit.
+        /// </summary>
+        public static string perditesimiFjalekalimit {
+            get {
+                return ResourceManager.GetString("perditesimiFjalekalimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Te dhenat jane perditesuar me sukses!.
+        /// </summary>
+        public static string perditesimiMeSukses {
+            get {
+                return ResourceManager.GetString("perditesimiMeSukses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Përditëso fjalëkalimin.
+        /// </summary>
+        public static string perditesoFjalekalimi {
+            get {
+                return ResourceManager.GetString("perditesoFjalekalimi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Për të përdorur aplikacionin për autentifikim duhet të ndjekni hapat vijues:.
+        /// </summary>
+        public static string perdorimiIAplikacioninPerAutentifikim {
+            get {
+                return ResourceManager.GetString("perdorimiIAplikacioninPerAutentifikim", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Të dhënat personale.
+        /// </summary>
+        public static string personalData {
+            get {
+                return ResourceManager.GetString("personalData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rregulla.
+        /// </summary>
+        public static string policy {
+            get {
+                return ResourceManager.GetString("policy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ky proces anulon 2FA derisa ju të konfiguroni aplikacionin për autenfikim. Nëse nuk kompletoni konfigurimin e aplikacionit për autenfikim ju mund të humbni çasjen në llogarinë tuaj..
+        /// </summary>
+        public static string procesi2FA {
+            get {
+                return ResourceManager.GetString("procesi2FA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Profili.
+        /// </summary>
+        public static string profili {
+            get {
+                return ResourceManager.GetString("profili", resourceCulture);
             }
         }
         
@@ -268,6 +817,42 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rivendos çelësat për autentifikim.
+        /// </summary>
+        public static string resetAuthenticatorKey {
+            get {
+                return ResourceManager.GetString("resetAuthenticatorKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nëse i rivendosni çelësat për autentifikim, aplikacioni për autentifkim nuk do të punoj përderisa ju nuk e rikonfikuroni atë..
+        /// </summary>
+        public static string resetRecoverCodesMessage {
+            get {
+                return ResourceManager.GetString("resetRecoverCodesMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rivendos aplikacionin për autentifikim.
+        /// </summary>
+        public static string rivendos2FA {
+            get {
+                return ResourceManager.GetString("rivendos2FA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rivendos kodet.
+        /// </summary>
+        public static string rivendosKodet {
+            get {
+                return ResourceManager.GetString("rivendosKodet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ruaj.
         /// </summary>
         public static string ruaj {
@@ -277,11 +862,128 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Vendosni këto kode në një vend të sigurtë..
+        /// </summary>
+        public static string safeRecoveryCodes {
+            get {
+                return ResourceManager.GetString("safeRecoveryCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shfletuesi aktual është fshirë. Kur të kyqeni nga ky shfletues do të kërkohen kodet 2FA..
+        /// </summary>
+        public static string shfletuesiFshire {
+            get {
+                return ResourceManager.GetString("shfletuesiFshire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shkarko një aplikacion për autentifikim dy hapësh sikurse Microsoft Authenticator për.
+        /// </summary>
+        public static string shkarkoniAplikacioniPer2FA {
+            get {
+                return ResourceManager.GetString("shkarkoniAplikacioniPer2FA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shto aplikacion për autentifikim.
+        /// </summary>
+        public static string shtoAplikacionin2FA {
+            get {
+                return ResourceManager.GetString("shtoAplikacionin2FA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pasi të keni skanuar QR kodin or të keni shtypur çelësin e dhënë më sipër, aplikacionin juaj për autentifikim dy-hapësh do të gjeneroj një çelës unik për ju. Vendoseni këtë çelës në fushën e mëposhtme..
+        /// </summary>
+        public static string skanimiQRKodeveMeApp {
+            get {
+                return ResourceManager.GetString("skanimiQRKodeveMeApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skano QR kodin ose shtype këtë çelës.
+        /// </summary>
+        public static string skanoQRKode {
+            get {
+                return ResourceManager.GetString("skanoQRKode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2FA është deaktivizuar. You mund të vendosni përsëri 2FA pasi ta konfiguroni aplikacionin për autentifikim..
+        /// </summary>
+        public static string TOTPDeaktivizuar {
+            get {
+                return ResourceManager.GetString("TOTPDeaktivizuar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emri perdoruesit.
+        /// </summary>
+        public static string username {
+            get {
+                return ResourceManager.GetString("username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vendos fjalëkalimin.
+        /// </summary>
+        public static string vendosFjalekalimin {
+            get {
+                return ResourceManager.GetString("vendosFjalekalimin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vendos fjalëkalimin tuaj.
+        /// </summary>
+        public static string vendosFjalekaliminTuaj {
+            get {
+                return ResourceManager.GetString("vendosFjalekaliminTuaj", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Veprimet.
         /// </summary>
         public static string veprimet {
             get {
                 return ResourceManager.GetString("veprimet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ky veprim do të anuloj 2FA..
+        /// </summary>
+        public static string veprimTOTP {
+            get {
+                return ResourceManager.GetString("veprimTOTP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verifiko.
+        /// </summary>
+        public static string verifiko {
+            get {
+                return ResourceManager.GetString("verifiko", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ju patjeter duhet.
+        /// </summary>
+        public static string youMust {
+            get {
+                return ResourceManager.GetString("youMust", resourceCulture);
             }
         }
     }

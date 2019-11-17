@@ -30,6 +30,9 @@ namespace ESMS.Data.Model
         public DateTimeOffset? LockoutEnd { get; set; }
         public bool LockoutEnabled { get; set; }
         public int AccessFailedCount { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }

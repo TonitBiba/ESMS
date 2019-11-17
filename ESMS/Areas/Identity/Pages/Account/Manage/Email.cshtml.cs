@@ -45,7 +45,7 @@ namespace ESMS.Areas.Identity.Pages.Account.Manage
         {
             [Required]
             [EmailAddress]
-            [Display(Name = "New email")]
+            [Display(Name = "emailAdresaRe", ResourceType = typeof(Resource))]
             public string NewEmail { get; set; }
         }
 
@@ -139,7 +139,7 @@ namespace ESMS.Areas.Identity.Pages.Account.Manage
                 "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-            StatusMessage = "Verification email sent. Please check your email.";
+            StatusMessage = Resource.msgEmailAdresa;
             return RedirectToPage();
         }
     }

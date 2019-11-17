@@ -1,6 +1,7 @@
 ﻿using ESMS.General_Classes;
 using ESMS.Pages.Shared;
 using ESMS.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace ESMS.Pages.Configurations
 {
+    [Authorize(Roles = "Administrator")]
     public class _MenuEditModel : BaseModel
     {
         public void OnGet(string MEnc)

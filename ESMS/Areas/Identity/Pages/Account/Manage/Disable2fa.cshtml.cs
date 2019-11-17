@@ -56,7 +56,7 @@ namespace ESMS.Areas.Identity.Pages.Account.Manage
             }
 
             _logger.LogInformation("User with ID '{UserId}' has disabled 2fa.", _userManager.GetUserId(User));
-            StatusMessage = "2fa has been disabled. You can reenable 2fa when you setup an authenticator app";
+            StatusMessage = Resource.TOTPDeaktivizuar;
             return RedirectToPage("./TwoFactorAuthentication");
         }
     }
