@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ESMS.Pages.Shared
 {
@@ -15,10 +16,16 @@ namespace ESMS.Pages.Shared
     public class BaseModel : PageModel
     {
         protected ESMSContext dbContext=null;
+        protected IServiceCollection services;
+
+        public BaseModel()
+        {
+        }
 
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
             dbContext = new ESMSContext();
+            
         }
 
 

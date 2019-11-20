@@ -38,6 +38,7 @@ namespace ESMS.Pages.Configurations
                 error = new Error { nError = 4, errorDescription = "Ka ndodhur nje gabim gjate ruajtjes se te dhenave!" };
             }
             menus = dbContext.Menu.ToList();
+            subMenus = dbContext.SubMenu.ToList();
             return Page();
         }
 

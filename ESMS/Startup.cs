@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
 
 namespace ESMS
 {
@@ -21,7 +22,6 @@ namespace ESMS
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("esmsConnection")));
@@ -38,15 +38,16 @@ namespace ESMS
             );
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
+            ESMSContext eSMS = new ESMSContext();
+            var listOfPolicies = eSMS.Policy.ToList();
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("ReadMenu", policy => policy.RequireClaim("CanReadMenu"));
+                foreach (var P in listOfPolicies)
+                {
+                    options.AddPolicy(P.VcPolicyName, policy => policy.RequireClaim(P.VcClaimType, P.VcClaimValue));
+                };
             });
-
-
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

@@ -39,5 +39,10 @@ namespace ESMS.Areas.Identity
         public DateTime EmploymentDate { get; set; }
 
         public int EmployeeStatus { get; set; }
+
+        [Required]
+        [MaxLength(32)]
+        public string IbanCode { get; set; }
+
     }
 }

@@ -1,7 +1,9 @@
 ﻿using ESMS.Data.Model;
 using ESMS.General_Classes;
 using ESMS.Pages.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace ESMS.Pages.Configurations
 {
+    [Authorize(Policy = "ReadPolicy")]
     public class PolicyModel : BaseModel
     {
         public void OnGet()
@@ -43,6 +46,7 @@ namespace ESMS.Pages.Configurations
                     NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier)
                 });
                 await dbContext.SaveChangesAsync();
+
                 error = new Error { nError = 1, ErrorDescription= "Te dhenat jane regjistruar me sukses!" };
                 policies = dbContext.Policy.ToList();
             }

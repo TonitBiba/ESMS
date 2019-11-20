@@ -2,6 +2,8 @@
 @{
     Layout = null;
     ESMSContext eSMS = new ESMSContext();
+    var claimsList = User.Claims.Select(S => S.Type).ToList();
+
     var listOfMenus = (from M in eSMS.Menu
                        join SM in eSMS.SubMenu on M.NMenuId equals SM.NMenuId
                        select new
@@ -12,7 +14,7 @@
                            page = SM.VcPage,
                            icon = M.VcIcon,
                            claim = SM.VcClaim
-                       }).ToList();
+                       }).ToList().Where(lst => lst.claim.Any(C => claimsList.Contains(lst.claim)));
 }
 
 <ul class="list-unstyled navbar__list">
@@ -28,14 +30,17 @@
             <ul class="list-unstyled navbar__sub-list js-sub-list">
                 @foreach (var subMenu in listOfMenus.Where(M => M.menu == menu.menu))
                 {
-                    @if (User.HasClaim(subMenu.claim, "1"))
+                    @if (subMenu.claim != null)
                     {
-                        <li>
-                            <a href="/@subMenu.controller/@subMenu.page">
-                                @subMenu.subMenu
-                            </a>
-                        </li>
+                        @if (User.HasClaim(subMenu.claim, "1"))
+                        {
+                            <li>
+                                <a href="/@subMenu.controller/@subMenu.page">
+                                    @subMenu.subMenu
+                                </a>
+                            </li>
 
+                        }
                     }
                 }
 

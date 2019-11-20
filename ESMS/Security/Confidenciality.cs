@@ -48,7 +48,7 @@ namespace ESMS.Security
 
         public static T Decrypt<T>(string objectToBeDecrypted)
         {
-            string plaintext= "2";
+            objectToBeDecrypted = objectToBeDecrypted.Replace(" ", "+");
             string iv = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["AesIV"];
             string key = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["AesKey"];
             aesCrypto = new AesCryptoServiceProvider();
