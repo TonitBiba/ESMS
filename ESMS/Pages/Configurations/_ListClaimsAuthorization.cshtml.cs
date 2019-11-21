@@ -39,7 +39,7 @@ namespace ESMS.Pages.Configurations
                 if (dbContext.AspNetRoleClaims.Any(T => T.RoleId == groupId && T.ClaimType == dbContext.Policy.Where(P => P.NPolicyId == policyId).Select(P => P.VcClaimType).FirstOrDefault()))
                 {
                     dbContext.AspNetRoleClaims.Remove(dbContext.AspNetRoleClaims.Where(R => R.RoleId == groupId && R.ClaimType == dbContext.Policy.Where(P => P.NPolicyId == policyId).Select(P => P.VcClaimType).FirstOrDefault()).FirstOrDefault());
-                    dbContext.AspNetUserClaims.RemoveRange(dbContext.AspNetUserClaims.Where(C => C.User.AspNetUserRoles.Where(R => R.RoleId == groupId).FirstOrDefault().RoleId==groupId));
+                    dbContext.AspNetUserClaims.RemoveRange(dbContext.AspNetUserClaims.Where(C => C.ClaimType== dbContext.Policy.Where(P => P.NPolicyId == policyId).Select(P => P.VcClaimType).FirstOrDefault() && C.User.AspNetUserRoles.Where(R => R.RoleId == groupId).FirstOrDefault().RoleId==groupId));
                     await dbContext.SaveChangesAsync();
                 }
                 else

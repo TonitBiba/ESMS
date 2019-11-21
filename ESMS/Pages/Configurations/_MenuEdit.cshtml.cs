@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ESMS.Pages.Configurations
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Policy = "EditMenu")]
     public class _MenuEditModel : BaseModel
     {
         public void OnGet(string MEnc)
