@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="adresa" xml:space="preserve">
+    <value>Adresa</value>
+  </data>
+  <data name="adresaOpsionale" xml:space="preserve">
+    <value>Adresa 2(opsionale)</value>
+  </data>
   <data name="and" xml:space="preserve">
     <value>dhe</value>
   </data>
@@ -150,6 +156,12 @@
   <data name="dergoEmailPerVerifikim" xml:space="preserve">
     <value>Dërgo email adresën për verifikim</value>
   </data>
+  <data name="ditaPunesimit" xml:space="preserve">
+    <value>Dita e punësimit</value>
+  </data>
+  <data name="ditelindja" xml:space="preserve">
+    <value>Ditëlindja</value>
+  </data>
   <data name="dtInsertimit" xml:space="preserve">
     <value>Data insertimit</value>
   </data>
@@ -173,6 +185,9 @@
   </data>
   <data name="emriMenusShqip" xml:space="preserve">
     <value>Emri menus shqip</value>
+  </data>
+  <data name="emriMesem" xml:space="preserve">
+    <value>Emri mesëm</value>
   </data>
   <data name="emriNenMenusEN" xml:space="preserve">
     <value>Emri nen-menus anglisht</value>
@@ -201,6 +216,9 @@
   <data name="formatiNrTelGabim" xml:space="preserve">
     <value>Formati i numrit nuk eshte valid</value>
   </data>
+  <data name="fotoProfilit" xml:space="preserve">
+    <value>Fotografia profilit</value>
+  </data>
   <data name="fshije" xml:space="preserve">
     <value>Fshije</value>
   </data>
@@ -219,11 +237,17 @@
   <data name="gjeneroKodetPerRivendosje" xml:space="preserve">
     <value>Gjenero kodet për rivendosje</value>
   </data>
+  <data name="gjinia" xml:space="preserve">
+    <value>Gjinia</value>
+  </data>
   <data name="grupi" xml:space="preserve">
     <value>Grupi</value>
   </data>
   <data name="harrojeniShfletuesin" xml:space="preserve">
     <value>Harrojeni këtë shfletues</value>
+  </data>
+  <data name="ibanKode" xml:space="preserve">
+    <value>IBAN kodi</value>
   </data>
   <data name="ikona" xml:space="preserve">
     <value>Ikona</value>
@@ -255,11 +279,17 @@
   <data name="kodiPerVerifikim" xml:space="preserve">
     <value>Kodi për verifikim</value>
   </data>
+  <data name="kodiPostal" xml:space="preserve">
+    <value>Kodi postal</value>
+  </data>
   <data name="konfiguroApp2FA" xml:space="preserve">
     <value>Konfiguro aplikacionin për autentifikim</value>
   </data>
   <data name="konfirmoFjalekalimin" xml:space="preserve">
     <value>Konfirmo fjalëkalimin</value>
+  </data>
+  <data name="kontrataPunes" xml:space="preserve">
+    <value>Kontrata punës</value>
   </data>
   <data name="login" xml:space="preserve">
     <value>Kyqu</value>
@@ -327,6 +357,9 @@
   <data name="nukKaRecoveryCodes" xml:space="preserve">
     <value>Ju nuk keni asnjë kod të gjeneruar.</value>
   </data>
+  <data name="numriPersonal" xml:space="preserve">
+    <value>Numri personal</value>
+  </data>
   <data name="or" xml:space="preserve">
     <value>ose</value>
   </data>
@@ -351,17 +384,26 @@
   <data name="perdorimiIAplikacioninPerAutentifikim" xml:space="preserve">
     <value>Për të përdorur aplikacionin për autentifikim duhet të ndjekni hapat vijues:</value>
   </data>
+  <data name="pershkrimiPozites" xml:space="preserve">
+    <value>Pershkrimi pozitës</value>
+  </data>
   <data name="personalData" xml:space="preserve">
     <value>Të dhënat personale</value>
   </data>
   <data name="policy" xml:space="preserve">
     <value>Rregulla</value>
   </data>
+  <data name="pozitaPunes" xml:space="preserve">
+    <value>Pozita e punës</value>
+  </data>
   <data name="procesi2FA" xml:space="preserve">
     <value>Ky proces anulon 2FA derisa ju të konfiguroni aplikacionin për autenfikim. Nëse nuk kompletoni konfigurimin e aplikacionit për autenfikim ju mund të humbni çasjen në llogarinë tuaj.</value>
   </data>
   <data name="profili" xml:space="preserve">
     <value>Profili</value>
+  </data>
+  <data name="qyteti" xml:space="preserve">
+    <value>Qyteti</value>
   </data>
   <data name="regjistrimiNenMenu" xml:space="preserve">
     <value>Regjistrimi nën menysë</value>
@@ -392,6 +434,9 @@
   </data>
   <data name="shkarkoniAplikacioniPer2FA" xml:space="preserve">
     <value>Shkarko një aplikacion për autentifikim dy hapësh sikurse Microsoft Authenticator për</value>
+  </data>
+  <data name="shteti" xml:space="preserve">
+    <value>Shteti</value>
   </data>
   <data name="shtoAplikacionin2FA" xml:space="preserve">
     <value>Shto aplikacion për autentifikim</value>
@@ -425,5 +470,8 @@
   </data>
   <data name="youMust" xml:space="preserve">
     <value>Ju patjeter duhet</value>
+  </data>
+  <data name="zgjedhe" xml:space="preserve">
+    <value>Zgjedhe</value>
   </data>
 </root>

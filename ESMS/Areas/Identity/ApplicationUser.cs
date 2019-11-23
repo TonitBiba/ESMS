@@ -44,5 +44,9 @@ namespace ESMS.Areas.Identity
         [MaxLength(32)]
         public string IbanCode { get; set; }
 
+        [Required]
+        [MaxLength(12)]
+        public string PersonalNumber { get; set; }
+
     }
 }

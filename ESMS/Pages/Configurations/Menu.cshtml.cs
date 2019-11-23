@@ -32,7 +32,8 @@ namespace ESMS.Pages.Configurations
                 dbContext.Menu.Add(new Menu { VcMenNameSq = Input.MenuName_Sq, VcMenuNameEn = Input.MenuName_En, VcIcon = Input.Icon, DtInserted = DateTime.Now, NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier) });
                 await dbContext.SaveChangesAsync();
                 error = new Error { nError = 1, errorDescription = "Te dhenat jane regjistruar me sukses!" };
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 dbContext = new ESMSContext();
                 error = new Error { nError = 4, errorDescription = "Ka ndodhur nje gabim gjate ruajtjes se te dhenave!" };
@@ -50,7 +51,8 @@ namespace ESMS.Pages.Configurations
                 int menuId = Confidenciality.Decrypt<int>(MEnc);
                 dbContext.Menu.Remove(dbContext.Menu.Find(menuId));
                 dbContext.SaveChanges();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 error = new Error { nError = 4, errorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" };
             }

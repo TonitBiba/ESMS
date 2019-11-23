@@ -3,165 +3,171 @@
 @{
     ViewData["Title"] = "Regjistrimi i punetoreve";
 }
-<link href="~/Templeate/fonts/material-icon/css/material-design-iconic-font.min.css" rel="stylesheet" />
-<link href="~/Templeate/css/style.css" rel="stylesheet" />
-<div class="container-fluid p-0">
-    <div class="card">
+<div class="card">
+    <form method="post" enctype="multipart/form-data" >
         <div class="card-body card-block">
-            <h4> Regjistrimi i menyve</h4>
+            <h4> Regjistrimi i punëtorëve</h4>
             <hr />
-            <div class="main">
-
-                <div class="container">
-                    <h2>Sign up to great new account </h2>
-                    <form method="POST" id="signup-form" class="signup-form">
-                        <h3>
-                            <span class="title_text">Account Infomation</span>
-                        </h3>
-                        <fieldset>
-                            <div class="fieldset-content">
-                                <div class="form-group">
-                                    <label for="username" class="form-label">Username</label>
-                                    <input type="text" name="username" id="username" placeholder="User Name" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" name="email" id="email" placeholder="Your Email" />
-                                </div>
-                                <div class="form-group form-password">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" name="password" id="password" data-indicator="pwindicator" />
-                                    <div id="pwindicator">
-                                        <div class="bar-strength">
-                                            <div class="bar-process">
-                                                <div class="bar"></div>
-                                            </div>
-                                        </div>
-                                        <div class="label"></div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="your_avatar" class="form-label">Select avatar</label>
-                                    <div class="form-file">
-                                        <input type="file" name="your_avatar" id="your_avatar" class="custom-file-input" />
-                                        <span id='val'></span>
-                                        <span id='button'>Select File</span>
-                                    </div>
-                                </div>
+            <br />
+            <h4>Të dhënat e përgjithshme për punëtorin</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Input.FirstName)
+                                <input type="text" asp-for="Input.FirstName" class="form-control" />
+                                <span class="text-danger" asp-validation-for="Input.FirstName"></span>
                             </div>
-                            <div class="fieldset-footer">
-                                <span>Step 1 of 3</span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Input.LastName)
+                                <input type="text" asp-for="Input.LastName" class="form-control" />
+                                <span class="text-danger" asp-validation-for="Input.LastName"></span>
                             </div>
-                        </fieldset>
-
-                        <h3>
-                            <span class="title_text">Personal Information</span>
-                        </h3>
-                        <fieldset>
-
-                            <div class="fieldset-content">
-                                <div class="form-group">
-                                    <label for="full_name" class="form-label">Full name</label>
-                                    <input type="text" name="full_name" id="full_name" placeholder="Full Name" />
-                                </div>
-
-                                <div class="form-select">
-                                    <label for="country" class="form-label">Country</label>
-                                    <select name="country" id="country">
-                                        <option value="">Country</option>
-                                        <option value="Australia">Australia</option>
-                                        <option value="USA">America</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-radio">
-                                    <label for="gender" class="form-label">Gender</label>
-                                    <div class="form-radio-item">
-                                        <input type="radio" name="gender" value="male" id="male" checked="checked" />
-                                        <label for="male">Male</label>
-
-                                        <input type="radio" name="gender" value="female" id="female" />
-                                        <label for="female">Female</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-textarea">
-                                    <label for="about_us" class="form-label">About us</label>
-                                    <textarea name="about_us" id="about_us" placeholder="Who are you ..."></textarea>
-                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Input.Gender)
+                                @Html.DropDownListFor(m => m.Input.Gender, new List<SelectListItem> { new SelectListItem { Value = "1", Text = "Male" }, new SelectListItem { Text = "Female", Value = "2" } }, Resource.zgjedhe, new { @class = "form-control" })
+                                <span class="text-danger" asp-validation-for="Input.Gender"></span>
                             </div>
-
-                            <div class="fieldset-footer">
-                                <span>Step 2 of 3</span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Input.Position)
+                                @Html.DropDownListFor(m => m.Input.Gender, Model.lstPositions, Resource.zgjedhe, new { @class = "form-control" })
+                                <span class="text-danger" asp-validation-for="Input.Position"></span>
                             </div>
-
-                        </fieldset>
-
-                        <h3>
-                            <span class="title_text">Payment Details</span>
-                        </h3>
-                        <fieldset>
-                            <div class="fieldset-content">
-                                <div class="form-radio">
-                                    <label for="payment_type">Payment Type</label>
-                                    <div class="form-radio-flex">
-                                        <input type="radio" name="payment_type" id="payment_visa" value="payment_visa" checked="checked" />
-                                        <label for="payment_visa"><img src="images/icon-visa.png" alt=""></label>
-
-                                        <input type="radio" name="payment_type" id="payment_master" value="payment_master" />
-                                        <label for="payment_master"><img src="images/icon-master.png" alt=""></label>
-
-                                        <input type="radio" name="payment_type" id="payment_paypal" value="payment_paypal" />
-                                        <label for="payment_paypal"><img src="images/icon-paypal.png" alt=""></label>
-                                    </div>
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <label for="credit_card" class="form-label">Credit Card</label>
-                                        <input type="text" name="credit_card" id="credit_card" />
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="cvc" class="form-label">CVC</label>
-                                        <input type="text" name="cvc" id="cvc" />
-                                    </div>
-                                </div>
-                                <div class="form-date">
-                                    <label for="expiry_date">Expiration Date</label>
-                                    <div class="form-flex">
-                                        <div class="form-date-item">
-                                            <select id="expiry_date" name="expiry_date"></select>
-                                            <span class="select-icon"><i class="zmdi zmdi-chevron-down"></i></span>
-                                        </div>
-                                        <div class="form-date-item">
-                                            <select id="expiry_year" name="expiry_year"></select>
-                                            <span class="select-icon"><i class="zmdi zmdi-chevron-down"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="name_of_card" class="form-label">Name of card</label>
-                                    <input type="text" name="name_of_card" id="name_of_card" />
-                                </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Input.JobTitle)
+                                <input type="text" asp-for="Input.JobTitle" class="form-control" />
+                                <span class="text-danger" asp-validation-for="Input.JobTitle"></span>
                             </div>
-
-                            <div class="fieldset-footer">
-                                <span>Step 3 of 3</span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Input.PersonalNumber)
+                                <input type="text" asp-for="Input.PersonalNumber" class="form-control" />
+                                <span class="text-danger" asp-validation-for="Input.PersonalNumber"></span>
                             </div>
-                        </fieldset>
-                    </form>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Input.Contract)
+                                <input type="file" asp-for="Input.Contract" class="form-control" />
+                                <span class="text-danger" asp-validation-for="Input.Contract"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
+                <div class="col-md-4">
+                    <label asp-for="Input.UserProfileImg" style="color:black"></label>
+                    <div class="form-group">
+                        <img id="imagenFondo" src="~/Templeate/images/icon/avatar-04.jpg" class="d-block m-auto rounded-circle m-4">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" onclick="$('#UserProfileImg').trigger('click')" class="btn btn-secondary">Ngarko fotografine</button>
+                        <input type="file" id="UserProfileImg" name="UserProfileImg" class="form-control-file d-none" onchange="preview_2(this);" />
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+
+        <div class="card-body">
+            <h4>Adresa dhe kontakti</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.Contry)
+                        <input asp-for="Input.Contry" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.Contry"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.City)
+                        <input asp-for="Input.City" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.City"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.PostalCode)
+                        <input asp-for="Input.PostalCode" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.PostalCode"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.Adress)
+                        <input asp-for="Input.Adress" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.Adress"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.AdressOpsional)
+                        <input asp-for="Input.AdressOpsional" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.AdressOpsional"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.PhoneNumber)
+                        <input asp-for="Input.PhoneNumber" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.PhoneNumber"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.EmailAdress)
+                        <input asp-for="Input.EmailAdress" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.EmailAdress"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <h4>Pagesat</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.IBANCode)
+                        <input type="text" asp-for="Input.IBANCode" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.IBANCode"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" class="btn btn-primary float-right m-3" value="Regjistro" />
+    </form>
 </div>
-<script src="~/Templeate/vendor/jquery/jquery.min.js"></script>
-<script src="~/Templeate/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/Templeate/vendor/jquery/jquery-ui.min.js"></script>
-<script src="~/Templeate/vendor/jquery-validation/dist/additional-methods.min.js"></script>
-<script src="~/Templeate/vendor/jquery-steps/jquery.steps.min.js"></script>
-<script src="~/Templeate/vendor/minimalist-picker/dobpicker.js"></script>
-<script src="~/Templeate/vendor/jquery.pwstrength/jquery.pwstrength.min.js"></script>
-<script src="~/Templeate/js/main.js"></script>
 
-
+<script>
+        var outImage = "imagenFondo";
+    function preview_2(obj) {
+        if (FileReader) {
+            var reader = new FileReader();
+            reader.readAsDataURL(obj.files[0]);
+            reader.onload = function (e) {
+                var image = new Image();
+                image.src = e.target.result;
+                image.onload = function () {
+                    $("#UserProfileImg").append('')
+                    document.getElementById(outImage).src = image.src;
+                };
+            }
+        }
+        else {
+        }
+    }
+</script>

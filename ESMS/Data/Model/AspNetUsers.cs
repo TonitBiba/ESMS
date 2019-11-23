@@ -11,6 +11,7 @@ namespace ESMS.Data.Model
             AspNetUserLogins = new HashSet<AspNetUserLogins>();
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
             AspNetUserTokens = new HashSet<AspNetUserTokens>();
+            EmployeeDocuments = new HashSet<EmployeeDocuments>();
             Menu = new HashSet<Menu>();
             SubMenu = new HashSet<SubMenu>();
         }
@@ -33,11 +34,22 @@ namespace ESMS.Data.Model
         public DateTime BirthDate { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Address { get; set; }
+        public string Address2 { get; set; }
+        public int? City { get; set; }
+        public int? Country { get; set; }
+        public int EmployeeStatus { get; set; }
+        public DateTime EmploymentDate { get; set; }
+        public int Gender { get; set; }
+        public string JobTitle { get; set; }
+        public int? PostCode { get; set; }
+        public string IbanCode { get; set; }
 
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual ICollection<AspNetUserTokens> AspNetUserTokens { get; set; }
+        public virtual ICollection<EmployeeDocuments> EmployeeDocuments { get; set; }
         public virtual ICollection<Menu> Menu { get; set; }
         public virtual ICollection<SubMenu> SubMenu { get; set; }
     }

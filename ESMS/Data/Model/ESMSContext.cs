@@ -22,11 +22,15 @@ namespace ESMS.Data.Model
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<DocumentType> DocumentType { get; set; }
+        public virtual DbSet<EmployeeDocuments> EmployeeDocuments { get; set; }
         public virtual DbSet<GroupMenu> GroupMenu { get; set; }
         public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<Policy> Policy { get; set; }
+        public virtual DbSet<Position> Position { get; set; }
         public virtual DbSet<SubMenu> SubMenu { get; set; }
+        public virtual DbSet<UserPosition> UserPosition { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -130,11 +134,27 @@ namespace ESMS.Data.Model
 
                 entity.Property(e => e.BirthDate).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
+                entity.Property(e => e.City).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.Country).HasDefaultValueSql("((1))");
+
                 entity.Property(e => e.Email).HasMaxLength(256);
+
+                entity.Property(e => e.EmploymentDate).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
                     .HasMaxLength(100)
+                    .HasDefaultValueSql("(N'')");
+
+                entity.Property(e => e.IbanCode)
+                    .IsRequired()
+                    .HasMaxLength(32)
+                    .HasDefaultValueSql("(N'')");
+
+                entity.Property(e => e.JobTitle)
+                    .IsRequired()
+                    .HasMaxLength(128)
                     .HasDefaultValueSql("(N'')");
 
                 entity.Property(e => e.LastName)
@@ -147,6 +167,68 @@ namespace ESMS.Data.Model
                 entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
 
                 entity.Property(e => e.UserName).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<DocumentType>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.DtInserted)
+                    .HasColumnName("dtInserted")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.DtModify)
+                    .HasColumnName("dtModify")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.NInsertedId)
+                    .IsRequired()
+                    .HasColumnName("nInsertedID")
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.NModifyId)
+                    .HasColumnName("nModifyID")
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.Name).HasMaxLength(128);
+            });
+
+            modelBuilder.Entity<EmployeeDocuments>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.DtInserted)
+                    .HasColumnName("dtInserted")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.DtModify)
+                    .HasColumnName("dtModify")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Employee).HasMaxLength(450);
+
+                entity.Property(e => e.NInsertedId)
+                    .IsRequired()
+                    .HasColumnName("nInsertedID")
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.NModifyId)
+                    .HasColumnName("nModifyID")
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.Name).HasMaxLength(128);
+
+                entity.Property(e => e.Path).HasMaxLength(128);
+
+                entity.HasOne(d => d.EmployeeNavigation)
+                    .WithMany(p => p.EmployeeDocuments)
+                    .HasForeignKey(d => d.Employee)
+                    .HasConstraintName("FK_EmployeeDocuments_AspNetUsers");
+
+                entity.HasOne(d => d.TypeNavigation)
+                    .WithMany(p => p.EmployeeDocuments)
+                    .HasForeignKey(d => d.Type)
+                    .HasConstraintName("FK_EmployeeDocuments_DocumentType");
             });
 
             modelBuilder.Entity<GroupMenu>(entity =>
@@ -307,6 +389,34 @@ namespace ESMS.Data.Model
                     .HasMaxLength(256);
             });
 
+            modelBuilder.Entity<Position>(entity =>
+            {
+                entity.Property(e => e.DtInserted)
+                    .HasColumnName("dtInserted")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.DtModify)
+                    .HasColumnName("dtModify")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.NInsertedId)
+                    .IsRequired()
+                    .HasColumnName("nInsertedID")
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.NModifyId)
+                    .HasColumnName("nModifyID")
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.NameEn)
+                    .HasColumnName("Name_EN")
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.NameSq)
+                    .HasColumnName("Name_SQ")
+                    .HasMaxLength(128);
+            });
+
             modelBuilder.Entity<SubMenu>(entity =>
             {
                 entity.HasKey(e => e.NSubMenuId)
@@ -364,6 +474,32 @@ namespace ESMS.Data.Model
                     .HasForeignKey(d => d.NMenuId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SubMeny_Menu");
+            });
+
+            modelBuilder.Entity<UserPosition>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.Property(e => e.DtInserted)
+                    .HasColumnName("dtInserted")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.DtModify)
+                    .HasColumnName("dtModify")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.NInsertedId)
+                    .IsRequired()
+                    .HasColumnName("nInsertedID")
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.NModifyId)
+                    .HasColumnName("nModifyID")
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
             });
 
             OnModelCreatingPartial(modelBuilder);

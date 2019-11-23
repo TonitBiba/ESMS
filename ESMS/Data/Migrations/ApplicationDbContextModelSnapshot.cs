@@ -28,7 +28,6 @@ namespace ESMS.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address2")
@@ -37,14 +36,14 @@ namespace ESMS.Data.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("City")
+                    b.Property<int?>("City")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Country")
+                    b.Property<int?>("Country")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -99,6 +98,11 @@ namespace ESMS.Data.Migrations
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PersonalNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(12)")
+                        .HasMaxLength(12);
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
