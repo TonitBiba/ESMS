@@ -1,4 +1,7 @@
 ﻿@page
+
+@using ESMS.Pages.Shared
+
 @model ESMS.Pages.Employees.CreateModel
 @{
     ViewData["Title"] = "Regjistrimi i punetoreve";
@@ -31,7 +34,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 @Html.LabelFor(m => m.Input.Gender)
-                                @Html.DropDownListFor(m => m.Input.Gender, new List<SelectListItem> { new SelectListItem { Value = "1", Text = "Male" }, new SelectListItem { Text = "Female", Value = "2" } }, Resource.zgjedhe, new { @class = "form-control" })
+                                @Html.DropDownListFor(m => m.Input.Gender, BaseModel.GetGenders(), Resource.zgjedhe, new { @class = "form-control" })
                                 <span class="text-danger" asp-validation-for="Input.Gender"></span>
                             </div>
                         </div>
@@ -85,28 +88,28 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.Contry)
-                        <input asp-for="Input.Contry" class="form-control" />
+                        @Html.DropDownListFor(m=>m.Input.Contry, BaseModel.GetContries(), Resource.zgjedhe, new { @class = "form-control" })
                         <span class="text-danger" asp-validation-for="Input.Contry"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.City)
-                        <input asp-for="Input.City" class="form-control" />
+                        @Html.DropDownListFor(m => m.Input.City, new List<SelectListItem>(), Resource.zgjedhe, new { @class = "form-control" })
                         <span class="text-danger" asp-validation-for="Input.City"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.PostalCode)
-                        <input asp-for="Input.PostalCode" class="form-control" />
+                        <input asp-for="Input.PostalCode" type="number" min="1" class="form-control" />
                         <span class="text-danger" asp-validation-for="Input.PostalCode"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Input.Adress)
-                        <input asp-for="Input.Adress" class="form-control" />
+                        @Html.LabelFor(m => m.Input.Adress, new { @class="required" })
+                        <input type="text" asp-for="Input.Adress" class="form-control" />
                         <span class="text-danger" asp-validation-for="Input.Adress"></span>
                     </div>
                 </div>

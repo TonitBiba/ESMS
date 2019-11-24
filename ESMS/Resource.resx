@@ -198,6 +198,9 @@
   <data name="FA2KonfiguroniAplikacionin" xml:space="preserve">
     <value>Konfiguroni aplikacionin për autentifikim</value>
   </data>
+  <data name="femer" xml:space="preserve">
+    <value>Femër</value>
+  </data>
   <data name="fjalekalimi" xml:space="preserve">
     <value>Fjalëkalimi</value>
   </data>
@@ -291,6 +294,15 @@
   <data name="kontrataPunes" xml:space="preserve">
     <value>Kontrata punës</value>
   </data>
+  <data name="kontrolloFormatinEmail" xml:space="preserve">
+    <value>Kontrolloni formatin e email adresës</value>
+  </data>
+  <data name="kontrolloFormatinKodiPostar" xml:space="preserve">
+    <value>Kontrolloni formatin e kodit postar</value>
+  </data>
+  <data name="kontrolloFormatinTelefonit" xml:space="preserve">
+    <value>Kontrolloni formatin e telefonit</value>
+  </data>
   <data name="login" xml:space="preserve">
     <value>Kyqu</value>
   </data>
@@ -299,6 +311,9 @@
   </data>
   <data name="loseRecoveryCodes" xml:space="preserve">
     <value>Nëse e humbni pajisjen dhe nuk keni kodet për rikthim ju do të humbni çasjen në llogari.</value>
+  </data>
+  <data name="mashkull" xml:space="preserve">
+    <value>Mashkull</value>
   </data>
   <data name="mbiemri" xml:space="preserve">
     <value>Mbiemri</value>

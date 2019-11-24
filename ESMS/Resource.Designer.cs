@@ -304,6 +304,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Femër.
+        /// </summary>
+        public static string femer {
+            get {
+                return ResourceManager.GetString("femer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fjalëkalimi.
         /// </summary>
         public static string fjalekalimi {
@@ -583,6 +592,33 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kontrolloni formatin e email adresës.
+        /// </summary>
+        public static string kontrolloFormatinEmail {
+            get {
+                return ResourceManager.GetString("kontrolloFormatinEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontrolloni formatin e kodit postar.
+        /// </summary>
+        public static string kontrolloFormatinKodiPostar {
+            get {
+                return ResourceManager.GetString("kontrolloFormatinKodiPostar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontrolloni formatin e telefonit.
+        /// </summary>
+        public static string kontrolloFormatinTelefonit {
+            get {
+                return ResourceManager.GetString("kontrolloFormatinTelefonit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kyqu.
         /// </summary>
         public static string login {
@@ -606,6 +642,15 @@ namespace ESMS {
         public static string loseRecoveryCodes {
             get {
                 return ResourceManager.GetString("loseRecoveryCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mashkull.
+        /// </summary>
+        public static string mashkull {
+            get {
+                return ResourceManager.GetString("mashkull", resourceCulture);
             }
         }
         

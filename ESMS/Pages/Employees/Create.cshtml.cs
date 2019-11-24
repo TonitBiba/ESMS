@@ -43,7 +43,7 @@ namespace ESMS.Pages.Employees
 
         public void OnGet()
         {
-            lstPositions = dbContext.Position.Select(t => new SelectListItem { Text = t.Id.ToString(), Value = t.NameSq }).ToList();
+            lstPositions = dbContext.Position.Select(t => new SelectListItem { Text = t.NameSq, Value = t.Id.ToString() }).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -147,10 +147,12 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "nrTel", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [DataType(DataType.PhoneNumber, ErrorMessageResourceName = "kontrolloFormatinTelefonit", ErrorMessageResourceType = typeof(Resource))]
             public string PhoneNumber { get; set; }
 
             [Display(Name = "emailAdresa", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [DataType(DataType.EmailAddress, ErrorMessageResourceName = "kontrolloFormatinEmail", ErrorMessageResourceType = typeof(Resource))]
             public string EmailAdress { get; set; }
 
             [Display(Name = "adresa", ResourceType = typeof(Resource))]
@@ -163,6 +165,7 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "kodiPostal", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [DataType(DataType.PostalCode, ErrorMessageResourceName = "kontrolloFormatinKodiPostar", ErrorMessageResourceType = typeof(Resource))]
             public int PostalCode { get; set; }
 
             [Display(Name = "qyteti", ResourceType = typeof(Resource))]
@@ -183,6 +186,7 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "ibanKode", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [DataType(DataType.CreditCard)]
             public string IBANCode { get; set; }
 
             [Display(Name = "pozitaPunes", ResourceType = typeof(Resource))]

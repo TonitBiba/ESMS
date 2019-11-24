@@ -59,6 +59,19 @@ namespace ESMS.Pages.Shared
             }
         }
 
+        public static List<SelectListItem> GetGenders()
+        {
+            return new List<SelectListItem> { new SelectListItem { Text = Resource.mashkull, Value = "1" }, new SelectListItem { Text = Resource.femer, Value = "2" }};
+        }
+
+        public static List<SelectListItem> GetContries()
+        {
+            using (ESMSContext dbContext = new ESMSContext())
+            {
+                return dbContext.Contries.Select(R => new SelectListItem { Text = R.Name, Value = R.Id.ToString()}).ToList();
+            }
+        }
+
         protected string SaveFiles(IFormFile file, FType fileType)
         {
             string fullPath = "";
@@ -77,6 +90,7 @@ namespace ESMS.Pages.Shared
             fs.Close();
             return fullPath;
         }
+
 
         protected enum FType
         {

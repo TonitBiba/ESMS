@@ -22,6 +22,8 @@ namespace ESMS.Data.Model
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<Cities> Cities { get; set; }
+        public virtual DbSet<Contries> Contries { get; set; }
         public virtual DbSet<DocumentType> DocumentType { get; set; }
         public virtual DbSet<EmployeeDocuments> EmployeeDocuments { get; set; }
         public virtual DbSet<GroupMenu> GroupMenu { get; set; }
@@ -29,6 +31,7 @@ namespace ESMS.Data.Model
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<Policy> Policy { get; set; }
         public virtual DbSet<Position> Position { get; set; }
+        public virtual DbSet<States> States { get; set; }
         public virtual DbSet<SubMenu> SubMenu { get; set; }
         public virtual DbSet<UserPosition> UserPosition { get; set; }
 
@@ -134,10 +137,6 @@ namespace ESMS.Data.Model
 
                 entity.Property(e => e.BirthDate).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
-                entity.Property(e => e.City).HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.Country).HasDefaultValueSql("((1))");
-
                 entity.Property(e => e.Email).HasMaxLength(256);
 
                 entity.Property(e => e.EmploymentDate).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
@@ -166,7 +165,42 @@ namespace ESMS.Data.Model
 
                 entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
 
+                entity.Property(e => e.PersonalNumber)
+                    .IsRequired()
+                    .HasMaxLength(12)
+                    .HasDefaultValueSql("(N'')");
+
                 entity.Property(e => e.UserName).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<Cities>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.ContryId).HasColumnName("contryId");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<Contries>(entity =>
+            {
+                entity.Property(e => e.Id)
+                    .HasColumnName("ID")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.PhoneCode).HasColumnName("phoneCode");
+
+                entity.Property(e => e.SortName)
+                    .IsRequired()
+                    .HasColumnName("sortName")
+                    .HasMaxLength(3);
             });
 
             modelBuilder.Entity<DocumentType>(entity =>
@@ -415,6 +449,17 @@ namespace ESMS.Data.Model
                 entity.Property(e => e.NameSq)
                     .HasColumnName("Name_SQ")
                     .HasMaxLength(128);
+            });
+
+            modelBuilder.Entity<States>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.ContryId).HasColumnName("contryID");
+
+                entity.Property(e => e.Name)
+                    .HasColumnName("name")
+                    .HasMaxLength(256);
             });
 
             modelBuilder.Entity<SubMenu>(entity =>

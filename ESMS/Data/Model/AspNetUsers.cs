@@ -44,6 +44,7 @@ namespace ESMS.Data.Model
         public string JobTitle { get; set; }
         public int? PostCode { get; set; }
         public string IbanCode { get; set; }
+        public string PersonalNumber { get; set; }
 
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
