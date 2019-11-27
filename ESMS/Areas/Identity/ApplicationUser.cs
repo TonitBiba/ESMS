@@ -48,5 +48,7 @@ namespace ESMS.Areas.Identity
         [MaxLength(12)]
         public string PersonalNumber { get; set; }
 
+        [Required]
+        public float salary { get; set; }
     }
 }

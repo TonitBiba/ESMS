@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -12,7 +13,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ESMS.Pages.Shared
 {
@@ -21,12 +21,7 @@ namespace ESMS.Pages.Shared
     {
         protected ESMSContext dbContext=null;
 
-        protected IConfiguration configuration { get; set; }
-
-        public BaseModel(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
+        public IConfiguration configuration { get; set; }
 
         public BaseModel()
         {
@@ -74,23 +69,19 @@ namespace ESMS.Pages.Shared
 
         protected string SaveFiles(IFormFile file, FType fileType)
         {
-            string fullPath = "";
+            string path = "";
             if(fileType == FType.ContractFile)
-            {
-                fullPath = @"Contract\" + Guid.NewGuid().ToString() + file.FileName;
-            }
+                path = configuration.GetSection("AppSettings").GetSection("ContractFiles").Value;
             else
-            {
-                fullPath = configuration.GetSection("AppSettings").GetSection("GeneralFiles").Value + "/"+ Guid.NewGuid().ToString() + file.ContentType;
-            }
-            byte[] fileByte = new byte[file.Length];
-            file.OpenReadStream().Read(fileByte);
-            FileStream fs = new FileStream(fullPath, FileMode.Create);
-            fs.Write(fileByte);
+                path = configuration.GetSection("AppSettings").GetSection("GeneralFiles").Value;
+            path += Guid.NewGuid().ToString() + " - " + file.FileName+".zip";
+            FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
+            using (var stream = file.OpenReadStream())
+            using (var zsp = new GZipStream(fs, CompressionMode.Compress))
+                stream.CopyTo(zsp);
             fs.Close();
-            return fullPath;
+            return path;
         }
-
 
         protected enum FType
         {

@@ -844,6 +844,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Paga.
+        /// </summary>
+        public static string paga {
+            get {
+                return ResourceManager.GetString("paga", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Page.
         /// </summary>
         public static string page {

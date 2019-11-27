@@ -61,6 +61,13 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                @Html.LabelFor(m => m.Input.salary)
+                                <input type="number" asp-for="Input.salary" min="0" class="form-control" />
+                                <span class="text-danger" asp-validation-for="Input.salary"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 @Html.LabelFor(m => m.Input.Contract)
                                 <input type="file" asp-for="Input.Contract" class="form-control" />
                                 <span class="text-danger" asp-validation-for="Input.Contract"></span>

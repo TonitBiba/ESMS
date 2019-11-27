@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -24,7 +25,6 @@ namespace ESMS.Pages.Employees
     [Authorize(Policy = "CreateEmployee")]
     public class CreateModel : BaseModel
     {
-        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<CreateModel> _logger;
         private readonly IEmailSender _emailSender;
@@ -33,10 +33,11 @@ namespace ESMS.Pages.Employees
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<CreateModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IConfiguration configuration)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
+            this.configuration = configuration;
             _logger = logger;
             _emailSender = emailSender;
         }
@@ -75,7 +76,8 @@ namespace ESMS.Pages.Employees
                         LockoutEnabled = true,
                         EmploymentDate = Input.EmploymentDate,
                         PostCode = Input.PostalCode,
-                        PhoneNumber = Input.PhoneNumber
+                        PhoneNumber = Input.PhoneNumber,
+                        salary = Input.salary
                     };
 
                     var result = await _userManager.CreateAsync(user, Input.PersonalNumber);
@@ -86,18 +88,6 @@ namespace ESMS.Pages.Employees
                     }
                     else
                     {
-                        string path = SaveFiles(Input.Contract, FType.ContractFile);
-                        dbContext.EmployeeDocuments.Add(new EmployeeDocuments
-                        {
-                            DtInserted = DateTime.Now,
-                            NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                            Employee = user.Id,
-                            Name = Input.Contract.FileName,
-                            Path = path,
-                            Type = 1
-                        });
-                        await dbContext.SaveChangesAsync();
-
                         await _userManager.AddToRoleAsync(user, "PUNETORE");
                         foreach (var claim in dbContext.AspNetRoleClaims.Where(R => R.Role.NormalizedName == "PUNETORE").ToList())
                         {
@@ -105,6 +95,36 @@ namespace ESMS.Pages.Employees
                         }
 
                         await _emailSender.SendEmailAsync("tonit.biba@hotmail.com", "Konfirmo llogarine", "Klikoni ne linkun e meposhtem per te konfirmuar llogarine tuaj!");
+
+
+                        var pathOfSavedFile = SaveFiles(Input.Contract, FType.ContractFile);
+                        string newUserId = user.Id;
+                        string creatorUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                        dbContext.EmployeeDocuments.Add(new EmployeeDocuments
+                        {
+                            DtInserted = DateTime.Now,
+                            NInsertedId = creatorUser,
+                            Employee = newUserId,
+                            Name = Input.Contract.FileName,
+                            Path = pathOfSavedFile,
+                            Type = (int)FType.ContractFile
+                        });
+                        await dbContext.SaveChangesAsync();
+
+                        if(Input.UserProfileImg != null)
+                        {
+                            var pathOfUserProfileImg = SaveFiles(Input.Contract, FType.GeneralFile);
+                            dbContext.EmployeeDocuments.Add(new EmployeeDocuments
+                            {
+                                DtInserted = DateTime.Now,
+                                NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                                Employee = user.Id,
+                                Name = Input.UserProfileImg.FileName,
+                                Path = pathOfUserProfileImg,
+                                Type = (int)FType.GeneralFile
+                            });
+                            await dbContext.SaveChangesAsync();
+                        }
                     }
                 }
             }
@@ -169,8 +189,8 @@ namespace ESMS.Pages.Employees
             public int PostalCode { get; set; }
 
             [Display(Name = "qyteti", ResourceType = typeof(Resource))]
-            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            public int City { get; set; }
+            //[Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            public int? City { get; set; }
 
             [Display(Name = "shteti", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
@@ -203,6 +223,9 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "fotoProfilit", ResourceType = typeof(Resource))]
             public IFormFile UserProfileImg { get; set; }
+
+            [Display(Name ="paga", ResourceType = typeof(Resource))]
+            public float salary { get; set; }
 
         }
     }

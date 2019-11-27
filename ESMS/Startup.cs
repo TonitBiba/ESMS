@@ -40,6 +40,8 @@ namespace ESMS
             );
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
+            services.AddSingleton<IConfiguration>(Configuration);
+
             ESMSContext eSMS = new ESMSContext();
             var listOfPolicies = eSMS.Policy.ToList();
             services.AddAuthorization(options =>
