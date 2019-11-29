@@ -45,12 +45,19 @@ namespace ESMS.Pages.Shared
             dbContext.SaveChanges();
         }
 
-
-        public static List<SelectListItem> GetGroups()
+        public static List<SelectListItem> GetGroups(int nCase)
         {
             using (ESMSContext dbContext = new ESMSContext())
             {
-                return dbContext.AspNetRoles.Select(R => new SelectListItem { Text = R.Name, Value = R.Id }).ToList();
+                switch (nCase)
+                {
+                    case 1:
+                        return dbContext.AspNetRoles.Select(R => new SelectListItem { Text = R.Name, Value = R.Id }).ToList();
+                    case 2:
+                        string[] userGroupd = new string[] { "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e", "dbc05ab9-f41f-493f-b3e6-689d14e88dda" };
+                        return dbContext.AspNetRoles.Where(R=> userGroupd.Contains(R.Id)).Select(R => new SelectListItem { Text = R.Name, Value = R.Id }).ToList();
+                }
+                return null;
             }
         }
 
@@ -65,6 +72,47 @@ namespace ESMS.Pages.Shared
             {
                 return dbContext.Contries.Select(R => new SelectListItem { Text = R.Name, Value = R.Id.ToString()}).ToList();
             }
+        }
+
+        public string getFormatReport(int format)
+        {
+            string strFormat = "";
+            switch (format)
+            {
+                case 1:
+                    strFormat = "PDF";
+                    break;
+                case 2:
+                    strFormat = "Excel";
+                    break;
+                case 3:
+                    strFormat = "Word";
+                    break;
+                case 4:
+                    strFormat = "PowerPoint";
+                    break;
+            }
+            return strFormat;
+        }
+
+        public string getExtension(int format)
+        {
+            string extension = "";
+            switch (format)
+            {
+                case 1:
+                    extension = ".pdf";
+                    break;
+                case 2:
+                    extension = ".xls";
+                    break;
+                case 3:
+                    extension = ".doc";
+                    break;
+                default:
+                    break;
+            }
+            return extension;
         }
 
         protected string SaveFiles(IFormFile file, FType fileType)

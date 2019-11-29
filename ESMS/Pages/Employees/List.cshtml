@@ -1,34 +1,88 @@
 ﻿@page
-@*
-@model IEnumerable<ESMS.Data.Model.AspNetUsers>
+@model ESMS.Pages.Employees.ListModel
+@using ESMS.Security
 @{
-    ViewData["Title"] = "Lista e punëtorëve";
+    ViewData["Title"] = Resource.listaPunetorve;
 }
+<div class="card">
+    <div class="card-body card-block">
+        <h4>@Resource.listaPunetorve</h4>
+        <hr />
+        <div class="btn-group float-right">
+            <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">Shkarko listen</button>
+            <div class="dropdown-menu">
+                <a href='List?handler=Users&f=1' target="_blank" class="dropdown-item btn btn-secondary"><i class="far fa-file-pdf"></i>&nbsp; PDF</a>
+                <a href='List?handler=Users&f=2' target="_blank" class="dropdown-item"><i class="far fa-file-excel"></i>&nbsp; Excel</a>
+                <a href='List?handler=Users&f=3' target="_blank" class="dropdown-item" ><i class="far fa-file-word"></i>&nbsp; Word</a>
+            </div>
+        </div>
+        <table id="tblListEmployees" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>@Resource.emri</th>
+                    <th>@Resource.mbiemri</th>
+                    <th>@Resource.gjinia</th>
+                    <th>@Resource.ditelindja</th>
+                    <th>@Resource.pozitaPunes</th>
+                    <th>@Resource.email</th>
+                    <th>@Resource.nrTel</th>
+                    <th>@Resource.employmentDate</th>
+                    <th>@Resource.paga</th>
+                    <th>@Resource.statusi</th>
+                    <th>@Resource.veprimet</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.employees)
+                {
+                    <tr>
+                        @Html.AntiForgeryToken()
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Gender</td>
+                        <td>@item.Birthdate.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Role</td>
+                        <td>@item.Email</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>@item.EmployementDate.ToString("dd/MM/yyyy")</td>
+                        <td>@String.Format("{0:C}", item.Salary).Substring(1)</td>
+                        <td>@item.statusEmployee</td>
+                        <td>
+                            <div class="btn-group w-100">
+                                <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.veprimet</button>
+                                <div class="dropdown-menu">
+                                    <button onclick="EditMenu('@Confidenciality.EncryptString(item.UserId)')" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; @Resource.ndrysho</button>
+                                    <button onclick="AddSubMenu('@Confidenciality.EncryptString(item.UserId)')" class="dropdown-item"><i class="fa fa-plus"></i>&nbsp; @Resource.regjistroNenMenu</button>
+                                    <div class="dropdown-divider"></div>
+                                    <button class="dropdown-item" onclick="DeleteMenu('@Confidenciality.EncryptString(item.UserId)')"><i class="far fa-trash-alt"></i>&nbsp; @Resource.fshije</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#tblListEmployees').DataTable({
+            responsive: true,
+            "language": {
+                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
+                "zeroRecords": "Nuk ka asnjë të dhënë",
+                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+                "infoEmpty": "Nuk ka asnjë të dhënë",
+                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
+                "search": "Kërko",
+                "paginate": {
+                    "previous": "Prapa",
+                    "first": "E para",
+                    "last": "E fundit",
+                    "next": "Para"
+                }
+            }
+        });
+    })
 
-<table id="listUsers" class="table table-striped table-bordered" style="width:100%">
-    <thead>
-        <tr>
-            <th>Emri</th>
-            <th>Mbiemri</th>
-            <th>Ikona</th> 
-            <th>Data insertimit</th>
-            <th>Veprimet</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-        <tr>
-            <td>@Html.DisplayFor(m => user.FirstName)</td>
-            <td>@Html.DisplayFor(m => user.LastName)</td>
-            <td>@Html.DisplayFor(m => user.Email)</td>
-            <td>@Html.DisplayFor(m => user.PhoneNumber)</td>
-            <td>@Html.DisplayFor(m => user.PostCode)</td>
-        </tr>
-        }
-    </tbody>
-</table>*@
-
-<form method="post">
-    <input type="submit" />
-</form>
+</script>

@@ -20,6 +20,7 @@
     <link href="~/Templeate/css/theme.css" rel="stylesheet" media="all">
     <script src="~/Templeate/vendor/jquery-3.2.1.min.js"></script>
     <link href="~/DataTable/datatables.min.css" rel="stylesheet" />
+    <link href="~/DataTable/Responsive-2.2.3/css/responsive.dataTables.min.css" rel="stylesheet" />
     <style>
         @@media all and (min-width: 991px) {
             .headerLength {
@@ -32,6 +33,7 @@
                 margin-top: 5px;
             }
     </style>
+    <link href="~/css/Loader.css" rel="stylesheet" />
 </head>
 <body class="">
     <aside class="menu-sidebar2">
@@ -190,6 +192,7 @@
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/DataTable/datatables.min.js"></script>
+    <script src="~/DataTable/Responsive-2.2.3/js/dataTables.responsive.min.js"></script>
     <script src="~/Templeate/js/main.js"></script>
     <script src="~/lib/SweetAlerts2/SweetAlert2.js"></script>
     @RenderSection("Scripts", required: false)
@@ -198,6 +201,18 @@
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content" id="modalBody">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modalloader">
+        <div class="modal-dialog-centered">
+            <div class="modal-body d-block m-auto">
+                <div class="loadingio-spinner-wedges-3svs9qaeaso d-block m-auto p-4">
+                    <div class="ldio-fzd07wmnr9j">
+                        <div> <div> <div> </div> </div> <div> <div> </div> </div> <div> <div> </div> </div> <div> <div> </div> </div> </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -233,6 +248,18 @@
                     break;
             }
         }
+
+        function Loading() {
+            $('#modalloader').modal('show')
+        }
+
+        function HideLoading() {
+            $('#modalloader').modal('hide')
+        }
+
+        $('form').submit(function () {
+            Loading()
+        })
     </script>
 </body>
 </html>

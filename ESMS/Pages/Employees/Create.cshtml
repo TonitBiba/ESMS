@@ -7,7 +7,7 @@
     ViewData["Title"] = "Regjistrimi i punetoreve";
 }
 <div class="card">
-    <form method="post" enctype="multipart/form-data" >
+    <form method="post" enctype="multipart/form-data">
         <div class="card-body card-block">
             <h4> Regjistrimi i punëtorëve</h4>
             <hr />
@@ -15,74 +15,74 @@
             <h4>Të dhënat e përgjithshme për punëtorin</h4>
             <hr />
             <div class="row">
-                <div class="col-md-8">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Input.FirstName)
-                                <input type="text" asp-for="Input.FirstName" class="form-control" />
-                                <span class="text-danger" asp-validation-for="Input.FirstName"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Input.LastName)
-                                <input type="text" asp-for="Input.LastName" class="form-control" />
-                                <span class="text-danger" asp-validation-for="Input.LastName"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Input.Gender)
-                                @Html.DropDownListFor(m => m.Input.Gender, BaseModel.GetGenders(), Resource.zgjedhe, new { @class = "form-control" })
-                                <span class="text-danger" asp-validation-for="Input.Gender"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Input.Position)
-                                @Html.DropDownListFor(m => m.Input.Gender, Model.lstPositions, Resource.zgjedhe, new { @class = "form-control" })
-                                <span class="text-danger" asp-validation-for="Input.Position"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Input.JobTitle)
-                                <input type="text" asp-for="Input.JobTitle" class="form-control" />
-                                <span class="text-danger" asp-validation-for="Input.JobTitle"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Input.PersonalNumber)
-                                <input type="text" asp-for="Input.PersonalNumber" class="form-control" />
-                                <span class="text-danger" asp-validation-for="Input.PersonalNumber"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Input.salary)
-                                <input type="number" asp-for="Input.salary" min="0" class="form-control" />
-                                <span class="text-danger" asp-validation-for="Input.salary"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Input.Contract)
-                                <input type="file" asp-for="Input.Contract" class="form-control" />
-                                <span class="text-danger" asp-validation-for="Input.Contract"></span>
-                            </div>
-                        </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.FirstName)
+                        <input type="text" asp-for="Input.FirstName" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.FirstName"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <label asp-for="Input.UserProfileImg" style="color:black"></label>
                     <div class="form-group">
-                        <img id="imagenFondo" src="~/Templeate/images/icon/avatar-04.jpg" class="d-block m-auto rounded-circle m-4">
+                        @Html.LabelFor(m => m.Input.LastName)
+                        <input type="text" asp-for="Input.LastName" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.LastName"></span>
                     </div>
+                </div>
+                <div class="col-md-4">
                     <div class="form-group">
-                        <button type="button" onclick="$('#UserProfileImg').trigger('click')" class="btn btn-secondary">Ngarko fotografine</button>
-                        <input type="file" id="UserProfileImg" name="UserProfileImg" class="form-control-file d-none" onchange="preview_2(this);" />
+                        @Html.LabelFor(m => m.Input.Gender)
+                        @Html.DropDownListFor(m => m.Input.Gender, BaseModel.GetGenders(), Resource.zgjedhe, new { @class = "form-control" })
+                        <span class="text-danger" asp-validation-for="Input.Gender"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.BirthDate)
+                        <input type="date" asp-for="Input.BirthDate" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.BirthDate"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.Position)
+                        @Html.DropDownListFor(m => m.Input.Position, BaseModel.GetGroups(2), Resource.zgjedhe, new { @class = "form-control" })
+                        <span class="text-danger" asp-validation-for="Input.Position"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.JobTitle)
+                        <input type="text" asp-for="Input.JobTitle" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.JobTitle"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.PersonalNumber)
+                        <input type="text" asp-for="Input.PersonalNumber" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.PersonalNumber"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.salary)
+                        <input type="number" asp-for="Input.salary" min="0" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.salary"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.Contract)
+                        <input type="file" asp-for="Input.Contract" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.Contract"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.UserProfileImg)
+                        <input type="file" asp-for="Input.UserProfileImg" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.UserProfileImg"></span>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.Contry)
-                        @Html.DropDownListFor(m=>m.Input.Contry, BaseModel.GetContries(), Resource.zgjedhe, new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.Input.Contry, BaseModel.GetContries(), Resource.zgjedhe, new { @class = "form-control" })
                         <span class="text-danger" asp-validation-for="Input.Contry"></span>
                     </div>
                 </div>
@@ -115,7 +115,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Input.Adress, new { @class="required" })
+                        @Html.LabelFor(m => m.Input.Adress, new { @class = "required" })
                         <input type="text" asp-for="Input.Adress" class="form-control" />
                         <span class="text-danger" asp-validation-for="Input.Adress"></span>
                     </div>
@@ -162,22 +162,31 @@
     </form>
 </div>
 
+@if (Model.error != null)
+{
+    <script>
+        $(document).ready(function (){
+            showAlert(@Model.error.nError, '@Model.error.ErrorDescription')
+        })
+    </script>
+}
+
 <script>
-        var outImage = "imagenFondo";
-    function preview_2(obj) {
-        if (FileReader) {
-            var reader = new FileReader();
-            reader.readAsDataURL(obj.files[0]);
-            reader.onload = function (e) {
-                var image = new Image();
-                image.src = e.target.result;
-                image.onload = function () {
-                    $("#UserProfileImg").append('')
-                    document.getElementById(outImage).src = image.src;
-                };
-            }
-        }
-        else {
-        }
-    }
+    $('#Input_Contry').change(function () {
+        try {
+            $.post("/Employees/Create?handler=Cities",
+                {
+                    countryId: $(this).val(),
+                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val()
+                }, function (response) {
+                   var citiesDropDownList = $('#Input_City');
+                    citiesDropDownList.empty()
+                    citiesDropDownList.append($('<option/>').val('').text('@Resource.zgjedhe'))
+                    $.each(response, function (index, element) {
+                        citiesDropDownList.append($('<option/>').val(element.value).text(element.text))
+                    })
+
+                })
+        } catch (e) {}
+    })
 </script>

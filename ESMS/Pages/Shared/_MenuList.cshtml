@@ -15,26 +15,33 @@
                            icon = M.VcIcon,
                            claim = SM.VcClaim
                        }).ToList().Where(lst => lst.claim.Any(C => claimsList.Contains(lst.claim)));
+    var path = this.Context.Request.Path.Value.Split('/');
+
 }
 
 <ul class="list-unstyled navbar__list">
-    @foreach (var menu in listOfMenus.Select(M => new { M.menu, M.icon }).Distinct())
+    <li class="@Html.Raw(path.Count()==2?"active":"")">
+        <a href="/">
+            <i class="fas fa-home"></i>@Resource.ballina
+        </a>
+    </li>
+    @foreach (var menu in listOfMenus.Select(M => new { M.menu, M.icon, M.controller }).Distinct())
     {
-        <li class="active has-sub">
-            <a class="js-arrow" href="#">
+        <li class="has-sub @Html.Raw(path.Count()==3?(path[1]==menu.controller?"active":""):"")">
+            <a class="js-arrow @Html.Raw(path.Count()==3?(path[1]==menu.controller?"open":""):"")" href="#">
                 <i class="@menu.icon"></i>@menu.menu
-                <span class="arrow">
+                <span class="arrow @Html.Raw(path.Count()==3?(path[1]==menu.controller?"up":""):"")">
                     <i class="fas fa-angle-down"></i>
                 </span>
             </a>
-            <ul class="list-unstyled navbar__sub-list js-sub-list">
+            <ul class="list-unstyled navbar__sub-list js-sub-list" style="@Html.Raw(path.Count()==3?(path[1]==menu.controller?"display:block":""):"")">
                 @foreach (var subMenu in listOfMenus.Where(M => M.menu == menu.menu))
                 {
                     @if (subMenu.claim != null)
                     {
                         @if (User.HasClaim(subMenu.claim, "1"))
                         {
-                            <li>
+                            <li class="@Html.Raw(path.Count()==3?(path[2]==subMenu.page?"active":""):"")">
                                 <a href="/@subMenu.controller/@subMenu.page">
                                     @subMenu.subMenu
                                 </a>

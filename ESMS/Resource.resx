@@ -144,6 +144,9 @@
   <data name="autentifikimiDyHapesh" xml:space="preserve">
     <value>Autentifikimi dy-hapësh (2FA)</value>
   </data>
+  <data name="ballina" xml:space="preserve">
+    <value>Ballina</value>
+  </data>
   <data name="claim" xml:space="preserve">
     <value>Claim</value>
   </data>
@@ -173,6 +176,9 @@
   </data>
   <data name="emailAdresaRe" xml:space="preserve">
     <value>Email adresa re</value>
+  </data>
+  <data name="employmentDate" xml:space="preserve">
+    <value>Data fillimit te punes</value>
   </data>
   <data name="emri" xml:space="preserve">
     <value>Emri</value>
@@ -302,6 +308,9 @@
   </data>
   <data name="kontrolloFormatinTelefonit" xml:space="preserve">
     <value>Kontrolloni formatin e telefonit</value>
+  </data>
+  <data name="listaPunetorve" xml:space="preserve">
+    <value>Lista e punëtorve të regjistruar</value>
   </data>
   <data name="login" xml:space="preserve">
     <value>Kyqu</value>
@@ -464,6 +473,9 @@
   </data>
   <data name="skanoQRKode" xml:space="preserve">
     <value>Skano QR kodin ose shtype këtë çelës</value>
+  </data>
+  <data name="statusi" xml:space="preserve">
+    <value>Statusi</value>
   </data>
   <data name="TOTPDeaktivizuar" xml:space="preserve">
     <value>2FA është deaktivizuar. You mund të vendosni përsëri 2FA pasi ta konfiguroni aplikacionin për autentifikim.</value>

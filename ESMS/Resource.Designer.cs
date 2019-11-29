@@ -142,6 +142,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ballina.
+        /// </summary>
+        public static string ballina {
+            get {
+                return ResourceManager.GetString("ballina", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Claim.
         /// </summary>
         public static string claim {
@@ -228,6 +237,15 @@ namespace ESMS {
         public static string emailAdresaRe {
             get {
                 return ResourceManager.GetString("emailAdresaRe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data fillimit te punes.
+        /// </summary>
+        public static string employmentDate {
+            get {
+                return ResourceManager.GetString("employmentDate", resourceCulture);
             }
         }
         
@@ -615,6 +633,15 @@ namespace ESMS {
         public static string kontrolloFormatinTelefonit {
             get {
                 return ResourceManager.GetString("kontrolloFormatinTelefonit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lista e punëtorve të regjistruar.
+        /// </summary>
+        public static string listaPunetorve {
+            get {
+                return ResourceManager.GetString("listaPunetorve", resourceCulture);
             }
         }
         
@@ -1101,6 +1128,15 @@ namespace ESMS {
         public static string skanoQRKode {
             get {
                 return ResourceManager.GetString("skanoQRKode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Statusi.
+        /// </summary>
+        public static string statusi {
+            get {
+                return ResourceManager.GetString("statusi", resourceCulture);
             }
         }
         

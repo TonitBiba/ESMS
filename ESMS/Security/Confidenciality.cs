@@ -46,6 +46,38 @@ namespace ESMS.Security
             }
         }
 
+        public static string EncryptString(string objectToBeEncrypted)
+        {
+            string iv = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["AesIV"];
+            string key = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["AesKey"];
+            aesCrypto = new AesCryptoServiceProvider();
+            aesCrypto.Mode = CipherMode.CBC;
+            aesCrypto.Padding = PaddingMode.PKCS7;
+            aesCrypto.IV = Convert.FromBase64String(iv);
+            aesCrypto.Key = Convert.FromBase64String(key);
+
+            try
+            {
+                ICryptoTransform cryptoTransform = aesCrypto.CreateEncryptor();
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, cryptoTransform, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter streamWriter = new StreamWriter(cryptoStream))
+                        {
+                            streamWriter.Write(objectToBeEncrypted);
+                        }
+                        return Convert.ToBase64String(memoryStream.ToArray());
+                    }
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public static T Decrypt<T>(string objectToBeDecrypted)
         {
             objectToBeDecrypted = objectToBeDecrypted.Replace(" ", "+");

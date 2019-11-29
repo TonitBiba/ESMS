@@ -40,7 +40,7 @@ namespace ESMS.Data.Model
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\sqlsrv;Database=ESMS;user id=superman; password = Esms2019.;MultipleActiveResultSets=true");
+                optionsBuilder.UseSqlServer("Server=.\\sqlsrv2019;Database=ESMS;user id=superman; password = Esms2019.;MultipleActiveResultSets=true");
             }
         }
 
@@ -48,9 +48,9 @@ namespace ESMS.Data.Model
         {
             modelBuilder.Entity<AspNetRoleClaims>(entity =>
             {
-                entity.HasIndex(e => e.RoleId);
-
-                entity.Property(e => e.RoleId).IsRequired();
+                entity.Property(e => e.RoleId)
+                    .IsRequired()
+                    .HasMaxLength(450);
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.AspNetRoleClaims)
@@ -59,11 +59,6 @@ namespace ESMS.Data.Model
 
             modelBuilder.Entity<AspNetRoles>(entity =>
             {
-                entity.HasIndex(e => e.NormalizedName)
-                    .HasName("RoleNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedName] IS NOT NULL)");
-
                 entity.Property(e => e.Name).HasMaxLength(256);
 
                 entity.Property(e => e.NormalizedName).HasMaxLength(256);
@@ -71,9 +66,9 @@ namespace ESMS.Data.Model
 
             modelBuilder.Entity<AspNetUserClaims>(entity =>
             {
-                entity.HasIndex(e => e.UserId);
-
-                entity.Property(e => e.UserId).IsRequired();
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserClaims)
@@ -84,13 +79,13 @@ namespace ESMS.Data.Model
             {
                 entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
 
-                entity.HasIndex(e => e.UserId);
-
                 entity.Property(e => e.LoginProvider).HasMaxLength(128);
 
                 entity.Property(e => e.ProviderKey).HasMaxLength(128);
 
-                entity.Property(e => e.UserId).IsRequired();
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasMaxLength(450);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserLogins)
@@ -100,8 +95,6 @@ namespace ESMS.Data.Model
             modelBuilder.Entity<AspNetUserRoles>(entity =>
             {
                 entity.HasKey(e => new { e.UserId, e.RoleId });
-
-                entity.HasIndex(e => e.RoleId);
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.AspNetUserRoles)
@@ -127,14 +120,6 @@ namespace ESMS.Data.Model
 
             modelBuilder.Entity<AspNetUsers>(entity =>
             {
-                entity.HasIndex(e => e.NormalizedEmail)
-                    .HasName("EmailIndex");
-
-                entity.HasIndex(e => e.NormalizedUserName)
-                    .HasName("UserNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedUserName] IS NOT NULL)");
-
                 entity.Property(e => e.BirthDate).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
                 entity.Property(e => e.Email).HasMaxLength(256);
@@ -169,6 +154,8 @@ namespace ESMS.Data.Model
                     .IsRequired()
                     .HasMaxLength(12)
                     .HasDefaultValueSql("(N'')");
+
+                entity.Property(e => e.Salary).HasColumnName("salary");
 
                 entity.Property(e => e.UserName).HasMaxLength(256);
             });
@@ -251,18 +238,6 @@ namespace ESMS.Data.Model
                     .HasMaxLength(450);
 
                 entity.Property(e => e.Name).HasMaxLength(128);
-
-                entity.Property(e => e.Path).HasMaxLength(128);
-
-                entity.HasOne(d => d.EmployeeNavigation)
-                    .WithMany(p => p.EmployeeDocuments)
-                    .HasForeignKey(d => d.Employee)
-                    .HasConstraintName("FK_EmployeeDocuments_AspNetUsers");
-
-                entity.HasOne(d => d.TypeNavigation)
-                    .WithMany(p => p.EmployeeDocuments)
-                    .HasForeignKey(d => d.Type)
-                    .HasConstraintName("FK_EmployeeDocuments_DocumentType");
             });
 
             modelBuilder.Entity<GroupMenu>(entity =>

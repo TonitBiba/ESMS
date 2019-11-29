@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -29,12 +30,7 @@ namespace ESMS.Pages.Employees
         private readonly ILogger<CreateModel> _logger;
         private readonly IEmailSender _emailSender;
 
-        public CreateModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            ILogger<CreateModel> logger,
-            IEmailSender emailSender,
-            IConfiguration configuration)
+        public CreateModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<CreateModel> logger, IEmailSender emailSender, IConfiguration configuration)
         {
             _userManager = userManager;
             this.configuration = configuration;
@@ -44,13 +40,11 @@ namespace ESMS.Pages.Employees
 
         public void OnGet()
         {
-            lstPositions = dbContext.Position.Select(t => new SelectListItem { Text = t.NameSq, Value = t.Id.ToString() }).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             error = new Error { };
-            lstPositions = dbContext.Position.Select(t => new SelectListItem { Text = t.Id.ToString(), Value = t.NameSq }).ToList();
             if (Input.Contract.Length / (1024 * 1024) <= 1)
             {
                 if (!dbContext.AspNetUsers.Any(U => U.Email == Input.EmailAdress))
@@ -72,7 +66,7 @@ namespace ESMS.Pages.Employees
                         PersonalNumber = Input.PersonalNumber,
                         EmployeeStatus = 1,
                         EmailConfirmed = false,
-                        AccessFailedCount = 3,
+                        AccessFailedCount = 0,
                         LockoutEnabled = true,
                         EmploymentDate = Input.EmploymentDate,
                         PostCode = Input.PostalCode,
@@ -83,35 +77,30 @@ namespace ESMS.Pages.Employees
                     var result = await _userManager.CreateAsync(user, Input.PersonalNumber);
 
                     if (!result.Succeeded)
-                    {
                         error = new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" };
-                    }
                     else
                     {
-                        await _userManager.AddToRoleAsync(user, "PUNETORE");
-                        foreach (var claim in dbContext.AspNetRoleClaims.Where(R => R.Role.NormalizedName == "PUNETORE").ToList())
-                        {
+                        string role = dbContext.AspNetRoles.Where(R => R.Id == Input.Position).FirstOrDefault().Name;
+                        await _userManager.AddToRoleAsync(user, role);
+                        foreach (var claim in dbContext.AspNetRoleClaims.Where(R => R.Role.Id == Input.Position).ToList())
                             await _userManager.AddClaimAsync(user, new Claim(claim.ClaimType, claim.ClaimValue));
-                        }
 
                         await _emailSender.SendEmailAsync("tonit.biba@hotmail.com", "Konfirmo llogarine", "Klikoni ne linkun e meposhtem per te konfirmuar llogarine tuaj!");
 
 
                         var pathOfSavedFile = SaveFiles(Input.Contract, FType.ContractFile);
-                        string newUserId = user.Id;
-                        string creatorUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
                         dbContext.EmployeeDocuments.Add(new EmployeeDocuments
                         {
                             DtInserted = DateTime.Now,
-                            NInsertedId = creatorUser,
-                            Employee = newUserId,
+                            NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                            Employee = user.Id,
                             Name = Input.Contract.FileName,
                             Path = pathOfSavedFile,
                             Type = (int)FType.ContractFile
                         });
                         await dbContext.SaveChangesAsync();
 
-                        if(Input.UserProfileImg != null)
+                        if (Input.UserProfileImg != null)
                         {
                             var pathOfUserProfileImg = SaveFiles(Input.Contract, FType.GeneralFile);
                             dbContext.EmployeeDocuments.Add(new EmployeeDocuments
@@ -125,19 +114,24 @@ namespace ESMS.Pages.Employees
                             });
                             await dbContext.SaveChangesAsync();
                         }
+                        return RedirectToPage("List");
                     }
                 }
+                else
+                    error = new Error { nError = 4, ErrorDescription = "Egziston perdorues me kete email adress." };
             }
             else
             {
                 error = new Error { nError = 4, ErrorDescription = "Keni tejkaluar madhesine e fajllit." };
             }
-
             return Page();
         }
 
-        public List<SelectListItem> lstPositions { get; set; }
-
+        public async Task<JsonResult> OnPostCities(int countryId)
+        {
+            var listOCities = dbContext.Cities.Where(C => C.ContryId == countryId).Select(C => new SelectListItem { Value = C.Id.ToString(), Text = C.Name }).ToList();
+            return new JsonResult(listOCities);
+        }
 
         public Error error { get; set; }
 
@@ -180,7 +174,6 @@ namespace ESMS.Pages.Employees
             public string Adress { get; set; }
 
             [Display(Name = "adresaOpsionale", ResourceType = typeof(Resource))]
-            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public string AdressOpsional { get; set; }
 
             [Display(Name = "kodiPostal", ResourceType = typeof(Resource))]
@@ -202,6 +195,7 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "ditelindja", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            
             public DateTime BirthDate { get; set; }
 
             [Display(Name = "ibanKode", ResourceType = typeof(Resource))]
@@ -211,7 +205,7 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "pozitaPunes", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            public int Position { get; set; }
+            public string Position { get; set; }
 
             [Display(Name = "kontrataPunes", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
@@ -225,6 +219,7 @@ namespace ESMS.Pages.Employees
             public IFormFile UserProfileImg { get; set; }
 
             [Display(Name ="paga", ResourceType = typeof(Resource))]
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public float salary { get; set; }
 
         }

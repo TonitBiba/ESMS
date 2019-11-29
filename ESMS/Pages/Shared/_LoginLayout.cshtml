@@ -22,6 +22,7 @@
     <link href="~/Templeate/vendor/select2/select2.min.css" rel="stylesheet" />
     <link href="~/Templeate/vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" />
     <link href="~/Templeate/css/theme.css" rel="stylesheet" />
+    <link href="~/css/Loader.css" rel="stylesheet" />
 </head>
 <body>
     <div class="page-wrapper">
@@ -40,7 +41,17 @@
             </div>
         </div>
     </div>
-
+    <div class="modal" id="loginLoader">
+        <div class="modal-dialog-centered">
+            <div class="modal-body d-block m-auto">
+                <div class="loadingio-spinner-wedges-3svs9qaeaso d-block m-auto p-4">
+                    <div class="ldio-fzd07wmnr9j">
+                        <div> <div> <div> </div> </div> <div> <div> </div> </div> <div> <div> </div> </div> <div> <div> </div> </div> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="~/Templeate/vendor/jquery-3.2.1.min.js"></script>
     <script src="~/Templeate/vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="~/Templeate/vendor/bootstrap-4.1/bootstrap.min.js"></script>
@@ -55,6 +66,15 @@
     <script src="~/Templeate/vendor/chartjs/Chart.bundle.min.js"></script>
     <script src="~/Templeate/vendor/select2/select2.min.js"></script>
     <script src="~/Templeate/js/main.js"></script>
+    <script>
+        function Loading() {
+            $('#loginLoader').modal('show')
+        }
+
+        function HideLoading() {
+            $('#loginLoader').modal('hide')
+        }
+    </script>
 </body>
 </html>
 @section Scripts {

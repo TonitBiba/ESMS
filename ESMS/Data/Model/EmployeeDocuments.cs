@@ -14,8 +14,5 @@ namespace ESMS.Data.Model
         public DateTime DtInserted { get; set; }
         public string NModifyId { get; set; }
         public DateTime? DtModify { get; set; }
-
-        public virtual AspNetUsers EmployeeNavigation { get; set; }
-        public virtual DocumentType TypeNavigation { get; set; }
     }
 }
