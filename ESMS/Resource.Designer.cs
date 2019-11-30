@@ -79,6 +79,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aktivitetet e fundit në sistem.
+        /// </summary>
+        public static string aktivitetNeSistem {
+            get {
+                return ResourceManager.GetString("aktivitetNeSistem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dhe.
         /// </summary>
         public static string and {
@@ -255,6 +264,15 @@ namespace ESMS {
         public static string emri {
             get {
                 return ResourceManager.GetString("emri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Emri kompjuterit.
+        /// </summary>
+        public static string emriKompjuterit {
+            get {
+                return ResourceManager.GetString("emriKompjuterit", resourceCulture);
             }
         }
         

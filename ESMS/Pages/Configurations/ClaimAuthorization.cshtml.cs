@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ESMS.Data.Model;
 using ESMS.Pages.Shared;
+using ESMS.Security;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

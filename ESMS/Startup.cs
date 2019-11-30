@@ -1,6 +1,8 @@
 using ESMS.Areas.Identity;
 using ESMS.Data;
 using ESMS.Data.Model;
+using ESMS.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -40,17 +42,19 @@ namespace ESMS
             );
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
-            services.AddSingleton<IConfiguration>(Configuration);
+            //services.AddSingleton<IConfiguration>(Configuration);
 
-            ESMSContext eSMS = new ESMSContext();
-            var listOfPolicies = eSMS.Policy.ToList();
-            services.AddAuthorization(options =>
-            {
-                foreach (var P in listOfPolicies)
-                {
-                    options.AddPolicy(P.VcPolicyName, policy => policy.RequireClaim(P.VcClaimType, P.VcClaimValue));
-                };
-            });
+            services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
+
+            //ESMSContext eSMS = new ESMSContext();
+            //var listOfPolicies = eSMS.Policy.ToList();
+            //services.AddAuthorization(options =>
+            //{
+            //    foreach (var P in listOfPolicies)
+            //    {
+            //        options.AddPolicy(P.VcPolicyName, policy => policy.RequireClaim(P.VcClaimType, P.VcClaimValue));
+            //    };
+            //});
 
 
             //Password policy

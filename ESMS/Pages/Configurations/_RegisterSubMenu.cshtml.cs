@@ -27,6 +27,11 @@ namespace ESMS.Pages.Configurations
         {
             try
             {
+                if(dbContext.SubMenu.Any(S=>S.VcClaim == Input.Claim))
+                {
+                    TempData.Set("error", new Error { nError = 4, ErrorDescription = "Claim vlera egziston ne sistem." });
+                    return RedirectToPage("Menu");
+                }
                 int menuId = Confidenciality.Decrypt<int>(Input.MEnc);
                 dbContext.SubMenu.Add(new SubMenu
                 {
@@ -36,7 +41,8 @@ namespace ESMS.Pages.Configurations
                     VcController = Input.Controller,
                     VcPage = Input.Page,
                     VcSubMenuSq = Input.SubMenu_Sq,
-                    VcSubMenuEn = Input.SubMenu_En
+                    VcSubMenuEn = Input.SubMenu_En,
+                    VcClaim = Input.Claim
                 });
                 await dbContext.SaveChangesAsync();
                 TempData.Set("error", new Error { nError = 1, ErrorDescription = "Te dhenat jane ruajtur me sukses!" });
@@ -90,6 +96,10 @@ namespace ESMS.Pages.Configurations
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             [Display(Name = "page", ResourceType = typeof(Resource))]
             public string Page { get; set; }
+
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [Display(Name = "claim", ResourceType = typeof(Resource))]
+            public string Claim { get; set; }
         }
     }
 }

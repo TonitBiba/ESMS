@@ -15,12 +15,12 @@
         @Html.HiddenFor(m => m.Input.MEnc)
         <div class="row">
             <div class="col-md-4">
-                @Html.LabelFor(m=>m.Input.MenuName)
+                @Html.LabelFor(m => m.Input.MenuName)
                 <input asp-for="Input.MenuName" disabled class="form-control" />
                 <span asp-validation-for="Input.MenuName" class="text-danger"></span>
             </div>
             <div class="col-md-4">
-                @Html.LabelFor(m=>m.Input.SubMenu_Sq)
+                @Html.LabelFor(m => m.Input.SubMenu_Sq)
                 <input asp-for="Input.SubMenu_Sq" class="form-control" />
                 <span asp-validation-for="Input.SubMenu_Sq" class="text-danger"></span>
             </div>
@@ -38,6 +38,11 @@
                 @Html.LabelFor(m => m.Input.Page)
                 <input asp-for="Input.Page" class="form-control" />
                 <span asp-validation-for="Input.Page" class="text-danger"></span>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(m => m.Input.Claim)
+                <input asp-for="Input.Claim" class="form-control" />
+                <span asp-validation-for="Input.Claim" class="text-danger"></span>
             </div>
         </div>
     </form>

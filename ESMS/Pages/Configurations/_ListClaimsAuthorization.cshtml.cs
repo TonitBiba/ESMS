@@ -16,7 +16,16 @@ namespace ESMS.Pages.Configurations
 {
     public class _ListClaimsAuthorizationModel : BaseModel
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
+       public _ListClaimsAuthorizationModel
+            (SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager)
+       {
+           _userManager = userManager;
+           _signInManager = signInManager;
+       }
 
         public void OnGet(string groupId)
         {
@@ -61,10 +70,13 @@ namespace ESMS.Pages.Configurations
                             ClaimValue = policy.VcClaimValue
                         });
                     }
-
-                    await dbContext.SaveChangesAsync();
                 }
-            }catch(Exception ex)
+                await dbContext.SaveChangesAsync();
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+                await _signInManager.RefreshSignInAsync(user);
+                //await _signInManager.SignInAsync(user, true);
+            }
+            catch(Exception ex)
             {
                 error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
             }

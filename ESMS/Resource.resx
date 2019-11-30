@@ -123,6 +123,9 @@
   <data name="adresaOpsionale" xml:space="preserve">
     <value>Adresa 2(opsionale)</value>
   </data>
+  <data name="aktivitetNeSistem" xml:space="preserve">
+    <value>Aktivitetet e fundit në sistem</value>
+  </data>
   <data name="and" xml:space="preserve">
     <value>dhe</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="emri" xml:space="preserve">
     <value>Emri</value>
+  </data>
+  <data name="emriKompjuterit" xml:space="preserve">
+    <value>Emri kompjuterit</value>
   </data>
   <data name="emriMenus" xml:space="preserve">
     <value>Emri menus</value>

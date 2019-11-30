@@ -25,6 +25,11 @@
             <i class="fas fa-home"></i>@Resource.ballina
         </a>
     </li>
+    <li class="@Html.Raw(path.Count()>3?(path[1]=="Identity"?"active":""):"")">
+        <a href="/Identity/Account/Manage">
+            <i class="fas fa-user"></i> Profili
+        </a>
+    </li>
     @foreach (var menu in listOfMenus.Select(M => new { M.menu, M.icon, M.controller }).Distinct())
     {
         <li class="has-sub @Html.Raw(path.Count()==3?(path[1]==menu.controller?"active":""):"")">

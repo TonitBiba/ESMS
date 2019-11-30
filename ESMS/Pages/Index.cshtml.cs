@@ -22,7 +22,24 @@ namespace ESMS.Pages
 
         public void OnGet()
         {
-            var us = User;
+            listLogs = dbContext.Logs.Select(L => new Logs 
+            { 
+                dtInserted = (DateTime)L.DtInserted,  
+                HostName = L.Hostname,
+                IpAdress = L.IpAdress,
+                status = (int)L.StatusCode,
+                Url = L.Url
+            }).OrderByDescending(L=>L.dtInserted).Take(100).ToList();
+        }
+
+        public List<Logs> listLogs { get; set; }
+        public class Logs
+        {
+            public string IpAdress { get; set; }
+            public string HostName { get; set; }
+            public string Url { get; set; }
+            public DateTime dtInserted { get; set; }
+            public int status { get; set; }
         }
     }
 }
