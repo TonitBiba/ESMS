@@ -5,9 +5,11 @@ using System.IO.Compression;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ESMS.Areas.Identity;
 using ESMS.Data.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -19,17 +21,23 @@ namespace ESMS.Pages.Shared
     [Authorize]
     public class BaseModel : PageModel
     {
+        protected SignInManager<ApplicationUser> signInManager;
+        protected UserManager<ApplicationUser> userManager;
+
         protected ESMSContext dbContext=null;
 
         public IConfiguration configuration { get; set; }
 
-        public BaseModel()
+        public BaseModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
+            this.signInManager = signInManager;
+            this.userManager = userManager;
             dbContext = new ESMSContext();
         }
 
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
+            signInManager.RefreshSignInAsync(userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)).Result).ConfigureAwait(false);
             dbContext.Logs.Add(new Logs
             {
               DtInserted = DateTime.Now,
@@ -40,7 +48,6 @@ namespace ESMS.Pages.Shared
               StatusCode = context.HttpContext.Response.StatusCode,
               Url = context.ActionDescriptor.RelativePath,
               UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
-
             });
             dbContext.SaveChanges();
         }

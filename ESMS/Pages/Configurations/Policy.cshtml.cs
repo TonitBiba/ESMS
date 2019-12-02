@@ -1,7 +1,9 @@
-﻿using ESMS.Data.Model;
+﻿using ESMS.Areas.Identity;
+using ESMS.Data.Model;
 using ESMS.General_Classes;
 using ESMS.Pages.Shared;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -16,6 +18,8 @@ namespace ESMS.Pages.Configurations
     [Authorize(Policy = "ReadPolicy")]
     public class PolicyModel : BaseModel
     {
+        public PolicyModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) :base(signInManager, userManager) { }
+
         public void OnGet()
         {
             policies = dbContext.Policy.ToList();

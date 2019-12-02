@@ -1,7 +1,9 @@
-﻿using ESMS.Data.Model;
+﻿using ESMS.Areas.Identity;
+using ESMS.Data.Model;
 using ESMS.General_Classes;
 using ESMS.Pages.Shared;
 using ESMS.Security;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -13,6 +15,8 @@ namespace ESMS.Pages.Configurations
 {
     public class _RegisterSubMenuModel : BaseModel
     {
+        public _RegisterSubMenuModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) : base(signInManager, userManager) { }
+
         public void OnGet(string MEncId)
         {
             int menuId = Confidenciality.Decrypt<int>(MEncId);

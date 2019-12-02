@@ -1,0 +1,56 @@
+﻿@using ESMS.Data.Model
+@using System.Security.Claims
+@{
+    Layout = null;
+    ESMSContext eSMS = new ESMSContext();
+    var roleId = eSMS.AspNetRoles.Where(R => R.Name == User.FindFirstValue(ClaimTypes.Role)).Select(R => R.Id).FirstOrDefault();
+    Random random = new Random();
+    var listOfNotifications = eSMS.Notifications.Where(N => N.VcUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(S => new
+    {
+        S.Title,
+        S.VcText,
+        S.VcIcon,
+        S.DtInserted
+    }).OrderByDescending(s => s.DtInserted).Take(5).ToList();
+}
+
+
+<div class="header-button-item @Html.Raw(listOfNotifications.Count()>0?"has-noti":"")  js-item-menu">
+    <i class="zmdi zmdi-notifications"></i>
+    <div class="notifi-dropdown js-dropdown">
+        <div class="notifi__title">
+            <p>Njoftimet e fundit në sistem</p>
+        </div>
+        <div id="bodyNotifications">
+            @foreach (var notification in listOfNotifications)
+            {
+                <div class="notifi__item">
+                    <div class="@Html.Raw("bg-c"+random.Next(1, 3)) bg-c1 img-cir img-40">
+                        <i class="@notification.VcIcon"></i>
+                    </div>
+                    <div class="content">
+                        <p>@notification.VcText</p>
+                        <span class="date">@notification.DtInserted.ToString("HH:mm:ss dd/MM/yyyy")</span>
+                    </div>
+                </div>
+            }
+        </div>
+        @*<div class="notifi__footer">
+            <a href="#">Shiko të gjitha njoftimet</a>
+        </div>*@
+    </div>
+</div>
+
+<script src="~/lib/SignalR/dist/browser/signalr.js"></script>
+<script type="text/javascript">
+    var connection = new signalR.HubConnectionBuilder().withUrl('/notificationHub').build();
+    connection.on("@roleId", function (text, title, type, url) {
+        toastr[type](text, title)
+        if (url != "") {
+            toastr.options.onclick = function () {
+                window.location.href = url
+            }
+        }
+    })
+    connection.start();
+</script>

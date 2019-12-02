@@ -29,6 +29,7 @@ namespace ESMS.Data.Model
         public virtual DbSet<GroupMenu> GroupMenu { get; set; }
         public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
+        public virtual DbSet<Notifications> Notifications { get; set; }
         public virtual DbSet<Policy> Policy { get; set; }
         public virtual DbSet<Position> Position { get; set; }
         public virtual DbSet<States> States { get; set; }
@@ -226,7 +227,9 @@ namespace ESMS.Data.Model
                     .HasColumnName("dtModify")
                     .HasColumnType("datetime");
 
-                entity.Property(e => e.Employee).HasMaxLength(450);
+                entity.Property(e => e.Employee)
+                    .IsRequired()
+                    .HasMaxLength(450);
 
                 entity.Property(e => e.NInsertedId)
                     .IsRequired()
@@ -237,7 +240,23 @@ namespace ESMS.Data.Model
                     .HasColumnName("nModifyID")
                     .HasMaxLength(450);
 
-                entity.Property(e => e.Name).HasMaxLength(128);
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(128);
+
+                entity.Property(e => e.Path).IsRequired();
+
+                entity.HasOne(d => d.EmployeeNavigation)
+                    .WithMany(p => p.EmployeeDocuments)
+                    .HasForeignKey(d => d.Employee)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EmployeeDocuments_AspNetUsers");
+
+                entity.HasOne(d => d.TypeNavigation)
+                    .WithMany(p => p.EmployeeDocuments)
+                    .HasForeignKey(d => d.Type)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_EmployeeDocuments_DocumentType");
             });
 
             modelBuilder.Entity<GroupMenu>(entity =>
@@ -356,6 +375,53 @@ namespace ESMS.Data.Model
                     .HasForeignKey(d => d.NInsertedId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Menu_AspNetUsers");
+            });
+
+            modelBuilder.Entity<Notifications>(entity =>
+            {
+                entity.HasKey(e => e.NNotificationId);
+
+                entity.Property(e => e.NNotificationId).HasColumnName("nNotificationId");
+
+                entity.Property(e => e.DtInserted)
+                    .HasColumnName("dtInserted")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasColumnName("title")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.VcIcon)
+                    .IsRequired()
+                    .HasColumnName("vcIcon")
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.VcInsertedUser)
+                    .IsRequired()
+                    .HasColumnName("vcInsertedUser")
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.VcText)
+                    .IsRequired()
+                    .HasColumnName("vcText");
+
+                entity.Property(e => e.VcUser)
+                    .IsRequired()
+                    .HasColumnName("vcUser")
+                    .HasMaxLength(450);
+
+                entity.HasOne(d => d.VcInsertedUserNavigation)
+                    .WithMany(p => p.NotificationsVcInsertedUserNavigation)
+                    .HasForeignKey(d => d.VcInsertedUser)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Notifications_AspNetUsers1");
+
+                entity.HasOne(d => d.VcUserNavigation)
+                    .WithMany(p => p.NotificationsVcUserNavigation)
+                    .HasForeignKey(d => d.VcUser)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Notifications_AspNetUsers");
             });
 
             modelBuilder.Entity<Policy>(entity =>

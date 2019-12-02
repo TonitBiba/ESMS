@@ -1,6 +1,8 @@
-﻿using ESMS.General_Classes;
+﻿using ESMS.Areas.Identity;
+using ESMS.General_Classes;
 using ESMS.Pages.Shared;
 using ESMS.Security;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -11,6 +13,8 @@ namespace ESMS.Pages.Configurations
 {
     public class _SubMenuEditModel : BaseModel
     {
+        public _SubMenuEditModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) : base(signInManager, userManager) { }
+
         public void OnGet(string SMEnc)
         {
             int subMenuId = Confidenciality.Decrypt<int>(SMEnc);

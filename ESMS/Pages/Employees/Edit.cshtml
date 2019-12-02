@@ -1,0 +1,161 @@
+﻿@page
+@using ESMS.Pages.Shared
+@model ESMS.Pages.Employees.EditModel
+@{
+    ViewData["Title"] = "Ndryshimi i te dhenave";
+}
+<div class="card">
+    <form method="post" enctype="multipart/form-data">
+        <div class="card-body card-block">
+            <h4> Regjistrimi i punëtorëve</h4>
+            <hr />
+            <br />
+            <h4>Të dhënat e përgjithshme për punëtorin</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.FirstName)
+                        <input type="text" asp-for="Input.FirstName" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.FirstName"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.LastName)
+                        <input type="text" asp-for="Input.LastName" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.LastName"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.Gender)
+                        @Html.DropDownListFor(m => m.Input.Gender, BaseModel.GetGenders(), Resource.zgjedhe, new { @class = "form-control" })
+                        <span class="text-danger" asp-validation-for="Input.Gender"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.BirthDate)
+                        <input type="date" asp-for="Input.BirthDate" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.BirthDate"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.Position)
+                        @Html.DropDownListFor(m => m.Input.Position, BaseModel.GetGroups(2), Resource.zgjedhe, new { @class = "form-control" })
+                        <span class="text-danger" asp-validation-for="Input.Position"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.JobTitle)
+                        <input type="text" asp-for="Input.JobTitle" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.JobTitle"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.PersonalNumber)
+                        <input type="text" asp-for="Input.PersonalNumber" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.PersonalNumber"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.salary)
+                        <input type="number" asp-for="Input.salary" min="0" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.salary"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.Contract)
+                        <input type="file" asp-for="Input.Contract" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.Contract"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.UserProfileImg)
+                        <input type="file" asp-for="Input.UserProfileImg" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.UserProfileImg"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <h4>Adresa dhe kontakti</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.Contry)
+                        @Html.DropDownListFor(m => m.Input.Contry, BaseModel.GetContries(), Resource.zgjedhe, new { @class = "form-control" })
+                        <span class="text-danger" asp-validation-for="Input.Contry"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.City)
+                        @Html.DropDownListFor(m => m.Input.City, new List<SelectListItem>(), Resource.zgjedhe, new { @class = "form-control" })
+                        <span class="text-danger" asp-validation-for="Input.City"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.PostalCode)
+                        <input asp-for="Input.PostalCode" type="number" min="1" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.PostalCode"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.Adress, new { @class = "required" })
+                        <input type="text" asp-for="Input.Adress" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.Adress"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.AdressOpsional)
+                        <input asp-for="Input.AdressOpsional" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.AdressOpsional"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.PhoneNumber)
+                        <input asp-for="Input.PhoneNumber" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.PhoneNumber"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.EmailAdress)
+                        <input asp-for="Input.EmailAdress" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.EmailAdress"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <h4>Pagesat</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.IBANCode)
+                        <input type="text" asp-for="Input.IBANCode" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.IBANCode"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" class="btn btn-primary float-right m-3" value="Regjistro" />
+    </form>
+</div>

@@ -26,15 +26,10 @@ namespace ESMS.Pages.Employees
     [Authorize(Policy = "CreateEmployee")]
     public class CreateModel : BaseModel
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ILogger<CreateModel> _logger;
         private readonly IEmailSender _emailSender;
 
-        public CreateModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<CreateModel> logger, IEmailSender emailSender, IConfiguration configuration)
+        public CreateModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<CreateModel> logger, IEmailSender emailSender, IConfiguration configuration):base(signInManager, userManager)
         {
-            _userManager = userManager;
-            this.configuration = configuration;
-            _logger = logger;
             _emailSender = emailSender;
         }
 
@@ -74,16 +69,16 @@ namespace ESMS.Pages.Employees
                         salary = Input.salary
                     };
 
-                    var result = await _userManager.CreateAsync(user, Input.PersonalNumber);
+                    var result = await userManager.CreateAsync(user, Input.PersonalNumber);
 
                     if (!result.Succeeded)
                         error = new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" };
                     else
                     {
                         string role = dbContext.AspNetRoles.Where(R => R.Id == Input.Position).FirstOrDefault().Name;
-                        await _userManager.AddToRoleAsync(user, role);
+                        await userManager.AddToRoleAsync(user, role);
                         foreach (var claim in dbContext.AspNetRoleClaims.Where(R => R.Role.Id == Input.Position).ToList())
-                            await _userManager.AddClaimAsync(user, new Claim(claim.ClaimType, claim.ClaimValue));
+                            await userManager.AddClaimAsync(user, new Claim(claim.ClaimType, claim.ClaimValue));
 
                         await _emailSender.SendEmailAsync("tonit.biba@hotmail.com", "Konfirmo llogarine", "Klikoni ne linkun e meposhtem per te konfirmuar llogarine tuaj!");
 

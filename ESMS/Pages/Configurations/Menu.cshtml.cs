@@ -1,8 +1,10 @@
-﻿using ESMS.Data.Model;
+﻿using ESMS.Areas.Identity;
+using ESMS.Data.Model;
 using ESMS.General_Classes;
 using ESMS.Pages.Shared;
 using ESMS.Security;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -17,6 +19,7 @@ namespace ESMS.Pages.Configurations
     [Authorize(Policy = "ReadMenu")]
     public class MenuModel : BaseModel
     {
+        public MenuModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager):base(signInManager, userManager) { }
 
         public void OnGet()
         {
@@ -29,7 +32,13 @@ namespace ESMS.Pages.Configurations
         {
             try
             {
-                dbContext.Menu.Add(new Menu { VcMenNameSq = Input.MenuName_Sq, VcMenuNameEn = Input.MenuName_En, VcIcon = Input.Icon, DtInserted = DateTime.Now, NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier) });
+                dbContext.Menu.Add(new Menu 
+                { 
+                    VcMenNameSq = Input.MenuName_Sq, 
+                    VcMenuNameEn = Input.MenuName_En, 
+                    VcIcon = Input.Icon, 
+                    DtInserted = DateTime.Now, 
+                    NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier) });
                 await dbContext.SaveChangesAsync();
                 error = new Error { nError = 1, errorDescription = "Te dhenat jane regjistruar me sukses!" };
             }

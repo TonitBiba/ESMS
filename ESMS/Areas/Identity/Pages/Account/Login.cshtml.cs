@@ -48,7 +48,6 @@ namespace ESMS.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [EmailAddress]
             [Display(Name = "emailAdresa", ResourceType = typeof(Resource))]
             public string Email { get; set; }
 
@@ -84,9 +83,15 @@ namespace ESMS.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                string username = Input.Email;
+                if (Input.Email.Contains("@"))
+                {
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    username = user.UserName;
+                }
                 try
                 {
-                    var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                    var result = await _signInManager.PasswordSignInAsync(username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
