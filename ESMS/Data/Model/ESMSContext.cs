@@ -564,7 +564,9 @@ namespace ESMS.Data.Model
 
             modelBuilder.Entity<UserPosition>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => e.NUserPositionId);
+
+                entity.Property(e => e.NUserPositionId).HasColumnName("nUserPositionID");
 
                 entity.Property(e => e.DtInserted)
                     .HasColumnName("dtInserted")
@@ -586,6 +588,18 @@ namespace ESMS.Data.Model
                 entity.Property(e => e.UserId)
                     .IsRequired()
                     .HasMaxLength(450);
+
+                entity.HasOne(d => d.Position)
+                    .WithMany(p => p.UserPosition)
+                    .HasForeignKey(d => d.PositionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserPosition_Policy");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserPosition)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_UserPosition_AspNetUsers");
             });
 
             OnModelCreatingPartial(modelBuilder);

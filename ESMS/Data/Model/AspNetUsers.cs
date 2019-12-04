@@ -16,6 +16,7 @@ namespace ESMS.Data.Model
             NotificationsVcInsertedUserNavigation = new HashSet<Notifications>();
             NotificationsVcUserNavigation = new HashSet<Notifications>();
             SubMenu = new HashSet<SubMenu>();
+            UserPosition = new HashSet<UserPosition>();
         }
 
         public string Id { get; set; }
@@ -48,6 +49,7 @@ namespace ESMS.Data.Model
         public string IbanCode { get; set; }
         public string PersonalNumber { get; set; }
         public float Salary { get; set; }
+        public byte[] UserProfile { get; set; }
 
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
@@ -58,5 +60,6 @@ namespace ESMS.Data.Model
         public virtual ICollection<Notifications> NotificationsVcInsertedUserNavigation { get; set; }
         public virtual ICollection<Notifications> NotificationsVcUserNavigation { get; set; }
         public virtual ICollection<SubMenu> SubMenu { get; set; }
+        public virtual ICollection<UserPosition> UserPosition { get; set; }
     }
 }

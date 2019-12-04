@@ -20,7 +20,25 @@ namespace ESMS.Pages.Employees
         public void OnGet(string UIEnc)
         {
             string UserId = Confidenciality.Decrypt<string>(UIEnc);
-
+            Input = dbContext.AspNetUsers.Where(U => U.Id == UserId).Select(U => new InputClass { 
+                 Adress = U.Address,
+                 AdressOpsional = U.Address2,
+                 BirthDate = U.BirthDate,
+                 City = U.City,
+                 Contry = (int)U.City,
+                 EmailAdress = U.Email,
+                 EmploymentDate = U.EmploymentDate,
+                 FirstName = U.FirstName,
+                 Gender = U.Gender,
+                 IBANCode = U.IbanCode,
+                 JobTitle = U.JobTitle,
+                 LastName = U.LastName,
+                 PersonalNumber = U.PersonalNumber,
+                 PhoneNumber = U.PhoneNumber,
+                 salary = U.Salary,
+                 PostalCode = (int)U.PostCode,
+                 Position = "Developer"
+            }).FirstOrDefault();
         }
 
         [BindProperty]

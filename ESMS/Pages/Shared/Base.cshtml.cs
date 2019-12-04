@@ -24,6 +24,8 @@ namespace ESMS.Pages.Shared
         protected SignInManager<ApplicationUser> signInManager;
         protected UserManager<ApplicationUser> userManager;
 
+        public static byte[] userProfile;
+
         protected ESMSContext dbContext=null;
 
         public IConfiguration configuration { get; set; }
@@ -37,6 +39,7 @@ namespace ESMS.Pages.Shared
 
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
+            userProfile = dbContext.AspNetUsers.Where(U => U.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(U => U.UserProfile).FirstOrDefault();
             signInManager.RefreshSignInAsync(userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)).Result).ConfigureAwait(false);
             dbContext.Logs.Add(new Logs
             {

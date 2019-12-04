@@ -33,6 +33,10 @@ namespace ESMS
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, CustomClaismAuthentication>();
+
+
             services.AddRazorPages();
 
             services.AddMvc(

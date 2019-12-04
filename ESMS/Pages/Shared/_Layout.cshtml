@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using ESMS.Pages.Shared
+@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -46,9 +48,16 @@
         <div class="menu-sidebar2__content js-scrollbar1">
             <div class="account2">
                 <div class="image img-cir img-120">
-                    <a href="/Identity/Account/Manage"><img src="~/Templeate/images/icon/avatar-01.jpg" href="/Identity/Account/Manage" /></a>
+                    @if (BaseModel.userProfile == null)
+                    {
+                        <a href="/Identity/Account/Manage"><img src="~/Templeate/images/icon/avatar-01.jpg" href="/Identity/Account/Manage" /></a>
+                    }
+                    else
+                    {
+                        <a href="/Identity/Account/Manage"><img src="data:image/gif;base64, @Convert.ToBase64String(BaseModel.userProfile)" href="/Identity/Account/Manage" /></a>
+                    }
                 </div>
-                <h4 class="name"><a href="/Identity/Account/Manage">Tonit Biba</a></h4>
+                <h4 class="name"><a href="/Identity/Account/Manage">@User.FindFirstValue(ClaimTypes.GivenName) @User.FindFirstValue(ClaimTypes.Surname)</a></h4>
                 <a href="/Identity/Account/Logout">Q'kyqu</a>
             </div>
             <nav class="navbar-sidebar2 loadMenu">
@@ -97,9 +106,16 @@
             <div class="menu-sidebar2__content js-scrollbar2">
                 <div class="account2">
                     <div class="image img-cir img-120">
-                        <a href="/Identity/Account/Manage"><img src="~/Templeate/images/icon/avatar-01.jpg" href="/Identity/Account/Manage" /></a>
+                        @if (BaseModel.userProfile == null)
+                        {
+                            <a href="/Identity/Account/Manage"><img src="~/Templeate/images/icon/avatar-01.jpg" href="/Identity/Account/Manage" /></a>
+                        }
+                        else
+                        {
+                            <a href="/Identity/Account/Manage"><img src="data:image/gif;base64, @Convert.ToBase64String(BaseModel.userProfile)" href="/Identity/Account/Manage" /></a>
+                        }
                     </div>
-                    <h4 class="name"><a href="/Identity/Account/Manage">Tonit Biba</a></h4>
+                    <h4 class="name"><a href="/Identity/Account/Manage">@User.FindFirstValue(ClaimTypes.GivenName) @User.FindFirstValue(ClaimTypes.Surname)</a></h4>
                     <a href="/Identity/Account/Logout">Q'kyqu</a>
                 </div>
                 <nav class="navbar-sidebar2 loadMenu">
@@ -227,21 +243,21 @@
         })
 
         toastr.options = {
-          "closeButton": false,
-          "debug": false,
-          "newestOnTop": true,
-          "progressBar": false,
-          "positionClass": "toast-top-right",
-          "preventDuplicates": false,
-          "onclick": null,
-          "showDuration": "300",
-          "hideDuration": "1000",
-          "timeOut": "10000",
-          "extendedTimeOut": "1000",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "10000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
         }
     </script>
 </body>

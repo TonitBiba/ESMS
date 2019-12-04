@@ -7,7 +7,7 @@
 <div class="card">
     <form method="post" enctype="multipart/form-data">
         <div class="card-body card-block">
-            <h4> Regjistrimi i punëtorëve</h4>
+            <h4>Ndryshim i te dhenave</h4>
             <hr />
             <br />
             <h4>Të dhënat e përgjithshme për punëtorin</h4>
@@ -16,28 +16,28 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.FirstName)
-                        <input type="text" asp-for="Input.FirstName" class="form-control" />
+                        <input type="text" asp-for="Input.FirstName" class="form-control" disabled="disabled" />
                         <span class="text-danger" asp-validation-for="Input.FirstName"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.LastName)
-                        <input type="text" asp-for="Input.LastName" class="form-control" />
+                        <input type="text" asp-for="Input.LastName" class="form-control" disabled="disabled" />
                         <span class="text-danger" asp-validation-for="Input.LastName"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.Gender)
-                        @Html.DropDownListFor(m => m.Input.Gender, BaseModel.GetGenders(), Resource.zgjedhe, new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.Input.Gender, BaseModel.GetGenders(), Resource.zgjedhe, new { @class = "form-control", disabled="disabled" })
                         <span class="text-danger" asp-validation-for="Input.Gender"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.BirthDate)
-                        <input type="date" asp-for="Input.BirthDate" class="form-control" />
+                        <input type="date" asp-for="Input.BirthDate" class="form-control" disabled="disabled" />
                         <span class="text-danger" asp-validation-for="Input.BirthDate"></span>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.PersonalNumber)
-                        <input type="text" asp-for="Input.PersonalNumber" class="form-control" />
+                        <input type="text" asp-for="Input.PersonalNumber" class="form-control" disabled="disabled" />
                         <span class="text-danger" asp-validation-for="Input.PersonalNumber"></span>
                     </div>
                 </div>
@@ -156,6 +156,6 @@
             </div>
         </div>
 
-        <input type="submit" class="btn btn-primary float-right m-3" value="Regjistro" />
+        <input type="submit" class="btn btn-primary float-right m-3" value="@Resource.ndrysho" />
     </form>
 </div>

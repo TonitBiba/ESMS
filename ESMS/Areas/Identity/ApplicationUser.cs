@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ESMS.Areas.Identity
 {
     public class ApplicationUser : IdentityUser
     {
+
         [Required]
         [MaxLength(100)]
         public string FirstName { get; set; }
@@ -50,5 +53,8 @@ namespace ESMS.Areas.Identity
 
         [Required]
         public float salary { get; set; }
+
+        public byte[] UserProfile { get; set; }
+
     }
 }

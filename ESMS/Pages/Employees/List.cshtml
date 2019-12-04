@@ -51,10 +51,9 @@
                             <div class="btn-group w-100">
                                 <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.veprimet</button>
                                 <div class="dropdown-menu">
-                                    <button onclick="EditMenu('@Confidenciality.EncryptString(item.UserId)')" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; @Resource.ndrysho</button>
-                                    <button onclick="AddSubMenu('@Confidenciality.EncryptString(item.UserId)')" class="dropdown-item"><i class="fa fa-plus"></i>&nbsp; @Resource.regjistroNenMenu</button>
+                                    <button onclick="EditEmployee('@Confidenciality.EncryptString(item.UserId)')" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; @Resource.ndrysho</button>
                                     <div class="dropdown-divider"></div>
-                                    <button class="dropdown-item" onclick="DeleteMenu('@Confidenciality.EncryptString(item.UserId)')"><i class="far fa-trash-alt"></i>&nbsp; @Resource.fshije</button>
+                                    <button class="dropdown-item" onclick="DeleteEmployee('@Confidenciality.EncryptString(item.UserId)')"><i class="far fa-trash-alt"></i>&nbsp; @Resource.fshije</button>
                                 </div>
                             </div>
                         </td>
@@ -84,5 +83,10 @@
             }
         });
     })
+
+    function EditEmployee(UEnc) {
+        Loading()
+        window.location.href = '@Url.Page("Edit")?UIEnc='+UEnc
+    }
 
 </script>

@@ -35,6 +35,7 @@ namespace ESMS.Pages.Employees
 
         public void OnGet()
         {
+
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -44,6 +45,10 @@ namespace ESMS.Pages.Employees
             {
                 if (!dbContext.AspNetUsers.Any(U => U.Email == Input.EmailAdress))
                 {
+                    byte[] imgBytes = new byte[(int)Input.UserProfileImg.Length];
+                    if (Input.UserProfileImg != null)
+                        using (BinaryReader imgProfile = new BinaryReader(Input.UserProfileImg.OpenReadStream()))
+                            imgBytes = imgProfile.ReadBytes((int)Input.UserProfileImg.Length);
                     var user = new ApplicationUser
                     {
                         Email = Input.EmailAdress,
@@ -66,7 +71,8 @@ namespace ESMS.Pages.Employees
                         EmploymentDate = Input.EmploymentDate,
                         PostCode = Input.PostalCode,
                         PhoneNumber = Input.PhoneNumber,
-                        salary = Input.salary
+                        salary = Input.salary,
+                        UserProfile = imgBytes
                     };
 
                     var result = await userManager.CreateAsync(user, Input.PersonalNumber);
@@ -97,7 +103,8 @@ namespace ESMS.Pages.Employees
 
                         if (Input.UserProfileImg != null)
                         {
-                            var pathOfUserProfileImg = SaveFiles(Input.Contract, FType.GeneralFile);
+
+                                var pathOfUserProfileImg = SaveFiles(Input.Contract, FType.GeneralFile);
                             dbContext.EmployeeDocuments.Add(new EmployeeDocuments
                             {
                                 DtInserted = DateTime.Now,
