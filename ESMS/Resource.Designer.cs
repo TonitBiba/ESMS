@@ -214,6 +214,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dita fillimit të punës.
+        /// </summary>
+        public static string dtEmployment {
+            get {
+                return ResourceManager.GetString("dtEmployment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data insertimit.
         /// </summary>
         public static string dtInsertimit {

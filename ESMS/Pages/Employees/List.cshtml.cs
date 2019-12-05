@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using ESMS.Areas.Identity;
 using ESMS.Data.Model;
 using ESMS.Pages.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ESMS.Pages.Employees
 {
+    [Authorize(Policy = "ReadList")]
     public class ListModel : BaseModel
     {
         public ListModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) : base(signInManager, userManager) {}
@@ -20,8 +22,21 @@ namespace ESMS.Pages.Employees
         public void OnGet()
         {
             string userGroupId = dbContext.AspNetUserRoles.Where(UR => UR.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).FirstOrDefault().RoleId;
+            string[] getGroups = new string[1];
+            if (userGroupId == "be007199-39b1-4557-b10f-cc4e6dc47b49")
+            {
+                getGroups = new string[] { "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e" };
+            }
+            else if(userGroupId == "423a5ce2-3024-47d1-b486-4dcd3951871b")
+            {
+                getGroups = new string[] { "dbc05ab9-f41f-493f-b3e6-689d14e88dda" };
+            }else if(userGroupId == "2a13875f-53af-45a5-b240-48a90ff993a5")
+            {
+                getGroups = new string[] { "dbc05ab9-f41f-493f-b3e6-689d14e88dda", "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e", "423a5ce2-3024-47d1-b486-4dcd3951871b", "be007199-39b1-4557-b10f-cc4e6dc47b49" };
+            }
 
-            employees = dbContext.AspNetUsers.Select(A => new List { 
+
+            employees = dbContext.AspNetUsers.Where(U => getGroups.Contains(U.AspNetUserRoles.FirstOrDefault().RoleId)).Select(A => new List { 
                  FirstName = A.FirstName,
                  LastName = A.LastName,
                  Birthdate = A.BirthDate,

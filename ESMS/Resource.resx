@@ -168,6 +168,9 @@
   <data name="ditelindja" xml:space="preserve">
     <value>Ditëlindja</value>
   </data>
+  <data name="dtEmployment" xml:space="preserve">
+    <value>Dita fillimit të punës</value>
+  </data>
   <data name="dtInsertimit" xml:space="preserve">
     <value>Data insertimit</value>
   </data>

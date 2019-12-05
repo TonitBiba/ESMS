@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -28,9 +29,12 @@ namespace ESMS.Pages.Employees
     {
         private readonly IEmailSender _emailSender;
 
-        public CreateModel(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<CreateModel> logger, IEmailSender emailSender, IConfiguration configuration):base(signInManager, userManager)
+        public IConfiguration configuration;
+
+        public CreateModel( UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, ILogger<CreateModel> logger, IEmailSender emailSender, IConfiguration configuration):base(signInManager, userManager)
         {
             _emailSender = emailSender;
+            this.configuration = configuration;
         }
 
         public void OnGet()
@@ -41,95 +45,89 @@ namespace ESMS.Pages.Employees
         public async Task<IActionResult> OnPostAsync()
         {
             error = new Error { };
-            if (Input.Contract.Length / (1024 * 1024) <= 1)
+            try
             {
-                if (!dbContext.AspNetUsers.Any(U => U.Email == Input.EmailAdress))
+                if (Input.Contract.Length / (1024 * 1024) <= 1)
                 {
-                    byte[] imgBytes = new byte[(int)Input.UserProfileImg.Length];
-                    if (Input.UserProfileImg != null)
-                        using (BinaryReader imgProfile = new BinaryReader(Input.UserProfileImg.OpenReadStream()))
-                            imgBytes = imgProfile.ReadBytes((int)Input.UserProfileImg.Length);
-                    var user = new ApplicationUser
+                    if (!dbContext.AspNetUsers.Any(U => U.Email == Input.EmailAdress))
                     {
-                        Email = Input.EmailAdress,
-                        Address = Input.Adress,
-                        Address2 = Input.AdressOpsional,
-                        BirthDate = Input.BirthDate,
-                        City = Input.City,
-                        Country = Input.Contry,
-                        FirstName = Input.FirstName,
-                        UserName = Input.FirstName + "." + Input.LastName,
-                        LastName = Input.LastName,
-                        IbanCode = Input.IBANCode,
-                        Gender = Input.Gender,
-                        JobTitle = Input.JobTitle,
-                        PersonalNumber = Input.PersonalNumber,
-                        EmployeeStatus = 1,
-                        EmailConfirmed = false,
-                        AccessFailedCount = 0,
-                        LockoutEnabled = true,
-                        EmploymentDate = Input.EmploymentDate,
-                        PostCode = Input.PostalCode,
-                        PhoneNumber = Input.PhoneNumber,
-                        salary = Input.salary,
-                        UserProfile = imgBytes
-                    };
+                        DateTime birthday = DateTime.ParseExact(Input.BirthDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                        DateTime employDate = DateTime.ParseExact(Input.EmploymentDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-                    var result = await userManager.CreateAsync(user, Input.PersonalNumber);
-
-                    if (!result.Succeeded)
-                        error = new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" };
-                    else
-                    {
-                        string role = dbContext.AspNetRoles.Where(R => R.Id == Input.Position).FirstOrDefault().Name;
-                        await userManager.AddToRoleAsync(user, role);
-                        foreach (var claim in dbContext.AspNetRoleClaims.Where(R => R.Role.Id == Input.Position).ToList())
-                            await userManager.AddClaimAsync(user, new Claim(claim.ClaimType, claim.ClaimValue));
-
-                        await _emailSender.SendEmailAsync("tonit.biba@hotmail.com", "Konfirmo llogarine", "Klikoni ne linkun e meposhtem per te konfirmuar llogarine tuaj!");
-
-
-                        var pathOfSavedFile = SaveFiles(Input.Contract, FType.ContractFile);
-                        dbContext.EmployeeDocuments.Add(new EmployeeDocuments
-                        {
-                            DtInserted = DateTime.Now,
-                            NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                            Employee = user.Id,
-                            Name = Input.Contract.FileName,
-                            Path = pathOfSavedFile,
-                            Type = (int)FType.ContractFile
-                        });
-                        await dbContext.SaveChangesAsync();
-
+                        byte[] imgBytes = new byte[(int)Input.UserProfileImg.Length];
                         if (Input.UserProfileImg != null)
+                            using (BinaryReader imgProfile = new BinaryReader(Input.UserProfileImg.OpenReadStream()))
+                                imgBytes = imgProfile.ReadBytes((int)Input.UserProfileImg.Length);
+                        var user = new ApplicationUser
                         {
+                            Email = Input.EmailAdress,
+                            Address = Input.Adress,
+                            Address2 = Input.AdressOpsional,
+                            BirthDate = birthday,
+                            City = Input.City,
+                            Country = Input.Contry,
+                            FirstName = Input.FirstName,
+                            UserName = Input.FirstName + "." + Input.LastName,
+                            LastName = Input.LastName,
+                            IbanCode = Input.IBANCode,
+                            Gender = Input.Gender,
+                            JobTitle = Input.JobTitle,
+                            PersonalNumber = Input.PersonalNumber,
+                            EmployeeStatus = 1,
+                            EmailConfirmed = false,
+                            AccessFailedCount = 0,
+                            LockoutEnabled = true,
+                            EmploymentDate = employDate,
+                            PostCode = Input.PostalCode,
+                            PhoneNumber = Input.PhoneNumber,
+                            salary = Input.salary,
+                            UserProfile = imgBytes
+                        };
 
-                                var pathOfUserProfileImg = SaveFiles(Input.Contract, FType.GeneralFile);
+                        var result = await userManager.CreateAsync(user, Input.PersonalNumber);
+
+                        if (!result.Succeeded)
+                            error = new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" };
+                        else
+                        {
+                            string role = dbContext.AspNetRoles.Where(R => R.Id == Input.Position).FirstOrDefault().Name;
+                            await userManager.AddToRoleAsync(user, role);
+                            foreach (var claim in dbContext.AspNetRoleClaims.Where(R => R.Role.Id == Input.Position).ToList())
+                                await userManager.AddClaimAsync(user, new Claim(claim.ClaimType, claim.ClaimValue));
+
+                            await _emailSender.SendEmailAsync("tonit.biba@hotmail.com", "Konfirmo llogarine", "Klikoni ne linkun e meposhtem per te konfirmuar llogarine tuaj!");
+
+
+                            var pathOfSavedFile = SaveFiles(Input.Contract, FType.ContractFile, configuration);
                             dbContext.EmployeeDocuments.Add(new EmployeeDocuments
                             {
                                 DtInserted = DateTime.Now,
                                 NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                                 Employee = user.Id,
-                                Name = Input.UserProfileImg.FileName,
-                                Path = pathOfUserProfileImg,
-                                Type = (int)FType.GeneralFile
+                                Name = Input.Contract.FileName,
+                                Path = pathOfSavedFile,
+                                Type = (int)FType.ContractFile
                             });
                             await dbContext.SaveChangesAsync();
+
+                            return RedirectToPage("List");
                         }
-                        return RedirectToPage("List");
                     }
+                    else
+                        error = new Error { nError = 4, ErrorDescription = "Egziston perdorues me kete email adress." };
                 }
                 else
-                    error = new Error { nError = 4, ErrorDescription = "Egziston perdorues me kete email adress." };
-            }
-            else
+                {
+                    error = new Error { nError = 4, ErrorDescription = "Keni tejkaluar madhesine e fajllit." };
+                }
+            }catch(Exception ex)
             {
-                error = new Error { nError = 4, ErrorDescription = "Keni tejkaluar madhesine e fajllit." };
+
             }
             return Page();
         }
 
-        public async Task<JsonResult> OnPostCities(int countryId)
+        public JsonResult OnPostCities(int countryId)
         {
             var listOCities = dbContext.Cities.Where(C => C.ContryId == countryId).Select(C => new SelectListItem { Value = C.Id.ToString(), Text = C.Name }).ToList();
             return new JsonResult(listOCities);
@@ -139,6 +137,7 @@ namespace ESMS.Pages.Employees
 
         [BindProperty]
         public InputClass Input { get; set; }
+
         public class InputClass
         {
             [Display(Name = "emri", ResourceType = typeof(Resource))]
@@ -184,7 +183,7 @@ namespace ESMS.Pages.Employees
             public int PostalCode { get; set; }
 
             [Display(Name = "qyteti", ResourceType = typeof(Resource))]
-            //[Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public int? City { get; set; }
 
             [Display(Name = "shteti", ResourceType = typeof(Resource))]
@@ -193,12 +192,11 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "ditaPunesimit", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            public DateTime EmploymentDate { get; set; }
+            public string EmploymentDate { get; set; }
 
             [Display(Name = "ditelindja", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            
-            public DateTime BirthDate { get; set; }
+            public string BirthDate { get; set; }
 
             [Display(Name = "ibanKode", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]

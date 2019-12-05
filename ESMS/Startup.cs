@@ -3,10 +3,12 @@ using ESMS.Data;
 using ESMS.Data.Model;
 using ESMS.General_Classes;
 using ESMS.Security;
+using ESMS.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +38,7 @@ namespace ESMS
 
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, CustomClaismAuthentication>();
 
+            services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddRazorPages();
 

@@ -28,8 +28,6 @@ namespace ESMS.Pages.Shared
 
         protected ESMSContext dbContext=null;
 
-        public IConfiguration configuration { get; set; }
-
         public BaseModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             this.signInManager = signInManager;
@@ -64,7 +62,7 @@ namespace ESMS.Pages.Shared
                     case 1:
                         return dbContext.AspNetRoles.Select(R => new SelectListItem { Text = R.Name, Value = R.Id }).ToList();
                     case 2:
-                        string[] userGroupd = new string[] { "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e", "dbc05ab9-f41f-493f-b3e6-689d14e88dda" };
+                        string[] userGroupd = new string[] { "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e", "dbc05ab9-f41f-493f-b3e6-689d14e88dda", "be007199-39b1-4557-b10f-cc4e6dc47b49", "423a5ce2-3024-47d1-b486-4dcd3951871b" };
                         return dbContext.AspNetRoles.Where(R=> userGroupd.Contains(R.Id)).Select(R => new SelectListItem { Text = R.Name, Value = R.Id }).ToList();
                 }
                 return null;
@@ -125,7 +123,7 @@ namespace ESMS.Pages.Shared
             return extension;
         }
 
-        protected string SaveFiles(IFormFile file, FType fileType)
+        protected string SaveFiles(IFormFile file, FType fileType, IConfiguration configuration)
         {
             string path = "";
             if(fileType == FType.ContractFile)
