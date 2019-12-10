@@ -54,7 +54,7 @@
                                 <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.veprimet</button>
                                 <div class="dropdown-menu">
                                     <button onclick="EditEmployee('@Confidenciality.EncryptString(item.UserId)')" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; @Resource.ndrysho</button>
-                                    @if (User.HasClaim("Employ:delete","1"))
+                                    @if (User.HasClaim("Employ:delete", "1"))
                                     {
                                         <div class="dropdown-divider"></div>
                                         <button class="dropdown-item" onclick="DeleteEmployee('@Confidenciality.EncryptString(item.UserId)')"><i class="far fa-trash-alt"></i>&nbsp; @Resource.fshije</button>
@@ -90,9 +90,20 @@
         });
     })
 
+
+
     function EditEmployee(UEnc) {
         Loading()
         window.location.href = '@Url.Page("Edit")?UIEnc='+UEnc
     }
 
 </script>
+
+@if (Model.error != null)
+{
+    <script>
+        $(document).ready(function (){
+            showAlert(@Model.error.nError, '@Html.Raw(Model.error.ErrorDescription)')
+        })
+    </script>
+}

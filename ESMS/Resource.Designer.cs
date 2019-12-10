@@ -835,6 +835,24 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ngarko fotografinë.
+        /// </summary>
+        public static string ngarkoFotografine {
+            get {
+                return ResourceManager.GetString("ngarkoFotografine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngarko kontraten.
+        /// </summary>
+        public static string ngarkoKontraten {
+            get {
+                return ResourceManager.GetString("ngarkoKontraten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ju keni një kod të mbetur..
         /// </summary>
         public static string njeKodMbetur {
@@ -876,6 +894,15 @@ namespace ESMS {
         public static string nukKaRecoveryCodes {
             get {
                 return ResourceManager.GetString("nukKaRecoveryCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Numri i përdoruesve të regjistruar.
+        /// </summary>
+        public static string numriPerdoruesve {
+            get {
+                return ResourceManager.GetString("numriPerdoruesve", resourceCulture);
             }
         }
         

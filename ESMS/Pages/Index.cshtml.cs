@@ -31,6 +31,13 @@ namespace ESMS.Pages
                 Url = L.Url
             }).OrderByDescending(L=>L.dtInserted).Take(100).ToList();
 
+            if (User.IsInRole("Administrator"))
+            {
+                statistics = new List<StatisticsModel> {
+                     new StatisticsModel{ Amount = dbContext.AspNetUsers.Count().ToString(), Icon = "zmdi zmdi-account-o", Title = Resource.numriPerdoruesve}
+                };
+            }
+
             //if (User.IsInRole("Programmer"))
             //{
             //    statistics = new List<StatisticsModel> {

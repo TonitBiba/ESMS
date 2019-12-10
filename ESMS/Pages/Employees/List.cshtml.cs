@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using ESMS.Areas.Identity;
 using ESMS.Data.Model;
+using ESMS.General_Classes;
 using ESMS.Pages.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -49,6 +50,8 @@ namespace ESMS.Pages.Employees
                  UserId = A.Id,
                  Role = A.AspNetUserRoles.FirstOrDefault().Role.Name
             }).ToList();
+
+            error = TempData.Get<Error>("error");
         }
 
         public List<List> employees { get; set; }
@@ -66,6 +69,8 @@ namespace ESMS.Pages.Employees
 
             return File(reportBytes, "application/"+ getFormatReport(f).ToLower(), f!=1 ? "Përdoruesit " +DateTime.Now.ToShortDateString()+ getExtension(f):"");
         }
+
+        public Error error { get; set; }
 
         public class List
         {

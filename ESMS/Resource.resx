@@ -375,6 +375,12 @@
   <data name="neAplikacionin2FA" xml:space="preserve">
     <value>në aplikacionin për autentifikim dy hapësh. Hapsirat dhe lidhëset nuk kanë rëndësi.</value>
   </data>
+  <data name="ngarkoFotografine" xml:space="preserve">
+    <value>Ngarko fotografinë</value>
+  </data>
+  <data name="ngarkoKontraten" xml:space="preserve">
+    <value>Ngarko kontraten</value>
+  </data>
   <data name="njeKodMbetur" xml:space="preserve">
     <value>Ju keni një kod të mbetur.</value>
   </data>
@@ -389,6 +395,9 @@
   </data>
   <data name="nukKaRecoveryCodes" xml:space="preserve">
     <value>Ju nuk keni asnjë kod të gjeneruar.</value>
+  </data>
+  <data name="numriPerdoruesve" xml:space="preserve">
+    <value>Numri i përdoruesve të regjistruar</value>
   </data>
   <data name="numriPersonal" xml:space="preserve">
     <value>Numri personal</value>

@@ -239,7 +239,9 @@
         }
 
         $('form').submit(function () {
-            Loading()
+            if ($(this).valid()) {
+                Loading()
+            }
         })
 
         toastr.options = {

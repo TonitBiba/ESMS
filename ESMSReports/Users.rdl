@@ -34,7 +34,7 @@
 from AspNetUsers U
 	inner join AspNetUserRoles UR on UR.UserId = U.Id
 	inner join AspNetRoles R on R.Id = UR.RoleId
-where R.ID = (case when @groupID is null then R.ID else @groupID end)</CommandText>
+where R.ID = (case when @groupID = '2a13875f-53af-45a5-b240-48a90ff993a5' then R.ID else @groupID end)</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -81,25 +81,25 @@ where R.ID = (case when @groupID is null then R.ID else @groupID end)</CommandTe
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.13931in</Width>
+                  <Width>1.1618in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.13931in</Width>
+                  <Width>1.1618in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.13931in</Width>
+                  <Width>1.1618in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.13931in</Width>
+                  <Width>1.1618in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.13931in</Width>
+                  <Width>1.1618in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.13931in</Width>
+                  <Width>1.1618in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.13931in</Width>
+                  <Width>1.1618in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -914,7 +914,7 @@ where R.ID = (case when @groupID is null then R.ID else @groupID end)</CommandTe
             <Top>2.94042in</Top>
             <Left>0.13741in</Left>
             <Height>0.75458in</Height>
-            <Width>7.97517in</Width>
+            <Width>8.13259in</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -926,7 +926,7 @@ where R.ID = (case when @groupID is null then R.ID else @groupID end)</CommandTe
             <Value>a0cb82c98b234d159d89c8ee9c611700_200x200</Value>
             <Sizing>Fit</Sizing>
             <Top>0.125in</Top>
-            <Left>3.03679in</Left>
+            <Left>3.16179in</Left>
             <Height>1.85849in</Height>
             <Width>2.08821in</Width>
             <ZIndex>1</ZIndex>
@@ -960,7 +960,7 @@ where R.ID = (case when @groupID is null then R.ID else @groupID end)</CommandTe
             <Top>2.01775in</Top>
             <Left>0.13741in</Left>
             <Height>0.37841in</Height>
-            <Width>7.97519in</Width>
+            <Width>8.13259in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -995,7 +995,7 @@ where R.ID = (case when @groupID is null then R.ID else @groupID end)</CommandTe
             <Top>2.39616in</Top>
             <Left>0.13741in</Left>
             <Height>0.25in</Height>
-            <Width>7.97519in</Width>
+            <Width>8.13259in</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -1011,7 +1011,7 @@ where R.ID = (case when @groupID is null then R.ID else @groupID end)</CommandTe
         <Height>4.30958in</Height>
         <Style />
       </Body>
-      <Width>8.25in</Width>
+      <Width>8.27in</Width>
       <Page>
         <PageFooter>
           <Height>0.75in</Height>

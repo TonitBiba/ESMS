@@ -81,14 +81,16 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.Contract)
-                        <input type="file" asp-for="Input.Contract" class="form-control" />
+                        <input type="file" style="display:none" asp-for="Input.Contract" class="form-control" />
+                        <button type="button" id="btnAttachContract" class="form-control btn btn-secondary" onclick="$('#Input_Contract').trigger('click')">@Resource.ngarkoKontraten</button>
                         <span class="text-danger" asp-validation-for="Input.Contract"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.UserProfileImg)
-                        <input type="file" asp-for="Input.UserProfileImg" class="form-control" />
+                        <input type="file" style="display:none" asp-for="Input.UserProfileImg" class="form-control" />
+                        <button type="button" id="btnAttachImage" class="form-control btn btn-secondary" onclick="$('#Input_UserProfileImg').trigger('click')">@Resource.ngarkoFotografine</button>
                         <span class="text-danger" asp-validation-for="Input.UserProfileImg"></span>
                     </div>
                 </div>
@@ -165,7 +167,7 @@
             </div>
         </div>
 
-        <input type="submit" class="btn btn-primary float-right m-3" value="Regjistro" />
+        <input type="submit" class="btn btn-primary float-right m-4" id="btnRegister" value="Regjistro" />
     </form>
 </div>
 
@@ -179,13 +181,6 @@
 }
 
 <script>
-    $('form').submit(function () {
-        if (!$('form').valid()) {
-            HideLoading()
-        }
-    })
-
-
     $('#Input_Contry').change(function () {
         try {
             $.post("/Employees/Create?handler=Cities",
@@ -203,4 +198,21 @@
                 })
         } catch (e) {}
     })
+
+    $('#Input_Contract').change(function () {
+        if ($(this).val() != null && $(this).val() != "") {
+            $('#btnAttachContract').text($(this).val().replace(/C:\\fakepath\\/i, ''))
+        } else {
+            $('#btnAttachContract').text('@Resource.ngarkoKontraten')
+        }
+    })
+
+    $('#Input_UserProfileImg').change(function () {
+        if ($(this).val() != null && $(this).val() != "") {
+            $('#btnAttachImage').text($(this).val().replace(/C:\\fakepath\\/i, ''))
+        } else {
+            $('#btnAttachImage').text('@Resource.ngarkoFotografine')
+        }
+    })
+
 </script>

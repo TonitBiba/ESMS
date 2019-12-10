@@ -110,6 +110,7 @@ namespace ESMS.Pages.Employees
                             });
                             await dbContext.SaveChangesAsync();
 
+                            TempData.Set<Error>("error", new Error { nError = 1, ErrorDescription = Resource.msgRuajtjaSukses });
                             return RedirectToPage("List");
                         }
                     }

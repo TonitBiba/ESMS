@@ -78,7 +78,9 @@ namespace ESMS.Pages.Shared
         {
             using (ESMSContext dbContext = new ESMSContext())
             {
-                return dbContext.Contries.Select(R => new SelectListItem { Text = R.Name, Value = R.Id.ToString()}).ToList();
+                List<SelectListItem> countries = new List<SelectListItem> { new SelectListItem { Value = "247", Text = "Kosovë" }};
+                countries.AddRange(dbContext.Contries.Where(R=>R.Id!=247).Select(R => new SelectListItem { Text = R.Name, Value = R.Id.ToString() }).ToList());
+                return countries;
             }
         }
 
