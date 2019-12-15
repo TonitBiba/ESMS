@@ -2,6 +2,7 @@
 using ESMS.General_Classes;
 using ESMS.Pages.Shared;
 using ESMS.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace ESMS.Pages.Configurations
 {
+    [Authorize(Policy = "SubMenu:Edit")]
     public class _SubMenuEditModel : BaseModel
     {
         public _SubMenuEditModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) : base(signInManager, userManager) { }

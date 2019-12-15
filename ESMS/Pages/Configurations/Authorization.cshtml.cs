@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ESMS.Pages.Configurations
 {
-    [Authorize(Policy = "ReadAutorizimet")]
+    [Authorize(Policy = "Authorization:Read")]
     public class AuthorizationModel : BaseModel
     {
         public AuthorizationModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) : base(signInManager, userManager)

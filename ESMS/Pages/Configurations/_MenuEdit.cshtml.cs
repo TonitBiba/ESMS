@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ESMS.Pages.Configurations
 {
-    [Authorize(Policy = "EditMenu")]
+    [Authorize(Policy = "Menu:Edit")]
     public class _MenuEditModel : BaseModel
     {
         public _MenuEditModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager):base(signInManager, userManager) { }

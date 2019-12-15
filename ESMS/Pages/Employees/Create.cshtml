@@ -1,4 +1,6 @@
 ﻿@page
+@using System.Security.Claims
+
 
 @using ESMS.Pages.Shared
 
@@ -46,7 +48,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.Position)
-                        @Html.DropDownListFor(m => m.Input.Position, BaseModel.GetGroups(2), Resource.zgjedhe, new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.Input.Position, BaseModel.GetGroups(2, User.FindFirstValue(ClaimTypes.Role)), Resource.zgjedhe, new { @class = "form-control" })
                         <span class="text-danger" asp-validation-for="Input.Position"></span>
                     </div>
                 </div>

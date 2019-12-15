@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace ESMS.Pages.Configurations
 {
-    [Authorize(Policy = "ReadMenu")]
+    [Authorize(Policy = "Menu:Read")]
     public class MenuModel : BaseModel
     {
         public MenuModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager):base(signInManager, userManager) { }

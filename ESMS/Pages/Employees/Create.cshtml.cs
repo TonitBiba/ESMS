@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
@@ -24,7 +25,7 @@ using System.Threading.Tasks;
 
 namespace ESMS.Pages.Employees
 {
-    [Authorize(Policy = "CreateEmployee")]
+    [Authorize(Policy = "Employee:Create")]
     public class CreateModel : BaseModel
     {
         private readonly IEmailSender _emailSender;
@@ -95,7 +96,21 @@ namespace ESMS.Pages.Employees
                             foreach (var claim in dbContext.AspNetRoleClaims.Where(R => R.Role.Id == Input.Position).ToList())
                                 await userManager.AddClaimAsync(user, new Claim(claim.ClaimType, claim.ClaimValue));
 
-                            await _emailSender.SendEmailAsync("tonit.biba@hotmail.com", "Konfirmo llogarine", "Klikoni ne linkun e meposhtem per te konfirmuar llogarine tuaj!");
+                            var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+                            var callbackUrl = Url.Page(
+                                "/Account/ConfirmEmail",
+                                pageHandler: null,
+                                values: new { area = "Identity", userId = user.Id, code = code },
+                                protocol: Request.Scheme);
+
+                            await _emailSender.SendEmailAsync(Input.EmailAdress, "Konfirmimi llogarisë", "Përshëndetje <b>" + Input.FirstName + " " + Input.LastName+"</b>, " +
+                                "<p> Në sistemin për menaxhim të pagave - <b> ESMS </b>, është krijuar një llogarinë me email adresën tuaj.</p>" +
+                                "Në rast se ju jeni pjesë e kompanisë \"Test company\", mund të konfirmoni llogarinë tuaj duke klikuar në linkun:" +
+                                "<a href='"+ callbackUrl + "'> Konfirmo llogarinë </a>" +
+                                "<p> Ky eshte nje email i automatizuar, ju lusim të mos ktheni përgjigje në këtë email.</p>" +
+                                "Me respekt," +
+                                "<p>ESMS</p>");
 
 
                             var pathOfSavedFile = SaveFiles(Input.Contract, FType.ContractFile, configuration);
@@ -222,7 +237,6 @@ namespace ESMS.Pages.Employees
             [Display(Name ="paga", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public float salary { get; set; }
-
         }
     }
 }

@@ -98,11 +98,13 @@ namespace ESMS.Data.Model
 
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.AspNetUserRoles)
-                    .HasForeignKey(d => d.RoleId);
+                    .HasForeignKey(d => d.RoleId)
+                    .HasConstraintName("FK_AspNetUserRoles_AspNetRoles");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserRoles)
-                    .HasForeignKey(d => d.UserId);
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_AspNetUserRoles_AspNetUsers");
             });
 
             modelBuilder.Entity<AspNetUserTokens>(entity =>

@@ -180,6 +180,9 @@
   <data name="emailAdresa" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="emailAdresaKonfirmuar" xml:space="preserve">
+    <value>Email adresa është konfirmuar me sukses.</value>
+  </data>
   <data name="emailAdresaRe" xml:space="preserve">
     <value>Email adresa re</value>
   </data>

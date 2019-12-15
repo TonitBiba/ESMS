@@ -5,8 +5,10 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using ESMS.Areas.Identity;
 using ESMS.Pages.Shared;
+using ESMS.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
@@ -16,11 +18,14 @@ namespace ESMS.Pages
     [Authorize]
     public class IndexModel : BaseModel
     {
+        private readonly IEmailSender _emailSender;
 
-        public IndexModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager):base(signInManager, userManager)
-        {}
+        public IndexModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IEmailSender _emailSender) :base(signInManager, userManager)
+        {
+            this._emailSender = _emailSender;
+        }
 
-        public void OnGet()
+        public async Task OnGet()
         {
             listLogs = dbContext.Logs.Where(L=>L.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(L => new Logs 
             { 
@@ -36,17 +41,11 @@ namespace ESMS.Pages
                 statistics = new List<StatisticsModel> {
                      new StatisticsModel{ Amount = dbContext.AspNetUsers.Count().ToString(), Icon = "zmdi zmdi-account-o", Title = Resource.numriPerdoruesve}
                 };
+            }else if (User.IsInRole("Programmer"))
+            {
+                statistics = new List<StatisticsModel> {
+                     new StatisticsModel{ Amount = String.Format("{0:C}", dbContext.AspNetUsers.Where(U=>U.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(U=>U.Salary).FirstOrDefault()).Substring(1)+" €", Icon = "zmdi zmdi-money", Title = Resource.paga}                };
             }
-
-            //if (User.IsInRole("Programmer"))
-            //{
-            //    statistics = new List<StatisticsModel> {
-            //         new StatisticsModel{ Amount = "4332", Icon = }
-                
-            //    };
-            //}
-
-
         }
 
         public List<Logs> listLogs { get; set; }

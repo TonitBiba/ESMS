@@ -6,12 +6,14 @@ using ESMS.Areas.Identity;
 using ESMS.Data.Model;
 using ESMS.Pages.Shared;
 using ESMS.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ESMS.Pages.Configurations
 {
+    [Authorize(Policy="ClaimAuthorization:List")]
     public class ClaimAuthorizationModel : BaseModel
     {
         public ClaimAuthorizationModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) : base(signInManager, userManager) { }

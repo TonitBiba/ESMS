@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ESMS.Pages.Employees
 {
-    [Authorize(Policy = "ReadList")]
+    [Authorize(Policy = "Employee:List")]
     public class ListModel : BaseModel
     {
         public ListModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) : base(signInManager, userManager) {}

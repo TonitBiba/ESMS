@@ -18,7 +18,8 @@
                 <a href='List?handler=Users&f=3' target="_blank" class="dropdown-item"><i class="far fa-file-word"></i>&nbsp; Word</a>
             </div>
         </div>
-        <table id="tblListEmployees" class="table table-striped table-bordered">
+        @Html.AntiForgeryToken()
+        <table id="tblListEmployees" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
                     <th>@Resource.emri</th>
@@ -38,7 +39,6 @@
                 @foreach (var item in Model.employees)
                 {
                     <tr>
-                        @Html.AntiForgeryToken()
                         <td>@item.FirstName</td>
                         <td>@item.LastName</td>
                         <td>@item.Gender</td>
@@ -72,9 +72,6 @@
 <script>
     $(document).ready(function () {
         $('#tblListEmployees').DataTable({
-            responsive: true,
-            order: false,
-            autoWidth: false,
             "language": {
                 "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
                 "zeroRecords": "Nuk ka asnjë të dhënë",
@@ -88,7 +85,8 @@
                     "last": "E fundit",
                     "next": "Para"
                 }
-            }
+            },
+            responsive:true
         });
     })
 

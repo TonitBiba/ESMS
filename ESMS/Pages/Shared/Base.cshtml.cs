@@ -54,7 +54,7 @@ namespace ESMS.Pages.Shared
             dbContext.SaveChanges();
         }
 
-        public static List<SelectListItem> GetGroups(int nCase)
+        public static List<SelectListItem> GetGroups(int nCase, string UID)
         {
             using (ESMSContext dbContext = new ESMSContext())
             {
@@ -63,7 +63,15 @@ namespace ESMS.Pages.Shared
                     case 1:
                         return dbContext.AspNetRoles.Select(R => new SelectListItem { Text = R.Name, Value = R.Id }).ToList();
                     case 2:
-                        string[] userGroupd = new string[] { "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e", "dbc05ab9-f41f-493f-b3e6-689d14e88dda", "be007199-39b1-4557-b10f-cc4e6dc47b49", "423a5ce2-3024-47d1-b486-4dcd3951871b" };
+                        string[] userGroupd = null;
+                        if (UID == "Administrator")
+                            userGroupd = new string[] { "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e", "dbc05ab9-f41f-493f-b3e6-689d14e88dda", "be007199-39b1-4557-b10f-cc4e6dc47b49", "423a5ce2-3024-47d1-b486-4dcd3951871b", "58cfa2e9-9eeb-4fcd-b87c-6d0b676fb066" };
+                        else if(UID == "Menagjer_IT")
+                            userGroupd = new string[] { "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e"};
+                        else if (UID == "Menagjer_Financa")
+                            userGroupd = new string[] { "dbc05ab9-f41f-493f-b3e6-689d14e88dda" };
+                        else if (UID == "Burimet_Njerzore")
+                            userGroupd = new string[] { "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e", "dbc05ab9-f41f-493f-b3e6-689d14e88dda", "be007199-39b1-4557-b10f-cc4e6dc47b49", "423a5ce2-3024-47d1-b486-4dcd3951871b", "58cfa2e9-9eeb-4fcd-b87c-6d0b676fb066" };
                         return dbContext.AspNetRoles.Where(R=> userGroupd.Contains(R.Id)).Select(R => new SelectListItem { Text = R.Name, Value = R.Id }).ToList();
                 }
                 return null;

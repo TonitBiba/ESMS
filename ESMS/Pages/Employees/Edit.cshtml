@@ -1,12 +1,13 @@
 ﻿@page
 @using ESMS.Pages.Shared
+@using  System.Security.Claims
 @model ESMS.Pages.Employees.EditModel
 @{
     ViewData["Title"] = "Ndryshimi i te dhenave";
 }
 <div class="card">
     <form method="post" enctype="multipart/form-data">
-        @Html.HiddenFor(m=>m.Input.UIEnc)
+        @Html.HiddenFor(m => m.Input.UIEnc)
         <div class="card-body card-block">
             <h4>Ndryshim i te dhenave</h4>
             <hr />
@@ -45,7 +46,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.Position)
-                        @Html.DropDownListFor(m => m.Input.Position, BaseModel.GetGroups(2), Resource.zgjedhe, new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.Input.Position, BaseModel.GetGroups(2, User.FindFirstValue(ClaimTypes.Role)), Resource.zgjedhe, new { @class = "form-control" })
                         <span class="text-danger" asp-validation-for="Input.Position"></span>
                     </div>
                 </div>
@@ -146,7 +147,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.EmailAdress)
-                        <input asp-for="Input.EmailAdress" class="form-control" disabled = "disabled" />
+                        <input asp-for="Input.EmailAdress" class="form-control" disabled="disabled" />
                         <span class="text-danger" asp-validation-for="Input.EmailAdress"></span>
                     </div>
                 </div>
@@ -188,3 +189,12 @@
         }
     })
 </script>
+
+@if (Model.error != null)
+{
+    <script>
+        $(document).ready(function (){
+            showAlert(@Model.error.nError, '@Html.Raw(Model.error.ErrorDescription)')
+        })
+    </script>
+}

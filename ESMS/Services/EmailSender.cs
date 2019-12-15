@@ -24,6 +24,7 @@ namespace ESMS.Services
             mailMessage.From = new MailAddress(configuration.GetSection("AppSettings").GetSection("email").Value);
             mailMessage.To.Add(new MailAddress(email));
             mailMessage.Subject = subject;
+            mailMessage.IsBodyHtml = true;
             mailMessage.Body = htmlMessage;
 
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", int.Parse(configuration.GetSection("AppSettings").GetSection("smtpPort").Value));

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -9,16 +10,28 @@ using ESMS.Data.Model;
 using ESMS.General_Classes;
 using ESMS.Pages.Shared;
 using ESMS.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Configuration;
 
 namespace ESMS.Pages.Employees
 {
+    [Authorize(Policy = "Employee:Edit")]
     public class EditModel : BaseModel
     {
-        public EditModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) :base(signInManager, userManager) { }
+        public IConfiguration configuration { get; set; }
+        private readonly IHubContext<NotificationHub> _hubContext;
+        public UserManager<ApplicationUser> _userManager { get; set; }
+
+        public EditModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IConfiguration configuration, IHubContext<NotificationHub> hubContext) :base(signInManager, userManager) {
+            this.configuration = configuration;
+            _userManager = userManager;
+            _hubContext = hubContext;
+        }
 
         public void OnGet(string UIEnc)
         {
@@ -64,9 +77,10 @@ namespace ESMS.Pages.Employees
 
         public async Task<IActionResult> OnPost()
         {
+            string userId = "";
             try
             {
-                string userId = Confidenciality.Decrypt<string>(Input.UIEnc);
+                userId = Confidenciality.Decrypt<string>(Input.UIEnc);
                 var user = dbContext.AspNetUsers.Where(U => U.Id == userId).FirstOrDefault();
                 dbContext.AspNetUsersHistory.Add(new AspNetUsersHistory
                 {
@@ -103,6 +117,14 @@ namespace ESMS.Pages.Employees
                     UserProfile = user.UserProfile
                 });
                 await dbContext.SaveChangesAsync();
+
+                byte[] userImages = null;
+                if (Input.UserProfileImg != null)
+                {
+                    userImages = new byte[Input.UserProfileImg.Length];
+                    BinaryReader imageBinary = new BinaryReader(Input.UserProfileImg.OpenReadStream());
+                    userImages = imageBinary.ReadBytes((int)Input.UserProfileImg.Length);
+                }
                 user.JobTitle = Input.JobTitle;
                 user.Salary = Input.salary;
                 user.PostCode = Input.PostalCode;
@@ -110,8 +132,45 @@ namespace ESMS.Pages.Employees
                 user.Address2 = Input.AdressOpsional;
                 user.PhoneNumber = Input.PhoneNumber;
                 user.IbanCode = Input.IBANCode;
+                user.UserProfile = userImages != null ? userImages : user.UserProfile;
+
+                var applicationUser = await _userManager.FindByIdAsync(user.Id);
+                var roleId = await _userManager.GetRolesAsync(applicationUser);
+                if (roleId[0] != dbContext.AspNetRoles.Where(R => R.Id == Input.Position).FirstOrDefault().Name)
+                {
+                    string currentBeAdded = dbContext.AspNetRoles.Where(R => R.Id == user.AspNetUserRoles.FirstOrDefault().RoleId).FirstOrDefault().Name;
+                    string RoleToBeAdded = dbContext.AspNetRoles.Where(R => R.Id == Input.Position).FirstOrDefault().Name;
+                    await _userManager.RemoveFromRoleAsync(applicationUser, currentBeAdded);
+                    await _userManager.AddToRoleAsync(applicationUser, RoleToBeAdded);
+                    foreach (var claim in dbContext.AspNetRoleClaims.Where(R => R.Role.Id == Input.Position).ToList())
+                        await _userManager.AddClaimAsync(applicationUser, new Claim(claim.ClaimType, claim.ClaimValue));
+                }
+
+                if (Input.Contract != null)
+                {
+                    var pathOfSavedFile = SaveFiles(Input.Contract, FType.ContractFile, configuration);
+                    dbContext.EmployeeDocuments.Add(new EmployeeDocuments
+                    {
+                        DtInserted = DateTime.Now,
+                        NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                        Employee = user.Id,
+                        Name = Input.Contract.FileName,
+                        Path = pathOfSavedFile,
+                        Type = (int)FType.ContractFile
+                    });
+                }
+                dbContext.Notifications.Add(new Notifications { 
+                     DtInserted = DateTime.Now,
+                     Title = "Përditësim i të dhënave!",
+                     VcIcon = "zmdi zmdi-edit",
+                     VcInsertedUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                     VcText = "Janë ndryshuar të dhënat në llogarinë tuaj nga përdoruesi: "+User.FindFirstValue(ClaimTypes.GivenName)+" "+User.FindFirstValue(ClaimTypes.Surname),
+                     VcUser = userId
+                });
                 await dbContext.SaveChangesAsync();
-            }catch(Exception ex)
+                await _hubContext.Clients.All.SendAsync(user.Id, "Janë ndryshuar të dhënat në llogarinë tuaj nga përdoruesi: " + User.FindFirstValue(ClaimTypes.GivenName) + " " + User.FindFirstValue(ClaimTypes.Surname), "Janë përditësuar të dhënat.", "info", "/");
+            }
+            catch (Exception ex)
             {
                 error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
                 return Page();

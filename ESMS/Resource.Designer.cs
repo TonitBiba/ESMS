@@ -250,6 +250,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email adresa është konfirmuar me sukses..
+        /// </summary>
+        public static string emailAdresaKonfirmuar {
+            get {
+                return ResourceManager.GetString("emailAdresaKonfirmuar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email adresa re.
         /// </summary>
         public static string emailAdresaRe {

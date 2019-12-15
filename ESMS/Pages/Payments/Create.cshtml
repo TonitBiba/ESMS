@@ -1,0 +1,51 @@
+﻿@page
+@model ESMS.CreateModel
+@{
+    ViewData["Title"] = "Lista pagave për egzekutim";
+}
+
+<div class="card">
+    <div class="card-body card-block">
+        <table id="tblListMenus" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Emri</th>
+                    <th>Mbiemri</th>
+                    <th>Paga</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Input)
+                {
+                    <tr>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.salary</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+        $(document).ready(function () {
+        $('#tblListMenus').DataTable({
+            "lengthChange":false,
+            "language": {
+                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
+                "zeroRecords": "Nuk ka asnjë të dhënë",
+                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+                "infoEmpty": "Nuk ka asnjë të dhënë",
+                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
+                "search": "Kërko",
+                "paginate": {
+                    "previous": "Prapa",
+                    "first": "E para",
+                    "last": "E fundit",
+                    "next": "Para"
+                }
+            },
+            responsive: true
+        });
+    })
+</script>

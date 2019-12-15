@@ -52,5 +52,14 @@
             }
         }
     })
+
+    connection.on("@User.FindFirstValue(ClaimTypes.NameIdentifier)", function (text, title, type, url) {
+        toastr[type](text, title)
+        if (url != "") {
+            toastr.options.onclick = function () {
+                window.location.href = url
+            }
+        }
+    })
     connection.start();
 </script>

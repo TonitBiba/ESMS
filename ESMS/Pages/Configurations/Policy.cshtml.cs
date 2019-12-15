@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace ESMS.Pages.Configurations
 {
-    [Authorize(Policy = "ReadPolicy")]
+    [Authorize(Policy = "Policy:Read")]
     public class PolicyModel : BaseModel
     {
         public PolicyModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) :base(signInManager, userManager) { }

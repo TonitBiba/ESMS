@@ -3,6 +3,7 @@ using ESMS.Data.Model;
 using ESMS.General_Classes;
 using ESMS.Pages.Shared;
 using ESMS.Security;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace ESMS.Pages.Configurations
 {
+    [Authorize(Policy = "SubMenu:Create")]
     public class _RegisterSubMenuModel : BaseModel
     {
         public _RegisterSubMenuModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager) : base(signInManager, userManager) { }

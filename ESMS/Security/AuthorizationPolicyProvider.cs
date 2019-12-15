@@ -26,7 +26,7 @@ namespace ESMS.Security
             if (policy == null)
             {
                 policy = new AuthorizationPolicyBuilder()
-                    .RequireClaim("Can"+policyName, "1")
+                    .RequireClaim(policyName, "1")
                     .Build();
                 _options.AddPolicy(policyName, policy);
             }
