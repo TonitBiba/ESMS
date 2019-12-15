@@ -6,6 +6,7 @@
 }
 <div class="card">
     <form method="post" enctype="multipart/form-data">
+        @Html.HiddenFor(m=>m.Input.UIEnc)
         <div class="card-body card-block">
             <h4>Ndryshim i te dhenave</h4>
             <hr />
@@ -30,7 +31,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.Gender)
-                        @Html.DropDownListFor(m => m.Input.Gender, BaseModel.GetGenders(), Resource.zgjedhe, new { @class = "form-control", disabled="disabled" })
+                        @Html.DropDownListFor(m => m.Input.Gender, BaseModel.GetGenders(), Resource.zgjedhe, new { @class = "form-control", disabled = "disabled" })
                         <span class="text-danger" asp-validation-for="Input.Gender"></span>
                     </div>
                 </div>
@@ -70,18 +71,28 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Input.Contract)
-                        <input type="file" asp-for="Input.Contract" class="form-control" />
-                        <span class="text-danger" asp-validation-for="Input.Contract"></span>
+                    @Html.LabelFor(m => m.Input.Contract)
+                    <div class="btn-group w-100">
+                        <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.veprimet</button>
+                        <div class="dropdown-menu">
+                            <a href="Edit?handler=Document&docType=1&UIE=@Request.Query["UIEnc"]" target="_top" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; Shiko kontraten aktuale</a>
+                            <a onclick="$('#Input_Contract').trigger('click')" id="btnAttachContract" class="dropdown-item btn btn-secondary"> <i class="far fa-plus-square"></i>  &nbsp; Ngarko kontraten e re</a>
+                            <input type="file" style="display:none" asp-for="Input.Contract" class="form-control" />
+                        </div>
                     </div>
+                    <span class="text-danger" asp-validation-for="Input.Contract"></span>
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Input.UserProfileImg)
-                        <input type="file" asp-for="Input.UserProfileImg" class="form-control" />
-                        <span class="text-danger" asp-validation-for="Input.UserProfileImg"></span>
+                    @Html.LabelFor(m => m.Input.UserProfileImg)
+                    <div class="btn-group w-100">
+                        <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.veprimet</button>
+                        <div class="dropdown-menu">
+                            <a href="Edit?handler=Document&docType=2&UIE=@Request.Query["UIEnc"]" target="_top" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; Shiko fotografine aktuale</a>
+                            <a onclick="$('#Input_UserProfileImg').trigger('click')" id="btnAttachImage" class="dropdown-item btn btn-secondary"> <i class="far fa-plus-square"></i>  &nbsp; Ngarko fotografine e re</a>
+                            <input type="file" style="display:none" asp-for="Input.UserProfileImg" class="form-control" />
+                        </div>
                     </div>
+                    <span class="text-danger" asp-validation-for="Input.UserProfileImg"></span>
                 </div>
             </div>
         </div>
@@ -93,14 +104,14 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.Contry)
-                        @Html.DropDownListFor(m => m.Input.Contry, BaseModel.GetContries(), Resource.zgjedhe, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Input.Contry, new { @class = "form-control", disabled = "disabled" })
                         <span class="text-danger" asp-validation-for="Input.Contry"></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.City)
-                        @Html.DropDownListFor(m => m.Input.City, new List<SelectListItem>(), Resource.zgjedhe, new { @class = "form-control" })
+                        @Html.TextBoxFor(m => m.Input.City, new { @class = "form-control", disabled = "disabled" })
                         <span class="text-danger" asp-validation-for="Input.City"></span>
                     </div>
                 </div>
@@ -135,7 +146,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.EmailAdress)
-                        <input asp-for="Input.EmailAdress" class="form-control" />
+                        <input asp-for="Input.EmailAdress" class="form-control" disabled = "disabled" />
                         <span class="text-danger" asp-validation-for="Input.EmailAdress"></span>
                     </div>
                 </div>
@@ -159,3 +170,21 @@
         <input type="submit" class="btn btn-primary float-right m-3" value="@Resource.ndrysho" />
     </form>
 </div>
+
+<script>
+    $('#Input_Contract').change(function () {
+        if ($(this).val() != null && $(this).val() != "") {
+            $('#btnAttachContract').text($(this).val().replace(/C:\\fakepath\\/i, ''))
+        } else {
+            $('#btnAttachContract').text('@Resource.ngarkoKontraten')
+        }
+    })
+
+        $('#Input_UserProfileImg').change(function () {
+        if ($(this).val() != null && $(this).val() != "") {
+            $('#btnAttachImage').text($(this).val().replace(/C:\\fakepath\\/i, ''))
+        } else {
+            $('#btnAttachImage').text('@Resource.ngarkoFotografine')
+        }
+    })
+</script>

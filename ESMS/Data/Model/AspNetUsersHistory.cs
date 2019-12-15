@@ -3,21 +3,9 @@ using System.Collections.Generic;
 
 namespace ESMS.Data.Model
 {
-    public partial class AspNetUsers
+    public partial class AspNetUsersHistory
     {
-        public AspNetUsers()
-        {
-            AspNetUserClaims = new HashSet<AspNetUserClaims>();
-            AspNetUserLogins = new HashSet<AspNetUserLogins>();
-            AspNetUserRoles = new HashSet<AspNetUserRoles>();
-            AspNetUserTokens = new HashSet<AspNetUserTokens>();
-            EmployeeDocuments = new HashSet<EmployeeDocuments>();
-            Menu = new HashSet<Menu>();
-            NotificationsVcInsertedUserNavigation = new HashSet<Notifications>();
-            NotificationsVcUserNavigation = new HashSet<Notifications>();
-            SubMenu = new HashSet<SubMenu>();
-        }
-
+        public int IdHistory { get; set; }
         public string Id { get; set; }
         public string UserName { get; set; }
         public string NormalizedUserName { get; set; }
@@ -49,15 +37,5 @@ namespace ESMS.Data.Model
         public string PersonalNumber { get; set; }
         public float Salary { get; set; }
         public byte[] UserProfile { get; set; }
-
-        public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
-        public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
-        public virtual ICollection<AspNetUserTokens> AspNetUserTokens { get; set; }
-        public virtual ICollection<EmployeeDocuments> EmployeeDocuments { get; set; }
-        public virtual ICollection<Menu> Menu { get; set; }
-        public virtual ICollection<Notifications> NotificationsVcInsertedUserNavigation { get; set; }
-        public virtual ICollection<Notifications> NotificationsVcUserNavigation { get; set; }
-        public virtual ICollection<SubMenu> SubMenu { get; set; }
     }
 }

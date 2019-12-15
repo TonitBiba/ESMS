@@ -9,7 +9,6 @@ namespace ESMS.Data.Model
         {
             AspNetRoleClaims = new HashSet<AspNetRoleClaims>();
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
-            GroupMenu = new HashSet<GroupMenu>();
         }
 
         public string Id { get; set; }
@@ -19,6 +18,5 @@ namespace ESMS.Data.Model
 
         public virtual ICollection<AspNetRoleClaims> AspNetRoleClaims { get; set; }
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
-        public virtual ICollection<GroupMenu> GroupMenu { get; set; }
     }
 }

@@ -5,11 +5,6 @@ namespace ESMS.Data.Model
 {
     public partial class SubMenu
     {
-        public SubMenu()
-        {
-            GroupMenu = new HashSet<GroupMenu>();
-        }
-
         public int NSubMenuId { get; set; }
         public int NMenuId { get; set; }
         public string VcSubMenuSq { get; set; }
@@ -23,6 +18,5 @@ namespace ESMS.Data.Model
 
         public virtual AspNetUsers NInserted { get; set; }
         public virtual Menu NMenu { get; set; }
-        public virtual ICollection<GroupMenu> GroupMenu { get; set; }
     }
 }

@@ -73,6 +73,8 @@
     $(document).ready(function () {
         $('#tblListEmployees').DataTable({
             responsive: true,
+            order: false,
+            autoWidth: false,
             "language": {
                 "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
                 "zeroRecords": "Nuk ka asnjë të dhënë",
@@ -89,8 +91,6 @@
             }
         });
     })
-
-
 
     function EditEmployee(UEnc) {
         Loading()

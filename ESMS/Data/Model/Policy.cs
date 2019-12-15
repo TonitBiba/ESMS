@@ -5,11 +5,6 @@ namespace ESMS.Data.Model
 {
     public partial class Policy
     {
-        public Policy()
-        {
-            UserPosition = new HashSet<UserPosition>();
-        }
-
         public int NPolicyId { get; set; }
         public string VcPolicyName { get; set; }
         public string VcClaimType { get; set; }
@@ -19,7 +14,5 @@ namespace ESMS.Data.Model
         public DateTime DtInserted { get; set; }
         public string NModifyId { get; set; }
         public DateTime? DtModify { get; set; }
-
-        public virtual ICollection<UserPosition> UserPosition { get; set; }
     }
 }
