@@ -24,16 +24,19 @@ namespace ESMS.Pages.Employees
         {
             string userGroupId = dbContext.AspNetUserRoles.Where(UR => UR.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).FirstOrDefault().RoleId;
             string[] getGroups = new string[1];
-            if (userGroupId == "be007199-39b1-4557-b10f-cc4e6dc47b49")
+            if (User.IsInRole("Menagjer_IT"))
             {
                 getGroups = new string[] { "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e" };
             }
-            else if(userGroupId == "423a5ce2-3024-47d1-b486-4dcd3951871b")
+            else if(User.IsInRole("Menagjer_Financa"))
             {
                 getGroups = new string[] { "dbc05ab9-f41f-493f-b3e6-689d14e88dda" };
-            }else if(userGroupId == "2a13875f-53af-45a5-b240-48a90ff993a5")
+            }else if(User.IsInRole("Administrator"))
             {
-                getGroups = new string[] { "dbc05ab9-f41f-493f-b3e6-689d14e88dda", "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e", "423a5ce2-3024-47d1-b486-4dcd3951871b", "be007199-39b1-4557-b10f-cc4e6dc47b49" };
+                getGroups = new string[] { "dbc05ab9-f41f-493f-b3e6-689d14e88dda", "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e", "423a5ce2-3024-47d1-b486-4dcd3951871b", "be007199-39b1-4557-b10f-cc4e6dc47b49", "58cfa2e9-9eeb-4fcd-b87c-6d0b676fb066" };
+            }else if (User.IsInRole("Burimet_Njerzore"))
+            {
+                getGroups = new string[] { "dbc05ab9-f41f-493f-b3e6-689d14e88dda", "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e", "423a5ce2-3024-47d1-b486-4dcd3951871b", "be007199-39b1-4557-b10f-cc4e6dc47b49", "58cfa2e9-9eeb-4fcd-b87c-6d0b676fb066" };
             }
 
 

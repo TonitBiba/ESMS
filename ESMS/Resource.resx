@@ -483,6 +483,9 @@
   <data name="shkarkoniAplikacioniPer2FA" xml:space="preserve">
     <value>Shkarko një aplikacion për autentifikim dy hapësh sikurse Microsoft Authenticator për</value>
   </data>
+  <data name="shpenzimetPaga" xml:space="preserve">
+    <value>Shpenzimet mujore për paga</value>
+  </data>
   <data name="shteti" xml:space="preserve">
     <value>Shteti</value>
   </data>

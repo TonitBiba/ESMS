@@ -1159,6 +1159,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shpenzimet mujore për paga.
+        /// </summary>
+        public static string shpenzimetPaga {
+            get {
+                return ResourceManager.GetString("shpenzimetPaga", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shteti.
         /// </summary>
         public static string shteti {

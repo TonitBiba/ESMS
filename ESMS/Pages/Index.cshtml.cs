@@ -39,12 +39,18 @@ namespace ESMS.Pages
             if (User.IsInRole("Administrator"))
             {
                 statistics = new List<StatisticsModel> {
-                     new StatisticsModel{ Amount = dbContext.AspNetUsers.Count().ToString(), Icon = "zmdi zmdi-account-o", Title = Resource.numriPerdoruesve}
+                     new StatisticsModel{ Amount = (dbContext.AspNetUsers.Count() - 1).ToString(), Icon = "zmdi zmdi-account-o", Title = Resource.numriPerdoruesve},
                 };
             }else if (User.IsInRole("Programmer"))
             {
                 statistics = new List<StatisticsModel> {
                      new StatisticsModel{ Amount = String.Format("{0:C}", dbContext.AspNetUsers.Where(U=>U.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(U=>U.Salary).FirstOrDefault()).Substring(1)+" €", Icon = "zmdi zmdi-money", Title = Resource.paga}                };
+            }else if (User.IsInRole("Burimet_Njerzore"))
+            {
+                statistics = new List<StatisticsModel> {
+                     new StatisticsModel{ Amount = (dbContext.AspNetUsers.Count() - 1).ToString(), Icon = "zmdi zmdi-account-o", Title = Resource.numriPerdoruesve},
+                     new StatisticsModel{Amount = String.Format("{0:C}", dbContext.AspNetUsers.Where(S=>S.EmployeeStatus == 1).Sum(S=>S.Salary)).Substring(1)+" €", Icon = "zmdi zmdi-money", Title = Resource.shpenzimetPaga}
+                };
             }
         }
 
