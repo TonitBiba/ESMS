@@ -54,7 +54,6 @@ namespace ESMS
 
             services.AddSignalR();
 
-
             //Password policy
             services.Configure<IdentityOptions>(options =>
             {
@@ -88,6 +87,9 @@ namespace ESMS
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            //To Enable Cross site scripts.
+            app.UseCors();
 
             app.UseEndpoints(endpoints =>
             {
