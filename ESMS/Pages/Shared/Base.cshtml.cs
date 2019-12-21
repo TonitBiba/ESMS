@@ -5,6 +5,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using ESMS.Areas.Identity;
 using ESMS.Data.Model;
@@ -184,6 +185,44 @@ namespace ESMS.Pages.Shared
             }
         }
 
+        public static bool ValidateIBAN(string ibanValue)
+        {
+            if (System.Text.RegularExpressions.Regex.IsMatch(ibanValue, "^[A-Z0-9]"))
+            {
+                ibanValue = ibanValue.Replace(" ", String.Empty);
+                string iban =
+                ibanValue.Substring(4, ibanValue.Length - 4) + ibanValue.Substring(0, 4);
+                int asciiShift = 55;
+                StringBuilder sb = new StringBuilder();
+                foreach (char c in iban)
+                {
+                    int v;
+                    if (Char.IsLetter(c))
+                    {
+                        v = c - asciiShift;
+                    }
+                    else
+                    {
+                        v = int.Parse(c.ToString());
+                    }
+                    sb.Append(v);
+                }
+                string checkSumString = sb.ToString();
+                int checksum = int.Parse(checkSumString.Substring(0, 1));
+                for (int i = 1; i < checkSumString.Length; i++)
+                {
+                    int v = int.Parse(checkSumString.Substring(i, 1));
+                    checksum *= 10;
+                    checksum += v;
+                    checksum %= 97;
+                }
+                return checksum == 1;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         protected enum FType
         {

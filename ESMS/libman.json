@@ -19,6 +19,10 @@
         "dist/browser/signalr.js",
         "dist/browser/signalr.min.js"
       ]
+    },
+    {
+      "library": "jquery-validation-unobtrusive@3.2.11",
+      "destination": "wwwroot/jquery-validation-unobtrusive/"
     }
   ]
 }

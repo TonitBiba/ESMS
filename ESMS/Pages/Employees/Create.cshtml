@@ -75,9 +75,16 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Input.EmploymentDate)
-                        <input type="date" asp-for="Input.EmploymentDate" min="0" class="form-control" />
-                        <span class="text-danger" asp-validation-for="Input.EmploymentDate"></span>
+                        @Html.LabelFor(m => m.Input.DtFrom)
+                        <input type="date" asp-for="Input.DtFrom" min="0" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.DtFrom"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.DtTo)
+                        <input type="date" asp-for="Input.DtTo" min="0" class="form-control" />
+                        <span class="text-danger" asp-validation-for="Input.DtTo"></span>
                     </div>
                 </div>
                 <div class="col-md-4">

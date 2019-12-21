@@ -44,7 +44,9 @@ namespace ESMS.Pages.Employees
                  City = dbContext.Cities.Where(C=>C.Id == U.City).Select(S=>S.Name).FirstOrDefault(),
                  Contry = dbContext.Contries.Where(C => C.Id == U.Country).Select(S => S.Name).FirstOrDefault(),
                  EmailAdress = U.Email,
-                 EmploymentDate = U.EmploymentDate,
+                 //EmploymentDate = U.EmploymentDate,
+                 DtFrom = U.DtFrom,
+                 DtTo = U.DtTo.ToString("dd/MM/yyyy"),
                  FirstName = U.FirstName,
                  Gender = U.Gender,
                  IBANCode = U.IbanCode,
@@ -80,95 +82,105 @@ namespace ESMS.Pages.Employees
             string userId = "";
             try
             {
-                userId = Confidenciality.Decrypt<string>(Input.UIEnc);
-                var user = dbContext.AspNetUsers.Where(U => U.Id == userId).FirstOrDefault();
-                dbContext.AspNetUsersHistory.Add(new AspNetUsersHistory
+                if (ModelState.IsValid)
                 {
-                    Id = user.Id,
-                    JobTitle = user.JobTitle,
-                    LastName = user.LastName,
-                    LockoutEnabled = user.LockoutEnabled,
-                    LockoutEnd = user.LockoutEnd,
-                    AccessFailedCount = user.AccessFailedCount,
-                    NormalizedEmail = user.NormalizedEmail,
-                    NormalizedUserName = user.NormalizedUserName,
-                    Address = user.Address,
-                    Address2 = user.Address2,
-                    BirthDate = user.BirthDate,
-                    City = user.City,
-                    ConcurrencyStamp = user.ConcurrencyStamp,
-                    Country = user.Country,
-                    Email = user.Email,
-                    EmailConfirmed = user.EmailConfirmed,
-                    EmployeeStatus = user.EmployeeStatus,
-                    EmploymentDate = user.EmploymentDate,
-                    FirstName = user.FirstName,
-                    Gender = user.Gender,
-                    IbanCode = user.IbanCode,
-                    PasswordHash = user.PasswordHash,
-                    PersonalNumber = user.PersonalNumber,
-                    PhoneNumber = user.PhoneNumber,
-                    PhoneNumberConfirmed = user.PhoneNumberConfirmed,
-                    PostCode = user.PostCode,
-                    Salary = user.Salary,
-                    SecurityStamp = user.SecurityStamp,
-                    TwoFactorEnabled = user.TwoFactorEnabled,
-                    UserName = user.UserName,
-                    UserProfile = user.UserProfile
-                });
-                await dbContext.SaveChangesAsync();
+                    userId = Confidenciality.Decrypt<string>(Input.UIEnc);
+                    var user = dbContext.AspNetUsers.Where(U => U.Id == userId).FirstOrDefault();
+                    dbContext.AspNetUsersHistory.Add(new AspNetUsersHistory
+                    {
+                        Id = user.Id,
+                        JobTitle = user.JobTitle,
+                        LastName = user.LastName,
+                        LockoutEnabled = user.LockoutEnabled,
+                        LockoutEnd = user.LockoutEnd,
+                        AccessFailedCount = user.AccessFailedCount,
+                        NormalizedEmail = user.NormalizedEmail,
+                        NormalizedUserName = user.NormalizedUserName,
+                        Address = user.Address,
+                        Address2 = user.Address2,
+                        BirthDate = user.BirthDate,
+                        City = user.City,
+                        ConcurrencyStamp = user.ConcurrencyStamp,
+                        Country = user.Country,
+                        Email = user.Email,
+                        EmailConfirmed = user.EmailConfirmed,
+                        EmployeeStatus = user.EmployeeStatus,
+                        DtFrom = user.DtFrom,
+                        DtTo = user.DtTo,
+                        FirstName = user.FirstName,
+                        Gender = user.Gender,
+                        IbanCode = user.IbanCode,
+                        PasswordHash = user.PasswordHash,
+                        PersonalNumber = user.PersonalNumber,
+                        PhoneNumber = user.PhoneNumber,
+                        PhoneNumberConfirmed = user.PhoneNumberConfirmed,
+                        PostCode = user.PostCode,
+                        Salary = user.Salary,
+                        SecurityStamp = user.SecurityStamp,
+                        TwoFactorEnabled = user.TwoFactorEnabled,
+                        UserName = user.UserName,
+                        UserProfile = user.UserProfile
+                    });
+                    await dbContext.SaveChangesAsync();
 
-                byte[] userImages = null;
-                if (Input.UserProfileImg != null)
-                {
-                    userImages = new byte[Input.UserProfileImg.Length];
-                    BinaryReader imageBinary = new BinaryReader(Input.UserProfileImg.OpenReadStream());
-                    userImages = imageBinary.ReadBytes((int)Input.UserProfileImg.Length);
-                }
-                user.JobTitle = Input.JobTitle;
-                user.Salary = Input.salary;
-                user.PostCode = Input.PostalCode;
-                user.Address = Input.Adress;
-                user.Address2 = Input.AdressOpsional;
-                user.PhoneNumber = Input.PhoneNumber;
-                user.IbanCode = Input.IBANCode;
-                user.UserProfile = userImages != null ? userImages : user.UserProfile;
+                    byte[] userImages = null;
+                    if (Input.UserProfileImg != null)
+                    {
+                        userImages = new byte[Input.UserProfileImg.Length];
+                        BinaryReader imageBinary = new BinaryReader(Input.UserProfileImg.OpenReadStream());
+                        userImages = imageBinary.ReadBytes((int)Input.UserProfileImg.Length);
+                    }
+                    user.JobTitle = Input.JobTitle;
+                    user.Salary = Input.salary;
+                    user.PostCode = Input.PostalCode;
+                    user.Address = Input.Adress;
+                    user.Address2 = Input.AdressOpsional;
+                    user.PhoneNumber = Input.PhoneNumber;
+                    user.IbanCode = Input.IBANCode;
+                    user.UserProfile = userImages != null ? userImages : user.UserProfile;
 
-                var applicationUser = await _userManager.FindByIdAsync(user.Id);
-                var roleId = await _userManager.GetRolesAsync(applicationUser);
-                if (roleId[0] != dbContext.AspNetRoles.Where(R => R.Id == Input.Position).FirstOrDefault().Name)
-                {
-                    string currentBeAdded = dbContext.AspNetRoles.Where(R => R.Id == user.AspNetUserRoles.FirstOrDefault().RoleId).FirstOrDefault().Name;
-                    string RoleToBeAdded = dbContext.AspNetRoles.Where(R => R.Id == Input.Position).FirstOrDefault().Name;
-                    await _userManager.RemoveFromRoleAsync(applicationUser, currentBeAdded);
-                    await _userManager.AddToRoleAsync(applicationUser, RoleToBeAdded);
-                    foreach (var claim in dbContext.AspNetRoleClaims.Where(R => R.Role.Id == Input.Position).ToList())
-                        await _userManager.AddClaimAsync(applicationUser, new Claim(claim.ClaimType, claim.ClaimValue));
-                }
+                    var applicationUser = await _userManager.FindByIdAsync(user.Id);
+                    var roleId = await _userManager.GetRolesAsync(applicationUser);
+                    if (roleId[0] != dbContext.AspNetRoles.Where(R => R.Id == Input.Position).FirstOrDefault().Name)
+                    {
+                        string currentBeAdded = dbContext.AspNetRoles.Where(R => R.Id == user.AspNetUserRoles.FirstOrDefault().RoleId).FirstOrDefault().Name;
+                        string RoleToBeAdded = dbContext.AspNetRoles.Where(R => R.Id == Input.Position).FirstOrDefault().Name;
+                        await _userManager.RemoveFromRoleAsync(applicationUser, currentBeAdded);
+                        await _userManager.AddToRoleAsync(applicationUser, RoleToBeAdded);
+                        foreach (var claim in dbContext.AspNetRoleClaims.Where(R => R.Role.Id == Input.Position).ToList())
+                            await _userManager.AddClaimAsync(applicationUser, new Claim(claim.ClaimType, claim.ClaimValue));
+                    }
 
-                if (Input.Contract != null)
-                {
-                    var pathOfSavedFile = SaveFiles(Input.Contract, FType.ContractFile, configuration);
-                    dbContext.EmployeeDocuments.Add(new EmployeeDocuments
+                    if (Input.Contract != null)
+                    {
+                        var pathOfSavedFile = SaveFiles(Input.Contract, FType.ContractFile, configuration);
+                        dbContext.EmployeeDocuments.Add(new EmployeeDocuments
+                        {
+                            DtInserted = DateTime.Now,
+                            NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                            Employee = user.Id,
+                            Name = Input.Contract.FileName,
+                            Path = pathOfSavedFile,
+                            Type = (int)FType.ContractFile
+                        });
+                    }
+                    dbContext.Notifications.Add(new Notifications
                     {
                         DtInserted = DateTime.Now,
-                        NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                        Employee = user.Id,
-                        Name = Input.Contract.FileName,
-                        Path = pathOfSavedFile,
-                        Type = (int)FType.ContractFile
+                        Title = "Përditësim i të dhënave!",
+                        VcIcon = "zmdi zmdi-edit",
+                        VcInsertedUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                        VcText = "Janë ndryshuar të dhënat në llogarinë tuaj nga përdoruesi: " + User.FindFirstValue(ClaimTypes.GivenName) + " " + User.FindFirstValue(ClaimTypes.Surname),
+                        VcUser = userId
                     });
+                    await dbContext.SaveChangesAsync();
+                    await _hubContext.Clients.All.SendAsync(user.Id, "Janë ndryshuar të dhënat në llogarinë tuaj nga përdoruesi: " + User.FindFirstValue(ClaimTypes.GivenName) + " " + User.FindFirstValue(ClaimTypes.Surname), "Janë përditësuar të dhënat.", "info", "/");
                 }
-                dbContext.Notifications.Add(new Notifications { 
-                     DtInserted = DateTime.Now,
-                     Title = "Përditësim i të dhënave!",
-                     VcIcon = "zmdi zmdi-edit",
-                     VcInsertedUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                     VcText = "Janë ndryshuar të dhënat në llogarinë tuaj nga përdoruesi: "+User.FindFirstValue(ClaimTypes.GivenName)+" "+User.FindFirstValue(ClaimTypes.Surname),
-                     VcUser = userId
-                });
-                await dbContext.SaveChangesAsync();
-                await _hubContext.Clients.All.SendAsync(user.Id, "Janë ndryshuar të dhënat në llogarinë tuaj nga përdoruesi: " + User.FindFirstValue(ClaimTypes.GivenName) + " " + User.FindFirstValue(ClaimTypes.Surname), "Janë përditësuar të dhënat.", "info", "/");
+                else
+                {
+                    error = new Error { nError = 4, ErrorDescription = "Keni shtypur te dhena egzistuese."};
+                    return Page();
+                }
             }
             catch (Exception ex)
             {
@@ -177,6 +189,11 @@ namespace ESMS.Pages.Employees
             }
             TempData.Set<Error>("error", new Error { nError = 1, ErrorDescription = Resource.perditesimiMeSukses });
             return RedirectToPage("List");
+        }
+
+        public JsonResult OnGetCheckIban(InputClass input)
+        {
+            return new JsonResult(ValidateIBAN(input.IBANCode));
         }
 
         public Error error { get; set; }
@@ -240,7 +257,11 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "ditaPunesimit", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            public DateTime EmploymentDate { get; set; }
+            public DateTime DtFrom { get; set; }
+
+            [Display(Name = "dataPunesimitDeri", ResourceType = typeof(Resource))]
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            public string DtTo { get; set; }
 
             [Display(Name = "ditelindja", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
@@ -250,6 +271,7 @@ namespace ESMS.Pages.Employees
             [Display(Name = "ibanKode", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             [DataType(DataType.CreditCard)]
+            [PageRemote(PageHandler = "CheckIban", HttpMethod = "GET", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "ibanValidation")]
             public string IBANCode { get; set; }
 
             [Display(Name = "pozitaPunes", ResourceType = typeof(Resource))]

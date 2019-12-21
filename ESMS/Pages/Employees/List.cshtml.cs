@@ -39,13 +39,13 @@ namespace ESMS.Pages.Employees
                 getGroups = new string[] { "dbc05ab9-f41f-493f-b3e6-689d14e88dda", "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e", "423a5ce2-3024-47d1-b486-4dcd3951871b", "be007199-39b1-4557-b10f-cc4e6dc47b49", "58cfa2e9-9eeb-4fcd-b87c-6d0b676fb066" };
             }
 
-
             employees = dbContext.AspNetUsers.Where(U => getGroups.Contains(U.AspNetUserRoles.FirstOrDefault().RoleId)).Select(A => new List { 
                  FirstName = A.FirstName,
                  LastName = A.LastName,
                  Birthdate = A.BirthDate,
                  Email = A.Email,
-                 EmployementDate = A.EmploymentDate,
+                 DtFrom = A.DtFrom,
+                 DtTo = A.DtTo,
                  Gender = A.Gender ==1?"Mashkull":"Femer",
                  PhoneNumber = A.PhoneNumber,
                  Salary = A.Salary,
@@ -84,7 +84,8 @@ namespace ESMS.Pages.Employees
             public string Role { get; set; }
             public string Email { get; set; }
             public string PhoneNumber { get; set; }
-            public DateTime EmployementDate { get; set; }
+            public DateTime DtFrom { get; set; }
+            public DateTime DtTo { get; set; }
             public float Salary { get; set; }
             public string statusEmployee { get; set; }
             public string UserId { get; set; }

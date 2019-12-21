@@ -187,6 +187,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data punësimit deri.
+        /// </summary>
+        public static string dataPunesimitDeri {
+            get {
+                return ResourceManager.GetString("dataPunesimitDeri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dërgo email adresën për verifikim.
         /// </summary>
         public static string dergoEmailPerVerifikim {
@@ -196,7 +205,7 @@ namespace ESMS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dita e punësimit.
+        ///   Looks up a localized string similar to Dita e fillimit të punës.
         /// </summary>
         public static string ditaPunesimit {
             get {
@@ -214,7 +223,7 @@ namespace ESMS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dita fillimit të punës.
+        ///   Looks up a localized string similar to Data fillimit te punes.
         /// </summary>
         public static string dtEmployment {
             get {
@@ -516,6 +525,15 @@ namespace ESMS {
         public static string ibanKode {
             get {
                 return ResourceManager.GetString("ibanKode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iban-i nuk është valid..
+        /// </summary>
+        public static string ibanValidation {
+            get {
+                return ResourceManager.GetString("ibanValidation", resourceCulture);
             }
         }
         

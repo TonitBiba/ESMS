@@ -124,9 +124,11 @@ namespace ESMS.Data.Model
             {
                 entity.Property(e => e.BirthDate).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
-                entity.Property(e => e.Email).HasMaxLength(256);
+                entity.Property(e => e.DtFrom).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
-                entity.Property(e => e.EmploymentDate).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+                entity.Property(e => e.DtTo).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+
+                entity.Property(e => e.Email).HasMaxLength(256);
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
@@ -168,9 +170,11 @@ namespace ESMS.Data.Model
 
                 entity.Property(e => e.BirthDate).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
-                entity.Property(e => e.Email).HasMaxLength(256);
+                entity.Property(e => e.DtFrom).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
-                entity.Property(e => e.EmploymentDate).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+                entity.Property(e => e.DtTo).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+
+                entity.Property(e => e.Email).HasMaxLength(256);
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()

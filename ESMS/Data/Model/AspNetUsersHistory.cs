@@ -29,7 +29,6 @@ namespace ESMS.Data.Model
         public int? City { get; set; }
         public int? Country { get; set; }
         public int EmployeeStatus { get; set; }
-        public DateTime EmploymentDate { get; set; }
         public int Gender { get; set; }
         public string JobTitle { get; set; }
         public int? PostCode { get; set; }
@@ -37,5 +36,7 @@ namespace ESMS.Data.Model
         public string PersonalNumber { get; set; }
         public float Salary { get; set; }
         public byte[] UserProfile { get; set; }
+        public DateTime DtFrom { get; set; }
+        public DateTime DtTo { get; set; }
     }
 }

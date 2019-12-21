@@ -29,7 +29,8 @@
                     <th>@Resource.pozitaPunes</th>
                     <th>@Resource.email</th>
                     <th>@Resource.nrTel</th>
-                    <th>@Resource.employmentDate</th>
+                    <th>@Resource.ditaPunesimit</th>
+                    <th>@Resource.dataPunesimitDeri</th>
                     <th>@Resource.paga</th>
                     <th>@Resource.statusi</th>
                     <th>@Resource.veprimet</th>
@@ -46,7 +47,8 @@
                         <td>@item.Role</td>
                         <td>@item.Email</td>
                         <td>@item.PhoneNumber</td>
-                        <td>@item.EmployementDate.ToString("dd/MM/yyyy")</td>
+                        <td>@item.DtFrom.ToString("dd/MM/yyyy")</td>
+                        <td>@item.DtTo.ToString("dd/MM/yyyy")</td>
                         <td>@String.Format("{0:C}", item.Salary).Substring(1)</td>
                         <td>@item.statusEmployee</td>
                         <td>

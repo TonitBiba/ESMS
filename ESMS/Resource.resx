@@ -159,17 +159,20 @@
   <data name="controller" xml:space="preserve">
     <value>Kontrolleri</value>
   </data>
+  <data name="dataPunesimitDeri" xml:space="preserve">
+    <value>Data punësimit deri</value>
+  </data>
   <data name="dergoEmailPerVerifikim" xml:space="preserve">
     <value>Dërgo email adresën për verifikim</value>
   </data>
   <data name="ditaPunesimit" xml:space="preserve">
-    <value>Dita e punësimit</value>
+    <value>Dita e fillimit të punës</value>
   </data>
   <data name="ditelindja" xml:space="preserve">
     <value>Ditëlindja</value>
   </data>
   <data name="dtEmployment" xml:space="preserve">
-    <value>Dita fillimit të punës</value>
+    <value>Data fillimit te punes</value>
   </data>
   <data name="dtInsertimit" xml:space="preserve">
     <value>Data insertimit</value>
@@ -269,6 +272,9 @@
   </data>
   <data name="ibanKode" xml:space="preserve">
     <value>IBAN kodi</value>
+  </data>
+  <data name="ibanValidation" xml:space="preserve">
+    <value>Iban-i nuk është valid.</value>
   </data>
   <data name="ikona" xml:space="preserve">
     <value>Ikona</value>
