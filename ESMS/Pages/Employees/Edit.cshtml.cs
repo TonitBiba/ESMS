@@ -46,7 +46,7 @@ namespace ESMS.Pages.Employees
                  EmailAdress = U.Email,
                  //EmploymentDate = U.EmploymentDate,
                  DtFrom = U.DtFrom,
-                 DtTo = U.DtTo.ToString("dd/MM/yyyy"),
+                 DtTo = U.DtTo,
                  FirstName = U.FirstName,
                  Gender = U.Gender,
                  IBANCode = U.IbanCode,
@@ -178,7 +178,7 @@ namespace ESMS.Pages.Employees
                 }
                 else
                 {
-                    error = new Error { nError = 4, ErrorDescription = "Keni shtypur te dhena egzistuese."};
+                    error = new Error { nError = 4, ErrorDescription = "Te dhenat nuk jane valide!"};
                     return Page();
                 }
             }
@@ -206,15 +206,12 @@ namespace ESMS.Pages.Employees
             public string UIEnc { get; set; }
 
             [Display(Name = "emri", ResourceType = typeof(Resource))]
-            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public string FirstName { get; set; }
 
             [Display(Name = "mbiemri", ResourceType = typeof(Resource))]
-            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public string LastName { get; set; }
 
             [Display(Name = "emriMesem", ResourceType = typeof(Resource))]
-            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public string MiddleName { get; set; }
 
             [Display(Name = "pershkrimiPozites", ResourceType = typeof(Resource))]
@@ -222,7 +219,6 @@ namespace ESMS.Pages.Employees
             public string JobTitle { get; set; }
 
             [Display(Name = "gjinia", ResourceType = typeof(Resource))]
-            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public int Gender { get; set; }
 
             [Display(Name = "nrTel", ResourceType = typeof(Resource))]
@@ -231,8 +227,6 @@ namespace ESMS.Pages.Employees
             public string PhoneNumber { get; set; }
 
             [Display(Name = "emailAdresa", ResourceType = typeof(Resource))]
-            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            [DataType(DataType.EmailAddress, ErrorMessageResourceName = "kontrolloFormatinEmail", ErrorMessageResourceType = typeof(Resource))]
             public string EmailAdress { get; set; }
 
             [Display(Name = "adresa", ResourceType = typeof(Resource))]
@@ -248,11 +242,9 @@ namespace ESMS.Pages.Employees
             public int PostalCode { get; set; }
 
             [Display(Name = "qyteti", ResourceType = typeof(Resource))]
-            //[Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public string City { get; set; }
 
             [Display(Name = "shteti", ResourceType = typeof(Resource))]
-            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public string Contry { get; set; }
 
             [Display(Name = "ditaPunesimit", ResourceType = typeof(Resource))]
@@ -260,12 +252,10 @@ namespace ESMS.Pages.Employees
             public DateTime DtFrom { get; set; }
 
             [Display(Name = "dataPunesimitDeri", ResourceType = typeof(Resource))]
-            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            public string DtTo { get; set; }
+            public DateTime DtTo { get; set; }
 
             [Display(Name = "ditelindja", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-
             public DateTime BirthDate { get; set; }
 
             [Display(Name = "ibanKode", ResourceType = typeof(Resource))]
@@ -279,11 +269,9 @@ namespace ESMS.Pages.Employees
             public string Position { get; set; }
 
             [Display(Name = "kontrataPunes", ResourceType = typeof(Resource))]
-            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public IFormFile Contract { get; set; }
 
             [Display(Name = "numriPersonal", ResourceType = typeof(Resource))]
-            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public string PersonalNumber { get; set; }
 
             [Display(Name = "fotoProfilit", ResourceType = typeof(Resource))]
