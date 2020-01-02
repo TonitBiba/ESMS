@@ -29,7 +29,9 @@ namespace ESMS.Data.Model
         public virtual DbSet<EmployeeDocuments> EmployeeDocuments { get; set; }
         public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
+        public virtual DbSet<Month> Month { get; set; }
         public virtual DbSet<Notifications> Notifications { get; set; }
+        public virtual DbSet<Payments> Payments { get; set; }
         public virtual DbSet<Policy> Policy { get; set; }
         public virtual DbSet<Position> Position { get; set; }
         public virtual DbSet<States> States { get; set; }
@@ -132,7 +134,7 @@ namespace ESMS.Data.Model
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
-                    .HasMaxLength(100)
+                    .HasMaxLength(1000)
                     .HasDefaultValueSql("(N'')");
 
                 entity.Property(e => e.IbanCode)
@@ -178,7 +180,7 @@ namespace ESMS.Data.Model
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
-                    .HasMaxLength(100)
+                    .HasMaxLength(1000)
                     .HasDefaultValueSql("(N'')");
 
                 entity.Property(e => e.IbanCode)
@@ -390,6 +392,19 @@ namespace ESMS.Data.Model
                     .HasConstraintName("FK_Menu_AspNetUsers");
             });
 
+            modelBuilder.Entity<Month>(entity =>
+            {
+                entity.Property(e => e.MonthEn)
+                    .IsRequired()
+                    .HasColumnName("month_EN")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.MonthSq)
+                    .IsRequired()
+                    .HasColumnName("month_SQ")
+                    .HasMaxLength(64);
+            });
+
             modelBuilder.Entity<Notifications>(entity =>
             {
                 entity.HasKey(e => e.NNotificationId);
@@ -435,6 +450,47 @@ namespace ESMS.Data.Model
                     .HasForeignKey(d => d.VcUser)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Notifications_AspNetUsers");
+            });
+
+            modelBuilder.Entity<Payments>(entity =>
+            {
+                entity.Property(e => e.DtInserted)
+                    .HasColumnName("dtInserted")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Month).HasColumnName("month");
+
+                entity.Property(e => e.Salary)
+                    .HasColumnName("salary")
+                    .HasColumnType("money");
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasColumnName("userId")
+                    .HasMaxLength(450);
+
+                entity.Property(e => e.VcInserted)
+                    .IsRequired()
+                    .HasColumnName("vcInserted")
+                    .HasMaxLength(450);
+
+                entity.HasOne(d => d.MonthNavigation)
+                    .WithMany(p => p.Payments)
+                    .HasForeignKey(d => d.Month)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Payments_Month");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.PaymentsUser)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Payments_AspNetUsers");
+
+                entity.HasOne(d => d.VcInsertedNavigation)
+                    .WithMany(p => p.PaymentsVcInsertedNavigation)
+                    .HasForeignKey(d => d.VcInserted)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Payments_AspNetUsers1");
             });
 
             modelBuilder.Entity<Policy>(entity =>

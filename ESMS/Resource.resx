@@ -216,6 +216,9 @@
   <data name="emriNenMenusSQ" xml:space="preserve">
     <value>Emri nen-menus shqip</value>
   </data>
+  <data name="executeSalaries" xml:space="preserve">
+    <value>Ekzekuto pagat</value>
+  </data>
   <data name="FA2KonfiguroniAplikacionin" xml:space="preserve">
     <value>Konfiguroni aplikacionin për autentifikim</value>
   </data>
@@ -368,6 +371,9 @@
   </data>
   <data name="msgRuajtjaSukses" xml:space="preserve">
     <value>Të dhënat janë ruajtur me sukses.</value>
+  </data>
+  <data name="muaji" xml:space="preserve">
+    <value>Muaji</value>
   </data>
   <data name="ndryshimTeDhenave" xml:space="preserve">
     <value>Ndryshimi i të dhënave</value>

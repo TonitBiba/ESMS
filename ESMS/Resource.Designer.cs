@@ -358,6 +358,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ekzekuto pagat.
+        /// </summary>
+        public static string executeSalaries {
+            get {
+                return ResourceManager.GetString("executeSalaries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Konfiguroni aplikacionin për autentifikim.
         /// </summary>
         public static string FA2KonfiguroniAplikacionin {
@@ -813,6 +822,15 @@ namespace ESMS {
         public static string msgRuajtjaSukses {
             get {
                 return ResourceManager.GetString("msgRuajtjaSukses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Muaji.
+        /// </summary>
+        public static string muaji {
+            get {
+                return ResourceManager.GetString("muaji", resourceCulture);
             }
         }
         

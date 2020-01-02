@@ -88,9 +88,6 @@ namespace ESMS
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //To Enable Cross site scripts.
-            app.UseCors();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<NotificationHub>("/notificationHub");

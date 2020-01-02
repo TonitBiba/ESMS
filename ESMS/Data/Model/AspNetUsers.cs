@@ -15,6 +15,8 @@ namespace ESMS.Data.Model
             Menu = new HashSet<Menu>();
             NotificationsVcInsertedUserNavigation = new HashSet<Notifications>();
             NotificationsVcUserNavigation = new HashSet<Notifications>();
+            PaymentsUser = new HashSet<Payments>();
+            PaymentsVcInsertedNavigation = new HashSet<Payments>();
             SubMenu = new HashSet<SubMenu>();
         }
 
@@ -59,6 +61,8 @@ namespace ESMS.Data.Model
         public virtual ICollection<Menu> Menu { get; set; }
         public virtual ICollection<Notifications> NotificationsVcInsertedUserNavigation { get; set; }
         public virtual ICollection<Notifications> NotificationsVcUserNavigation { get; set; }
+        public virtual ICollection<Payments> PaymentsUser { get; set; }
+        public virtual ICollection<Payments> PaymentsVcInsertedNavigation { get; set; }
         public virtual ICollection<SubMenu> SubMenu { get; set; }
     }
 }

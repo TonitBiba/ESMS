@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ESMS", "ESMS\ESMS.csproj", 
 EndProject
 Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "ESMSReports", "ESMSReports\ESMSReports.rptproj", "{85362AE3-DCDE-4417-AF84-FB33B0433F71}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ESMS_API", "ESMS_API\ESMS_API.csproj", "{D13BC1CB-F5AD-43A8-BF89-00DD9C7BE5BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,12 @@ Global
 		{85362AE3-DCDE-4417-AF84-FB33B0433F71}.Release|Any CPU.ActiveCfg = Release
 		{85362AE3-DCDE-4417-AF84-FB33B0433F71}.Release|Any CPU.Build.0 = Release
 		{85362AE3-DCDE-4417-AF84-FB33B0433F71}.Release|Any CPU.Deploy.0 = Release
+		{D13BC1CB-F5AD-43A8-BF89-00DD9C7BE5BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D13BC1CB-F5AD-43A8-BF89-00DD9C7BE5BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D13BC1CB-F5AD-43A8-BF89-00DD9C7BE5BA}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{D13BC1CB-F5AD-43A8-BF89-00DD9C7BE5BA}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{D13BC1CB-F5AD-43A8-BF89-00DD9C7BE5BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D13BC1CB-F5AD-43A8-BF89-00DD9C7BE5BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,25 +1,51 @@
 ﻿@page
 @model ESMS.CreateModel
+@using ESMS.Pages.Shared
 @{
     ViewData["Title"] = "Lista pagave për egzekutim";
 }
 
 <div class="card">
     <div class="card-body card-block">
+        <h4> Egzekutimi pagave </h4>
+        <hr />
+        <form method="post">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(M=>M.Input.month)
+                        @Html.DropDownListFor(m => m.Input.month, BaseModel.GetMonths(1), Resource.zgjedhe, new { @class = "form-control" })
+                        <span asp-validation-for="Input.month" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label style="visibility:hidden" asp-for="Input.month"></label>
+                    <input type="submit" class="btn btn-primary w-100" value="@Resource.executeSalaries" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-body">
+        <h4> Lista e pageve për ekzekutim</h4>
+        <hr />
         <table id="tblListMenus" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
                     <th>Emri</th>
                     <th>Mbiemri</th>
+                    <th>Pozita</th>
+                    <th>Iban</th>
                     <th>Paga</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.Input)
+                @foreach (var item in Model.employees)
                 {
                     <tr>
                         <td>@item.FirstName</td>
                         <td>@item.LastName</td>
+                        <td>@item.Role</td>
+                        <td>@item.Iban</td>
                         <td>@item.salary</td>
                     </tr>
                 }
@@ -28,9 +54,9 @@
     </div>
 </div>
 <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
         $('#tblListMenus').DataTable({
-            "lengthChange":false,
+            "lengthChange": false,
             "language": {
                 "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
                 "zeroRecords": "Nuk ka asnjë të dhënë",
@@ -46,6 +72,14 @@
                 }
             },
             responsive: true
-        });
+        })
     })
 </script>
+@if (Model.error != null)
+{
+    <script>
+        $(document).ready(function (){
+            showAlert(@Model.error.nError, '@Model.error.ErrorDescription')
+        })
+    </script>
+}

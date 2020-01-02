@@ -55,6 +55,8 @@ namespace ESMS.Pages.Shared
             dbContext.SaveChanges();
         }
 
+
+        #region DropDownList
         public static List<SelectListItem> GetGroups(int nCase, string UID)
         {
             using (ESMSContext dbContext = new ESMSContext())
@@ -93,6 +95,18 @@ namespace ESMS.Pages.Shared
                 return countries;
             }
         }
+
+        public static List<SelectListItem> GetMonths(int language)
+        {
+            using (ESMSContext dbContext = new ESMSContext())
+            {
+                var usedMonths = dbContext.Payments.Where(P => P.DtInserted.Year == DateTime.Now.Year).Select(s => s.Month).ToList();
+
+                return dbContext.Month.Where(M=> !usedMonths.Contains(M.Id)).Select(M=>new SelectListItem { Text = language == 1?M.MonthSq:M.MonthEn, Value = M.Id.ToString() }).ToList();
+            }
+        }
+
+        #endregion
 
         public string getFormatReport(int format)
         {
