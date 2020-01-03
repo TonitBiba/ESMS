@@ -76,6 +76,7 @@ namespace ESMS
                             //Insertimi i pagesave ne sistem
                             List<Payments> payments = dbContext.AspNetUsers.Where(u => u.AspNetUserRoles.FirstOrDefault().Role.Name != "Administrator" && u.EmployeeStatus == 1).Select(U => new Payments
                             {
+                                //koment per test
                                 Salary = (decimal)U.Salary,
                                 DtInserted = DateTime.Now,
                                 Month = Input.month,
