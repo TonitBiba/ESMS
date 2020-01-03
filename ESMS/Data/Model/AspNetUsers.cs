@@ -54,6 +54,7 @@ namespace ESMS.Data.Model
         public byte[] UserProfile { get; set; }
         public DateTime DtFrom { get; set; }
         public DateTime DtTo { get; set; }
+        public int TaxGroupId { get; set; }
 
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }
