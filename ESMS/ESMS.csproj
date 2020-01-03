@@ -30,6 +30,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Localization" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0">
       <PrivateAssets>all</PrivateAssets>
@@ -51,24 +52,26 @@
 
 
   <ItemGroup>
-    <Compile Update="Resource.Designer.cs">
+    <Compile Update="Resource.sq-AL.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Resource.resx</DependentUpon>
+      <DependentUpon>Resource.sq-AL.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
 
   <ItemGroup>
-    <EmbeddedResource Update="Resource.resx">
+    <EmbeddedResource Update="Resource.en-US.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resource.sq-AL.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.sq-AL.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 
 
   <ItemGroup>
-    <Folder Include="Reports\" />
     <Folder Include="wwwroot\lib\SignalR\" />
   </ItemGroup>
 

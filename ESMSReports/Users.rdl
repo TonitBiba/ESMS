@@ -34,7 +34,9 @@
 from AspNetUsers U
 	inner join AspNetUserRoles UR on UR.UserId = U.Id
 	inner join AspNetRoles R on R.Id = UR.RoleId
-where R.ID = (case when @groupID = '2a13875f-53af-45a5-b240-48a90ff993a5' then R.ID else @groupID end)</CommandText>
+where R.ID = (case when @groupID = '2a13875f-53af-45a5-b240-48a90ff993a5' then R.ID
+	               when @groupID = '58cfa2e9-9eeb-4fcd-b87c-6d0b676fb066' then R.ID
+ else @groupID end)</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -914,7 +916,7 @@ where R.ID = (case when @groupID = '2a13875f-53af-45a5-b240-48a90ff993a5' then R
             <Top>2.94042in</Top>
             <Left>0.13741in</Left>
             <Height>0.75458in</Height>
-            <Width>8.01802in</Width>
+            <Width>8.01801in</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
