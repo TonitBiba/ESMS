@@ -27,6 +27,8 @@ namespace ESMS.Data.Model
         public virtual DbSet<Contries> Contries { get; set; }
         public virtual DbSet<DocumentType> DocumentType { get; set; }
         public virtual DbSet<EmployeeDocuments> EmployeeDocuments { get; set; }
+        public virtual DbSet<Leaves> Leaves { get; set; }
+        public virtual DbSet<LeavesDetails> LeavesDetails { get; set; }
         public virtual DbSet<Logs> Logs { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<Month> Month { get; set; }
@@ -35,7 +37,9 @@ namespace ESMS.Data.Model
         public virtual DbSet<Policy> Policy { get; set; }
         public virtual DbSet<Position> Position { get; set; }
         public virtual DbSet<States> States { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<SubMenu> SubMenu { get; set; }
+        public virtual DbSet<TypeOfLeaves> TypeOfLeaves { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -314,6 +318,84 @@ namespace ESMS.Data.Model
                     .HasConstraintName("FK_EmployeeDocuments_DocumentType");
             });
 
+            modelBuilder.Entity<Leaves>(entity =>
+            {
+                entity.Property(e => e.DtInserted)
+                    .HasColumnName("dtInserted")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.EndDate)
+                    .HasColumnName("endDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.NTypeOfLeaves).HasColumnName("nTypeOfLeaves");
+
+                entity.Property(e => e.StartDate)
+                    .HasColumnName("startDate")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.VcComment).HasColumnName("vcComment");
+
+                entity.Property(e => e.VcDocumentPath)
+                    .HasColumnName("vcDocumentPath")
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.VcUser)
+                    .IsRequired()
+                    .HasColumnName("vcUser")
+                    .HasMaxLength(450);
+
+                entity.HasOne(d => d.NTypeOfLeavesNavigation)
+                    .WithMany(p => p.Leaves)
+                    .HasForeignKey(d => d.NTypeOfLeaves)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Leaves_TypeOfLeaves");
+
+                entity.HasOne(d => d.VcUserNavigation)
+                    .WithMany(p => p.Leaves)
+                    .HasForeignKey(d => d.VcUser)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Leaves_AspNetUsers");
+            });
+
+            modelBuilder.Entity<LeavesDetails>(entity =>
+            {
+                entity.Property(e => e.BActive).HasColumnName("bActive");
+
+                entity.Property(e => e.DtInserted)
+                    .HasColumnName("dtInserted")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.NLeaves).HasColumnName("nLeaves");
+
+                entity.Property(e => e.NStatus).HasColumnName("nStatus");
+
+                entity.Property(e => e.VcComment).HasColumnName("vcComment");
+
+                entity.Property(e => e.VcUser)
+                    .IsRequired()
+                    .HasColumnName("vcUser")
+                    .HasMaxLength(450);
+
+                entity.HasOne(d => d.NLeavesNavigation)
+                    .WithMany(p => p.LeavesDetails)
+                    .HasForeignKey(d => d.NLeaves)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LeavesDetails_Leaves");
+
+                entity.HasOne(d => d.NStatusNavigation)
+                    .WithMany(p => p.LeavesDetails)
+                    .HasForeignKey(d => d.NStatus)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LeavesDetails_Status");
+
+                entity.HasOne(d => d.VcUserNavigation)
+                    .WithMany(p => p.LeavesDetails)
+                    .HasForeignKey(d => d.VcUser)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_LeavesDetails_AspNetUsers");
+            });
+
             modelBuilder.Entity<Logs>(entity =>
             {
                 entity.HasKey(e => e.NLogId);
@@ -572,6 +654,19 @@ namespace ESMS.Data.Model
                     .HasMaxLength(256);
             });
 
+            modelBuilder.Entity<Status>(entity =>
+            {
+                entity.Property(e => e.NameEn)
+                    .IsRequired()
+                    .HasColumnName("Name_EN")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.NameSq)
+                    .IsRequired()
+                    .HasColumnName("Name_SQ")
+                    .HasMaxLength(64);
+            });
+
             modelBuilder.Entity<SubMenu>(entity =>
             {
                 entity.HasKey(e => e.NSubMenuId)
@@ -629,6 +724,19 @@ namespace ESMS.Data.Model
                     .HasForeignKey(d => d.NMenuId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SubMeny_Menu");
+            });
+
+            modelBuilder.Entity<TypeOfLeaves>(entity =>
+            {
+                entity.Property(e => e.NameEn)
+                    .IsRequired()
+                    .HasColumnName("Name_EN")
+                    .HasMaxLength(64);
+
+                entity.Property(e => e.NameSq)
+                    .IsRequired()
+                    .HasColumnName("Name_SQ")
+                    .HasMaxLength(64);
             });
 
             OnModelCreatingPartial(modelBuilder);

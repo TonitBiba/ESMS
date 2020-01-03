@@ -141,6 +141,9 @@
   <data name="anuloTOTP" xml:space="preserve">
     <value>Anulo autentifikimin 2-hapësh</value>
   </data>
+  <data name="attachDocument" xml:space="preserve">
+    <value>Ngarko dokumentin (opsional)</value>
+  </data>
   <data name="autentifikimi2Hapesh" xml:space="preserve">
     <value>Autentifikimi dy hapësh</value>
   </data>
@@ -156,8 +159,14 @@
   <data name="claimValue" xml:space="preserve">
     <value>Claim vlera</value>
   </data>
+  <data name="comment" xml:space="preserve">
+    <value>Koment</value>
+  </data>
   <data name="controller" xml:space="preserve">
     <value>Kontrolleri</value>
+  </data>
+  <data name="data" xml:space="preserve">
+    <value>Data</value>
   </data>
   <data name="dataPunesimitDeri" xml:space="preserve">
     <value>Data punësimit deri</value>
@@ -165,11 +174,17 @@
   <data name="dergoEmailPerVerifikim" xml:space="preserve">
     <value>Dërgo email adresën për verifikim</value>
   </data>
+  <data name="detajet" xml:space="preserve">
+    <value>Detajet</value>
+  </data>
   <data name="ditaPunesimit" xml:space="preserve">
     <value>Dita e fillimit të punës</value>
   </data>
   <data name="ditelindja" xml:space="preserve">
     <value>Ditëlindja</value>
+  </data>
+  <data name="document" xml:space="preserve">
+    <value>Dokument</value>
   </data>
   <data name="dtEmployment" xml:space="preserve">
     <value>Data fillimit te punes</value>
@@ -216,6 +231,9 @@
   <data name="emriNenMenusSQ" xml:space="preserve">
     <value>Emri nen-menus shqip</value>
   </data>
+  <data name="endDateLeave" xml:space="preserve">
+    <value>Dita e kthimit në punë</value>
+  </data>
   <data name="executeSalaries" xml:space="preserve">
     <value>Ekzekuto pagat</value>
   </data>
@@ -224,6 +242,9 @@
   </data>
   <data name="femer" xml:space="preserve">
     <value>Femër</value>
+  </data>
+  <data name="fillIn" xml:space="preserve">
+    <value>Plotëso</value>
   </data>
   <data name="fjalekalimi" xml:space="preserve">
     <value>Fjalëkalimi</value>
@@ -273,6 +294,9 @@
   <data name="harrojeniShfletuesin" xml:space="preserve">
     <value>Harrojeni këtë shfletues</value>
   </data>
+  <data name="historikuPagave" xml:space="preserve">
+    <value>Historiku i pagave të egzekutuara</value>
+  </data>
   <data name="ibanKode" xml:space="preserve">
     <value>IBAN kodi</value>
   </data>
@@ -281,6 +305,9 @@
   </data>
   <data name="ikona" xml:space="preserve">
     <value>Ikona</value>
+  </data>
+  <data name="invalidData" xml:space="preserve">
+    <value>Të dhënat nuk janë valide!</value>
   </data>
   <data name="juDuhet" xml:space="preserve">
     <value>Ju duhet</value>
@@ -330,8 +357,17 @@
   <data name="kontrolloFormatinTelefonit" xml:space="preserve">
     <value>Kontrolloni formatin e telefonit</value>
   </data>
+  <data name="leaveReason" xml:space="preserve">
+    <value>Arsyeja pushimit</value>
+  </data>
+  <data name="LeaveRequest" xml:space="preserve">
+    <value>Regjistrimi i kërkesës për pushim</value>
+  </data>
   <data name="listaPunetorve" xml:space="preserve">
     <value>Lista e punëtorve të regjistruar</value>
+  </data>
+  <data name="listOfLeaves" xml:space="preserve">
+    <value>Lista kërkesave për pushim</value>
   </data>
   <data name="login" xml:space="preserve">
     <value>Kyqu</value>
@@ -444,6 +480,9 @@
   <data name="perdorimiIAplikacioninPerAutentifikim" xml:space="preserve">
     <value>Për të përdorur aplikacionin për autentifikim duhet të ndjekni hapat vijues:</value>
   </data>
+  <data name="pershkrimi" xml:space="preserve">
+    <value>Përshkrimi</value>
+  </data>
   <data name="pershkrimiPozites" xml:space="preserve">
     <value>Pershkrimi pozitës</value>
   </data>
@@ -477,6 +516,9 @@
   <data name="resetRecoverCodesMessage" xml:space="preserve">
     <value>Nëse i rivendosni çelësat për autentifikim, aplikacioni për autentifkim nuk do të punoj përderisa ju nuk e rikonfikuroni atë.</value>
   </data>
+  <data name="review" xml:space="preserve">
+    <value>Shqyrto</value>
+  </data>
   <data name="rivendos2FA" xml:space="preserve">
     <value>Rivendos aplikacionin për autentifikim</value>
   </data>
@@ -509,6 +551,9 @@
   </data>
   <data name="skanoQRKode" xml:space="preserve">
     <value>Skano QR kodin ose shtype këtë çelës</value>
+  </data>
+  <data name="startDateLeave" xml:space="preserve">
+    <value>Dita fillimit të pushimit</value>
   </data>
   <data name="statusi" xml:space="preserve">
     <value>Statusi</value>

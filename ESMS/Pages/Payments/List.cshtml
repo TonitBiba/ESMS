@@ -1,24 +1,32 @@
 ﻿@page
 @model ESMS.ListModel
+@using System.Security.Claims
+@using ESMS.Security
 @{
-    ViewData["Title"] = "Historiku i pagave të egzekutuara";
+    ViewData["Title"] = Resource.historikuPagave;
 }
 
 <div class="card">
     <div class="card-body card-block">
-        <h4> Historiku i pagave të egzekutuara </h4>
+        <h4> @Resource.historikuPagave </h4>
         <hr />
         <table id="table" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
-                    <th>Përshkrimi</th>
-                    <th>Data</th>
+                    <th>@Resource.emri</th>
+                    <th>@Resource.mbiemri</th>
+                    <th>@Resource.paga</th>
+                    <th>@Resource.muaji</th>
+                    <th>@Resource.data</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.payments)
                 {
                     <tr>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Salary</td>
                         <td>@item.Month</td>
                         <td>@item.ExecutionDate.ToString("dd/MM/yyyy HH:mm:ss")</td>
                     </tr>
@@ -55,7 +63,7 @@
 {
     <script>
         $(document).ready(function (){
-            showAlert(@Model.error.nError, '@Model.error.ErrorDescription')
+            showAlert(@Model.error.nError, '@Html.Raw(Model.error.ErrorDescription)')
         })
     </script>
 }

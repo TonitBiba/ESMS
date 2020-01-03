@@ -11,14 +11,14 @@
         <hr />
         <form method="post">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(M=>M.Input.month)
                         @Html.DropDownListFor(m => m.Input.month, BaseModel.GetMonths(1), Resource.zgjedhe, new { @class = "form-control" })
                         <span asp-validation-for="Input.month" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label style="visibility:hidden" asp-for="Input.month"></label>
                     <input type="submit" class="btn btn-primary w-100" value="@Resource.executeSalaries" />
                 </div>

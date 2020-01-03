@@ -106,6 +106,22 @@ namespace ESMS.Pages.Shared
             }
         }
 
+        public static List<SelectListItem> GetLeaveTypes(int language)
+        {
+            using (ESMSContext dbContext = new ESMSContext())
+            {
+                return dbContext.TypeOfLeaves.Select(M => new SelectListItem { Text = language == 1 ? M.NameSq : M.NameEn, Value = M.Id.ToString() }).ToList();
+            }
+        }
+
+        public static List<SelectListItem> GetStatuses(int NCase, int language)
+        {
+            using (ESMSContext dbContext = new ESMSContext())
+            {
+                int[] nStatuses = new int[] { 2, 3, 4 };
+                return dbContext.Status.Where(s=> nStatuses.Contains(s.Id)).Select(M => new SelectListItem { Text = language == 1 ? M.NameSq : M.NameEn, Value = M.Id.ToString() }).ToList();
+            }
+        }
         #endregion
 
         public string getFormatReport(int format)
@@ -151,11 +167,22 @@ namespace ESMS.Pages.Shared
 
         protected string SaveFiles(IFormFile file, FType fileType, IConfiguration configuration)
         {
+            if(file == null)
+                return null;
+
             string path = "";
             if (fileType == FType.ContractFile)
                 path = configuration.GetSection("AppSettings").GetSection("ContractFiles").Value;
-            else
+            else if (fileType == FType.GeneralFile)
                 path = configuration.GetSection("AppSettings").GetSection("GeneralFiles").Value;
+            else if (fileType == FType.AnnualLeaveFile)
+            {
+                path = configuration.GetSection("AppSettings").GetSection("AnnualLeaveFile").Value;
+            }
+
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
             path += Guid.NewGuid().ToString() + Path.GetExtension(file.FileName) + ".zip";
             FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
             using (var stream = file.OpenReadStream())
@@ -241,8 +268,13 @@ namespace ESMS.Pages.Shared
         protected enum FType
         {
             ContractFile = 1,
-            GeneralFile = 2
+            GeneralFile = 2,
+            AnnualLeaveFile = 3
         }
 
+        protected enum Statuses
+        {
+            Applied = 1
+        }
     }
 }

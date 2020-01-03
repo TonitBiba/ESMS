@@ -12,6 +12,8 @@ namespace ESMS.Data.Model
             AspNetUserRoles = new HashSet<AspNetUserRoles>();
             AspNetUserTokens = new HashSet<AspNetUserTokens>();
             EmployeeDocuments = new HashSet<EmployeeDocuments>();
+            Leaves = new HashSet<Leaves>();
+            LeavesDetails = new HashSet<LeavesDetails>();
             Menu = new HashSet<Menu>();
             NotificationsVcInsertedUserNavigation = new HashSet<Notifications>();
             NotificationsVcUserNavigation = new HashSet<Notifications>();
@@ -58,6 +60,8 @@ namespace ESMS.Data.Model
         public virtual ICollection<AspNetUserRoles> AspNetUserRoles { get; set; }
         public virtual ICollection<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual ICollection<EmployeeDocuments> EmployeeDocuments { get; set; }
+        public virtual ICollection<Leaves> Leaves { get; set; }
+        public virtual ICollection<LeavesDetails> LeavesDetails { get; set; }
         public virtual ICollection<Menu> Menu { get; set; }
         public virtual ICollection<Notifications> NotificationsVcInsertedUserNavigation { get; set; }
         public virtual ICollection<Notifications> NotificationsVcUserNavigation { get; set; }

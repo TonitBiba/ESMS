@@ -133,6 +133,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ngarko dokumentin (opsional).
+        /// </summary>
+        public static string attachDocument {
+            get {
+                return ResourceManager.GetString("attachDocument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Autentifikimi dy hapësh.
         /// </summary>
         public static string autentifikimi2Hapesh {
@@ -178,11 +187,29 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Koment.
+        /// </summary>
+        public static string comment {
+            get {
+                return ResourceManager.GetString("comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Kontrolleri.
         /// </summary>
         public static string controller {
             get {
                 return ResourceManager.GetString("controller", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data.
+        /// </summary>
+        public static string data {
+            get {
+                return ResourceManager.GetString("data", resourceCulture);
             }
         }
         
@@ -205,6 +232,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Detajet.
+        /// </summary>
+        public static string detajet {
+            get {
+                return ResourceManager.GetString("detajet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dita e fillimit të punës.
         /// </summary>
         public static string ditaPunesimit {
@@ -219,6 +255,15 @@ namespace ESMS {
         public static string ditelindja {
             get {
                 return ResourceManager.GetString("ditelindja", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dokument.
+        /// </summary>
+        public static string document {
+            get {
+                return ResourceManager.GetString("document", resourceCulture);
             }
         }
         
@@ -358,6 +403,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dita e kthimit në punë.
+        /// </summary>
+        public static string endDateLeave {
+            get {
+                return ResourceManager.GetString("endDateLeave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ekzekuto pagat.
         /// </summary>
         public static string executeSalaries {
@@ -381,6 +435,15 @@ namespace ESMS {
         public static string femer {
             get {
                 return ResourceManager.GetString("femer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plotëso.
+        /// </summary>
+        public static string fillIn {
+            get {
+                return ResourceManager.GetString("fillIn", resourceCulture);
             }
         }
         
@@ -529,6 +592,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Historiku i pagave të egzekutuara.
+        /// </summary>
+        public static string historikuPagave {
+            get {
+                return ResourceManager.GetString("historikuPagave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IBAN kodi.
         /// </summary>
         public static string ibanKode {
@@ -552,6 +624,15 @@ namespace ESMS {
         public static string ikona {
             get {
                 return ResourceManager.GetString("ikona", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Të dhënat nuk janë valide!.
+        /// </summary>
+        public static string invalidData {
+            get {
+                return ResourceManager.GetString("invalidData", resourceCulture);
             }
         }
         
@@ -700,11 +781,38 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arsyeja pushimit.
+        /// </summary>
+        public static string leaveReason {
+            get {
+                return ResourceManager.GetString("leaveReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regjistrimi i kërkesës për pushim.
+        /// </summary>
+        public static string LeaveRequest {
+            get {
+                return ResourceManager.GetString("LeaveRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lista e punëtorve të regjistruar.
         /// </summary>
         public static string listaPunetorve {
             get {
                 return ResourceManager.GetString("listaPunetorve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lista kërkesave për pushim.
+        /// </summary>
+        public static string listOfLeaves {
+            get {
+                return ResourceManager.GetString("listOfLeaves", resourceCulture);
             }
         }
         
@@ -1042,6 +1150,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Përshkrimi.
+        /// </summary>
+        public static string pershkrimi {
+            get {
+                return ResourceManager.GetString("pershkrimi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pershkrimi pozitës.
         /// </summary>
         public static string pershkrimiPozites {
@@ -1141,6 +1258,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shqyrto.
+        /// </summary>
+        public static string review {
+            get {
+                return ResourceManager.GetString("review", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rivendos aplikacionin për autentifikim.
         /// </summary>
         public static string rivendos2FA {
@@ -1236,6 +1362,15 @@ namespace ESMS {
         public static string skanoQRKode {
             get {
                 return ResourceManager.GetString("skanoQRKode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dita fillimit të pushimit.
+        /// </summary>
+        public static string startDateLeave {
+            get {
+                return ResourceManager.GetString("startDateLeave", resourceCulture);
             }
         }
         

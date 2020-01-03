@@ -1,0 +1,86 @@
+﻿@page
+@model ESMS.Pages.AnnualLeave.ReadModel
+@using ESMS.Security
+@using ESMS.Pages.Shared
+@{
+    ViewData["Title"] = "Shqyrtimi";
+}
+
+<div class="card">
+    <div class="card-body card-block">
+        <h4> @Resource.LeaveRequest </h4>
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.viewModel.FirstName)
+                    @Html.TextBoxFor(m => m.viewModel.FirstName, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.viewModel.LastName)
+                    @Html.TextBoxFor(m => m.viewModel.LastName, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.viewModel.LeaveReason)
+                    @Html.TextBoxFor(m => m.viewModel.LeaveReason, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.viewModel.StarDate)
+                    @Html.TextBoxFor(m => m.viewModel.StarDate, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.viewModel.EndDate)
+                    @Html.TextBoxFor(m => m.viewModel.EndDate, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+            <div class="col-md-3">
+                @Html.LabelFor(m => m.viewModel.Document)
+                <div class="btn-group w-100">
+                    <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.veprimet</button>
+                    <div class="dropdown-menu">
+                        <a href="Read?handler=Document&LIDEnc=@Request.Query["LIDEnc"]" target="_top" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; Shiko dokumentin</a>
+                        <input type="file" style="display:none" asp-for="viewModel.Document" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.viewModel.Comment)
+                    @Html.TextAreaFor(m => m.viewModel.Comment, new { @class = "form-control", disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+        <hr />
+        <form method="post">
+            <div class="row">
+                @Html.HiddenFor(m=>m.Input.LidEnc)
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.Status)
+                        @Html.DropDownListFor(m => m.Input.Status, BaseModel.GetStatuses(1, 1), Resource.zgjedhe, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Input.Status, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.Comment)
+                        @Html.TextAreaFor(m => m.Input.Comment, new { @class = "form-control", rows = "1" })
+                        @Html.ValidationMessageFor(m => m.Input.Comment, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label style="visibility:hidden" asp-for="viewModel.Comment"></label>
+                    <input type="submit" class="btn btn-primary w-100" value="@Resource.ruaj" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

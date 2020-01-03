@@ -22,8 +22,11 @@ namespace ESMS
             error = TempData.Get<Error>("error");
             payments = dbContext.Payments.Select(S => new Payments { 
                  Month = S.MonthNavigation.MonthSq,
-                 ExecutionDate = S.DtInserted
-            }).Distinct().ToList();
+                 ExecutionDate = S.DtInserted,
+                 FirstName = S.User.FirstName,
+                 LastName = S.User.LastName,
+                 Salary = S.Salary.ToString()
+            }).ToList();
         }
 
         public Error error { get; set; }
@@ -32,6 +35,9 @@ namespace ESMS
 
         public class Payments
         {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string Salary { get; set; }
             public string Month { get; set; }
             public DateTime ExecutionDate { get; set; }
         }
