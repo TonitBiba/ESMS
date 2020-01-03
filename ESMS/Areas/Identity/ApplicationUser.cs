@@ -43,6 +43,8 @@ namespace ESMS.Areas.Identity
 
         public DateTime DtTo { get; set; }
 
+        public int TaxGroupId { get; set; }
+
         public int EmployeeStatus { get; set; }
 
         [Required]

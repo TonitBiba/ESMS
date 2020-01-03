@@ -41,13 +41,14 @@ namespace ESMS
                 salary = (decimal)U.Salary,
                 Role = U.AspNetUserRoles.FirstOrDefault().Role.Name,
                 Iban = U.IbanCode,
+                TaxGroupId=U.TaxGroupId,
                 Deduction=0,
                 SalaryAfterDeduction = CalculateSalaryWithDeduction.CalculateSalaryWithDed(U.Salary, 0),
-                EmployeePension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), 1)),
-                EmployerPension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), 1)),
-                TaxableIncome = Convert.ToDecimal(CalculateSalaryGeneral.CalculateTaxableIncome((decimal)(U.Salary), 1)),
-                WithholdingTax = Convert.ToDecimal(CalculateSalaryGeneral.CalculateWithHoldingTax((decimal)(U.Salary), 1)),
-                NetWage = Convert.ToDecimal(CalculateSalaryGeneral.CalculateNetWage((decimal)(U.Salary), 1)),
+                EmployeePension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), U.TaxGroupId)),
+                EmployerPension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), U.TaxGroupId)),
+                TaxableIncome = Convert.ToDecimal(CalculateSalaryGeneral.CalculateTaxableIncome((decimal)(U.Salary), U.TaxGroupId)),
+                WithholdingTax = Convert.ToDecimal(CalculateSalaryGeneral.CalculateWithHoldingTax((decimal)(U.Salary), U.TaxGroupId)),
+                NetWage = Convert.ToDecimal(CalculateSalaryGeneral.CalculateNetWage((decimal)(U.Salary), U.TaxGroupId)),
             }).ToList();
         }
 
@@ -65,19 +66,30 @@ namespace ESMS
 
                     using (HttpClient client = new HttpClient())
                     {
-                        StringContent bankContent = new StringContent(JsonConvert.SerializeObject(listOfEmployee), encoding: Encoding.UTF8, "application/json");
-                        var request = await client.PostAsync(configuration.GetSection("AppSettings").GetSection("BankApiLink").Value, bankContent);
-                        var response = JsonConvert.DeserializeObject<ApiResponse>(await request.Content.ReadAsStringAsync());
-                        if (response.nError == 0)
+                        //  StringContent bankContent = new StringContent(JsonConvert.SerializeObject(listOfEmployee), encoding: Encoding.UTF8, "application/json");
+                        // var request = await client.PostAsync(configuration.GetSection("AppSettings").GetSection("BankApiLink").Value, bankContent);
+                        // var response = JsonConvert.DeserializeObject<ApiResponse>(await request.Content.ReadAsStringAsync());
+
+                        // if (response.nError == 0)
+                        if (0 == 0)
                         {
                             //Insertimi i pagesave ne sistem
                             List<Payments> payments = dbContext.AspNetUsers.Where(u => u.AspNetUserRoles.FirstOrDefault().Role.Name != "Administrator" && u.EmployeeStatus == 1).Select(U => new Payments
                             {
+                                //koment per test
                                 Salary = (decimal)U.Salary,
                                 DtInserted = DateTime.Now,
                                 Month = Input.month,
                                 UserId = U.Id,
-                                VcInserted = User.FindFirstValue(ClaimTypes.NameIdentifier)
+                                VcInserted = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                                Deduction=0,
+                                SalaryAfterDeduction = CalculateSalaryWithDeduction.CalculateSalaryWithDed(U.Salary, 0),
+                                EmployeePension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), U.TaxGroupId)),
+                                EmployerPension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), U.TaxGroupId)),
+                                TaxableIncome = Convert.ToDecimal(CalculateSalaryGeneral.CalculateTaxableIncome((decimal)(U.Salary), U.TaxGroupId)),
+                                WithholdingTax = Convert.ToDecimal(CalculateSalaryGeneral.CalculateWithHoldingTax((decimal)(U.Salary), U.TaxGroupId)),
+                                NetWage = Convert.ToDecimal(CalculateSalaryGeneral.CalculateNetWage((decimal)(U.Salary), U.TaxGroupId)),
+
                             }).ToList();
                             dbContext.Payments.AddRange(payments);
 
@@ -140,6 +152,8 @@ namespace ESMS
             public decimal TaxableIncome { get; set; }
             public decimal WithholdingTax { get; set; }
             public decimal NetWage { get; set; }
+
+            public int TaxGroupId { get; set; }
         }
 
         public class SalaryPayment

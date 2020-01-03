@@ -35,19 +35,21 @@
                     <th>Mbiemri</th>
                     <th>Pozita</th>
                     <th>Iban</th>
-                    <th>Paga</th>
+                    <th>Paga B</th>
+                    <th>Paga N</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model.employees)
                 {
-                    <tr>
-                        <td>@item.FirstName</td>
-                        <td>@item.LastName</td>
-                        <td>@item.Role</td>
-                        <td>@item.Iban</td>
-                        <td>@item.salary</td>
-                    </tr>
+                <tr>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.Role</td>
+                    <td>@item.Iban</td>
+                    <td>@item.salary</td>
+                    <td>@item.NetWage</td>
+                </tr>
                 }
             </tbody>
         </table>
