@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 
 namespace ESMS.Pages.AnnualLeave
@@ -21,10 +22,13 @@ namespace ESMS.Pages.AnnualLeave
     [Authorize(Policy = "AnnualLeave:Create")]
     public class CreateModel : BaseModel
     {
-
         public IConfiguration configuration;
-        public CreateModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IConfiguration configuration) : base(signInManager, userManager) {
+
+        private readonly IHubContext<NotificationHub> _hubContext;
+
+        public CreateModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, IConfiguration configuration, IHubContext<NotificationHub> _hubContext) : base(signInManager, userManager) {
             this.configuration = configuration;
+            this._hubContext = _hubContext;
         }
 
         public void OnGet()
@@ -59,8 +63,22 @@ namespace ESMS.Pages.AnnualLeave
                         }}
                     });
                     await dbContext.SaveChangesAsync();
-                    
+
+                    var notifications = dbContext.AspNetUsers.Where(u => u.AspNetUserRoles.FirstOrDefault().Role.Name == "Burimet_Njerzore").Select(U => new Notifications
+                    {
+                        Title = "Kërkesë për pushim ",
+                        DtInserted = DateTime.Now,
+                        VcIcon = "zmdi zmdi-store",
+                        VcInsertedUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                        VcUser = U.Id,
+                        VcText = "Keni një kërkesë për pushim nga përdoruesi "+ User.FindFirstValue(ClaimTypes.GivenName)+" "+ User.FindFirstValue(ClaimTypes.Surname)
+                    }).ToList();
+                    dbContext.Notifications.AddRange(notifications);
+
                     TempData.Set<Error>("error", new Error { nError = 1, ErrorDescription = Resource.msgRuajtjaSukses });
+                    
+                    foreach (var notification in notifications)
+                        await _hubContext.Clients.All.SendAsync(notification.VcUser, notification.VcText, notification.Title, "info", "/");
                     return RedirectToPage("List");
                 }
                 else
@@ -72,9 +90,6 @@ namespace ESMS.Pages.AnnualLeave
             {
                 error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
             }
-
-
-
             return Page();
         }
 

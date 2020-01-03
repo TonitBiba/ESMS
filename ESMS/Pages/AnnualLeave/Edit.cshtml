@@ -7,6 +7,7 @@
 
 <div class="card">
     <form method="post" enctype="multipart/form-data">
+        @Html.HiddenFor(m=>m.Input.LidEnc)
         <div class="card-body card-block">
             <h4> @Resource.LeaveRequest </h4>
             <hr />
@@ -43,14 +44,6 @@
                         </div>
                     </div>
                     <span class="text-danger" asp-validation-for="Input.Document"></span>
-
-
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Input.Document)
-                        <input type="file" style="display:none" asp-for="Input.Document" class="form-control" />
-                        <button type="button" id="btnAttachContract" class="form-control btn btn-secondary" onclick="$('#Input_Document').trigger('click')">@Resource.attachDocument</button>
-                        <span class="text-danger" asp-validation-for="Input.Document"></span>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">

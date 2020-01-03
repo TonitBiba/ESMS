@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ESMS.Areas.Identity;
+using ESMS.Data.Model;
 using ESMS.General_Classes;
 using ESMS.Pages.Shared;
 using ESMS.Security;
@@ -13,13 +16,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Configuration;
 
 namespace ESMS.Pages.AnnualLeave
 {
     [Authorize(Policy = "AnnualLeave:Edit")]
     public class EditModel : BaseModel
     {
-        public EditModel(SignInManager<ApplicationUser> signManager, UserManager<ApplicationUser> userManager) : base(signManager, userManager) { }
+        public IConfiguration configuration;
+
+        public EditModel(SignInManager<ApplicationUser> signManager, UserManager<ApplicationUser> userManager, IConfiguration configuration) : base(signManager, userManager) {
+            this.configuration = configuration;
+        }
 
         public void OnGet(string LidEnc)
         {
@@ -31,7 +39,8 @@ namespace ESMS.Pages.AnnualLeave
                          TypeOfLeaves = L.NTypeOfLeaves,
                          Comment = L.VcComment,
                          EndDate = L.EndDate.ToString("yyyy-MM-dd"),
-                         StartDate = L.StartDate.ToString("yyyy-MM-dd")
+                         StartDate = L.StartDate.ToString("yyyy-MM-dd"),
+                         LidEnc = LidEnc
                      }).FirstOrDefault();    
         }
 
@@ -48,6 +57,54 @@ namespace ESMS.Pages.AnnualLeave
             return File(fileBytes, "application/pdf", Path.GetFileName(filePath.VcDocumentPath.Replace(".zip", "")));
         }
 
+        public async Task<IActionResult> OnPostAsync()
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var pathOfSavedFile = SaveFiles(Input.Document, FType.AnnualLeaveFile, configuration);
+
+                    DateTime startDate = DateTime.ParseExact(Input.StartDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                    DateTime endDate = DateTime.ParseExact(Input.EndDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+                    int LID = Confidenciality.Decrypt<int>(Input.LidEnc);
+                    dbContext.LeavesDetails.Where(L => L.NLeaves == LID).FirstOrDefault().BActive = false;
+
+                    var leaveForChange = dbContext.Leaves.Where(L => L.Id == LID).FirstOrDefault();
+                    leaveForChange.NTypeOfLeaves = Input.TypeOfLeaves;
+                    leaveForChange.StartDate = startDate;
+                    leaveForChange.EndDate = endDate;
+                    leaveForChange.VcComment = Input.Comment;
+                    leaveForChange.VcDocumentPath = pathOfSavedFile;
+
+                    dbContext.LeavesDetails.Add(new LeavesDetails
+                    {
+                        NLeaves = LID,
+                     BActive = true,
+                     DtInserted= DateTime.Now,
+                     NStatus = (int)Statuses.Completed,
+                     VcUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    });
+                    await dbContext.SaveChangesAsync();
+
+                    TempData.Set<Error>("error", new Error { nError = 1, ErrorDescription = Resource.msgRuajtjaSukses });
+                    return RedirectToPage("List");
+                }
+                else
+                {
+                    error = new Error { nError = 4, ErrorDescription = Resource.invalidData };
+                }
+            }
+            catch (Exception ex)
+            {
+                error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
+            }
+            return Page();
+        }
+
+
+
         public Error error { get; set; }
 
         [BindProperty]
@@ -55,6 +112,7 @@ namespace ESMS.Pages.AnnualLeave
 
         public class InputModel
         {
+            public string LidEnc { get; set; }
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             [Display(Name = "leaveReason", ResourceType = typeof(Resource))]
             public int TypeOfLeaves { get; set; }

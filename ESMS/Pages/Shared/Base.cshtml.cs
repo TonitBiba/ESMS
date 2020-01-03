@@ -274,7 +274,8 @@ namespace ESMS.Pages.Shared
 
         protected enum Statuses
         {
-            Applied = 1
+            Applied = 1,
+            Completed = 5
         }
     }
 }
