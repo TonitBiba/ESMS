@@ -31,9 +31,20 @@ namespace ESMS.Pages.AnnualLeave
             this._hubContext = _hubContext;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGet()
         {
-
+            int[] deniedStatuses = new int[] { 1, 4, 5};
+            var hasAnyRequest = (from L in dbContext.Leaves
+                                 join LD in dbContext.LeavesDetails on L.Id equals LD.NLeaves
+                                 where LD.BActive == true && deniedStatuses.Contains(LD.NStatus) 
+                                 select L.Id
+                                 ).Count();
+            if (hasAnyRequest > 0)
+            {
+                TempData.Set<Error>("error", new Error { nError = 3, ErrorDescription = "Keni një kërkesë në proces për pushim." });
+                return RedirectToPage("List");
+            }
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()

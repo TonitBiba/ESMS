@@ -35,7 +35,8 @@ namespace ESMS.Pages.AnnualLeave
                              StarDate = L.StartDate,
                              LID = L.Id,
                              Status = LD.NStatusNavigation.NameSq,
-                             dtInserted = L.DtInserted
+                             dtInserted = L.DtInserted,
+                             Comment = L.VcComment
                          }).FirstOrDefault();
         }
 

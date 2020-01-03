@@ -7,7 +7,7 @@
 
 <div class="card">
     <form method="post" enctype="multipart/form-data">
-        @Html.HiddenFor(m=>m.Input.LidEnc)
+        @Html.HiddenFor(m => m.Input.LidEnc)
         <div class="card-body card-block">
             <h4> @Resource.LeaveRequest </h4>
             <hr />
@@ -69,3 +69,11 @@
         }
     })
 </script>
+@if (Model.Input.HRComment != null)
+{
+    <script>
+        $(document).ready(function (){
+            showAlert(2, '@Html.Raw(Model.Input.HRComment)')
+        })
+    </script>
+}

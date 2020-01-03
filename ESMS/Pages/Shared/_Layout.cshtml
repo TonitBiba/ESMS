@@ -29,11 +29,17 @@
             .headerLength {
                 margin-top: 75px
             }
+            #headerButton{
+                display:none
+            }
         }
 
         @@media all and (max-width: 991px) {
             .headerLength {
                 margin-top: 5px;
+            }
+            #headerButton{
+                display:block
             }
     </style>
     <link href="~/css/Loader.css" rel="stylesheet" />
@@ -41,8 +47,15 @@
 <body class="">
     <aside class="menu-sidebar2">
         <div class="logo">
-            <a href="#">
-                <img src="~/Images/a0cb82c9-8b23-4d15-9d89-c8ee9c611700_200x200.png" alt="ESMS" style="height: -webkit-fill-available; margin-left: 70px;" />
+                <a href="#" style="
+                    color: white;
+                    font-weight: bold;
+                    text-align: center;
+                    width: -webkit-fill-available;
+                    height: auto;
+                    font-size: -webkit-xxx-large;
+                    font-family: serif">
+                ESMS
             </a>
         </div>
         <div class="menu-sidebar2__content js-scrollbar1">
@@ -88,7 +101,7 @@
                                 </div>
                             </div>
                             <partial name="~/Pages/Shared/_Notifications.cshtml" model="null" />
-                            <div class="header-button-item mr-0 js-sidebar-btn">
+                            <div id="headerButton" class="header-button-item mr-0 js-sidebar-btn">
                                 <i class="zmdi zmdi-menu"></i>
                             </div>
                         </div>

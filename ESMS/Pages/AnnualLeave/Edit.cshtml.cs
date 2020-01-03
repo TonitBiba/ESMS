@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 
 namespace ESMS.Pages.AnnualLeave
@@ -24,9 +25,12 @@ namespace ESMS.Pages.AnnualLeave
     public class EditModel : BaseModel
     {
         public IConfiguration configuration;
+        
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public EditModel(SignInManager<ApplicationUser> signManager, UserManager<ApplicationUser> userManager, IConfiguration configuration) : base(signManager, userManager) {
+        public EditModel(SignInManager<ApplicationUser> signManager, UserManager<ApplicationUser> userManager, IConfiguration configuration, IHubContext<NotificationHub> _hubContext) : base(signManager, userManager) {
             this.configuration = configuration;
+            this._hubContext = _hubContext;
         }
 
         public void OnGet(string LidEnc)
@@ -40,7 +44,8 @@ namespace ESMS.Pages.AnnualLeave
                          Comment = L.VcComment,
                          EndDate = L.EndDate.ToString("yyyy-MM-dd"),
                          StartDate = L.StartDate.ToString("yyyy-MM-dd"),
-                         LidEnc = LidEnc
+                         LidEnc = LidEnc,
+                         HRComment = LD.VcComment
                      }).FirstOrDefault();    
         }
 
@@ -69,7 +74,7 @@ namespace ESMS.Pages.AnnualLeave
                     DateTime endDate = DateTime.ParseExact(Input.EndDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
                     int LID = Confidenciality.Decrypt<int>(Input.LidEnc);
-                    dbContext.LeavesDetails.Where(L => L.NLeaves == LID).FirstOrDefault().BActive = false;
+                    dbContext.LeavesDetails.Where(L => L.NLeaves == LID && L.BActive == true).FirstOrDefault().BActive = false;
 
                     var leaveForChange = dbContext.Leaves.Where(L => L.Id == LID).FirstOrDefault();
                     leaveForChange.NTypeOfLeaves = Input.TypeOfLeaves;
@@ -81,12 +86,26 @@ namespace ESMS.Pages.AnnualLeave
                     dbContext.LeavesDetails.Add(new LeavesDetails
                     {
                         NLeaves = LID,
-                     BActive = true,
-                     DtInserted= DateTime.Now,
-                     NStatus = (int)Statuses.Completed,
-                     VcUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                        BActive = true,
+                        DtInserted= DateTime.Now,
+                        NStatus = (int)Statuses.Completed,
+                        VcUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
                     });
+
+                    var notifications = dbContext.AspNetUsers.Where(u => u.AspNetUserRoles.FirstOrDefault().Role.Name == "Burimet_Njerzore").Select(U => new Notifications
+                    {
+                        Title = "Korigjimi i kërkesës për pushim",
+                        DtInserted = DateTime.Now,
+                        VcIcon = "zmdi zmdi-store",
+                        VcInsertedUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                        VcUser = U.Id,
+                        VcText = "Është bërë korigjimi i kërkesës për pushim nga përdoruesi " + User.FindFirstValue(ClaimTypes.GivenName) + " " + User.FindFirstValue(ClaimTypes.Surname)
+                    }).ToList();
+                    dbContext.Notifications.AddRange(notifications);
                     await dbContext.SaveChangesAsync();
+
+                    foreach (var notification in notifications)
+                        await _hubContext.Clients.All.SendAsync(notification.VcUser, notification.VcText, notification.Title, "info", "/");
 
                     TempData.Set<Error>("error", new Error { nError = 1, ErrorDescription = Resource.msgRuajtjaSukses });
                     return RedirectToPage("List");
@@ -103,8 +122,6 @@ namespace ESMS.Pages.AnnualLeave
             return Page();
         }
 
-
-
         public Error error { get; set; }
 
         [BindProperty]
@@ -112,6 +129,7 @@ namespace ESMS.Pages.AnnualLeave
 
         public class InputModel
         {
+            public string HRComment { get; set; }
             public string LidEnc { get; set; }
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             [Display(Name = "leaveReason", ResourceType = typeof(Resource))]
