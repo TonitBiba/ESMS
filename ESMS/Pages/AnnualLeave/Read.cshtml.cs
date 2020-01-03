@@ -15,13 +15,18 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 
 namespace ESMS.Pages.AnnualLeave
 {
     [Authorize(Policy = "AnnualLeave:Read")]
     public class ReadModel : BaseModel
     {
-        public ReadModel(SignInManager<ApplicationUser> signManager, UserManager<ApplicationUser> userManager) : base(signManager, userManager) { }
+        private readonly IHubContext<NotificationHub> _hubContext;
+
+        public ReadModel(SignInManager<ApplicationUser> signManager, UserManager<ApplicationUser> userManager, IHubContext<NotificationHub> _hubContext) : base(signManager, userManager) {
+            this._hubContext = _hubContext;
+        }
 
         public void OnGet(string LIDEnc)
         {
@@ -61,7 +66,7 @@ namespace ESMS.Pages.AnnualLeave
             try
             {
                 int LID = Confidenciality.Decrypt<int>(Input.LidEnc);
-                dbContext.LeavesDetails.Where(L => L.NLeaves == LID).FirstOrDefault().BActive = false;
+                dbContext.LeavesDetails.Where(L => L.NLeaves == LID && L.BActive).FirstOrDefault().BActive = false;
 
                 dbContext.LeavesDetails.Add(new LeavesDetails
                 {
@@ -73,7 +78,22 @@ namespace ESMS.Pages.AnnualLeave
                     VcComment = Input.Comment
                 });
 
+                var status = dbContext.Status.Where(s => s.Id == Input.Status).Select(s => s.NameSq).FirstOrDefault();
+                var UserId = dbContext.Leaves.Where(l => l.Id == LID).Select(s => s.VcUserNavigation.Id).FirstOrDefault();
+
+               var notification = new Notifications { 
+                    DtInserted = DateTime.Now,
+                    Title = "Kërkesa për pushim",
+                    VcIcon = "zmdi zmdi-store",
+                    VcInsertedUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    VcText = "Kërkesa juaj për pushim është shqyrtuar dhe ka marrë statusin "+ status,
+                    VcUser = UserId,
+                };
+                dbContext.Notifications.Add(notification);
                 await dbContext.SaveChangesAsync();
+
+                await _hubContext.Clients.All.SendAsync(notification.VcUser, notification.VcText, notification.Title, "info", "/");
+
                 TempData.Set<Error>("error", new Error { nError = 1, ErrorDescription = Resource.msgRuajtjaSukses });
                 return RedirectToPage("List");
             }catch(Exception ex)

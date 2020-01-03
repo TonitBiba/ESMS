@@ -6,11 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AnnualLeaveFile\**" />
     <Compile Remove="Contract\**" />
+    <Content Remove="AnnualLeaveFile\**" />
     <Content Remove="Contract\**" />
+    <EmbeddedResource Remove="AnnualLeaveFile\**" />
     <EmbeddedResource Remove="Contract\**" />
     <EntityDeploy Remove="Contract\**" />
+    <None Remove="AnnualLeaveFile\**" />
     <None Remove="Contract\**" />
+    <TypeScriptCompile Remove="AnnualLeaveFile\**" />
     <TypeScriptCompile Remove="Contract\**" />
   </ItemGroup>
 
