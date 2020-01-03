@@ -74,6 +74,11 @@
 
 
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 

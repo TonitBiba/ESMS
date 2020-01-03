@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessLogic;
 using ESMS.Areas.Identity;
 using ESMS.Data.Model;
 using ESMS.General_Classes;
@@ -39,7 +40,14 @@ namespace ESMS
                 LastName = U.LastName,
                 salary = (decimal)U.Salary,
                 Role = U.AspNetUserRoles.FirstOrDefault().Role.Name,
-                Iban = U.IbanCode
+                Iban = U.IbanCode,
+                Deduction=0,
+                SalaryAfterDeduction = CalculateSalaryWithDeduction.CalculateSalaryWithDed(U.Salary, 0),
+                EmployeePension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), 1)),
+                EmployerPension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), 1)),
+                TaxableIncome = Convert.ToDecimal(CalculateSalaryGeneral.CalculateTaxableIncome((decimal)(U.Salary), 1)),
+                WithholdingTax = Convert.ToDecimal(CalculateSalaryGeneral.CalculateWithHoldingTax((decimal)(U.Salary), 1)),
+                NetWage = Convert.ToDecimal(CalculateSalaryGeneral.CalculateNetWage((decimal)(U.Salary), 1)),
             }).ToList();
         }
 
@@ -125,6 +133,13 @@ namespace ESMS
             public decimal salary { get; set; }
             public string Role { get; set; }
             public string Iban { get; set; }
+            public int Deduction { get; set; }
+            public decimal SalaryAfterDeduction { get; set; }
+            public decimal EmployeePension { get; set; }
+            public decimal EmployerPension { get; set; }
+            public decimal TaxableIncome { get; set; }
+            public decimal WithholdingTax { get; set; }
+            public decimal NetWage { get; set; }
         }
 
         public class SalaryPayment
