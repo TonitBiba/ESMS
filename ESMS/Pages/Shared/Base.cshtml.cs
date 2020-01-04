@@ -119,7 +119,7 @@ namespace ESMS.Pages.Shared
         {
             using (ESMSContext dbContext = new ESMSContext())
             {
-                return dbContext.TaxGroup.Select(M => new SelectListItem { Text = language == 1 ? M.Name : M.NameEng, Value = M.ID.ToString() }).ToList();
+                return dbContext.TaxGroup.Select(M => new SelectListItem { Text = language == 1 ? M.Name : M.NameEng, Value = M.Id.ToString() }).ToList();
             }
         }
 

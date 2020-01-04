@@ -42,7 +42,7 @@ namespace ESMS
                 Role = U.AspNetUserRoles.FirstOrDefault().Role.Name,
                 Iban = U.IbanCode,
                 TaxGroupId=U.TaxGroupId,
-                Deduction=0,
+                Deduction=0,// a mujm qetu me ja dergu si parameter prej tabeles
                 SalaryAfterDeduction = CalculateSalaryWithDeduction.CalculateSalaryWithDed(U.Salary, 0),
                 EmployeePension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), U.TaxGroupId)),
                 EmployerPension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), U.TaxGroupId)),

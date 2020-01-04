@@ -558,6 +558,9 @@
   <data name="statusi" xml:space="preserve">
     <value>Statusi</value>
   </data>
+  <data name="tatimi" xml:space="preserve">
+    <value>Tatimi</value>
+  </data>
   <data name="TOTPDeaktivizuar" xml:space="preserve">
     <value>2FA është deaktivizuar. You mund të vendosni përsëri 2FA pasi ta konfiguroni aplikacionin për autentifikim.</value>
   </data>
