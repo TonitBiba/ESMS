@@ -115,6 +115,14 @@ namespace ESMS.Pages.Shared
             }
         }
 
+        public static List<SelectListItem> GetTaxGroups(int language)
+        {
+            using (ESMSContext dbContext = new ESMSContext())
+            {
+                return dbContext.TaxGroup.Select(M => new SelectListItem { Text = language == 1 ? M.Name : M.NameEng, Value = M.ID.ToString() }).ToList();
+            }
+        }
+
         public static List<SelectListItem> GetStatuses(int NCase, int language)
         {
             using (ESMSContext dbContext = new ESMSContext())

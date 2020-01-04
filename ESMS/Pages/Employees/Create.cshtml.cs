@@ -86,7 +86,8 @@ namespace ESMS.Pages.Employees
                                 PostCode = Input.PostalCode,
                                 PhoneNumber = Input.PhoneNumber,
                                 salary = Input.salary,
-                                UserProfile = imgBytes
+                                UserProfile = imgBytes,
+                                TaxGroupId = Input.TaxGroupId
                             };
 
                             var result = await userManager.CreateAsync(user, Input.PersonalNumber);
@@ -138,8 +139,15 @@ namespace ESMS.Pages.Employees
                     }
                     else
                         error = new Error { nError = 4, ErrorDescription = "Keni tejkaluar madhesine e fajllit." };
-                }else
+                }
+                else
+                {
+                    var errors = ModelState.Select(x => x.Value.Errors)
+                               .Where(y => y.Count > 0)
+                               .ToList();
                     error = new Error { nError = 4, ErrorDescription = "Keni shtypur te dhena jo valide." };
+                }
+                    
             }
             catch(Exception ex)
             {
@@ -252,6 +260,10 @@ namespace ESMS.Pages.Employees
             [Display(Name ="paga", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public float salary { get; set; }
+
+            [Display(Name = "tatimi", ResourceType = typeof(Resource))]
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            public int TaxGroupId { get; set; }
         }
     }
 }

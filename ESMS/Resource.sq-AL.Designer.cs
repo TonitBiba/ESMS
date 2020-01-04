@@ -221,7 +221,15 @@ namespace ESMS {
                 return ResourceManager.GetString("dataPunesimitDeri", resourceCulture);
             }
         }
-        
+
+        public static string tatimi
+        {
+            get
+            {
+                return ResourceManager.GetString("tatimi", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Dërgo email adresën për verifikim.
         /// </summary>

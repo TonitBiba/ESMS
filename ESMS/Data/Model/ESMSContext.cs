@@ -40,13 +40,14 @@ namespace ESMS.Data.Model
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<SubMenu> SubMenu { get; set; }
         public virtual DbSet<TypeOfLeaves> TypeOfLeaves { get; set; }
+        public virtual DbSet<TaxGroup> TaxGroup { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\sqlsrv2019;Database=ESMS;user id=superman; password = Esms2019.;MultipleActiveResultSets=true");
+                optionsBuilder.UseSqlServer("Server=RESHI\\SQLEXPRESS01;Database=ESMS;user id=superman; password = Esms2019.;MultipleActiveResultSets=true");
             }
         }
 
@@ -737,6 +738,19 @@ namespace ESMS.Data.Model
                     .IsRequired()
                     .HasColumnName("Name_SQ")
                     .HasMaxLength(64);
+            });
+
+            modelBuilder.Entity<TaxGroup>(entity =>
+            {
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("Name")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.NameEng)
+                    .IsRequired()
+                    .HasColumnName("NameEng")
+                    .HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);
