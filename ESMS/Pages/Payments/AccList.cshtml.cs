@@ -71,7 +71,7 @@ namespace ESMS
 
         }
 
-        public  string GetTaxGroupNameFromID( int taxgroupId)
+        public static  string GetTaxGroupNameFromID( int taxgroupId)
         {
 
             switch (taxgroupId)
