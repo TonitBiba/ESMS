@@ -9,10 +9,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace ESMS
@@ -47,7 +50,8 @@ namespace ESMS
             //{
             //    options.Filters.Add(new OnActionFilter());
             //}
-            );
+            ).AddViewLocalization();
+
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
 
             services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
@@ -68,6 +72,19 @@ namespace ESMS
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            IList<CultureInfo> supportedCultures = new List<CultureInfo>
+            {
+                new CultureInfo("sq-AL"),
+                new CultureInfo("en-US"),
+            };
+            
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("sq-AL"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

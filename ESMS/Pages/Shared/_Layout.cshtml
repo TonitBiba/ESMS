@@ -71,7 +71,15 @@
                     }
                 </div>
                 <h4 class="name"><a href="/Identity/Account/Manage">@User.FindFirstValue(ClaimTypes.GivenName) @User.FindFirstValue(ClaimTypes.Surname)</a></h4>
-                <a href="/Identity/Account/Logout">Q'kyqu</a>
+                <a href="/Identity/Account/Logout"><i class="fas fa-sign-out-alt"></i> Q'kyqu</a>
+
+                <div class="btn-group float-right">
+                    <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">Gjuha</button>
+                    <div class="dropdown-menu">
+                        <a href='@Url.Page("Index")?handler=Language&culture=sq-AL&returnUrl=/' class="dropdown-item btn btn-secondary">Shqip</a>
+                        <a href='@Url.Page("Index")?handler=Language&culture=en-US&returnUrl=/' class="dropdown-item btn btn-secondary">English</a>
+                    </div>
+                </div>
             </div>
             <nav class="navbar-sidebar2 loadMenu">
                 <partial name="~/Pages/Shared/_MenuList.cshtml" model="null" />
