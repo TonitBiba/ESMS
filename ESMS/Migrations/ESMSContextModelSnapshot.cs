@@ -179,6 +179,16 @@ namespace ESMS.Migrations
                     b.Property<int?>("Country")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DtFrom")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+
+                    b.Property<DateTime>("DtTo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -189,17 +199,12 @@ namespace ESMS.Migrations
                     b.Property<int>("EmployeeStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("EmploymentDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(1000)")
                         .HasDefaultValueSql("(N'')")
-                        .HasMaxLength(100);
+                        .HasMaxLength(1000);
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
@@ -265,6 +270,9 @@ namespace ESMS.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TaxGroupId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -310,6 +318,16 @@ namespace ESMS.Migrations
                     b.Property<int?>("Country")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("DtFrom")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+
+                    b.Property<DateTime>("DtTo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -320,17 +338,12 @@ namespace ESMS.Migrations
                     b.Property<int>("EmployeeStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("EmploymentDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
-
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("nvarchar(100)")
+                        .HasColumnType("nvarchar(1000)")
                         .HasDefaultValueSql("(N'')")
-                        .HasMaxLength(100);
+                        .HasMaxLength(1000);
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
@@ -554,6 +567,97 @@ namespace ESMS.Migrations
                     b.ToTable("EmployeeDocuments");
                 });
 
+            modelBuilder.Entity("ESMS.Data.Model.Leaves", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DtInserted")
+                        .HasColumnName("dtInserted")
+                        .HasColumnType("datetime");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnName("endDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("NTypeOfLeaves")
+                        .HasColumnName("nTypeOfLeaves")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnName("startDate")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("VcComment")
+                        .HasColumnName("vcComment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VcDocumentPath")
+                        .HasColumnName("vcDocumentPath")
+                        .HasColumnType("nvarchar(256)")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("VcUser")
+                        .IsRequired()
+                        .HasColumnName("vcUser")
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NTypeOfLeaves");
+
+                    b.HasIndex("VcUser");
+
+                    b.ToTable("Leaves");
+                });
+
+            modelBuilder.Entity("ESMS.Data.Model.LeavesDetails", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("BActive")
+                        .HasColumnName("bActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("DtInserted")
+                        .HasColumnName("dtInserted")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("NLeaves")
+                        .HasColumnName("nLeaves")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NStatus")
+                        .HasColumnName("nStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("VcComment")
+                        .HasColumnName("vcComment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VcUser")
+                        .IsRequired()
+                        .HasColumnName("vcUser")
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NLeaves");
+
+                    b.HasIndex("NStatus");
+
+                    b.HasIndex("VcUser");
+
+                    b.ToTable("LeavesDetails");
+                });
+
             modelBuilder.Entity("ESMS.Data.Model.Logs", b =>
                 {
                     b.Property<long>("NLogId")
@@ -655,6 +759,30 @@ namespace ESMS.Migrations
                     b.ToTable("Menu");
                 });
 
+            modelBuilder.Entity("ESMS.Data.Model.Month", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("MonthEn")
+                        .IsRequired()
+                        .HasColumnName("month_EN")
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
+
+                    b.Property<string>("MonthSq")
+                        .IsRequired()
+                        .HasColumnName("month_SQ")
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Month");
+                });
+
             modelBuilder.Entity("ESMS.Data.Model.Notifications", b =>
                 {
                     b.Property<int>("NNotificationId")
@@ -703,6 +831,69 @@ namespace ESMS.Migrations
                     b.HasIndex("VcUser");
 
                     b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("ESMS.Data.Model.Payments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Deduction")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("DtInserted")
+                        .HasColumnName("dtInserted")
+                        .HasColumnType("datetime");
+
+                    b.Property<decimal>("EmployeePension")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("EmployerPension")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Month")
+                        .HasColumnName("month")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("NetWage")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnName("salary")
+                        .HasColumnType("money");
+
+                    b.Property<decimal>("SalaryAfterDeduction")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TaxableIncome")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnName("userId")
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.Property<string>("VcInserted")
+                        .IsRequired()
+                        .HasColumnName("vcInserted")
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.Property<decimal>("WithholdingTax")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Month");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("VcInserted");
+
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("ESMS.Data.Model.Policy", b =>
@@ -818,6 +1009,30 @@ namespace ESMS.Migrations
                     b.ToTable("States");
                 });
 
+            modelBuilder.Entity("ESMS.Data.Model.Status", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("NameEn")
+                        .IsRequired()
+                        .HasColumnName("Name_EN")
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
+
+                    b.Property<string>("NameSq")
+                        .IsRequired()
+                        .HasColumnName("Name_SQ")
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Status");
+                });
+
             modelBuilder.Entity("ESMS.Data.Model.SubMenu", b =>
                 {
                     b.Property<int>("NSubMenuId")
@@ -881,6 +1096,30 @@ namespace ESMS.Migrations
                     b.HasIndex("NMenuId");
 
                     b.ToTable("SubMenu");
+                });
+
+            modelBuilder.Entity("ESMS.Data.Model.TypeOfLeaves", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("NameEn")
+                        .IsRequired()
+                        .HasColumnName("Name_EN")
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
+
+                    b.Property<string>("NameSq")
+                        .IsRequired()
+                        .HasColumnName("Name_SQ")
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TypeOfLeaves");
                 });
 
             modelBuilder.Entity("ESMS.Data.Model.AspNetRoleClaims", b =>
@@ -951,6 +1190,42 @@ namespace ESMS.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ESMS.Data.Model.Leaves", b =>
+                {
+                    b.HasOne("ESMS.Data.Model.TypeOfLeaves", "NTypeOfLeavesNavigation")
+                        .WithMany("Leaves")
+                        .HasForeignKey("NTypeOfLeaves")
+                        .HasConstraintName("FK_Leaves_TypeOfLeaves")
+                        .IsRequired();
+
+                    b.HasOne("ESMS.Data.Model.AspNetUsers", "VcUserNavigation")
+                        .WithMany("Leaves")
+                        .HasForeignKey("VcUser")
+                        .HasConstraintName("FK_Leaves_AspNetUsers")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ESMS.Data.Model.LeavesDetails", b =>
+                {
+                    b.HasOne("ESMS.Data.Model.Leaves", "NLeavesNavigation")
+                        .WithMany("LeavesDetails")
+                        .HasForeignKey("NLeaves")
+                        .HasConstraintName("FK_LeavesDetails_Leaves")
+                        .IsRequired();
+
+                    b.HasOne("ESMS.Data.Model.Status", "NStatusNavigation")
+                        .WithMany("LeavesDetails")
+                        .HasForeignKey("NStatus")
+                        .HasConstraintName("FK_LeavesDetails_Status")
+                        .IsRequired();
+
+                    b.HasOne("ESMS.Data.Model.AspNetUsers", "VcUserNavigation")
+                        .WithMany("LeavesDetails")
+                        .HasForeignKey("VcUser")
+                        .HasConstraintName("FK_LeavesDetails_AspNetUsers")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ESMS.Data.Model.Menu", b =>
                 {
                     b.HasOne("ESMS.Data.Model.AspNetUsers", "NInserted")
@@ -972,6 +1247,27 @@ namespace ESMS.Migrations
                         .WithMany("NotificationsVcUserNavigation")
                         .HasForeignKey("VcUser")
                         .HasConstraintName("FK_Notifications_AspNetUsers")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ESMS.Data.Model.Payments", b =>
+                {
+                    b.HasOne("ESMS.Data.Model.Month", "MonthNavigation")
+                        .WithMany("Payments")
+                        .HasForeignKey("Month")
+                        .HasConstraintName("FK_Payments_Month")
+                        .IsRequired();
+
+                    b.HasOne("ESMS.Data.Model.AspNetUsers", "User")
+                        .WithMany("PaymentsUser")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("FK_Payments_AspNetUsers")
+                        .IsRequired();
+
+                    b.HasOne("ESMS.Data.Model.AspNetUsers", "VcInsertedNavigation")
+                        .WithMany("PaymentsVcInsertedNavigation")
+                        .HasForeignKey("VcInserted")
+                        .HasConstraintName("FK_Payments_AspNetUsers1")
                         .IsRequired();
                 });
 

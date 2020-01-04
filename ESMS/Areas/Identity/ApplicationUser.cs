@@ -43,8 +43,6 @@ namespace ESMS.Areas.Identity
 
         public DateTime DtTo { get; set; }
 
-        public int TaxGroupId { get; set; }
-
         public int EmployeeStatus { get; set; }
 
         [Required]
@@ -59,6 +57,8 @@ namespace ESMS.Areas.Identity
         public float salary { get; set; }
 
         public byte[] UserProfile { get; set; }
+
+        public int TaxGroupId { get; set; }
 
     }
 }

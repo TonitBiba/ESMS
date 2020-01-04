@@ -19,6 +19,11 @@
     <TypeScriptCompile Remove="Contract\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200104162516_TaxtGroupId.cs" />
+    <Compile Remove="Data\Migrations\20200104162516_TaxtGroupId.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.3.1" />
