@@ -87,7 +87,7 @@ namespace ESMS.Pages.Employees
                                 PhoneNumber = Input.PhoneNumber,
                                 salary = Input.salary,
                                 UserProfile = imgBytes,
-                                TaxGroupId=Input.TaxGroupId
+                                TaxGroupId = Input.TaxGroupId
                             };
 
                             var result = await userManager.CreateAsync(user, Input.PersonalNumber);
@@ -139,8 +139,15 @@ namespace ESMS.Pages.Employees
                     }
                     else
                         error = new Error { nError = 4, ErrorDescription = "Keni tejkaluar madhesine e fajllit." };
-                }else
+                }
+                else
+                {
+                    var errors = ModelState.Select(x => x.Value.Errors)
+                               .Where(y => y.Count > 0)
+                               .ToList();
                     error = new Error { nError = 4, ErrorDescription = "Keni shtypur te dhena jo valide." };
+                }
+                    
             }
             catch(Exception ex)
             {

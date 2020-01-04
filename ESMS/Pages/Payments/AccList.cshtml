@@ -1,0 +1,90 @@
+﻿@page
+@model ESMS.AccListModel
+@using System.Security.Claims
+@using ESMS.Security
+@{
+    ViewData["Title"] = Resource.historikuPagave;
+}
+
+<div class="card">
+    <div class="card-body card-block">
+        <h4> @Resource.historikuPagave </h4>
+        <hr />
+        <div class="btn-group float-right">
+            <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">Shkarko listen</button>
+            <div class="dropdown-menu">
+                <a href='List?handler=Report&f=1' target="_blank" class="dropdown-item btn btn-secondary"><i class="far fa-file-pdf"></i>&nbsp; PDF</a>
+                <a href='List?handler=Report&f=2' target="_blank" class="dropdown-item"><i class="far fa-file-excel"></i>&nbsp; Excel</a>
+                <a href='List?handler=Report&f=3' target="_blank" class="dropdown-item"><i class="far fa-file-word"></i>&nbsp; Word</a>
+            </div>
+        </div>
+        @Html.AntiForgeryToken()
+        <table id="table" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Emri</th>
+                    <th>Mbiemri</th>
+                    <th>IdCard</th>
+                    <th>Taxgroup</th>
+                    <th>Salaryforcalculation</th>
+                    <th>EmployeePension</th>
+                    <th>EmployerPension</th>
+                    <th>TaxableIncome</th>
+                    <th>WithholdingTax</th>
+                    <th>NetWage</th>
+                    <th>PositionName</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.AccountantList)
+                {
+                    <tr>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.IdCard</td>
+                        <td>@item.Taxgroup</td>
+                        <td>@item.Salaryforcalculation</td>
+                        <td>@item.EmployeePension</td>
+                        <td>@item.EmployerPension</td>
+                        <td>@item.TaxableIncome</td>
+                        <td>@item.WithholdingTax</td>
+                        <td>@item.NetWage</td>
+                        <td>@item.PositionName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#table').DataTable({
+            "lengthChange": false,
+            "language": {
+                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
+                "zeroRecords": "Nuk ka asnjë të dhënë",
+                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+                "infoEmpty": "Nuk ka asnjë të dhënë",
+                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
+                "search": "Kërko",
+                "paginate": {
+                    "previous": "Prapa",
+                    "first": "E para",
+                    "last": "E fundit",
+                    "next": "Para"
+                }
+            },
+            responsive: true
+        })
+    })
+</script>
+
+@if (Model.error != null)
+{
+    <script>
+        $(document).ready(function (){
+            showAlert(@Model.error.nError, '@Html.Raw(Model.error.ErrorDescription)')
+        })
+    </script>
+}
