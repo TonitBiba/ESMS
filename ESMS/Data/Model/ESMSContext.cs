@@ -40,6 +40,7 @@ namespace ESMS.Data.Model
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<SubMenu> SubMenu { get; set; }
         public virtual DbSet<TypeOfLeaves> TypeOfLeaves { get; set; }
+        public virtual DbSet<TaxGroup> TaxGroup { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -737,6 +738,19 @@ namespace ESMS.Data.Model
                     .IsRequired()
                     .HasColumnName("Name_SQ")
                     .HasMaxLength(64);
+            });
+
+            modelBuilder.Entity<TaxGroup>(entity =>
+            {
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("Name")
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.NameEng)
+                    .IsRequired()
+                    .HasColumnName("NameEng")
+                    .HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);
