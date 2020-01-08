@@ -16,6 +16,17 @@
     <DataSet Name="DataSet1">
       <Query>
         <DataSourceName>DataSource2</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@dtFrom">
+            <Value>=Parameters!dtFrom.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@dtTo">
+            <Value>=Parameters!dtTo.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@userId">
+            <Value>=Parameters!userId.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
         <CommandText>select 
 	M.month_SQ,
 	U.FirstName,
@@ -28,7 +39,8 @@ from Payments P
 	inner join AspNetUsers U on U.Id = P.userId
 	inner join AspNetUserRoles UR on UR.UserId = U.Id
 	inner join AspNetRoles R on R.Id = UR.RoleId
-where Datepart(yyyy, P.dtInserted) = Datepart(yyyy, GETDATE())
+where P.dtInserted &gt;= @dtFrom and P.dtInserted&lt;=@dtTo and
+	  P.userId = (case when @userId = '' then P.userId else @userId end)
 order by P.dtInserted</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
@@ -166,7 +178,7 @@ order by P.dtInserted</CommandText>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.40469in</Height>
+                  <Height>0.31094in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -655,7 +667,7 @@ order by P.dtInserted</CommandText>
             <DataSetName>DataSet1</DataSetName>
             <Top>2.80974in</Top>
             <Left>0.0687in</Left>
-            <Height>1.40469in</Height>
+            <Height>1.31094in</Height>
             <Width>8.32679in</Width>
             <ZIndex>3</ZIndex>
             <Style>
@@ -665,7 +677,7 @@ order by P.dtInserted</CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>4.52819in</Height>
+        <Height>4.19486in</Height>
         <Style />
       </Body>
       <Width>8.3955in</Width>
@@ -758,10 +770,62 @@ order by P.dtInserted</CommandText>
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="dtFrom">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value>''</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>drFrom</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="dtTo">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value>''</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>dtTo</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="userId">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value>''</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>userId</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
       <NumberOfRows>2</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>dtFrom</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>dtTo</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>userId</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <EmbeddedImages>

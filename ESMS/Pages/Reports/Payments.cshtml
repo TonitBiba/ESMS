@@ -1,16 +1,65 @@
 ﻿@page
-@model ESMS.PaymentsModel
+@model ESMS.Pages.Reports.PaymentsModel
+@using ESMS.Pages.Shared
 @{
     Layout = null;
 }
+<link href="~/lib/DatePicker/daterangepicker.css" rel="stylesheet" />
+<div class="card-body card-block">
+    <h4> Kërkimi te raporti pagesave </h4>
+    <hr />
+    <form id="frmSearch">
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Input.dtFrom)
+                    @Html.TextBoxFor(m => m.Input.dtFrom, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Input.dtFrom, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Input.userId)
+                    @Html.DropDownListFor(m => m.Input.userId, BaseModel.GetUsers(), Resource.zgjedhe, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Input.userId, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label style="visibility:hidden" asp-for="Input.dtFrom"></label>
+                <button type="button" id="btnSearch" class="btn btn-primary w-100">@Resource.kerko</button>
+            </div>
+        </div>
+    </form>
+    <div id="searchResult">
 
-<!DOCTYPE html>
+    </div>
+</div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Payments</title>
-</head>
-<body>
-</body>
-</html>
+<script src="~/lib/DatePicker/moment.min.js"></script>
+<script src="~/lib/DatePicker/daterangepicker.js"></script>
+
+<script>
+            var startDate = '01-01-2019'
+        var endDate = moment().format('DD-MM-YYYY')
+    $(document).ready(function () {
+        $('#Input_dtFrom').daterangepicker();
+        $('#Input_dtFrom').on('apply.daterangepicker', function(ev, picker) {
+            startDate = picker.startDate.format('DD-MM-YYYY');
+            endDate = picker.endDate.format('DD-MM-YYYY');
+        });
+        $('#btnSearch').click(function () {
+            if ($('#frmSearch').valid()) {
+                $.post('@Url.Page("Payments", "Search")',
+                    {
+                         __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val(),
+                        dtFrom: startDate,
+                        dtTo: endDate,
+                        userId: $('#Input_userId').val()
+                    }, function (response) {
+                        $('#searchResult').html(response)
+                })
+            }
+        })
+    })
+</script>

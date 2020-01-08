@@ -26,6 +26,8 @@ namespace ESMS
             {
                 case 1:
                     return RedirectToPage("Employe");
+                case 2:
+                    return RedirectToPage("Payments");
                 default:
                     break;
             }

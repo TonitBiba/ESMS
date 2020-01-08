@@ -1420,6 +1420,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Përdoruesi.
+        /// </summary>
+        public static string perdoruesi {
+            get {
+                return ResourceManager.GetString("perdoruesi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Përshkrimi.
         /// </summary>
         public static string pershkrimi {

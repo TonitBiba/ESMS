@@ -134,8 +134,9 @@ namespace ESMS.Pages.Shared
 
         public static List<SelectListItem> GetEmployeeStatus()
         {
-            return new List<SelectListItem> { new SelectListItem { Value = "0", Text = Resource.pasiv },
-                                              new SelectListItem { Value = "1", Text = Resource.aktiv } };
+            return new List<SelectListItem> { new SelectListItem { Value = "1", Text = Resource.aktiv }, 
+                                              new SelectListItem { Value = "0", Text = Resource.pasiv }
+                                               };
         }
 
         public static List<SelectListItem> GetReportTypes()
@@ -145,6 +146,14 @@ namespace ESMS.Pages.Shared
                     new SelectListItem { Text = "Pagesat", Value = "2"},
                     new SelectListItem { Text = "Kerkesat per pushim", Value = "3"}
             };
+        }
+
+        public static List<SelectListItem> GetUsers()
+        {
+            using (ESMSContext dbContext = new ESMSContext())
+            {        
+                 return dbContext.AspNetUsers.Where(U=>U.AspNetUserRoles.FirstOrDefault().RoleId != "2a13875f-53af-45a5-b240-48a90ff993a5").Select(R => new SelectListItem { Text = R.FirstName+" "+R.LastName, Value = R.Id.ToString()}).ToList();
+            }
         }
 
         #endregion

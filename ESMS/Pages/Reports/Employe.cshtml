@@ -11,21 +11,21 @@
     <form id="frmSearchEmployee">
         @Html.AntiForgeryToken()
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     @Html.LabelFor(m => m.Input.status)
                     @Html.DropDownListFor(m => m.Input.status, BaseModel.GetEmployeeStatus(), Resource.zgjedhe, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Input.status, null, new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group">
                     @Html.LabelFor(m => m.Input.gender)
                     @Html.DropDownListFor(m => m.Input.gender, BaseModel.GetGenders(), Resource.zgjedhe, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Input.gender, null, new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label style="visibility:hidden" asp-for="Input.gender"></label>
                 <button type="button" id="btnSearch" class="btn btn-primary w-100">@Resource.kerko</button>
             </div>

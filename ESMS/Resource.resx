@@ -570,6 +570,9 @@
   <data name="perdorimiIAplikacioninPerAutentifikim" xml:space="preserve">
     <value>Për të përdorur aplikacionin për autentifikim duhet të ndjekni hapat vijues:</value>
   </data>
+  <data name="perdoruesi" xml:space="preserve">
+    <value>Përdoruesi</value>
+  </data>
   <data name="pershkrimi" xml:space="preserve">
     <value>Përshkrimi</value>
   </data>
