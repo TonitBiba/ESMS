@@ -1,5 +1,6 @@
 ﻿@page
 @model LoginWithRecoveryCodeModel
+@using ESMS
 @{
     ViewData["Title"] = "Recovery code verification";
         Layout = "_LoginLayout";
@@ -20,7 +21,7 @@
                 <input asp-for="Input.RecoveryCode" class="form-control" autocomplete="off" />
                 <span asp-validation-for="Input.RecoveryCode" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-primary">Log in</button>
+            <button type="submit" class="btn btn-primary">@Resource.login</button>
         </form>
     </div>
 </div>

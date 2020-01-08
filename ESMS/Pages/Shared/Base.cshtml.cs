@@ -131,6 +131,22 @@ namespace ESMS.Pages.Shared
                 return dbContext.Status.Where(s=> nStatuses.Contains(s.Id)).Select(M => new SelectListItem { Text = language == 1 ? M.NameSq : M.NameEn, Value = M.Id.ToString() }).ToList();
             }
         }
+
+        public static List<SelectListItem> GetEmployeeStatus()
+        {
+            return new List<SelectListItem> { new SelectListItem { Value = "0", Text = Resource.pasiv },
+                                              new SelectListItem { Value = "1", Text = Resource.aktiv } };
+        }
+
+        public static List<SelectListItem> GetReportTypes()
+        {
+            return new List<SelectListItem> {
+                    new SelectListItem { Text = "Të punesuarit", Value = "1" },
+                    new SelectListItem { Text = "Pagesat", Value = "2"},
+                    new SelectListItem { Text = "Kerkesat per pushim", Value = "3"}
+            };
+        }
+
         #endregion
 
         public string getFormatReport(int format)

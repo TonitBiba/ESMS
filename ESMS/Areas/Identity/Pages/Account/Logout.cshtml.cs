@@ -24,7 +24,7 @@ namespace ESMS.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnGet()
         {
-            TempData["ErrorMessage"] = "Qkyqja me suskses!";
+            TempData["ErrorMessage"] = Resource.logOutSuccessTitle;
             await _signInManager.SignOutAsync();
             return RedirectToPage("./Login");
         }
@@ -39,7 +39,7 @@ namespace ESMS.Areas.Identity.Pages.Account
             }
             else
             {
-                TempData["ErrorMessage"] = "Qkyqja me suskses!";
+                TempData["ErrorMessage"] = Resource.logOutSuccessTitle;
                 return RedirectToPage("./Login");
             }
         }

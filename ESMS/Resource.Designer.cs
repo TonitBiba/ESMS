@@ -61,6 +61,42 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ju nuk jeni i autorizuar te qaseni kete faqe..
+        /// </summary>
+        public static string accessDenied {
+            get {
+                return ResourceManager.GetString("accessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Qasje e pa autorizuar.
+        /// </summary>
+        public static string accessDeniedTitle {
+            get {
+                return ResourceManager.GetString("accessDeniedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kjo llogari është bllokuar, ju lutem provoni përsëri më vonë..
+        /// </summary>
+        public static string accountLockout {
+            get {
+                return ResourceManager.GetString("accountLockout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Llogari e bllokuar.
+        /// </summary>
+        public static string accountLockoutTitle {
+            get {
+                return ResourceManager.GetString("accountLockoutTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adresa.
         /// </summary>
         public static string adresa {
@@ -75,6 +111,15 @@ namespace ESMS {
         public static string adresaOpsionale {
             get {
                 return ResourceManager.GetString("adresaOpsionale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Aktiv.
+        /// </summary>
+        public static string aktiv {
+            get {
+                return ResourceManager.GetString("aktiv", resourceCulture);
             }
         }
         
@@ -142,6 +187,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Llogaria juaj mbrohet me aplikacionin për autentifikim. Shtypni kodin e autentifikatorit më poshtë..
+        /// </summary>
+        public static string autentifikatorTitle {
+            get {
+                return ResourceManager.GetString("autentifikatorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Autentifikimi dy hapësh.
         /// </summary>
         public static string autentifikimi2Hapesh {
@@ -156,6 +210,15 @@ namespace ESMS {
         public static string autentifikimiDyHapesh {
             get {
                 return ResourceManager.GetString("autentifikimiDyHapesh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kodi për autentifikim.
+        /// </summary>
+        public static string authenticatorCode {
+            get {
+                return ResourceManager.GetString("authenticatorCode", resourceCulture);
             }
         }
         
@@ -187,11 +250,47 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to klikoni këtu për tu kyqur.
+        /// </summary>
+        public static string clickHereToLogIn {
+            get {
+                return ResourceManager.GetString("clickHereToLogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Koment.
         /// </summary>
         public static string comment {
             get {
                 return ResourceManager.GetString("comment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fjalëkalimi dhe fjalëkalimi konfirmuar nuk përputhen..
+        /// </summary>
+        public static string comparePasswordError {
+            get {
+                return ResourceManager.GetString("comparePasswordError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faleminderit për konfirmim të ndryshimit të email adresës..
+        /// </summary>
+        public static string confirmEmailChange {
+            get {
+                return ResourceManager.GetString("confirmEmailChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Konfirmimi i ndryshimit të email adresës.
+        /// </summary>
+        public static string confirmEmailChangeTitle {
+            get {
+                return ResourceManager.GetString("confirmEmailChangeTitle", resourceCulture);
             }
         }
         
@@ -221,15 +320,16 @@ namespace ESMS {
                 return ResourceManager.GetString("dataPunesimitDeri", resourceCulture);
             }
         }
-
-        public static string tatimi
-        {
-            get
-            {
-                return ResourceManager.GetString("tatimi", resourceCulture);
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dërgo.
+        /// </summary>
+        public static string dergo {
+            get {
+                return ResourceManager.GetString("dergo", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Dërgo email adresën për verifikim.
         /// </summary>
@@ -272,6 +372,15 @@ namespace ESMS {
         public static string document {
             get {
                 return ResourceManager.GetString("document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nuk keni qasje në pajisjen për autentifikim? Ju mundeni .
+        /// </summary>
+        public static string donotHaveAccessTOTP {
+            get {
+                return ResourceManager.GetString("donotHaveAccessTOTP", resourceCulture);
             }
         }
         
@@ -326,6 +435,24 @@ namespace ESMS {
         public static string emailAdresaRe {
             get {
                 return ResourceManager.GetString("emailAdresaRe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Konfirmimi i email adresës.
+        /// </summary>
+        public static string emailConfirmationTitle {
+            get {
+                return ResourceManager.GetString("emailConfirmationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Imella për verifikim është dërguar. Ju lutem shikoni imellën..
+        /// </summary>
+        public static string emailVerificationSend {
+            get {
+                return ResourceManager.GetString("emailVerificationSend", resourceCulture);
             }
         }
         
@@ -420,6 +547,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Shtypni email adresën..
+        /// </summary>
+        public static string enterEmail {
+            get {
+                return ResourceManager.GetString("enterEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ekzekuto pagat.
         /// </summary>
         public static string executeSalaries {
@@ -434,6 +570,15 @@ namespace ESMS {
         public static string FA2KonfiguroniAplikacionin {
             get {
                 return ResourceManager.GetString("FA2KonfiguroniAplikacionin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Femër.
+        /// </summary>
+        public static string female {
+            get {
+                return ResourceManager.GetString("female", resourceCulture);
             }
         }
         
@@ -501,6 +646,33 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keni harruar fjalëkalimin?.
+        /// </summary>
+        public static string forgotPassword {
+            get {
+                return ResourceManager.GetString("forgotPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Konfirmimi i rikthimit të fjalëkalimit.
+        /// </summary>
+        public static string forgotPasswordConfir {
+            get {
+                return ResourceManager.GetString("forgotPasswordConfir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ju lutem shikoni imellën për të rikthyer fjalëkalimin..
+        /// </summary>
+        public static string forgotPasswordTitle {
+            get {
+                return ResourceManager.GetString("forgotPasswordTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Formati i numrit nuk eshte valid.
         /// </summary>
         public static string formatiNrTelGabim {
@@ -533,6 +705,24 @@ namespace ESMS {
         public static string fusheObligative {
             get {
                 return ResourceManager.GetString("fusheObligative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gabim gjatë ndryshimit të email adresës..
+        /// </summary>
+        public static string gabimNdryshimiEmail {
+            get {
+                return ResourceManager.GetString("gabimNdryshimiEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gabim gjatë ndryshimit të emrit të përdoruesit.
+        /// </summary>
+        public static string gabimNdryshimiusername {
+            get {
+                return ResourceManager.GetString("gabimNdryshimiusername", resourceCulture);
             }
         }
         
@@ -636,6 +826,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kodi nuk është i saktë..
+        /// </summary>
+        public static string invalidCodeTOTP {
+            get {
+                return ResourceManager.GetString("invalidCodeTOTP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Të dhënat nuk janë valide!.
         /// </summary>
         public static string invalidData {
@@ -677,6 +876,15 @@ namespace ESMS {
         public static string keniHarruarFjalekalimin {
             get {
                 return ResourceManager.GetString("keniHarruarFjalekalimin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kërko.
+        /// </summary>
+        public static string kerko {
+            get {
+                return ResourceManager.GetString("kerko", resourceCulture);
             }
         }
         
@@ -834,6 +1042,24 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Emri përdoruesit ose fjalëkalimi nuk është në rregull..
+        /// </summary>
+        public static string loginError {
+            get {
+                return ResourceManager.GetString("loginError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to kyqeni me kodet për rikthim.
+        /// </summary>
+        public static string loginRecoveryCodes {
+            get {
+                return ResourceManager.GetString("loginRecoveryCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Përdorni llogarinë për tu kyqur..
         /// </summary>
         public static string loginText {
@@ -843,11 +1069,38 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Jeni q&apos;kyqur me sukses..
+        /// </summary>
+        public static string logOutSuccess {
+            get {
+                return ResourceManager.GetString("logOutSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Q&apos;kyqja me sukses!.
+        /// </summary>
+        public static string logOutSuccessTitle {
+            get {
+                return ResourceManager.GetString("logOutSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nëse e humbni pajisjen dhe nuk keni kodet për rikthim ju do të humbni çasjen në llogari..
         /// </summary>
         public static string loseRecoveryCodes {
             get {
                 return ResourceManager.GetString("loseRecoveryCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mashkull.
+        /// </summary>
+        public static string male {
+            get {
+                return ResourceManager.GetString("male", resourceCulture);
             }
         }
         
@@ -1113,6 +1366,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pasiv.
+        /// </summary>
+        public static string pasiv {
+            get {
+                return ResourceManager.GetString("pasiv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to për.
         /// </summary>
         public static string per {
@@ -1248,11 +1510,74 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mbaj mend këtë kompjuter.
+        /// </summary>
+        public static string rememberMachine {
+            get {
+                return ResourceManager.GetString("rememberMachine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lloji raportit.
+        /// </summary>
+        public static string reportType {
+            get {
+                return ResourceManager.GetString("reportType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rikthe.
+        /// </summary>
+        public static string reset {
+            get {
+                return ResourceManager.GetString("reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rivendos çelësat për autentifikim.
         /// </summary>
         public static string resetAuthenticatorKey {
             get {
                 return ResourceManager.GetString("resetAuthenticatorKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rikthimi fjalëkalimit tuaj..
+        /// </summary>
+        public static string resetPasswordBody {
+            get {
+                return ResourceManager.GetString("resetPasswordBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fjalëkalimi është resetuar. Ju lutem .
+        /// </summary>
+        public static string resetPasswordSuccess {
+            get {
+                return ResourceManager.GetString("resetPasswordSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rikthimi fjalëkalimit.
+        /// </summary>
+        public static string resetPasswordTitle {
+            get {
+                return ResourceManager.GetString("resetPasswordTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rikthimi fjalekalimit.
+        /// </summary>
+        public static string resetPasswordTitleEmail {
+            get {
+                return ResourceManager.GetString("resetPasswordTitleEmail", resourceCulture);
             }
         }
         
@@ -1392,11 +1717,29 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tatimi.
+        /// </summary>
+        public static string tatimi {
+            get {
+                return ResourceManager.GetString("tatimi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 2FA është deaktivizuar. You mund të vendosni përsëri 2FA pasi ta konfiguroni aplikacionin për autentifikim..
         /// </summary>
         public static string TOTPDeaktivizuar {
             get {
                 return ResourceManager.GetString("TOTPDeaktivizuar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Autentifikimi dy hapësh.
+        /// </summary>
+        public static string twoStepAuthenticationTitle {
+            get {
+                return ResourceManager.GetString("twoStepAuthenticationTitle", resourceCulture);
             }
         }
         

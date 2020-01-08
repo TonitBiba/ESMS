@@ -60,5 +60,7 @@ namespace ESMS.Areas.Identity
 
         public int TaxGroupId { get; set; }
 
+        public int? language { get; set; }
+
     }
 }

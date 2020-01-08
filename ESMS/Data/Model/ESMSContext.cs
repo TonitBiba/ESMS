@@ -152,6 +152,8 @@ namespace ESMS.Data.Model
                     .HasMaxLength(128)
                     .HasDefaultValueSql("(N'')");
 
+                entity.Property(e => e.Language).HasColumnName("language");
+
                 entity.Property(e => e.LastName)
                     .IsRequired()
                     .HasMaxLength(100)

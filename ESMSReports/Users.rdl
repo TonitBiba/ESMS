@@ -21,6 +21,12 @@
           <QueryParameter Name="@groupID">
             <Value>=Parameters!groupID.Value</Value>
           </QueryParameter>
+          <QueryParameter Name="@statusi">
+            <Value>=Parameters!statusi.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@gender">
+            <Value>=Parameters!gender.Value</Value>
+          </QueryParameter>
         </QueryParameters>
         <CommandText>select 
 	U.FirstName,
@@ -34,9 +40,12 @@
 from AspNetUsers U
 	inner join AspNetUserRoles UR on UR.UserId = U.Id
 	inner join AspNetRoles R on R.Id = UR.RoleId
-where R.ID = (case when @groupID = '2a13875f-53af-45a5-b240-48a90ff993a5' then R.ID
+where R.ID = (case when @groupID = '2a13875f-53af-45a5-b240-48a90ff993a5'  then R.ID
 	               when @groupID = '58cfa2e9-9eeb-4fcd-b87c-6d0b676fb066' then R.ID
- else @groupID end)</CommandText>
+				   else @groupID end) and 
+	R.Id != '2a13875f-53af-45a5-b240-48a90ff993a5' and
+	U.EmployeeStatus = (case when @statusi = '' then U.EmployeeStatus else @statusi end) and
+	U.Gender = (case when @gender = 0 then U.Gender else @gender end)</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -83,25 +92,25 @@ where R.ID = (case when @groupID = '2a13875f-53af-45a5-b240-48a90ff993a5' then R
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.14543in</Width>
+                  <Width>1.68114in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.14543in</Width>
+                  <Width>1.14989in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.14543in</Width>
+                  <Width>1.14989in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.14543in</Width>
+                  <Width>1.36864in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.14543in</Width>
+                  <Width>1.21746in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.14543in</Width>
+                  <Width>0.82698in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.14543in</Width>
+                  <Width>0.85316in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -380,7 +389,7 @@ where R.ID = (case when @groupID = '2a13875f-53af-45a5-b240-48a90ff993a5' then R
                               </TextRuns>
                               <Style>
                                 <FontFamily />
-                                <TextAlign>Right</TextAlign>
+                                <TextAlign>Left</TextAlign>
                               </Style>
                             </Paragraph>
                           </Paragraphs>
@@ -916,7 +925,7 @@ where R.ID = (case when @groupID = '2a13875f-53af-45a5-b240-48a90ff993a5' then R
             <Top>2.94042in</Top>
             <Left>0.13741in</Left>
             <Height>0.75458in</Height>
-            <Width>8.01801in</Width>
+            <Width>8.24716in</Width>
             <Style>
               <Border>
                 <Style>Solid</Style>
@@ -1013,7 +1022,7 @@ where R.ID = (case when @groupID = '2a13875f-53af-45a5-b240-48a90ff993a5' then R
         <Height>4.30958in</Height>
         <Style />
       </Body>
-      <Width>8.27in</Width>
+      <Width>8.38458in</Width>
       <Page>
         <PageFooter>
           <Height>0.75in</Height>
@@ -1074,6 +1083,21 @@ where R.ID = (case when @groupID = '2a13875f-53af-45a5-b240-48a90ff993a5' then R
       </DefaultValue>
       <Prompt>GroupID</Prompt>
     </ReportParameter>
+    <ReportParameter Name="statusi">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value>''</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>statusi</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="gender">
+      <DataType>String</DataType>
+      <Prompt>Gender</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -1084,6 +1108,16 @@ where R.ID = (case when @groupID = '2a13875f-53af-45a5-b240-48a90ff993a5' then R
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>groupID</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>statusi</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>gender</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="accessDenied" xml:space="preserve">
+    <value>Ju nuk jeni i autorizuar te qaseni kete faqe.</value>
+  </data>
+  <data name="accessDeniedTitle" xml:space="preserve">
+    <value>Qasje e pa autorizuar</value>
+  </data>
+  <data name="accountLockout" xml:space="preserve">
+    <value>Kjo llogari është bllokuar, ju lutem provoni përsëri më vonë.</value>
+  </data>
+  <data name="accountLockoutTitle" xml:space="preserve">
+    <value>Llogari e bllokuar</value>
+  </data>
   <data name="adresa" xml:space="preserve">
     <value>Adresa</value>
   </data>
   <data name="adresaOpsionale" xml:space="preserve">
     <value>Adresa 2(opsionale)</value>
+  </data>
+  <data name="aktiv" xml:space="preserve">
+    <value>Aktiv</value>
   </data>
   <data name="aktivitetNeSistem" xml:space="preserve">
     <value>Aktivitetet e fundit në sistem</value>
@@ -144,11 +159,17 @@
   <data name="attachDocument" xml:space="preserve">
     <value>Ngarko dokumentin (opsional)</value>
   </data>
+  <data name="autentifikatorTitle" xml:space="preserve">
+    <value>Llogaria juaj mbrohet me aplikacionin për autentifikim. Shtypni kodin e autentifikatorit më poshtë.</value>
+  </data>
   <data name="autentifikimi2Hapesh" xml:space="preserve">
     <value>Autentifikimi dy hapësh</value>
   </data>
   <data name="autentifikimiDyHapesh" xml:space="preserve">
     <value>Autentifikimi dy-hapësh (2FA)</value>
+  </data>
+  <data name="authenticatorCode" xml:space="preserve">
+    <value>Kodi për autentifikim</value>
   </data>
   <data name="ballina" xml:space="preserve">
     <value>Ballina</value>
@@ -159,8 +180,20 @@
   <data name="claimValue" xml:space="preserve">
     <value>Claim vlera</value>
   </data>
+  <data name="clickHereToLogIn" xml:space="preserve">
+    <value>klikoni këtu për tu kyqur</value>
+  </data>
   <data name="comment" xml:space="preserve">
     <value>Koment</value>
+  </data>
+  <data name="comparePasswordError" xml:space="preserve">
+    <value>Fjalëkalimi dhe fjalëkalimi konfirmuar nuk përputhen.</value>
+  </data>
+  <data name="confirmEmailChange" xml:space="preserve">
+    <value>Faleminderit për konfirmim të ndryshimit të email adresës.</value>
+  </data>
+  <data name="confirmEmailChangeTitle" xml:space="preserve">
+    <value>Konfirmimi i ndryshimit të email adresës</value>
   </data>
   <data name="controller" xml:space="preserve">
     <value>Kontrolleri</value>
@@ -170,6 +203,9 @@
   </data>
   <data name="dataPunesimitDeri" xml:space="preserve">
     <value>Data punësimit deri</value>
+  </data>
+  <data name="dergo" xml:space="preserve">
+    <value>Dërgo</value>
   </data>
   <data name="dergoEmailPerVerifikim" xml:space="preserve">
     <value>Dërgo email adresën për verifikim</value>
@@ -185,6 +221,9 @@
   </data>
   <data name="document" xml:space="preserve">
     <value>Dokument</value>
+  </data>
+  <data name="donotHaveAccessTOTP" xml:space="preserve">
+    <value>Nuk keni qasje në pajisjen për autentifikim? Ju mundeni </value>
   </data>
   <data name="dtEmployment" xml:space="preserve">
     <value>Data fillimit te punes</value>
@@ -203,6 +242,12 @@
   </data>
   <data name="emailAdresaRe" xml:space="preserve">
     <value>Email adresa re</value>
+  </data>
+  <data name="emailConfirmationTitle" xml:space="preserve">
+    <value>Konfirmimi i email adresës</value>
+  </data>
+  <data name="emailVerificationSend" xml:space="preserve">
+    <value>Imella për verifikim është dërguar. Ju lutem shikoni imellën.</value>
   </data>
   <data name="employmentDate" xml:space="preserve">
     <value>Data fillimit te punes</value>
@@ -234,11 +279,17 @@
   <data name="endDateLeave" xml:space="preserve">
     <value>Dita e kthimit në punë</value>
   </data>
+  <data name="enterEmail" xml:space="preserve">
+    <value>Shtypni email adresën.</value>
+  </data>
   <data name="executeSalaries" xml:space="preserve">
     <value>Ekzekuto pagat</value>
   </data>
   <data name="FA2KonfiguroniAplikacionin" xml:space="preserve">
     <value>Konfiguroni aplikacionin për autentifikim</value>
+  </data>
+  <data name="female" xml:space="preserve">
+    <value>Femër</value>
   </data>
   <data name="femer" xml:space="preserve">
     <value>Femër</value>
@@ -261,6 +312,15 @@
   <data name="fjalekalimiVendosur" xml:space="preserve">
     <value>Fjalëkalimi juaj është vendosur.</value>
   </data>
+  <data name="forgotPassword" xml:space="preserve">
+    <value>Keni harruar fjalëkalimin?</value>
+  </data>
+  <data name="forgotPasswordConfir" xml:space="preserve">
+    <value>Konfirmimi i rikthimit të fjalëkalimit</value>
+  </data>
+  <data name="forgotPasswordTitle" xml:space="preserve">
+    <value>Ju lutem shikoni imellën për të rikthyer fjalëkalimin.</value>
+  </data>
   <data name="formatiNrTelGabim" xml:space="preserve">
     <value>Formati i numrit nuk eshte valid</value>
   </data>
@@ -272,6 +332,12 @@
   </data>
   <data name="fusheObligative" xml:space="preserve">
     <value>Kjo fushë është obligative</value>
+  </data>
+  <data name="gabimNdryshimiEmail" xml:space="preserve">
+    <value>Gabim gjatë ndryshimit të email adresës.</value>
+  </data>
+  <data name="gabimNdryshimiusername" xml:space="preserve">
+    <value>Gabim gjatë ndryshimit të emrit të përdoruesit</value>
   </data>
   <data name="gjatesiaFjalekalimit" xml:space="preserve">
     <value>{0} duhet të jetë minimum {2} dhe maksimum {1} karaktere i gjatë.</value>
@@ -306,6 +372,9 @@
   <data name="ikona" xml:space="preserve">
     <value>Ikona</value>
   </data>
+  <data name="invalidCodeTOTP" xml:space="preserve">
+    <value>Kodi nuk është i saktë.</value>
+  </data>
   <data name="invalidData" xml:space="preserve">
     <value>Të dhënat nuk janë valide!</value>
   </data>
@@ -320,6 +389,9 @@
   </data>
   <data name="keniHarruarFjalekalimin" xml:space="preserve">
     <value>Keni harruar fjalëkalimin?</value>
+  </data>
+  <data name="kerko" xml:space="preserve">
+    <value>Kërko</value>
   </data>
   <data name="kodeTeMbetura" xml:space="preserve">
     <value>kode të mbetura</value>
@@ -372,11 +444,26 @@
   <data name="login" xml:space="preserve">
     <value>Kyqu</value>
   </data>
+  <data name="loginError" xml:space="preserve">
+    <value>Emri përdoruesit ose fjalëkalimi nuk është në rregull.</value>
+  </data>
+  <data name="loginRecoveryCodes" xml:space="preserve">
+    <value>kyqeni me kodet për rikthim</value>
+  </data>
   <data name="loginText" xml:space="preserve">
     <value>Përdorni llogarinë për tu kyqur.</value>
   </data>
+  <data name="logOutSuccess" xml:space="preserve">
+    <value>Jeni q'kyqur me sukses.</value>
+  </data>
+  <data name="logOutSuccessTitle" xml:space="preserve">
+    <value>Q'kyqja me sukses!</value>
+  </data>
   <data name="loseRecoveryCodes" xml:space="preserve">
     <value>Nëse e humbni pajisjen dhe nuk keni kodet për rikthim ju do të humbni çasjen në llogari.</value>
+  </data>
+  <data name="male" xml:space="preserve">
+    <value>Mashkull</value>
   </data>
   <data name="mashkull" xml:space="preserve">
     <value>Mashkull</value>
@@ -465,6 +552,9 @@
   <data name="paraSeTekyqeni" xml:space="preserve">
     <value>para se të kyqeni me këto kode.</value>
   </data>
+  <data name="pasiv" xml:space="preserve">
+    <value>Pasiv</value>
+  </data>
   <data name="per" xml:space="preserve">
     <value>për</value>
   </data>
@@ -510,8 +600,29 @@
   <data name="regjistroNenMenu" xml:space="preserve">
     <value>Regjistro nën-menu</value>
   </data>
+  <data name="rememberMachine" xml:space="preserve">
+    <value>Mbaj mend këtë kompjuter</value>
+  </data>
+  <data name="reportType" xml:space="preserve">
+    <value>Lloji raportit</value>
+  </data>
+  <data name="reset" xml:space="preserve">
+    <value>Rikthe</value>
+  </data>
   <data name="resetAuthenticatorKey" xml:space="preserve">
     <value>Rivendos çelësat për autentifikim</value>
+  </data>
+  <data name="resetPasswordBody" xml:space="preserve">
+    <value>Rikthimi fjalëkalimit tuaj.</value>
+  </data>
+  <data name="resetPasswordSuccess" xml:space="preserve">
+    <value>Fjalëkalimi është resetuar. Ju lutem </value>
+  </data>
+  <data name="resetPasswordTitle" xml:space="preserve">
+    <value>Rikthimi fjalëkalimit</value>
+  </data>
+  <data name="resetPasswordTitleEmail" xml:space="preserve">
+    <value>Rikthimi fjalekalimit</value>
   </data>
   <data name="resetRecoverCodesMessage" xml:space="preserve">
     <value>Nëse i rivendosni çelësat për autentifikim, aplikacioni për autentifkim nuk do të punoj përderisa ju nuk e rikonfikuroni atë.</value>
@@ -563,6 +674,9 @@
   </data>
   <data name="TOTPDeaktivizuar" xml:space="preserve">
     <value>2FA është deaktivizuar. You mund të vendosni përsëri 2FA pasi ta konfiguroni aplikacionin për autentifikim.</value>
+  </data>
+  <data name="twoStepAuthenticationTitle" xml:space="preserve">
+    <value>Autentifikimi dy hapësh</value>
   </data>
   <data name="username" xml:space="preserve">
     <value>Emri perdoruesit</value>

@@ -34,6 +34,15 @@ namespace ESMS.General_Classes
                     new Claim(ClaimTypes.Surname, user.LastName),
                 });
             }
+
+            if (user.language != null)
+            {
+                ((ClaimsIdentity)principal.Identity).AddClaims(new[] {
+                    new Claim(ClaimTypes.Locality, user.language.ToString()),
+                });
+            }
+
+
             return principal;
         }
     }

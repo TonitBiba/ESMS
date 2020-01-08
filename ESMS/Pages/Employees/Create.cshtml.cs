@@ -87,7 +87,8 @@ namespace ESMS.Pages.Employees
                                 PhoneNumber = Input.PhoneNumber,
                                 salary = Input.salary,
                                 UserProfile = imgBytes,
-                                TaxGroupId = Input.TaxGroupId
+                                TaxGroupId = Input.TaxGroupId,
+                                language = 1
                             };
 
                             var result = await userManager.CreateAsync(user, Input.PersonalNumber);

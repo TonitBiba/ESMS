@@ -58,8 +58,8 @@ namespace ESMS.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    Resource.resetPasswordTitleEmail,
+                    $"Riktheni fjalëkalimi duke <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klikuar këtu</a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

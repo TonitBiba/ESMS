@@ -52,7 +52,7 @@ namespace ESMS.Pages
             {
                 statistics = new List<StatisticsModel> {
                      new StatisticsModel{ Amount = (dbContext.AspNetUsers.Count() - 1).ToString(), Icon = "zmdi zmdi-account-o", Title = Resource.numriPerdoruesve},
-                     new StatisticsModel{Amount = String.Format("{0:C}", dbContext.AspNetUsers.Where(S=>S.EmployeeStatus == 1).Sum(S=>S.Salary)).Substring(1)+" €", Icon = "zmdi zmdi-money", Title = Resource.shpenzimetPaga}
+                     new StatisticsModel{Amount = dbContext.AspNetUsers.Where(S=>S.EmployeeStatus == 1).Sum(S=>S.Salary)+" €", Icon = "zmdi zmdi-money", Title = Resource.shpenzimetPaga}
                 };
             }
         }
@@ -69,6 +69,9 @@ namespace ESMS.Pages
                 CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );
+            int languId = culture == "en-US" ? 2 : 1;
+            dbContext.AspNetUsers.Where(u => u.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).FirstOrDefault().Language = languId;
+            dbContext.SaveChanges();
             return LocalRedirect(returnUrl);
         }
 

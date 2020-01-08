@@ -1,15 +1,17 @@
 ﻿@using ESMS.Data.Model
+@using System.Security.Claims
 @{
     Layout = null;
     ESMSContext eSMS = new ESMSContext();
     var claimsList = User.Claims.Select(S => S.Type).ToList();
+    var defaultLang = int.Parse(User.FindFirstValue(ClaimTypes.Locality));
 
     var listOfMenus = (from M in eSMS.Menu
                        join SM in eSMS.SubMenu on M.NMenuId equals SM.NMenuId
                        select new
                        {
-                           menu = M.VcMenNameSq,
-                           subMenu = SM.VcSubMenuSq,
+                           menu = defaultLang== 1 ? M.VcMenNameSq : M.VcMenuNameEn,
+                           subMenu = defaultLang== 1 ? SM.VcSubMenuSq : SM.VcSubMenuEn,
                            controller = SM.VcController,
                            page = SM.VcPage,
                            icon = M.VcIcon,
