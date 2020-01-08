@@ -13,6 +13,10 @@ using Microsoft.Extensions.Logging;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Newtonsoft.Json;
+using System.Net;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace ESMS.Areas.Identity.Pages.Account
 {
@@ -58,6 +62,8 @@ namespace ESMS.Areas.Identity.Pages.Account
 
             [Display(Name = "meKujto", ResourceType = typeof(Resource))]
             public bool RememberMe { get; set; }
+
+            public string gRecaptchaResponse { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -83,6 +89,17 @@ namespace ESMS.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
+                string SECRETKEY = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["SecretKey"];
+                string userResponse = Input.gRecaptchaResponse;
+
+                var webClient = new WebClient();
+
+                string verification = webClient.DownloadString("https://www.google.com/recaptcha/api/siteverify?" + "secret=" + SECRETKEY + "&response=" + userResponse);
+
+                var verificationJson = JsonConvert.DeserializeObject<CaptchaResponse>(verification);
+                bool rezultati = verificationJson.success;
+
+
                 string username = Input.Email;
                 if (Input.Email.Contains("@"))
                 {
@@ -147,6 +164,14 @@ namespace ESMS.Areas.Identity.Pages.Account
 
             ModelState.AddModelError(string.Empty, Resource.emailVerificationSend);
             return Page();
+        }
+        public class CaptchaResponse
+        {
+            public bool success { get; set; }
+            public string challenge_ts { get; set; }
+            public string hostname { get; set; }
+            public float score { get; set; }
+            public string action { get; set; }
         }
     }
 }
