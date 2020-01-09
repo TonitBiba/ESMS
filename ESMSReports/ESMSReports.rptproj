@@ -49,6 +49,7 @@
     <Reports>@(Report)</Reports>
   </PropertyGroup>
   <ItemGroup>
+    <Report Include="Leaves.rdl" />
     <Report Include="SalariesPaid.rdl" />
     <Report Include="Users.rdl" />
   </ItemGroup>

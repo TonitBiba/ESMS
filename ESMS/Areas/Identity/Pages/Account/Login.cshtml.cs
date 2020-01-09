@@ -28,7 +28,7 @@ namespace ESMS.Areas.Identity.Pages.Account
         private readonly ILogger<LoginModel> _logger;
         private readonly IEmailSender _emailSender;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, 
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<ApplicationUser> userManager,
             IEmailSender emailSender)
@@ -97,40 +97,45 @@ namespace ESMS.Areas.Identity.Pages.Account
                 string verification = webClient.DownloadString("https://www.google.com/recaptcha/api/siteverify?" + "secret=" + SECRETKEY + "&response=" + userResponse);
 
                 var verificationJson = JsonConvert.DeserializeObject<CaptchaResponse>(verification);
-                bool rezultati = verificationJson.success;
+                if (verificationJson.success)
+                {
 
-
-                string username = Input.Email;
-                if (Input.Email.Contains("@"))
-                {
-                    var user = await _userManager.FindByEmailAsync(Input.Email);
-                    username = user.UserName;
+                    string username = Input.Email;
+                    if (Input.Email.Contains("@"))
+                    {
+                        var user = await _userManager.FindByEmailAsync(Input.Email);
+                        username = user.UserName;
+                    }
+                    try
+                    {
+                        var result = await _signInManager.PasswordSignInAsync(username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                        if (result.Succeeded)
+                        {
+                            _logger.LogInformation("User logged in.");
+                            return LocalRedirect(returnUrl);
+                        }
+                        if (result.RequiresTwoFactor)
+                        {
+                            return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                        }
+                        if (result.IsLockedOut)
+                        {
+                            _logger.LogWarning("User account locked out.");
+                            return RedirectToPage("./Lockout");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(string.Empty, Resource.loginError);
+                            return Page();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return Page();
+                    }
                 }
-                try
-                {
-                    var result = await _signInManager.PasswordSignInAsync(username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, Resource.loginError);
-                    return Page();
-                }
-                }
-                catch (Exception ex)
-                {
+                else {
+                    ModelState.AddModelError(string.Empty, "Ka deshtuar verifikimi antirobot nga ReCaptcha.");
                     return Page();
                 }
             }

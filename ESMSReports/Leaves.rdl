@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily">
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
@@ -6,10 +6,10 @@
     <DataSource Name="DataSource2">
       <ConnectionProperties>
         <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=TONIT\SQLSRV2019;Initial Catalog=ESMS</ConnectString>
+        <ConnectString>Data Source=.\sqlsrv2019;Initial Catalog=ESMS</ConnectString>
       </ConnectionProperties>
       <rd:SecurityType>DataBase</rd:SecurityType>
-      <rd:DataSourceID>8057ccad-3ffe-4816-92d1-013f7128cad3</rd:DataSourceID>
+      <rd:DataSourceID>ccb62c9f-a6e9-4c00-95aa-289c817ddc16</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -23,32 +23,16 @@
           <QueryParameter Name="@dtTo">
             <Value>=Parameters!dtTo.Value</Value>
           </QueryParameter>
-          <QueryParameter Name="@userId">
-            <Value>=Parameters!userId.Value</Value>
-          </QueryParameter>
         </QueryParameters>
-        <CommandText>select 
-	M.month_SQ,
-	U.FirstName,
-	U.LastName,
-	P.salary,
-    P.dtInserted,
-	R.Name
-from Payments P
-	inner join Month M on M.Id = P.month
-	inner join AspNetUsers U on U.Id = P.userId
-	inner join AspNetUserRoles UR on UR.UserId = U.Id
-	inner join AspNetRoles R on R.Id = UR.RoleId
-where P.dtInserted &gt;= @dtFrom and P.dtInserted&lt;=@dtTo and
-	  P.userId = (case when @userId = '' then P.userId else @userId end)
-order by P.dtInserted</CommandText>
-        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+        <CommandText>SELECT        U.FirstName, U.LastName, S.Name_SQ AS Statusi, L.startDate, L.endDate, TL.Name_SQ AS Arsyeja, S.Id, U.Id AS userId, U.Email
+FROM            Leaves AS L INNER JOIN
+                         LeavesDetails AS LD ON LD.nLeaves = L.Id INNER JOIN
+                         TypeOfLeaves AS TL ON TL.Id = L.nTypeOfLeaves INNER JOIN
+                         AspNetUsers AS U ON U.Id = L.vcUser INNER JOIN
+                         Status AS S ON S.Id = LD.nStatus
+WHERE        (LD.bActive = 1) AND (L.dtInserted &gt;= @dtFrom) AND (L.dtInserted &lt;= @dtTo)</CommandText>
       </Query>
       <Fields>
-        <Field Name="month_SQ">
-          <DataField>month_SQ</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="FirstName">
           <DataField>FirstName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -57,16 +41,32 @@ order by P.dtInserted</CommandText>
           <DataField>LastName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="salary">
-          <DataField>salary</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="Statusi">
+          <DataField>Statusi</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="dtInserted">
-          <DataField>dtInserted</DataField>
+        <Field Name="startDate">
+          <DataField>startDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="Name">
-          <DataField>Name</DataField>
+        <Field Name="endDate">
+          <DataField>endDate</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Arsyeja">
+          <DataField>Arsyeja</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Id">
+          <DataField>Id</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="userId">
+          <DataField>userId</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Email">
+          <DataField>Email</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -80,7 +80,7 @@ order by P.dtInserted</CommandText>
             <Source>Embedded</Source>
             <Value>a0cb82c98b234d159d89c8ee9c611700_200x200</Value>
             <Sizing>Fit</Sizing>
-            <Left>3.21808in</Left>
+            <Left>3.36098in</Left>
             <Height>1.85849in</Height>
             <Width>2.08821in</Width>
             <Style>
@@ -111,9 +111,8 @@ order by P.dtInserted</CommandText>
             </Paragraphs>
             <rd:DefaultName>Textbox8</rd:DefaultName>
             <Top>1.89275in</Top>
-            <Left>0.0687in</Left>
             <Height>0.37841in</Height>
-            <Width>8.3268in</Width>
+            <Width>8.14257in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -132,7 +131,7 @@ order by P.dtInserted</CommandText>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Lista e pagave të ndara sipas muajve</Value>
+                    <Value>Lista e kerkesave per pushim</Value>
                     <Style>
                       <FontFamily>Times New Roman</FontFamily>
                       <FontSize>12pt</FontSize>
@@ -146,9 +145,8 @@ order by P.dtInserted</CommandText>
             </Paragraphs>
             <rd:DefaultName>Textbox9</rd:DefaultName>
             <Top>2.27116in</Top>
-            <Left>0.0687in</Left>
             <Height>0.25in</Height>
-            <Width>8.3268in</Width>
+            <Width>8.14257in</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -160,20 +158,26 @@ order by P.dtInserted</CommandText>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Tablix Name="Tablix3">
+          <Tablix Name="Tablix2">
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.16798in</Width>
+                  <Width>1.2101in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.16798in</Width>
+                  <Width>1.15119in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.16798in</Width>
+                  <Width>2.00496in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.82285in</Width>
+                  <Width>1.33745in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.17052in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.15048in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -182,22 +186,14 @@ order by P.dtInserted</CommandText>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox14">
+                        <Textbox Name="Statusi">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Viti: </Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontSize>14pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                                <TextRun>
-                                  <Value>=Format(Fields!dtInserted.Value,"yyyy")</Value>
+                                  <Value>=Fields!Statusi.Value</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>14pt</FontSize>
@@ -208,53 +204,10 @@ order by P.dtInserted</CommandText>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox14</rd:DefaultName>
+                          <rd:DefaultName>Statusi</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                        <ColSpan>4</ColSpan>
-                        <rd:Selected>true</rd:Selected>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>0.31094in</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="month_SQ">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!month_SQ.Value</Value>
-                                  <Style>
-                                    <FontFamily>Times New Roman</FontFamily>
-                                    <FontSize>14pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>month_SQ</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <BackgroundColor>Bisque</BackgroundColor>
                             <PaddingLeft>2pt</PaddingLeft>
@@ -263,10 +216,11 @@ order by P.dtInserted</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>4</ColSpan>
-                        <rd:Selected>true</rd:Selected>
+                        <ColSpan>6</ColSpan>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
                     <TablixCell />
                     <TablixCell />
                     <TablixCell />
@@ -275,6 +229,74 @@ order by P.dtInserted</CommandText>
                 <TablixRow>
                   <Height>0.25in</Height>
                   <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox66">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Emri</Value>
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox66</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>Gainsboro</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox67">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Mbiemri</Value>
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox67</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>Gainsboro</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox71">
@@ -284,7 +306,7 @@ order by P.dtInserted</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Emri</Value>
+                                  <Value>Email adresa</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -307,19 +329,18 @@ order by P.dtInserted</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox72">
+                        <Textbox Name="Textbox68">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Mbiemri</Value>
+                                  <Value>Arsyeja</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -330,7 +351,7 @@ order by P.dtInserted</CommandText>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox72</rd:DefaultName>
+                          <rd:DefaultName>Textbox68</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -342,19 +363,18 @@ order by P.dtInserted</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox73">
+                        <Textbox Name="Textbox69">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Paga</Value>
+                                  <Value>Data fillimit</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -365,7 +385,7 @@ order by P.dtInserted</CommandText>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox73</rd:DefaultName>
+                          <rd:DefaultName>Textbox69</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -377,19 +397,18 @@ order by P.dtInserted</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox74">
+                        <Textbox Name="Textbox70">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Grupi</Value>
+                                  <Value>Data mbarimit</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>12pt</FontSize>
@@ -400,7 +419,7 @@ order by P.dtInserted</CommandText>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox74</rd:DefaultName>
+                          <rd:DefaultName>Textbox70</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -412,7 +431,6 @@ order by P.dtInserted</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -431,8 +449,8 @@ order by P.dtInserted</CommandText>
                                 <TextRun>
                                   <Value>=Fields!FirstName.Value</Value>
                                   <Style>
-                                    <FontFamily>Times New roman</FontFamily>
-                                    <FontSize>11pt</FontSize>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -450,7 +468,6 @@ order by P.dtInserted</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -464,8 +481,8 @@ order by P.dtInserted</CommandText>
                                 <TextRun>
                                   <Value>=Fields!LastName.Value</Value>
                                   <Style>
-                                    <FontFamily>Times New roman</FontFamily>
-                                    <FontSize>11pt</FontSize>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -483,141 +500,28 @@ order by P.dtInserted</CommandText>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="salary">
+                        <Textbox Name="Email">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!salary.Value</Value>
+                                  <Value>=Fields!Email.Value</Value>
                                   <Style>
-                                    <FontFamily>Times New roman</FontFamily>
-                                    <FontSize>11pt</FontSize>
-                                    <Format>#,0.00 '€'</Format>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>salary</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                            <Direction>RTL</Direction>
-                            <rd:FormatSymbolCulture>en-BE</rd:FormatSymbolCulture>
-                          </Style>
-                        </Textbox>
-                        <rd:Selected>true</rd:Selected>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Name">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!Name.Value</Value>
-                                  <Style>
-                                    <FontFamily>Times New roman</FontFamily>
-                                    <FontSize>11pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Name</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                        <rd:Selected>true</rd:Selected>
-                      </CellContents>
-                    </TablixCell>
-                  </TablixCells>
-                </TablixRow>
-                <TablixRow>
-                  <Height>0.25in</Height>
-                  <TablixCells>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox55">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Totali</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox55</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                            <Direction>RTL</Direction>
-                          </Style>
-                        </Textbox>
-                        <ColSpan>2</ColSpan>
-                        <rd:Selected>true</rd:Selected>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell />
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox57">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Sum(Fields!salary.Value)</Value>
-                                  <Style>
-                                    <FontFamily>Times New roman</FontFamily>
+                                    <FontFamily>Times New Roman</FontFamily>
                                     <FontSize>12pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                    <Format>#,0.00 '€'</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox57</rd:DefaultName>
+                          <rd:DefaultName>Email</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -626,20 +530,175 @@ order by P.dtInserted</CommandText>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
-                            <Direction>RTL</Direction>
-                            <rd:FormatSymbolCulture>ca-AD</rd:FormatSymbolCulture>
                           </Style>
                         </Textbox>
-                        <ColSpan>2</ColSpan>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Arsyeja">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Arsyeja.Value</Value>
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Arsyeja</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="startDate">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Format(Fields!startDate.Value, "dd/MM/yyyy")</Value>
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>startDate</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="endDate">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Format(Fields!endDate.Value, "dd/MM/yyyy")</Value>
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>endDate</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
                   <Height>0.25in</Height>
                   <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox73">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox73</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox74">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox74</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="Textbox75">
@@ -651,8 +710,8 @@ order by P.dtInserted</CommandText>
                                 <TextRun>
                                   <Value />
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                    <FontWeight>Bold</FontWeight>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -662,22 +721,112 @@ order by P.dtInserted</CommandText>
                           <rd:DefaultName>Textbox75</rd:DefaultName>
                           <Style>
                             <Border>
-                              <Style>Solid</Style>
+                              <Style>None</Style>
                             </Border>
                             <PaddingLeft>2pt</PaddingLeft>
                             <PaddingRight>2pt</PaddingRight>
                             <PaddingTop>2pt</PaddingTop>
                             <PaddingBottom>2pt</PaddingBottom>
-                            <Direction>RTL</Direction>
                           </Style>
                         </Textbox>
-                        <ColSpan>4</ColSpan>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
-                    <TablixCell />
-                    <TablixCell />
-                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox76">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox76</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox77">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox77</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox78">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox78</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
               </TablixRows>
@@ -688,19 +837,21 @@ order by P.dtInserted</CommandText>
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
               <TablixMembers>
                 <TablixMember>
-                  <Group Name="Group1">
+                  <Group Name="Statusi">
                     <GroupExpressions>
-                      <GroupExpression>=Format(Fields!dtInserted.Value,"yyyy")</GroupExpression>
+                      <GroupExpression>=Fields!Statusi.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Format(Fields!dtInserted.Value,"yyyy")</Value>
+                      <Value>=Fields!Statusi.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixMembers>
@@ -708,46 +859,26 @@ order by P.dtInserted</CommandText>
                       <KeepWithGroup>After</KeepWithGroup>
                     </TablixMember>
                     <TablixMember>
-                      <Group Name="month_SQ">
-                        <GroupExpressions>
-                          <GroupExpression>=Fields!month_SQ.Value</GroupExpression>
-                        </GroupExpressions>
-                      </Group>
-                      <SortExpressions>
-                        <SortExpression>
-                          <Value>=Fields!dtInserted.Value</Value>
-                        </SortExpression>
-                      </SortExpressions>
+                      <KeepWithGroup>After</KeepWithGroup>
+                    </TablixMember>
+                    <TablixMember>
+                      <Group Name="Details" />
                       <TablixMembers>
-                        <TablixMember>
-                          <KeepWithGroup>After</KeepWithGroup>
-                        </TablixMember>
-                        <TablixMember>
-                          <KeepWithGroup>After</KeepWithGroup>
-                        </TablixMember>
-                        <TablixMember>
-                          <Group Name="Details" />
-                          <TablixMembers>
-                            <TablixMember />
-                          </TablixMembers>
-                        </TablixMember>
-                        <TablixMember>
-                          <KeepWithGroup>Before</KeepWithGroup>
-                        </TablixMember>
-                        <TablixMember>
-                          <KeepWithGroup>Before</KeepWithGroup>
-                        </TablixMember>
+                        <TablixMember />
                       </TablixMembers>
+                    </TablixMember>
+                    <TablixMember>
+                      <KeepWithGroup>Before</KeepWithGroup>
                     </TablixMember>
                   </TablixMembers>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataSet1</DataSetName>
-            <Top>2.80974in</Top>
-            <Left>0.0687in</Left>
-            <Height>1.56094in</Height>
-            <Width>8.32679in</Width>
+            <Top>2.91542in</Top>
+            <Left>0.11785in</Left>
+            <Height>1in</Height>
+            <Width>8.02472in</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -756,13 +887,13 @@ order by P.dtInserted</CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>4.62068in</Height>
+        <Height>3.95708in</Height>
         <Style />
       </Body>
-      <Width>8.48924in</Width>
+      <Width>8.27in</Width>
       <Page>
         <PageHeader>
-          <Height>0.32229in</Height>
+          <Height>0.36458in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <Style>
@@ -772,7 +903,7 @@ order by P.dtInserted</CommandText>
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>0.58584in</Height>
+          <Height>0.4375in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -794,8 +925,8 @@ order by P.dtInserted</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.2244in</Top>
-              <Left>0.0687in</Left>
+              <Top>0.07584in</Top>
+              <Left>0.25235in</Left>
               <Height>0.25in</Height>
               <Width>2.30422in</Width>
               <Style>
@@ -823,8 +954,8 @@ order by P.dtInserted</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox80</rd:DefaultName>
-              <Top>0.23938in</Top>
-              <Left>7.05171in</Left>
+              <Top>0.09082in</Top>
+              <Left>6.73536in</Left>
               <Height>0.25in</Height>
               <Width>1.1757in</Width>
               <ZIndex>1</ZIndex>
@@ -845,43 +976,21 @@ order by P.dtInserted</CommandText>
             </Border>
           </Style>
         </PageFooter>
+        <PageWidth>8.27in</PageWidth>
         <Style />
       </Page>
     </ReportSection>
   </ReportSections>
   <ReportParameters>
     <ReportParameter Name="dtFrom">
-      <DataType>String</DataType>
+      <DataType>DateTime</DataType>
       <Nullable>true</Nullable>
-      <DefaultValue>
-        <Values>
-          <Value>''</Value>
-        </Values>
-      </DefaultValue>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>drFrom</Prompt>
+      <Prompt>dtFrom</Prompt>
     </ReportParameter>
     <ReportParameter Name="dtTo">
-      <DataType>String</DataType>
+      <DataType>DateTime</DataType>
       <Nullable>true</Nullable>
-      <DefaultValue>
-        <Values>
-          <Value>''</Value>
-        </Values>
-      </DefaultValue>
-      <AllowBlank>true</AllowBlank>
       <Prompt>dtTo</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="userId">
-      <DataType>String</DataType>
-      <Nullable>true</Nullable>
-      <DefaultValue>
-        <Values>
-          <Value>''</Value>
-        </Values>
-      </DefaultValue>
-      <AllowBlank>true</AllowBlank>
-      <Prompt>userId</Prompt>
     </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
@@ -898,11 +1007,6 @@ order by P.dtInserted</CommandText>
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>dtTo</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>2</ColumnIndex>
-          <RowIndex>0</RowIndex>
-          <ParameterName>userId</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
@@ -929,6 +1033,8 @@ Awe5LyMdCOnnfAVO/QI+btXqfJYoGhtL5s64Vyhjer7+pIS+suJi8rsaoY8ggtmC1nXCTUx/fc3mIPRW
 IpFIJBKJRCKRSCQSiUQikUj2HFOm/H8iao1tOLT56gAAAABJRU5ErkJggg==</ImageData>
     </EmbeddedImage>
   </EmbeddedImages>
+  <Language>en-US</Language>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
-  <rd:ReportID>759e3155-b975-48f8-8204-f7a9643d2508</rd:ReportID>
+  <rd:ReportID>0a61a407-630a-4792-ae70-36847973bdfa</rd:ReportID>
 </Report>
