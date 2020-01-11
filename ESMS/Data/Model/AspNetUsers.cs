@@ -56,6 +56,7 @@ namespace ESMS.Data.Model
         public DateTime DtTo { get; set; }
         public int TaxGroupId { get; set; }
         public int? Language { get; set; }
+        public bool? ChangePassword { get; set; }
 
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }

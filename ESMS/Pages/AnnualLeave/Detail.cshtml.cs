@@ -50,7 +50,7 @@ namespace ESMS.Pages.AnnualLeave
             }
 
             var fileBytes = ShowFile(filePath.VcDocumentPath);
-            return File(fileBytes, "application/pdf", Path.GetFileName(filePath.VcDocumentPath.Replace(".zip", "")));
+            return File(fileBytes, "application/pdf", Path.GetFileName(filePath.VcDocumentPath.Replace(".zip.enc", "")));
         }
 
         public ViewModel viewModel { get; set; }

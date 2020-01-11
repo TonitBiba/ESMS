@@ -31,6 +31,7 @@ namespace ESMS.Pages
 
         public async Task OnGet()
         {
+            DateTime dateTime = DateTime.Now;
             listLogs = dbContext.Logs.Where(L=>L.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(L => new Logs 
             { 
                 dtInserted = (DateTime)L.DtInserted,  
@@ -45,15 +46,19 @@ namespace ESMS.Pages
                 statistics = new List<StatisticsModel> {
                      new StatisticsModel{ color ="statistic__item--green", Amount = (dbContext.AspNetUsers.Count() - 1).ToString(), Icon = "zmdi zmdi-account-o", Title = Resource.numriPerdoruesve},
                 };
-            }else if (User.IsInRole("Programmer"))
+            }else if (User.IsInRole("Programmer") || User.IsInRole("Menagjer_Financa") || User.IsInRole("Menagjer_IT") || User.IsInRole("Financier"))
             {
                 statistics = new List<StatisticsModel> {
-                     new StatisticsModel{ color ="statistic__item--green", Amount = string.Format(new CultureInfo("en-US"), "{0:C}", dbContext.AspNetUsers.Where(U=>U.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(U=>U.Salary).FirstOrDefault()).Substring(1)+" €", Icon = "zmdi zmdi-money", Title = Resource.paga}                };
+                     new StatisticsModel{ color ="statistic__item--green", Amount = string.Format(new CultureInfo("en-US"), "{0:C}", dbContext.AspNetUsers.Where(U=>U.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(U=>U.Salary).FirstOrDefault()).Substring(1)+" €", Icon = "zmdi zmdi-money", Title = Resource.paga},
+                                     new StatisticsModel {color="statistic__item--blue", Amount = dbContext.LeavesDetails.Where(L=>L.BActive == true && (L.NStatus == 1 || L.NStatus == 5) && L.VcUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Count()+"", Title = "Kërkesa për pushim", Icon = "zmdi zmdi-assignment-o" },
+                                     new StatisticsModel {color="statistic__item--orange", Amount = dbContext.LeavesDetails.Where(L=>L.BActive == true && L.NStatus == 4 && L.VcUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Count()+"", Title = "Kërkesa për plotësim", Icon = "zmdi zmdi-assignment-o" },
+                                     new StatisticsModel {color="statistic__item--red", Amount = dbContext.LeavesDetails.Where(L=>L.BActive == true && L.NStatus == 2 && L.VcUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Count()+"", Title = "Kërkesa të miratuar", Icon = "zmdi zmdi-assignment-o" },
+                    };
             }else if (User.IsInRole("Burimet_Njerzore"))
             {
                 TempData["IT"] = dbContext.AspNetUsers.Where(U => new string[] { "be007199-39b1-4557-b10f-cc4e6dc47b49", "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e" }.Contains(U.AspNetUserRoles.FirstOrDefault().RoleId)).Sum(S => S.Salary);
                 TempData["Financa"] = dbContext.AspNetUsers.Where(U => new string[] { "dbc05ab9-f41f-493f-b3e6-689d14e88dda", "423a5ce2-3024-47d1-b486-4dcd3951871b" }.Contains(U.AspNetUserRoles.FirstOrDefault().RoleId)).Sum(S => S.Salary);
-                DateTime dateTime = DateTime.Now;
+                
                 statistics = new List<StatisticsModel> {
                      new StatisticsModel{ color ="statistic__item--green", Amount = (dbContext.AspNetUsers.Count() - 1).ToString(), Icon = "zmdi zmdi-account-o", Title = Resource.numriPerdoruesve},
                      new StatisticsModel{ color="statistic__item--orange", Amount = string.Format(new CultureInfo("en-US"), "{0:C}", dbContext.AspNetUsers.Where(S=>S.EmployeeStatus == 1).Sum(S=>S.Salary)).Substring(1)+" €", Icon = "zmdi zmdi-money", Title = Resource.shpenzimetPaga},

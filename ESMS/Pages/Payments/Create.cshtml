@@ -1,6 +1,7 @@
 ﻿@page
 @model ESMS.CreateModel
 @using ESMS.Pages.Shared
+@using ESMS.Security
 @{
     ViewData["Title"] = "Lista pagave për egzekutim";
 }
@@ -106,7 +107,6 @@
                     data: sendModel,
                     dataType: "json",
                     success: function (response) {
-                        debugger
                         if (response.nError == 1) {
                             Swal.fire({
                                 icon: 'success',
@@ -115,6 +115,7 @@
                                 showConfirmButton: false,
                                 timer: 2500
                             }).then(() => {
+                                window.open('@Url.Page("create", "AccountantList")&m='+$('#Input_month').val(), "_blank")
                                 window.location.href='@Url.Page("List")'
                             })
                         } else {

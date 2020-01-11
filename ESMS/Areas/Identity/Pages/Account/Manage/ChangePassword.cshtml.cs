@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using ESMS.Data.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -57,14 +59,12 @@ namespace ESMS.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
-
-            var hasPassword = await _userManager.HasPasswordAsync(user);
-            if (!hasPassword)
+            using (ESMSContext ESMS = new ESMSContext())
             {
-                return RedirectToPage("./SetPassword");
+                TempData["changePassword"] = ESMS.AspNetUsers.Where(U => U.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).FirstOrDefault().ChangePassword;
             }
-
-            return Page();
+            var hasPassword = await _userManager.HasPasswordAsync(user);
+            return !hasPassword ? RedirectToPage("./SetPassword") : (IActionResult)Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -92,9 +92,13 @@ namespace ESMS.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.RefreshSignInAsync(user);
             _logger.LogInformation("User changed their password successfully.");
-            StatusMessage = "Your password has been changed.";
-
-            return RedirectToPage();
+            StatusMessage = "Fjalëkalimi është ndryshuar me sukses!";
+            using (ESMSContext ESMS = new ESMSContext())
+            {
+                var userDetail = ESMS.AspNetUsers.Where(U => U.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).FirstOrDefault().ChangePassword = false;
+                ESMS.SaveChanges();
+            }
+                return RedirectToPage();
         }
     }
 }

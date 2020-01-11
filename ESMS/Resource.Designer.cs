@@ -1762,6 +1762,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ekziston përdorues i regjistruar me këtë email adresë..
+        /// </summary>
+        public static string userExist {
+            get {
+                return ResourceManager.GetString("userExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Emri perdoruesit.
         /// </summary>
         public static string username {

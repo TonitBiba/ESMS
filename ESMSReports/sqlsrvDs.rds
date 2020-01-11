@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="sqlsrvDs">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=.\sqlsrv2019;Initial Catalog=ESMS</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>e98fd6ed-18e9-4a1f-9cfe-deac0bc83d1e</DataSourceID>
+</RptDataSource>

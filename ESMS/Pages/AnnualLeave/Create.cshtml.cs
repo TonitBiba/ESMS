@@ -36,7 +36,7 @@ namespace ESMS.Pages.AnnualLeave
             int[] deniedStatuses = new int[] { 1, 4, 5};
             var hasAnyRequest = (from L in dbContext.Leaves
                                  join LD in dbContext.LeavesDetails on L.Id equals LD.NLeaves
-                                 where LD.BActive == true && deniedStatuses.Contains(LD.NStatus) 
+                                 where LD.BActive == true && deniedStatuses.Contains(LD.NStatus) && L.VcUser == User.FindFirstValue(ClaimTypes.NameIdentifier)
                                  select L.Id
                                  ).Count();
             if (hasAnyRequest > 0)

@@ -62,5 +62,7 @@ namespace ESMS.Areas.Identity
 
         public int? language { get; set; }
 
+        public bool ChangePassword { get; set; }
+
     }
 }

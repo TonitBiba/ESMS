@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ESMS.Areas.Identity;
 using ESMS.Data.Model;
+using ESMS.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -40,8 +41,13 @@ namespace ESMS.Pages.Shared
 
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
-            userProfile = dbContext.AspNetUsers.Where(U => U.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(U => U.UserProfile).FirstOrDefault();
+            var user = dbContext.AspNetUsers.Where(U => U.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(U => new { U.UserProfile, U.ChangePassword }).FirstOrDefault();
+            userProfile = user.UserProfile;
             signInManager.RefreshSignInAsync(userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)).Result).ConfigureAwait(false);
+            if(user.ChangePassword == true)
+            {
+                context.HttpContext.Response.Redirect("/Identity/Account/Manage/ChangePassword");
+            }
             dbContext.Logs.Add(new Logs
             {
               DtInserted = DateTime.Now,
@@ -223,16 +229,22 @@ namespace ESMS.Pages.Shared
             using (var zsp = new GZipStream(fs, CompressionMode.Compress))
                 stream.CopyTo(zsp);
             fs.Close();
-            return path;
+
+            Confidenciality.EncryptFile(path, path+".enc");
+
+            //Confidenciality.DecryptFile(path + ".enc", path+"1");
+
+            return path+".enc";
         }
 
         protected byte[] ShowFile(string path)
         {
-            var file = new FileStream(path, FileMode.Open, FileAccess.Read);
-            MemoryStream ms = new MemoryStream();
-            file.CopyTo(ms);
-            var fileByte = ms.ToArray();
-            var decompresedFile = Decompress(fileByte);
+            var decryptedFile = Confidenciality.DecryptFile(path);
+            //var file = new FileStream(path, FileMode.Open, FileAccess.Read);
+            //MemoryStream ms = new MemoryStream();
+            //file.CopyTo(ms);
+            //var fileByte = ms.ToArray();
+            var decompresedFile = Decompress(decryptedFile);
             return decompresedFile;
         }
 

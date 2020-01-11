@@ -32,12 +32,14 @@ namespace ESMS
 
         public IActionResult OnGetReport(int f)
         {
+            DateTime startDate = DateTime.ParseExact("01-01-2020", "dd-MM-yyyy", null);
+            DateTime endDate = DateTime.Now.AddDays(1);
             byte[] reportBytes = null;
             using (WebClient client = new WebClient())
             {
                 client.UseDefaultCredentials = true;
                 client.Credentials = new System.Net.NetworkCredential("reportuser", "Esms2019.");
-                reportBytes = client.DownloadData("http://tonit/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fSalariesPaid&rs:Command=Render&rs:Format=" + getFormatReport(f));
+                reportBytes = client.DownloadData("http://tonit/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fSalariesPaid&rs:Command=Render&userId=" + null + "&dtFrom=" + startDate.ToString("yyyy-MM-dd") + "&dtTo=" + endDate.ToString("yyyy-MM-dd") + "&rs:Format=" + getFormatReport(f));
             }
 
             return File(reportBytes, "application/" + getFormatReport(f).ToLower(), f != 1 ? "Pagat " + DateTime.Now.ToShortDateString() + getExtension(f) : "");

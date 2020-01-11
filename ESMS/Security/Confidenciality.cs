@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -99,7 +100,7 @@ namespace ESMS.Security
                     {
                         using (StreamReader streamReader = new StreamReader(cryptoStream))
                         {
-                            if(typeof(T) == typeof(int))
+                            if (typeof(T) == typeof(int))
                             {
                                 var txt = streamReader.ReadToEnd();
                                 return (T)Convert.ChangeType(Convert.ToInt32(txt), typeof(T));
@@ -112,10 +113,63 @@ namespace ESMS.Security
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return (T)Convert.ChangeType(0, typeof(T));
             }
+        }
+
+        public static void EncryptFile(string inputFile, string outputFile)
+        {
+            try
+            {
+                string password = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["AesKey"];
+                byte[] key = Convert.FromBase64String(password);
+
+                string cryptFile = outputFile;
+                FileStream fsCrypt = new FileStream(cryptFile, FileMode.Create);
+
+                RijndaelManaged RMCrypto = new RijndaelManaged();
+
+                CryptoStream cs = new CryptoStream(fsCrypt,
+                    RMCrypto.CreateEncryptor(key, key),
+                    CryptoStreamMode.Write);
+
+                FileStream fsIn = new FileStream(inputFile, FileMode.Open);
+
+                int data;
+                while ((data = fsIn.ReadByte()) != -1)
+                    cs.WriteByte((byte)data);
+
+                fsIn.Close();
+                cs.Close();
+
+                fsCrypt.Flush();
+                fsCrypt.Close();
+            }
+            catch { }
+        }
+
+        public static byte[] DecryptFile(string inputFile)
+        {
+            string password = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["AesKey"];
+            byte[] key = Convert.FromBase64String(password);
+
+            FileStream fsCrypt = new FileStream(inputFile, FileMode.Open);
+
+            RijndaelManaged RMCrypto = new RijndaelManaged();
+
+            CryptoStream cs = new CryptoStream(fsCrypt,
+                RMCrypto.CreateDecryptor(key, key),
+                CryptoStreamMode.Read);
+
+            MemoryStream memoryStream = new MemoryStream();
+
+            int data;
+            while ((data = cs.ReadByte()) != -1)
+                memoryStream.WriteByte((byte)data);
+
+            return memoryStream.ToArray();
         }
     }
 }

@@ -131,6 +131,10 @@ namespace ESMS.Data.Model
             {
                 entity.Property(e => e.BirthDate).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
+                entity.Property(e => e.ChangePassword)
+                    .IsRequired()
+                    .HasDefaultValueSql("(CONVERT([bit],(0)))");
+
                 entity.Property(e => e.DtFrom).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
                 entity.Property(e => e.DtTo).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
@@ -435,6 +439,10 @@ namespace ESMS.Data.Model
             modelBuilder.Entity<Menu>(entity =>
             {
                 entity.HasKey(e => e.NMenuId);
+
+                entity.HasIndex(e => e.VcMenNameSq)
+                    .HasName("UQ__Menu__88602FE59B75D4F8")
+                    .IsUnique();
 
                 entity.Property(e => e.NMenuId).HasColumnName("nMenuID");
 

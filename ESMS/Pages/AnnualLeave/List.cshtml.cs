@@ -24,6 +24,7 @@ namespace ESMS.Pages.AnnualLeave
             listViewModels = (from L in dbContext.Leaves
                               join LD in dbContext.LeavesDetails on L.Id equals LD.NLeaves
                               where LD.BActive == true && L.VcUser == (!User.IsInRole("Burimet_Njerzore")?User.FindFirstValue(ClaimTypes.NameIdentifier): L.VcUser)
+                              orderby LD.DtInserted descending
                               select new ListViewModel {
                                   EndDate = L.EndDate,
                                   FirstName = L.VcUserNavigation.FirstName,

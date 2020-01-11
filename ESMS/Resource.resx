@@ -684,6 +684,9 @@
   <data name="twoStepAuthenticationTitle" xml:space="preserve">
     <value>Autentifikimi dy hapësh</value>
   </data>
+  <data name="userExist" xml:space="preserve">
+    <value>Ekziston përdorues i regjistruar me këtë email adresë.</value>
+  </data>
   <data name="username" xml:space="preserve">
     <value>Emri perdoruesit</value>
   </data>
