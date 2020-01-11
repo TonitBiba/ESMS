@@ -1,0 +1,76 @@
+﻿@page
+@{ 
+    var users = (List<ESMS.Pages.Reports.EmployeModel.UserModel>)TempData["model"];
+}
+<div class="card-body card-block">
+    <h4>Rezultati kërkimit</h4>
+    <hr />
+    <div class="btn-group float-right">
+        <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">Shkarko listen</button>
+        <div class="dropdown-menu">
+            <a href='#' onclick="Report(1)" class="dropdown-item btn btn-secondary"><i class="far fa-file-pdf"></i>&nbsp; PDF</a>
+            <a href='#' onclick="Report(2)" class="dropdown-item"><i class="far fa-file-excel"></i>&nbsp; Excel</a>
+            <a href='#' onclick="Report(3)" class="dropdown-item"><i class="far fa-file-word"></i>&nbsp; Word</a>
+        </div>
+    </div>
+    @Html.AntiForgeryToken()
+    <table id="tblListEmployees" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>@Resource.emri</th>
+                <th>@Resource.mbiemri</th>
+                <th>@Resource.gjinia</th>
+                <th>@Resource.ditelindja</th>
+                <th>@Resource.pozitaPunes</th>
+                <th>@Resource.email</th>
+                <th>@Resource.nrTel</th>
+                <th>@Resource.ditaPunesimit</th>
+                <th>@Resource.dataPunesimitDeri</th>
+                <th>@Resource.paga</th>
+                <th>@Resource.statusi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in users)
+                {
+                <tr>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.Gender</td>
+                    <td>@item.Birthdate.ToString("dd/MM/yyyy")</td>
+                    <td>@item.Role</td>
+                    <td>@item.Email</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.DtFrom.ToString("dd/MM/yyyy")</td>
+                    <td>@item.DtTo.ToString("dd/MM/yyyy")</td>
+                    <td>@string.Concat(item.Salary, " €")</td>
+                    <td>@item.statusEmployee</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#tblListEmployees').DataTable({
+            "language": {
+                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
+                "zeroRecords": "Nuk ka asnjë të dhënë",
+                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+                "infoEmpty": "Nuk ka asnjë të dhënë",
+                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
+                "search": "Kërko",
+                "paginate": {
+                    "previous": "Prapa",
+                    "first": "E para",
+                    "last": "E fundit",
+                    "next": "Para"
+                }
+            },
+            responsive: true
+        });
+    })
+    function Report(format) {
+        window.open('@Url.Page("Employe", "Users")&f='+format+'&status='+$('#Input_status').val()+'&gender='+$('#Input_gender').val(), '_blank')
+    }
+</script>

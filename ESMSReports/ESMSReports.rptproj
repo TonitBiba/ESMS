@@ -49,6 +49,11 @@
     <Reports>@(Report)</Reports>
   </PropertyGroup>
   <ItemGroup>
+    <DataSource Include="sqlsrvDs.rds" />
+  </ItemGroup>
+  <ItemGroup>
+    <Report Include="AccountantReport.rdl" />
+    <Report Include="Leaves.rdl" />
     <Report Include="SalariesPaid.rdl" />
     <Report Include="Users.rdl" />
   </ItemGroup>

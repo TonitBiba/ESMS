@@ -39,15 +39,15 @@ namespace ESMS.Data.Model
         public virtual DbSet<States> States { get; set; }
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<SubMenu> SubMenu { get; set; }
-        public virtual DbSet<TypeOfLeaves> TypeOfLeaves { get; set; }
         public virtual DbSet<TaxGroup> TaxGroup { get; set; }
+        public virtual DbSet<TypeOfLeaves> TypeOfLeaves { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=RESHI\\SQLEXPRESS01;Database=ESMS;user id=superman; password = Esms2019.;MultipleActiveResultSets=true");
+                optionsBuilder.UseSqlServer("Server=.\\sqlsrv2019;Database=ESMS;user id=superman; password = Esms2019.;MultipleActiveResultSets=true");
             }
         }
 
@@ -131,6 +131,10 @@ namespace ESMS.Data.Model
             {
                 entity.Property(e => e.BirthDate).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
+                entity.Property(e => e.ChangePassword)
+                    .IsRequired()
+                    .HasDefaultValueSql("(CONVERT([bit],(0)))");
+
                 entity.Property(e => e.DtFrom).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
                 entity.Property(e => e.DtTo).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
@@ -151,6 +155,8 @@ namespace ESMS.Data.Model
                     .IsRequired()
                     .HasMaxLength(128)
                     .HasDefaultValueSql("(N'')");
+
+                entity.Property(e => e.Language).HasColumnName("language");
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
@@ -434,6 +440,10 @@ namespace ESMS.Data.Model
             {
                 entity.HasKey(e => e.NMenuId);
 
+                entity.HasIndex(e => e.VcMenNameSq)
+                    .HasName("UQ__Menu__88602FE59B75D4F8")
+                    .IsUnique();
+
                 entity.Property(e => e.NMenuId).HasColumnName("nMenuID");
 
                 entity.Property(e => e.DtInserted)
@@ -537,15 +547,27 @@ namespace ESMS.Data.Model
 
             modelBuilder.Entity<Payments>(entity =>
             {
+                entity.Property(e => e.Deduction).HasColumnType("smallmoney");
+
                 entity.Property(e => e.DtInserted)
                     .HasColumnName("dtInserted")
                     .HasColumnType("datetime");
 
+                entity.Property(e => e.EmployeePension).HasColumnType("smallmoney");
+
+                entity.Property(e => e.EmployerPension).HasColumnType("smallmoney");
+
                 entity.Property(e => e.Month).HasColumnName("month");
+
+                entity.Property(e => e.NetWage).HasColumnType("smallmoney");
 
                 entity.Property(e => e.Salary)
                     .HasColumnName("salary")
                     .HasColumnType("money");
+
+                entity.Property(e => e.SalaryAfterDeduction).HasColumnType("smallmoney");
+
+                entity.Property(e => e.TaxableIncome).HasColumnType("smallmoney");
 
                 entity.Property(e => e.UserId)
                     .IsRequired()
@@ -556,6 +578,8 @@ namespace ESMS.Data.Model
                     .IsRequired()
                     .HasColumnName("vcInserted")
                     .HasMaxLength(450);
+
+                entity.Property(e => e.WithholdingTax).HasColumnType("smallmoney");
 
                 entity.HasOne(d => d.MonthNavigation)
                     .WithMany(p => p.Payments)
@@ -727,6 +751,17 @@ namespace ESMS.Data.Model
                     .HasConstraintName("FK_SubMeny_Menu");
             });
 
+            modelBuilder.Entity<TaxGroup>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Name).HasMaxLength(50);
+
+                entity.Property(e => e.NameEng)
+                    .HasMaxLength(50)
+                    .IsFixedLength();
+            });
+
             modelBuilder.Entity<TypeOfLeaves>(entity =>
             {
                 entity.Property(e => e.NameEn)
@@ -738,19 +773,6 @@ namespace ESMS.Data.Model
                     .IsRequired()
                     .HasColumnName("Name_SQ")
                     .HasMaxLength(64);
-            });
-
-            modelBuilder.Entity<TaxGroup>(entity =>
-            {
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasColumnName("Name")
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.NameEng)
-                    .IsRequired()
-                    .HasColumnName("NameEng")
-                    .HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);

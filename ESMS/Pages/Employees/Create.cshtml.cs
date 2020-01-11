@@ -87,7 +87,8 @@ namespace ESMS.Pages.Employees
                                 PhoneNumber = Input.PhoneNumber,
                                 salary = Input.salary,
                                 UserProfile = imgBytes,
-                                TaxGroupId = Input.TaxGroupId
+                                TaxGroupId = Input.TaxGroupId,
+                                language = 1
                             };
 
                             var result = await userManager.CreateAsync(user, Input.PersonalNumber);
@@ -167,6 +168,14 @@ namespace ESMS.Pages.Employees
             return new JsonResult(ValidateIBAN(input.IBANCode));
         }
 
+        public JsonResult OnGetCheckEmail(InputClass input)
+        {
+            if (dbContext.AspNetUsers.Where(U => U.Email == input.EmailAdress).Count() > 0)
+                return new JsonResult(false);
+            else 
+                return new JsonResult(true);
+        }
+
         public Error error { get; set; }
 
         [BindProperty]
@@ -181,10 +190,6 @@ namespace ESMS.Pages.Employees
             [Display(Name = "mbiemri", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public string LastName { get; set; }
-
-            [Display(Name = "emriMesem", ResourceType = typeof(Resource))]
-            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            public string MiddleName { get; set; }
 
             [Display(Name = "pershkrimiPozites", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
@@ -202,6 +207,7 @@ namespace ESMS.Pages.Employees
             [Display(Name = "emailAdresa", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             [DataType(DataType.EmailAddress, ErrorMessageResourceName = "kontrolloFormatinEmail", ErrorMessageResourceType = typeof(Resource))]
+            [PageRemote(PageHandler = "CheckEmail", HttpMethod = "GET", ErrorMessageResourceType = typeof(Resource), ErrorMessageResourceName = "userExist")]
             public string EmailAdress { get; set; }
 
             [Display(Name = "adresa", ResourceType = typeof(Resource))]
@@ -247,7 +253,6 @@ namespace ESMS.Pages.Employees
             public string Position { get; set; }
 
             [Display(Name = "kontrataPunes", ResourceType = typeof(Resource))]
-            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public IFormFile Contract { get; set; }
 
             [Display(Name = "numriPersonal", ResourceType = typeof(Resource))]

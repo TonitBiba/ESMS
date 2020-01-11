@@ -19,6 +19,13 @@
     <TypeScriptCompile Remove="Contract\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200104162516_TaxtGroupId.cs" />
+    <Compile Remove="Data\Migrations\20200104162516_TaxtGroupId.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200105210201_languageChangeInt.cs" />
+    <Compile Remove="Data\Migrations\20200105210201_languageChangeInt.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.3.1" />
@@ -52,21 +59,18 @@
 
 
   <ItemGroup>
-    <Compile Update="Resource.sq-AL.Designer.cs">
+    <Compile Update="Resource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Resource.sq-AL.resx</DependentUpon>
+      <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
 
   <ItemGroup>
-    <EmbeddedResource Update="Resource.en-US.resx">
+    <EmbeddedResource Update="Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resource.sq-AL.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resource.sq-AL.Designer.cs</LastGenOutput>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

@@ -74,7 +74,7 @@
                 <a href="/Identity/Account/Logout"><i class="fas fa-sign-out-alt"></i> Q'kyqu</a>
 
                 <div class="btn-group float-right">
-                    <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">Gjuha</button>
+                    <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.language</button>
                     <div class="dropdown-menu">
                         <a href='@Url.Page("Index")?handler=Language&culture=sq-AL&returnUrl=/' class="dropdown-item btn btn-secondary">Shqip</a>
                         <a href='@Url.Page("Index")?handler=Language&culture=en-US&returnUrl=/' class="dropdown-item btn btn-secondary">English</a>
@@ -101,7 +101,7 @@
                                 <i class="zmdi zmdi-search"></i>
                                 <div class="search-dropdown js-dropdown">
                                     <form action="">
-                                        <input class="au-input au-input--full au-input--h65" type="text" placeholder="Search for datas &amp; reports..." />
+                                        <input class="au-input au-input--full au-input--h65" type="text" id="searchInput" placeholder="Kërkimi i avancuar për raporte" />
                                         <span class="search-dropdown__icon">
                                             <i class="zmdi zmdi-search"></i>
                                         </span>
@@ -282,6 +282,12 @@
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
+
+        $('#searchInput').change(function () {
+            if ($(this).val() != '') {
+
+            }
+        })
     </script>
 </body>
 </html>

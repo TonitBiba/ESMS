@@ -6,7 +6,7 @@ namespace BusinessLogic
 {
     public static class CalculateSalaryWithDeduction
     {
-        public static decimal CalculateSalaryWithDed(float SalaryBeforeDeduct, int deductionpercentage)
+        public static decimal CalculateSalaryWithDed(float SalaryBeforeDeduct, decimal deductionpercentage)
         {
             decimal FinalSalary = 0;
 

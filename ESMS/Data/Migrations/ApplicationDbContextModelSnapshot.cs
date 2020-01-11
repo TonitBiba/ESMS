@@ -36,6 +36,9 @@ namespace ESMS.Data.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("ChangePassword")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("City")
                         .HasColumnType("int");
 
@@ -119,6 +122,9 @@ namespace ESMS.Data.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TaxGroupId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -128,6 +134,9 @@ namespace ESMS.Data.Migrations
 
                     b.Property<byte[]>("UserProfile")
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<int?>("language")
+                        .HasColumnType("int");
 
                     b.Property<float>("salary")
                         .HasColumnType("real");

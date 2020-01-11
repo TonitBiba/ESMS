@@ -2,11 +2,22 @@
 @model LoginModel
 @using ESMS
 @{
-    ViewData["Title"] = "Log in";
+    ViewData["Title"] = Resource.login;
     Layout = "_LoginLayout";
 }
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LeXoM0UAAAAABXAMrTbQ-PZM2-kTRf3dtZ8mBNj"></script>
 <div class="login-form">
     <form id="account" method="post">
+        <script>
+            grecaptcha.ready(function () {
+                grecaptcha.execute('6LeXoM0UAAAAABXAMrTbQ-PZM2-kTRf3dtZ8mBNj', { action: 'Login' }).then(function (token) {
+                    $("#Input_gRecaptchaResponse").val(token);
+                });
+            });
+        </script>
+        <input type="hidden" id="Input_gRecaptchaResponse" name="Input.gRecaptchaResponse">
+
         <h4>@Resource.loginText</h4>
         <hr s />
         <div asp-validation-summary="All" class="text-danger"></div>

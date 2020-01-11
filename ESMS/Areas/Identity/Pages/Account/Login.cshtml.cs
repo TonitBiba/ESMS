@@ -13,6 +13,10 @@ using Microsoft.Extensions.Logging;
 using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Newtonsoft.Json;
+using System.Net;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace ESMS.Areas.Identity.Pages.Account
 {
@@ -24,7 +28,7 @@ namespace ESMS.Areas.Identity.Pages.Account
         private readonly ILogger<LoginModel> _logger;
         private readonly IEmailSender _emailSender;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, 
+        public LoginModel(SignInManager<ApplicationUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<ApplicationUser> userManager,
             IEmailSender emailSender)
@@ -58,6 +62,8 @@ namespace ESMS.Areas.Identity.Pages.Account
 
             [Display(Name = "meKujto", ResourceType = typeof(Resource))]
             public bool RememberMe { get; set; }
+
+            public string gRecaptchaResponse { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -83,37 +89,53 @@ namespace ESMS.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                string username = Input.Email;
-                if (Input.Email.Contains("@"))
+                string SECRETKEY = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["SecretKey"];
+                string userResponse = Input.gRecaptchaResponse;
+
+                var webClient = new WebClient();
+
+                string verification = webClient.DownloadString("https://www.google.com/recaptcha/api/siteverify?" + "secret=" + SECRETKEY + "&response=" + userResponse);
+
+                var verificationJson = JsonConvert.DeserializeObject<CaptchaResponse>(verification);
+                if (verificationJson.success)
                 {
-                    var user = await _userManager.FindByEmailAsync(Input.Email);
-                    username = user.UserName;
+
+                    string username = Input.Email;
+                    if (Input.Email.Contains("@"))
+                    {
+                        var user = await _userManager.FindByEmailAsync(Input.Email);
+                        username = user.UserName;
+                    }
+                    try
+                    {
+                        var result = await _signInManager.PasswordSignInAsync(username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                        if (result.Succeeded)
+                        {
+                            _logger.LogInformation("User logged in.");
+                            return LocalRedirect(returnUrl);
+                        }
+                        if (result.RequiresTwoFactor)
+                        {
+                            return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                        }
+                        if (result.IsLockedOut)
+                        {
+                            _logger.LogWarning("User account locked out.");
+                            return RedirectToPage("./Lockout");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(string.Empty, Resource.loginError);
+                            return Page();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return Page();
+                    }
                 }
-                try
-                {
-                    var result = await _signInManager.PasswordSignInAsync(username, Input.Password, Input.RememberMe, lockoutOnFailure: false);
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
-                }
-                }
-                catch (Exception ex)
-                {
+                else {
+                    ModelState.AddModelError(string.Empty, "Ka deshtuar verifikimi antirobot nga ReCaptcha.");
                     return Page();
                 }
             }
@@ -130,7 +152,7 @@ namespace ESMS.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+                ModelState.AddModelError(string.Empty, Resource.emailVerificationSend);
             }
 
             var userId = await _userManager.GetUserIdAsync(user);
@@ -142,11 +164,19 @@ namespace ESMS.Areas.Identity.Pages.Account
                 protocol: Request.Scheme);
             await _emailSender.SendEmailAsync(
                 Input.Email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                "Konfirmo imellën",
+                $"Ju lutem konfirmoni llogarinë duke <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klikuar këtu</a>.");
 
-            ModelState.AddModelError(string.Empty, "Verification email sent. Please check your email.");
+            ModelState.AddModelError(string.Empty, Resource.emailVerificationSend);
             return Page();
+        }
+        public class CaptchaResponse
+        {
+            public bool success { get; set; }
+            public string challenge_ts { get; set; }
+            public string hostname { get; set; }
+            public float score { get; set; }
+            public string action { get; set; }
         }
     }
 }

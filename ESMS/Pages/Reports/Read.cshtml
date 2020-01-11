@@ -1,0 +1,33 @@
+﻿@page
+@model ESMS.ReadModel
+@using ESMS.Pages.Shared
+@using ESMS
+@{
+    ViewData["Title"] = "Raportet";
+}
+
+<div class="card">
+    <div class="card-body card-block">
+        <h4> Kërkimi te raportet </h4>
+        <hr />
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m=>m.Input.ReportType)
+                        @Html.DropDownListFor(m=>m.Input.ReportType, BaseModel.GetReportTypes(), Resource.zgjedhe, new { @class="form-control" })
+                        @Html.ValidationMessageFor(m=>m.Input.ReportType, null, new { @class="text-danger" })
+                    </div>
+                </div>
+            </div>
+        <div id="raportParameters">
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#Input_ReportType').change(function () {
+            $('#raportParameters').load('@Url.Page("Read", "ReportParameters")&ReportType=' + $(this).val())   
+        })
+    })
+</script>

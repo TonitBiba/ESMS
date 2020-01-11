@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ESMS.Areas.Identity.Pages.Account.Manage
 {
-    public class TwoFactorAuthenticationModel : PageModel
+    public class TwoFactorAuthenticationModel : BaseIdentityModel
     {
         private const string AuthenicatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}";
 
@@ -20,7 +20,7 @@ namespace ESMS.Areas.Identity.Pages.Account.Manage
         public TwoFactorAuthenticationModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<TwoFactorAuthenticationModel> logger)
+            ILogger<TwoFactorAuthenticationModel> logger):base(signInManager, userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

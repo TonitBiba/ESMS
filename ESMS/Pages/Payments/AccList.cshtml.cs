@@ -28,11 +28,11 @@ namespace ESMS
                 IdCard = S.User.PersonalNumber,
                 Taxgroup = GetTaxGroupNameFromID(S.User.TaxGroupId),
                 Salaryforcalculation = S.Salary,
-                EmployeePension=S.EmployeePension,
-                EmployerPension=S.EmployerPension,
-                TaxableIncome=S.TaxableIncome,
-                WithholdingTax=S.WithholdingTax,
-                NetWage=S.NetWage,
+                EmployeePension=(decimal)S.EmployeePension,
+                EmployerPension= (decimal)S.EmployerPension,
+                TaxableIncome= (decimal)S.TaxableIncome,
+                WithholdingTax= (decimal)S.WithholdingTax,
+                NetWage= (decimal)S.NetWage,
                 PositionName=S.User.JobTitle
 
             }).ToList();

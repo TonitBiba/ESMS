@@ -1,0 +1,69 @@
+﻿@page
+
+@{ 
+    var payments = (List<ESMS.Pages.Reports.PaymentsModel.Payments>)TempData["model"];
+}
+
+<div class="card-body card-block">
+    <h4> Rezultati kërkimit </h4>
+    <hr />
+    <div class="btn-group float-right">
+        <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">Shkarko listen</button>
+        <div class="dropdown-menu">
+            <a href='#' onclick="Report(1)"  class="dropdown-item btn btn-secondary"><i class="far fa-file-pdf"></i>&nbsp; PDF</a>
+            <a href='#' onclick="Report(2)"  class="dropdown-item"><i class="far fa-file-excel"></i>&nbsp; Excel</a>
+            <a href='#' onclick="Report(3)"  class="dropdown-item"><i class="far fa-file-word"></i>&nbsp; Word</a>
+        </div>
+    </div>
+    @Html.AntiForgeryToken()
+    <table id="table" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>@Resource.emri</th>
+                <th>@Resource.mbiemri</th>
+                <th>@Resource.paga</th>
+                <th>@Resource.muaji</th>
+                <th>@Resource.data</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in payments)
+            {
+                <tr>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.Salary</td>
+                    <td>@item.Month</td>
+                    <td>@item.ExecutionDate.ToString("dd/MM/yyyy HH:mm:ss")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#table').DataTable({
+            "lengthChange": false,
+            "language": {
+                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
+                "zeroRecords": "Nuk ka asnjë të dhënë",
+                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+                "infoEmpty": "Nuk ka asnjë të dhënë",
+                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
+                "search": "Kërko",
+                "paginate": {
+                    "previous": "Prapa",
+                    "first": "E para",
+                    "last": "E fundit",
+                    "next": "Para"
+                }
+            },
+            responsive: true
+        })
+    })
+
+    function Report(format) {
+        window.open('@Url.Page("Payments", "Report")&f='+format+'&dtFrom='+startDate+'&dtTo='+endDate+'&userId='+$('#Input_userId').val(), '_blank')
+    }
+</script>

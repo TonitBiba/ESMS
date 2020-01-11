@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace ESMS.Areas.Identity.Pages.Account.Manage
 {
-    public partial class EmailModel : PageModel
+    public partial class EmailModel : BaseIdentityModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -22,7 +22,7 @@ namespace ESMS.Areas.Identity.Pages.Account.Manage
         public EmailModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender):base(signInManager, userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

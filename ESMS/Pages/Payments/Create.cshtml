@@ -1,42 +1,53 @@
 ﻿@page
 @model ESMS.CreateModel
 @using ESMS.Pages.Shared
+@using ESMS.Security
 @{
     ViewData["Title"] = "Lista pagave për egzekutim";
 }
+<script>
+    var salaryDeduction = [];
+</script>
 
 <div class="card">
     <div class="card-body card-block">
         <h4> Egzekutimi pagave </h4>
         <hr />
-        <form method="post">
+        <form id="frmExecute" method="post">
+            @Html.AntiForgeryToken()
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         @Html.LabelFor(M=>M.Input.month)
                         @Html.DropDownListFor(m => m.Input.month, BaseModel.GetMonths(1), Resource.zgjedhe, new { @class = "form-control" })
                         <span asp-validation-for="Input.month" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label style="visibility:hidden" asp-for="Input.month"></label>
-                    <input type="submit" class="btn btn-primary w-100" value="@Resource.executeSalaries" />
+                    <input type="button" id="btnSubmit" class="btn btn-primary w-100" value="@Resource.executeSalaries" />
                 </div>
             </div>
         </form>
     </div>
     <div class="card-body">
-        <h4> Lista e pageve për ekzekutim</h4>
+        <h4> Lista e pagave për ekzekutim</h4>
         <hr />
-        <table id="tblListMenus" class="table table-striped table-bordered" style="width:100%">
+        <table id="table" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
                     <th>Emri</th>
                     <th>Mbiemri</th>
+                    <th>Numri personal</th>
+                    <th>Grupi</th>
+                    <th>Ndëshkimi(në përqindje)</th>
+                    <th>Paga për llogaritje</th>
+                    <th>Kontributi pensional i punetorit</th>
+                    <th>Kontributi pensional i punedhenesit</th>
+                    <th>Tatimi</th>
+                    <th>WithholdingTax</th>
+                    <th>Paga neto</th>
                     <th>Pozita</th>
-                    <th>Iban</th>
-                    <th>Paga B</th>
-                    <th>Paga N</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,10 +56,16 @@
                 <tr>
                     <td>@item.FirstName</td>
                     <td>@item.LastName</td>
-                    <td>@item.Role</td>
-                    <td>@item.Iban</td>
-                    <td>@item.salary</td>
+                    <td>@item.IdCard</td>
+                    <td>@item.Taxgroup</td>
+                    <td><input class="form-control" id="@item.userId" name="@item.userId" onchange="Deduction('@item.userId')" type="number" value=""><script>salaryDeduction.push({id: '@item.userId', money: 0 })</script></td>
+                    <td>@item.Salaryforcalculation</td>
+                    <td>@item.EmployeePension</td>
+                    <td>@item.EmployerPension</td>
+                    <td>@item.TaxableIncome</td>
+                    <td>@item.WithholdingTax</td>
                     <td>@item.NetWage</td>
+                    <td>@item.PositionName</td>
                 </tr>
                 }
             </tbody>
@@ -57,7 +74,7 @@
 </div>
 <script>
     $(document).ready(function () {
-        $('#tblListMenus').DataTable({
+        $('#table').DataTable({
             "lengthChange": false,
             "language": {
                 "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
@@ -75,7 +92,58 @@
             },
             responsive: true
         })
+
+        $('#btnSubmit').click(function () {
+            if ($('#frmExecute').valid()) {
+                Loading()
+                var sendModel = {
+                    __RequestVerificationToken: $('input[name="__RequestVerificationToken"]').val(),
+                    month: $('#Input_month').val(),
+                    deductions: salaryDeduction
+                }
+                $.ajax({
+                    url: '@Url.Page("Create", "Execute")',
+                    method: 'POST',
+                    data: sendModel,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.nError == 1) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Sukses!',
+                                text: '@Html.Raw(Resource.msgRuajtjaSukses)',
+                                showConfirmButton: false,
+                                timer: 2500
+                            }).then(() => {
+                                window.open('@Url.Page("create", "AccountantList")&m='+$('#Input_month').val(), "_blank")
+                                window.location.href='@Url.Page("List")'
+                            })
+                        } else {
+                            Swal.fire({
+                              icon: 'error',
+                              title: 'Gabim',
+                              text:response.errorDescription,
+                                confirmButtonText:'Në rregull'
+                            }).then(() => {
+                                window.location.reload()
+                            })
+                        }
+                    },
+                    complete: function () {
+                        HideLoading()
+                    }
+                })
+            }
+        })
     })
+
+    function Deduction(id) {
+        if (salaryDeduction.some(e => e.id == id)) {
+            salaryDeduction[salaryDeduction.findIndex(e=>e.id == id)].money = parseFloat($('#'+id).val())
+        } else {
+            salaryDeduction.push({id: id, money: parseFloat($('#'+id).val()) })
+        }
+    }
 </script>
 @if (Model.error != null)
 {

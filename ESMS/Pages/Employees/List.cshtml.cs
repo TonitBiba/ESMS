@@ -39,7 +39,7 @@ namespace ESMS.Pages.Employees
                 getGroups = new string[] { "dbc05ab9-f41f-493f-b3e6-689d14e88dda", "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e", "423a5ce2-3024-47d1-b486-4dcd3951871b", "be007199-39b1-4557-b10f-cc4e6dc47b49", "58cfa2e9-9eeb-4fcd-b87c-6d0b676fb066" };
             }
 
-            employees = dbContext.AspNetUsers.Where(U => getGroups.Contains(U.AspNetUserRoles.FirstOrDefault().RoleId)).Select(A => new List { 
+            employees = dbContext.AspNetUsers.Where(U => getGroups.Contains(U.AspNetUserRoles.FirstOrDefault().RoleId) && U.EmployeeStatus == 1).Select(A => new List { 
                  FirstName = A.FirstName,
                  LastName = A.LastName,
                  Birthdate = A.BirthDate,
@@ -67,7 +67,7 @@ namespace ESMS.Pages.Employees
                 string userGroupId = dbContext.AspNetUserRoles.Where(UR => UR.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).FirstOrDefault().RoleId;
                 client.UseDefaultCredentials = true;
                 client.Credentials = new System.Net.NetworkCredential("reportuser","Esms2019.");
-                reportBytes = client.DownloadData("http://tonit/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fUsers&groupID="+ userGroupId + "&rs:Format=" + getFormatReport(f));
+                reportBytes = client.DownloadData("http://tonit/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fUsers&groupID=" + userGroupId + "&statusi=1&gender=0&rs:Format=" + getFormatReport(f));
             }
 
             return File(reportBytes, "application/"+ getFormatReport(f).ToLower(), f!=1 ? "Përdoruesit " +DateTime.Now.ToShortDateString()+ getExtension(f):"");

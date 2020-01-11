@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ESMS.Areas.Identity;
 using ESMS.Data.Model;
+using ESMS.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -40,8 +41,13 @@ namespace ESMS.Pages.Shared
 
         public override void OnPageHandlerExecuting(PageHandlerExecutingContext context)
         {
-            userProfile = dbContext.AspNetUsers.Where(U => U.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(U => U.UserProfile).FirstOrDefault();
+            var user = dbContext.AspNetUsers.Where(U => U.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(U => new { U.UserProfile, U.ChangePassword }).FirstOrDefault();
+            userProfile = user.UserProfile;
             signInManager.RefreshSignInAsync(userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier)).Result).ConfigureAwait(false);
+            if(user.ChangePassword == true)
+            {
+                context.HttpContext.Response.Redirect("/Identity/Account/Manage/ChangePassword");
+            }
             dbContext.Logs.Add(new Logs
             {
               DtInserted = DateTime.Now,
@@ -119,7 +125,7 @@ namespace ESMS.Pages.Shared
         {
             using (ESMSContext dbContext = new ESMSContext())
             {
-                return dbContext.TaxGroup.Select(M => new SelectListItem { Text = language == 1 ? M.Name : M.NameEng, Value = M.ID.ToString() }).ToList();
+                return dbContext.TaxGroup.Select(M => new SelectListItem { Text = language == 1 ? M.Name : M.NameEng, Value = M.Id.ToString() }).ToList();
             }
         }
 
@@ -131,6 +137,31 @@ namespace ESMS.Pages.Shared
                 return dbContext.Status.Where(s=> nStatuses.Contains(s.Id)).Select(M => new SelectListItem { Text = language == 1 ? M.NameSq : M.NameEn, Value = M.Id.ToString() }).ToList();
             }
         }
+
+        public static List<SelectListItem> GetEmployeeStatus()
+        {
+            return new List<SelectListItem> { new SelectListItem { Value = "1", Text = Resource.aktiv }, 
+                                              new SelectListItem { Value = "0", Text = Resource.pasiv }
+                                               };
+        }
+
+        public static List<SelectListItem> GetReportTypes()
+        {
+            return new List<SelectListItem> {
+                    new SelectListItem { Text = "Të punesuarit", Value = "1" },
+                    new SelectListItem { Text = "Pagesat", Value = "2"},
+                    new SelectListItem { Text = "Kerkesat per pushim", Value = "3"}
+            };
+        }
+
+        public static List<SelectListItem> GetUsers()
+        {
+            using (ESMSContext dbContext = new ESMSContext())
+            {        
+                 return dbContext.AspNetUsers.Where(U=>U.AspNetUserRoles.FirstOrDefault().RoleId != "2a13875f-53af-45a5-b240-48a90ff993a5").Select(R => new SelectListItem { Text = R.FirstName+" "+R.LastName, Value = R.Id.ToString()}).ToList();
+            }
+        }
+
         #endregion
 
         public string getFormatReport(int format)
@@ -198,16 +229,22 @@ namespace ESMS.Pages.Shared
             using (var zsp = new GZipStream(fs, CompressionMode.Compress))
                 stream.CopyTo(zsp);
             fs.Close();
-            return path;
+
+            Confidenciality.EncryptFile(path, path+".enc");
+
+            //Confidenciality.DecryptFile(path + ".enc", path+"1");
+
+            return path+".enc";
         }
 
         protected byte[] ShowFile(string path)
         {
-            var file = new FileStream(path, FileMode.Open, FileAccess.Read);
-            MemoryStream ms = new MemoryStream();
-            file.CopyTo(ms);
-            var fileByte = ms.ToArray();
-            var decompresedFile = Decompress(fileByte);
+            var decryptedFile = Confidenciality.DecryptFile(path);
+            //var file = new FileStream(path, FileMode.Open, FileAccess.Read);
+            //MemoryStream ms = new MemoryStream();
+            //file.CopyTo(ms);
+            //var fileByte = ms.ToArray();
+            var decompresedFile = Decompress(decryptedFile);
             return decompresedFile;
         }
 
