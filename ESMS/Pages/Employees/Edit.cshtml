@@ -179,9 +179,15 @@
                         <span class="text-danger" asp-validation-for="Input.IBANCode"></span>
                     </div>
                 </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Input.TaxGroupId)
+                        @Html.DropDownListFor(m => m.Input.TaxGroupId, BaseModel.GetTaxGroups(1), Resource.zgjedhe, new { @class = "form-control" })
+                        <span class="text-danger" asp-validation-for="Input.TaxGroupId"></span>
+                    </div>
+                </div>
             </div>
         </div>
-
         <input type="submit" class="btn btn-primary float-right m-3" value="@Resource.ndrysho" />
     </form>
 </div>

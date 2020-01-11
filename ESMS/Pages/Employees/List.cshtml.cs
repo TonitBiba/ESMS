@@ -8,6 +8,7 @@ using ESMS.Areas.Identity;
 using ESMS.Data.Model;
 using ESMS.General_Classes;
 using ESMS.Pages.Shared;
+using ESMS.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -66,11 +67,25 @@ namespace ESMS.Pages.Employees
             {
                 string userGroupId = dbContext.AspNetUserRoles.Where(UR => UR.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).FirstOrDefault().RoleId;
                 client.UseDefaultCredentials = true;
-                client.Credentials = new System.Net.NetworkCredential("reportuser","Esms2019.");
+                client.Credentials = new NetworkCredential("reportuser","Esms2019.");
                 reportBytes = client.DownloadData("http://tonit/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fUsers&groupID=" + userGroupId + "&statusi=1&gender=0&rs:Format=" + getFormatReport(f));
             }
-
             return File(reportBytes, "application/"+ getFormatReport(f).ToLower(), f!=1 ? "Përdoruesit " +DateTime.Now.ToShortDateString()+ getExtension(f):"");
+        }
+
+        public JsonResult OnPostDelete(string UEnc)
+        {
+            Error error = new Error { nError = 1, ErrorDescription = Resource.msgRuajtjaSukses };
+            try
+            {
+                string userId = Confidenciality.Decrypt<string>(UEnc);
+                dbContext.AspNetUsers.Where(U => U.Id == userId).FirstOrDefault().EmployeeStatus = 0;
+                dbContext.SaveChanges();
+            }catch(Exception ex)
+            {
+                error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
+            }
+            return new JsonResult(error);
         }
 
         public Error error { get; set; }

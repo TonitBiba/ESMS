@@ -97,6 +97,7 @@
                             </a>
                         </div>
                         <div class="header-button2">
+
                             <div class="header-button-item js-item-menu">
                                 <i class="zmdi zmdi-search"></i>
                                 <div class="search-dropdown js-dropdown">
@@ -108,6 +109,7 @@
                                     </form>
                                 </div>
                             </div>
+
                             <partial name="~/Pages/Shared/_Notifications.cshtml" model="null" />
                             <div id="headerButton" class="header-button-item mr-0 js-sidebar-btn">
                                 <i class="zmdi zmdi-menu"></i>
@@ -283,9 +285,11 @@
             "hideMethod": "fadeOut"
         }
 
-        $('#searchInput').change(function () {
+        $('#searchInput').keyup(function () {
             if ($(this).val() != '') {
-
+                $.get('/Index&handler=ReportSearch',null, function (response) {
+                    debugger
+                })
             }
         })
     </script>

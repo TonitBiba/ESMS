@@ -46,7 +46,7 @@ namespace ESMS.Pages.Employees
                  EmailAdress = U.Email,
                  //EmploymentDate = U.EmploymentDate,
                  DtFrom = U.DtFrom,
-                 DtTo = U.DtTo,
+                 DtTo = U.DtTo.ToString("yyyy-MM-dd"),
                  FirstName = U.FirstName,
                  Gender = U.Gender,
                  IBANCode = U.IbanCode,
@@ -56,7 +56,8 @@ namespace ESMS.Pages.Employees
                  PhoneNumber = U.PhoneNumber,
                  salary = U.Salary,
                  PostalCode = (int)U.PostCode,
-                 Position = U.AspNetUserRoles.FirstOrDefault().RoleId
+                 Position = U.AspNetUserRoles.FirstOrDefault().RoleId,
+                 TaxGroupId = U.TaxGroupId
             }).FirstOrDefault();
         }
 
@@ -119,7 +120,10 @@ namespace ESMS.Pages.Employees
                         SecurityStamp = user.SecurityStamp,
                         TwoFactorEnabled = user.TwoFactorEnabled,
                         UserName = user.UserName,
-                        UserProfile = user.UserProfile
+                        UserProfile = user.UserProfile,
+                        ChangePassword = user.ChangePassword,
+                        Language = user.Language,
+                        TaxGroupId = user.TaxGroupId
                     });
                     await dbContext.SaveChangesAsync();
 
@@ -138,17 +142,27 @@ namespace ESMS.Pages.Employees
                     user.PhoneNumber = Input.PhoneNumber;
                     user.IbanCode = Input.IBANCode;
                     user.UserProfile = userImages != null ? userImages : user.UserProfile;
+                    user.TaxGroupId = Input.TaxGroupId;
+                    user.DtTo = DateTime.ParseExact(Input.DtTo, "yyyy-MM-dd", null);
 
                     var applicationUser = await _userManager.FindByIdAsync(user.Id);
                     var roleId = await _userManager.GetRolesAsync(applicationUser);
                     if (roleId[0] != dbContext.AspNetRoles.Where(R => R.Id == Input.Position).FirstOrDefault().Name)
                     {
-                        string currentBeAdded = dbContext.AspNetRoles.Where(R => R.Id == user.AspNetUserRoles.FirstOrDefault().RoleId).FirstOrDefault().Name;
+                        string currentBeAdded = roleId[0];
                         string RoleToBeAdded = dbContext.AspNetRoles.Where(R => R.Id == Input.Position).FirstOrDefault().Name;
-                        await _userManager.RemoveFromRoleAsync(applicationUser, currentBeAdded);
-                        await _userManager.AddToRoleAsync(applicationUser, RoleToBeAdded);
+
+                        foreach (var claim in dbContext.AspNetRoleClaims.ToList())
+                            await _userManager.RemoveClaimAsync(applicationUser, new Claim(claim.ClaimType, claim.ClaimValue));
+
                         foreach (var claim in dbContext.AspNetRoleClaims.Where(R => R.Role.Id == Input.Position).ToList())
                             await _userManager.AddClaimAsync(applicationUser, new Claim(claim.ClaimType, claim.ClaimValue));
+
+                        foreach (var role in dbContext.AspNetRoles.ToList())
+                            await _userManager.RemoveFromRoleAsync(applicationUser, role.Name);
+
+                        await _userManager.AddToRoleAsync(applicationUser, RoleToBeAdded);
+
                     }
 
                     if (Input.Contract != null)
@@ -216,6 +230,7 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "pershkrimiPozites", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessage = "Gjatesia e pozicionit të punës duhet te jete mes 1 dhe 40 karaktereve.")]
             public string JobTitle { get; set; }
 
             [Display(Name = "gjinia", ResourceType = typeof(Resource))]
@@ -231,14 +246,17 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "adresa", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessage = "Gjatesia e adresës duhet te jete mes 1 dhe 40 karaktereve.")]
             public string Adress { get; set; }
 
             [Display(Name = "adresaOpsionale", ResourceType = typeof(Resource))]
+            [Range(1, 40, ErrorMessage = "Gjatesia e adresës duhet te jete mes 1 dhe 40 karaktereve.")]
             public string AdressOpsional { get; set; }
 
             [Display(Name = "kodiPostal", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             [DataType(DataType.PostalCode, ErrorMessageResourceName = "kontrolloFormatinKodiPostar", ErrorMessageResourceType = typeof(Resource))]
+            [Range(1, 9999, ErrorMessage = "Nuk eshte valid.")]
             public int PostalCode { get; set; }
 
             [Display(Name = "qyteti", ResourceType = typeof(Resource))]
@@ -252,7 +270,7 @@ namespace ESMS.Pages.Employees
             public DateTime DtFrom { get; set; }
 
             [Display(Name = "dataPunesimitDeri", ResourceType = typeof(Resource))]
-            public DateTime DtTo { get; set; }
+            public string DtTo { get; set; }
 
             [Display(Name = "ditelindja", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
@@ -281,6 +299,9 @@ namespace ESMS.Pages.Employees
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             public float salary { get; set; }
 
+            [Display(Name = "tatimi", ResourceType = typeof(Resource))]
+            [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            public int TaxGroupId { get; set; }
         }
 
     }

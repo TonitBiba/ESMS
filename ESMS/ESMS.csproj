@@ -89,4 +89,7 @@
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="http://json.schemastore.org/commands" /></VisualStudio></ProjectExtensions>
+
 </Project>
