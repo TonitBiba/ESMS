@@ -429,6 +429,9 @@
   <data name="kontrolloFormatinTelefonit" xml:space="preserve">
     <value>Kontrolloni formatin e telefonit</value>
   </data>
+  <data name="language" xml:space="preserve">
+    <value>Gjuha</value>
+  </data>
   <data name="leaveReason" xml:space="preserve">
     <value>Arsyeja pushimit</value>
   </data>

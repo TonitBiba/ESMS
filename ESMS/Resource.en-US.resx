@@ -420,6 +420,9 @@
   <data name="kontrolloFormatinTelefonit" xml:space="preserve">
     <value>Check the phone format</value>
   </data>
+  <data name="language" xml:space="preserve">
+    <value>Language</value>
+  </data>
   <data name="leaveReason" xml:space="preserve">
     <value>The reason for the break</value>
   </data>

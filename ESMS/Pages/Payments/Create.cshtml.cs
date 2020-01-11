@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
@@ -34,25 +35,25 @@ namespace ESMS
 
         public void OnGet()
         {
-            employees = dbContext.AspNetUsers.Where(u=>u.AspNetUserRoles.FirstOrDefault().Role.Name != "Administrator" && u.EmployeeStatus == 1).Select(U => new Employee
+            employees = dbContext.AspNetUsers.Where(u => u.AspNetUserRoles.FirstOrDefault().Role.Name != "Administrator" && u.EmployeeStatus == 1)
+                .Select(S => new Employee
             {
-                FirstName = U.FirstName,
-                LastName = U.LastName,
-                salary = (decimal)U.Salary,
-                Role = U.AspNetUserRoles.FirstOrDefault().Role.Name,
-                Iban = U.IbanCode,
-                TaxGroupId=U.TaxGroupId,
-                Deduction=0,// a mujm qetu me ja dergu si parameter prej tabeles
-                SalaryAfterDeduction = CalculateSalaryWithDeduction.CalculateSalaryWithDed(U.Salary, 0),
-                EmployeePension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), U.TaxGroupId)),
-                EmployerPension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), U.TaxGroupId)),
-                TaxableIncome = Convert.ToDecimal(CalculateSalaryGeneral.CalculateTaxableIncome((decimal)(U.Salary), U.TaxGroupId)),
-                WithholdingTax = Convert.ToDecimal(CalculateSalaryGeneral.CalculateWithHoldingTax((decimal)(U.Salary), U.TaxGroupId)),
-                NetWage = Convert.ToDecimal(CalculateSalaryGeneral.CalculateNetWage((decimal)(U.Salary), U.TaxGroupId)),
+                FirstName = S.FirstName,
+                LastName = S.LastName,
+                IdCard = S.PersonalNumber,
+                Taxgroup = GetTaxGroupNameFromID(S.TaxGroupId),
+                Salaryforcalculation = (decimal)S.Salary,
+                EmployeePension = 0,
+                EmployerPension = 0,
+                TaxableIncome = 0,
+                WithholdingTax = 0,
+                NetWage = 0,
+                PositionName = S.JobTitle,
+                userId = S.Id
             }).ToList();
         }
 
-        public async Task<IActionResult> OnPost()
+        public async Task<JsonResult> OnPostExecute(InputClass I)
         {
             try
             {
@@ -66,31 +67,33 @@ namespace ESMS
 
                     using (HttpClient client = new HttpClient())
                     {
-                        //  StringContent bankContent = new StringContent(JsonConvert.SerializeObject(listOfEmployee), encoding: Encoding.UTF8, "application/json");
-                        // var request = await client.PostAsync(configuration.GetSection("AppSettings").GetSection("BankApiLink").Value, bankContent);
-                        // var response = JsonConvert.DeserializeObject<ApiResponse>(await request.Content.ReadAsStringAsync());
+                         StringContent bankContent = new StringContent(JsonConvert.SerializeObject(listOfEmployee), encoding: Encoding.UTF8, "application/json");
+                        var request = await client.PostAsync(configuration.GetSection("AppSettings").GetSection("BankApiLink").Value, bankContent);
+                        var response = JsonConvert.DeserializeObject<ApiResponse>(await request.Content.ReadAsStringAsync());
 
-                        // if (response.nError == 0)
-                        if (0 == 0)
+                        if (response.nError == 0)
                         {
-                            //Insertimi i pagesave ne sistem
-                            List<Payments> payments = dbContext.AspNetUsers.Where(u => u.AspNetUserRoles.FirstOrDefault().Role.Name != "Administrator" && u.EmployeeStatus == 1).Select(U => new Payments
+                            List<Payments> payments = new List<Payments>();
+                            foreach (var user in I.deductions)
                             {
-                                //koment per test
-                                Salary = (decimal)U.Salary,
-                                DtInserted = DateTime.Now,
-                                Month = Input.month,
-                                UserId = U.Id,
-                                VcInserted = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                                Deduction=0,
-                                SalaryAfterDeduction = CalculateSalaryWithDeduction.CalculateSalaryWithDed(U.Salary, 0),
-                                EmployeePension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), U.TaxGroupId)),
-                                EmployerPension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(U.Salary), U.TaxGroupId)),
-                                TaxableIncome = Convert.ToDecimal(CalculateSalaryGeneral.CalculateTaxableIncome((decimal)(U.Salary), U.TaxGroupId)),
-                                WithholdingTax = Convert.ToDecimal(CalculateSalaryGeneral.CalculateWithHoldingTax((decimal)(U.Salary), U.TaxGroupId)),
-                                NetWage = Convert.ToDecimal(CalculateSalaryGeneral.CalculateNetWage((decimal)(U.Salary), U.TaxGroupId)),
-
-                            }).ToList();
+                                var UserDetails = dbContext.AspNetUsers.Where(U => U.Id == user.id).FirstOrDefault();
+                                var deduction =  Convert.ToDecimal(user.money, CultureInfo.InvariantCulture);
+                                payments.Add(new Payments
+                                {
+                                    Deduction = deduction,
+                                    Month = I.month,
+                                    DtInserted = DateTime.Now,
+                                    Salary = (decimal)UserDetails.Salary,
+                                    UserId = user.id,
+                                    EmployeePension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(UserDetails.Salary), UserDetails.TaxGroupId)),
+                                    EmployerPension = Convert.ToDecimal(CalculateSalaryGeneral.CalculateEmployeePension((decimal)(UserDetails.Salary), UserDetails.TaxGroupId)),
+                                    NetWage = Convert.ToDecimal(CalculateSalaryGeneral.CalculateNetWage((decimal)(UserDetails.Salary), UserDetails.TaxGroupId)),
+                                    SalaryAfterDeduction = CalculateSalaryWithDeduction.CalculateSalaryWithDed(UserDetails.Salary, deduction),
+                                    TaxableIncome = Convert.ToDecimal(CalculateSalaryGeneral.CalculateTaxableIncome((decimal)(UserDetails.Salary), UserDetails.TaxGroupId)),
+                                    VcInserted = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                                    WithholdingTax = Convert.ToDecimal(CalculateSalaryGeneral.CalculateWithHoldingTax((decimal)(UserDetails.Salary), UserDetails.TaxGroupId))
+                                });
+                            }
                             dbContext.Payments.AddRange(payments);
 
                             string month = dbContext.Month.Where(M => M.Id == Input.month).Select(s => s.MonthSq).FirstOrDefault();
@@ -101,26 +104,51 @@ namespace ESMS
                                 VcIcon = "zmdi zmdi-money",
                                 VcInsertedUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
                                 VcUser = U.Id,
-                                VcText = "Ka dalë paga për muajin " + month + ", në vlerë prej " + string.Format("{0:C}", U.Salary) + " euro."
+                                VcText = "Ka dalë paga për muajin " + month + ", në vlerë prej " + string.Format(new CultureInfo("en-US"), "{0:C}", U.Salary).Substring(1) + " euro."
                             }).ToList();
                             dbContext.Notifications.AddRange(notifications);
                             await dbContext.SaveChangesAsync();
 
                             foreach (var notification in notifications)
                                 await _hubContext.Clients.All.SendAsync(notification.VcUser, notification.VcText, notification.Title, "info", "/");
-                            TempData.Set<Error>("error", new Error { nError = 1, ErrorDescription = Resource.msgRuajtjaSukses });
-                            return RedirectToPage("List");
+                            error = new Error { nError = 1, ErrorDescription = Resource.msgRuajtjaSukses };
                         }
+                        else
+                            error = new Error { nError = 4, ErrorDescription = "Ka deshtuar komunikimi me API!" };
                     }
                 }
                 else
-                    error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
+                    error = new Error { nError = 4, ErrorDescription = "Keni shtypur te dhena jo valide!" };
+            }
+            catch(HttpRequestException httEx)
+            {
+                error = new Error { nError = 4, ErrorDescription = "Ka deshtuar komunikimi me API për ekzekutim të pagesave." };
             }
             catch (Exception ex)
             {
                 error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
             }
-            return Page();
+            return new JsonResult(error);
+        }
+
+        public static string GetTaxGroupNameFromID(int taxgroupId)
+        {
+
+            switch (taxgroupId)
+            {
+                case 1:
+
+                    return "I rregullt me pension";
+
+                case 2:
+                    return "I rregullt pa pension";
+                case 3:
+                    return "Jo i rregullt me pension";
+
+                default:
+                    return "Jo i rregullt pa pension";
+
+            }
         }
 
         public Error error { get; set; }
@@ -134,6 +162,7 @@ namespace ESMS
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             [Display(Name = "muaji", ResourceType = typeof(Resource))]
             public int month { get; set; }
+            public List<Deduction> deductions { get; set; }
         }
 
         public List<Employee> employees { get; set; }
@@ -142,24 +171,28 @@ namespace ESMS
         {
             public string FirstName { get; set; }
             public string LastName { get; set; }
-            public decimal salary { get; set; }
-            public string Role { get; set; }
-            public string Iban { get; set; }
-            public int Deduction { get; set; }
-            public decimal SalaryAfterDeduction { get; set; }
+            public string IdCard { get; set; }
+            public string Taxgroup { get; set; }
+            public decimal Salaryforcalculation { get; set; }
             public decimal EmployeePension { get; set; }
             public decimal EmployerPension { get; set; }
             public decimal TaxableIncome { get; set; }
             public decimal WithholdingTax { get; set; }
             public decimal NetWage { get; set; }
-
-            public int TaxGroupId { get; set; }
+            public string PositionName { get; set; }
+            public string userId { get; set; }
         }
 
         public class SalaryPayment
         {
             public string Iban { get; set; }
             public decimal Ammount { get; set; }
+        }
+
+        public class Deduction
+        {
+            public string id { get; set; }
+            public string money { get; set; }
         }
 
         public class ApiResponse {

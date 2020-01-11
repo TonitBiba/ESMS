@@ -997,6 +997,15 @@ namespace ESMS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Gjuha.
+        /// </summary>
+        public static string language {
+            get {
+                return ResourceManager.GetString("language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Arsyeja pushimit.
         /// </summary>
         public static string leaveReason {
