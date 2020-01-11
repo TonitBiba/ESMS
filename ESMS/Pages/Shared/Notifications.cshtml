@@ -1,0 +1,57 @@
+﻿@page
+@model ESMS.NotificationsModel
+
+@{ Layout = null; }
+
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Njoftimet</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <table id="tblListEmployees" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Titulli</th>
+                <th>Përmbajtja</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.notifications)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.VcText</td>
+                    <td>@item.DtInserted.ToString("HH:mm:ss dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">@Resource.mbylle</button>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#tblListEmployees').DataTable({
+            "language": {
+                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
+                "zeroRecords": "Nuk ka asnjë të dhënë",
+                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+                "infoEmpty": "Nuk ka asnjë të dhënë",
+                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
+                "search": "Kërko",
+                "paginate": {
+                    "previous": "Prapa",
+                    "first": "E para",
+                    "last": "E fundit",
+                    "next": "Para"
+                }
+            },
+            responsive: true
+        });
+    })
+</script>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
 using ESMS.Areas.Identity;
@@ -58,7 +59,8 @@ namespace ESMS.Pages
             {
                 TempData["IT"] = dbContext.AspNetUsers.Where(U => new string[] { "be007199-39b1-4557-b10f-cc4e6dc47b49", "a15cae60-f564-4b36-9c60-5cb9d7eb7f1e" }.Contains(U.AspNetUserRoles.FirstOrDefault().RoleId)).Sum(S => S.Salary);
                 TempData["Financa"] = dbContext.AspNetUsers.Where(U => new string[] { "dbc05ab9-f41f-493f-b3e6-689d14e88dda", "423a5ce2-3024-47d1-b486-4dcd3951871b" }.Contains(U.AspNetUserRoles.FirstOrDefault().RoleId)).Sum(S => S.Salary);
-                
+                TempData["HR"] = dbContext.AspNetUsers.Where(U => new string[] { "58cfa2e9-9eeb-4fcd-b87c-6d0b676fb066"}.Contains(U.AspNetUserRoles.FirstOrDefault().RoleId)).Sum(S => S.Salary);
+
                 statistics = new List<StatisticsModel> {
                      new StatisticsModel{ color ="statistic__item--green", Amount = (dbContext.AspNetUsers.Count() - 1).ToString(), Icon = "zmdi zmdi-account-o", Title = Resource.numriPerdoruesve},
                      new StatisticsModel{ color="statistic__item--orange", Amount = string.Format(new CultureInfo("en-US"), "{0:C}", dbContext.AspNetUsers.Where(S=>S.EmployeeStatus == 1).Sum(S=>S.Salary)).Substring(1)+" €", Icon = "zmdi zmdi-money", Title = Resource.shpenzimetPaga},
@@ -71,6 +73,11 @@ namespace ESMS.Pages
                                                     select L.Id).Count()+"", Title = "Punëtorë në pushim", Icon = "zmdi zmdi-assignment-o" }
                 };
             }
+        }
+
+        public JsonResult OnGetReportSearch()
+        {
+            return new JsonResult(true);
         }
 
         public IActionResult OnGetLanguage(string culture, string returnUrl)

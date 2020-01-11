@@ -183,6 +183,10 @@ namespace ESMS.Data.Model
 
                 entity.Property(e => e.BirthDate).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
+                entity.Property(e => e.ChangePassword)
+                    .IsRequired()
+                    .HasDefaultValueSql("(CONVERT([bit],(0)))");
+
                 entity.Property(e => e.DtFrom).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
 
                 entity.Property(e => e.DtTo).HasDefaultValueSql("('0001-01-01T00:00:00.0000000')");
@@ -207,6 +211,8 @@ namespace ESMS.Data.Model
                     .IsRequired()
                     .HasMaxLength(128)
                     .HasDefaultValueSql("(N'')");
+
+                entity.Property(e => e.Language).HasColumnName("language");
 
                 entity.Property(e => e.LastName)
                     .IsRequired()

@@ -232,7 +232,7 @@ namespace ESMS.Pages.Shared
 
             Confidenciality.EncryptFile(path, path+".enc");
 
-            //Confidenciality.DecryptFile(path + ".enc", path+"1");
+            System.IO.File.Delete(path);
 
             return path+".enc";
         }
@@ -240,10 +240,6 @@ namespace ESMS.Pages.Shared
         protected byte[] ShowFile(string path)
         {
             var decryptedFile = Confidenciality.DecryptFile(path);
-            //var file = new FileStream(path, FileMode.Open, FileAccess.Read);
-            //MemoryStream ms = new MemoryStream();
-            //file.CopyTo(ms);
-            //var fileByte = ms.ToArray();
             var decompresedFile = Decompress(decryptedFile);
             return decompresedFile;
         }

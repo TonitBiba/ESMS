@@ -123,8 +123,9 @@ namespace ESMS.Security
         {
             try
             {
-                string password = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["AesKey"];
+                string password = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["AesKeyFile"];
                 byte[] key = Convert.FromBase64String(password);
+                byte[] iv = Convert.FromBase64String(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["AesIvFile"]);
 
                 string cryptFile = outputFile;
                 FileStream fsCrypt = new FileStream(cryptFile, FileMode.Create);
@@ -132,7 +133,7 @@ namespace ESMS.Security
                 RijndaelManaged RMCrypto = new RijndaelManaged();
 
                 CryptoStream cs = new CryptoStream(fsCrypt,
-                    RMCrypto.CreateEncryptor(key, key),
+                    RMCrypto.CreateEncryptor(key, iv),
                     CryptoStreamMode.Write);
 
                 FileStream fsIn = new FileStream(inputFile, FileMode.Open);
@@ -152,15 +153,16 @@ namespace ESMS.Security
 
         public static byte[] DecryptFile(string inputFile)
         {
-            string password = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["AesKey"];
+            string password = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["AesKeyFile"];
             byte[] key = Convert.FromBase64String(password);
+            byte[] iv = Convert.FromBase64String(new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["AesIvFile"]);
 
             FileStream fsCrypt = new FileStream(inputFile, FileMode.Open);
 
             RijndaelManaged RMCrypto = new RijndaelManaged();
 
             CryptoStream cs = new CryptoStream(fsCrypt,
-                RMCrypto.CreateDecryptor(key, key),
+                RMCrypto.CreateDecryptor(key, iv),
                 CryptoStreamMode.Read);
 
             MemoryStream memoryStream = new MemoryStream();

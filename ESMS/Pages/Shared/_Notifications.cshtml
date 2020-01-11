@@ -35,9 +35,9 @@
                 </div>
             }
         </div>
-        @*<div class="notifi__footer">
-            <a href="#">Shiko të gjitha njoftimet</a>
-        </div>*@
+        <div class="notifi__footer">
+            <a href="#" id="showAllNotifications">Shiko të gjitha njoftimet</a>
+        </div>
     </div>
 </div>
 
@@ -62,4 +62,8 @@
         }
     })
     connection.start();
+
+    $('#showAllNotifications').click(function () {
+        $('#modal').modal('show').find('#modalBody').load('/Shared/Notifications')
+    })
 </script>

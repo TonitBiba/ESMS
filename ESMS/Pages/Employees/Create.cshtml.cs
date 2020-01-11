@@ -88,7 +88,8 @@ namespace ESMS.Pages.Employees
                                 salary = Input.salary,
                                 UserProfile = imgBytes,
                                 TaxGroupId = Input.TaxGroupId,
-                                language = 1
+                                language = 1,
+                                ChangePassword = true
                             };
 
                             var result = await userManager.CreateAsync(user, Input.PersonalNumber);
@@ -185,14 +186,17 @@ namespace ESMS.Pages.Employees
         {
             [Display(Name = "emri", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [StringLength(maximumLength:40, MinimumLength = 1, ErrorMessage = "Gjatesia e emrit duhet te jete mes 1 dhe 40 karaktereve.")]
             public string FirstName { get; set; }
 
             [Display(Name = "mbiemri", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessage = "Gjatesia e mbiemrit duhet te jete mes 1 dhe 40 karaktereve.")]
             public string LastName { get; set; }
 
             [Display(Name = "pershkrimiPozites", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessage = "Gjatesia e pozicionit të punës duhet te jete mes 1 dhe 40 karaktereve.")]
             public string JobTitle { get; set; }
 
             [Display(Name = "gjinia", ResourceType = typeof(Resource))]
@@ -212,14 +216,17 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "adresa", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessage = "Gjatesia e adresës duhet te jete mes 1 dhe 40 karaktereve.")]
             public string Adress { get; set; }
 
             [Display(Name = "adresaOpsionale", ResourceType = typeof(Resource))]
+            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessage = "Gjatesia e adresës duhet te jete mes 1 dhe 40 karaktereve.")]
             public string AdressOpsional { get; set; }
 
             [Display(Name = "kodiPostal", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             [DataType(DataType.PostalCode, ErrorMessageResourceName = "kontrolloFormatinKodiPostar", ErrorMessageResourceType = typeof(Resource))]
+            [Range(1, 9999, ErrorMessage = "Kodi postal nuk eshte valid.")]
             public int PostalCode { get; set; }
 
             [Display(Name = "qyteti", ResourceType = typeof(Resource))]
@@ -250,13 +257,15 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "pozitaPunes", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessage = "Gjatesia e pozitës duhet te jete mes 1 dhe 40 karaktereve.")]
             public string Position { get; set; }
 
             [Display(Name = "kontrataPunes", ResourceType = typeof(Resource))]
             public IFormFile Contract { get; set; }
-
+            
             [Display(Name = "numriPersonal", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
+            [StringLength(maximumLength: 10, MinimumLength = 10, ErrorMessage = "Gjatesia e numrit personal duhet te jete 10.")]
             public string PersonalNumber { get; set; }
 
             [Display(Name = "fotoProfilit", ResourceType = typeof(Resource))]

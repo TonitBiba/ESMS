@@ -38,5 +38,8 @@ namespace ESMS.Data.Model
         public byte[] UserProfile { get; set; }
         public DateTime DtFrom { get; set; }
         public DateTime DtTo { get; set; }
+        public int TaxGroupId { get; set; }
+        public int? Language { get; set; }
+        public bool? ChangePassword { get; set; }
     }
 }
