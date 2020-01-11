@@ -75,9 +75,11 @@ namespace ESMS.Pages
             }
         }
 
-        public JsonResult OnGetReportSearch()
+        public JsonResult OnGetReportSearch(string param)
         {
-            return new JsonResult(true);
+            List<SearchModel> searchModels = new List<SearchModel> { new SearchModel { Name = "Pagesat", Link = "/Reports/Read?rId=2" }, new SearchModel { Name = "Pushimet", Link = "/Reports/Read?rId=3" }, new SearchModel { Name = "Punëtorët", Link = "/Reports/Read?rId=1" } };
+            var filteredResults = searchModels.Where(S => S.Name.ToLower().Contains(param.ToLower())).ToList();
+            return new JsonResult(filteredResults);
         }
 
         public IActionResult OnGetLanguage(string culture, string returnUrl)
@@ -85,7 +87,6 @@ namespace ESMS.Pages
             var cultureInfo = new System.Globalization.CultureInfo(culture);
             Thread.CurrentThread.CurrentCulture = cultureInfo;
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
-
 
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
@@ -119,5 +120,10 @@ namespace ESMS.Pages
             public string Amount { get; set; }
         }
 
+        public class SearchModel
+        {
+            public string Name { get; set; }
+            public string Link { get; set; }
+        }
     }
 }

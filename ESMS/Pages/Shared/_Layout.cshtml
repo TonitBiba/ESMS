@@ -38,9 +38,19 @@
             .headerLength {
                 margin-top: 5px;
             }
-            #headerButton{
-                display:block
+
+            #headerButton {
+                display: block
             }
+        }
+
+        .searchLink{
+            background-color: white;
+            color: #666; 
+            display: block; 
+            border-bottom:1px solid black;
+            font-size:14px;
+        }
     </style>
     <link href="~/css/Loader.css" rel="stylesheet" />
 </head>
@@ -76,8 +86,8 @@
                 <div class="btn-group float-right">
                     <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.language</button>
                     <div class="dropdown-menu">
-                        <a href='@Url.Page("Index")?handler=Language&culture=sq-AL&returnUrl=/' class="dropdown-item btn btn-secondary">Shqip</a>
-                        <a href='@Url.Page("Index")?handler=Language&culture=en-US&returnUrl=/' class="dropdown-item btn btn-secondary">English</a>
+                        <a href='/Index?handler=Language&culture=sq-AL&returnUrl=/' class="dropdown-item btn btn-secondary">Shqip</a>
+                        <a href='/Index?handler=Language&culture=en-US&returnUrl=/' class="dropdown-item btn btn-secondary">English</a>
                     </div>
                 </div>
             </div>
@@ -107,6 +117,9 @@
                                             <i class="zmdi zmdi-search"></i>
                                         </span>
                                     </form>
+                                    <div id="addElements" style="background-color:white">
+
+                                    </div>
                                 </div>
                             </div>
 
@@ -287,8 +300,15 @@
 
         $('#searchInput').keyup(function () {
             if ($(this).val() != '') {
-                $.get('/Index&handler=ReportSearch',null, function (response) {
-                    debugger
+                $.ajax({
+                    url: '/Index?handler=ReportSearch',
+                    data: {param: $(this).val()},
+                    success: function (response) {
+                        $('#addElements').empty()
+                        response.forEach(function (item) {
+                            $('#addElements').append('<a href="' + item.link + '" class="btn btn-outline-primary w-100" style="padding:16px">' + item.name + '</p>')
+                        })
+                    }
                 })
             }
         })

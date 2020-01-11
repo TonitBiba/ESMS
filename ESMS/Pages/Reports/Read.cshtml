@@ -31,3 +31,15 @@
         })
     })
 </script>
+
+@try
+{
+    var rId = Request.Query["rID"].ToString();
+    if (rId != null)
+    {
+        <script>
+             $('#raportParameters').load('@Url.Page("Read", "ReportParameters")&ReportType=@rId')   
+        </script>
+    }
+}
+catch { }

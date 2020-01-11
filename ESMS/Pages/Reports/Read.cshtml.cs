@@ -16,8 +16,10 @@ namespace ESMS
     {
         public ReadModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager):base(signInManager, userManager) { }
 
-        public void OnGet()
+        public void OnGet(int rId)
         {
+            Input = new InputModel { ReportType = rId };
+
         }
 
         public IActionResult OnGetReportParameters(int ReportType)
