@@ -32,7 +32,6 @@ namespace ESMS.Pages
 
         public void OnGet()
         {
-            throw new System.ArgumentException("Parameter cannot be null", "original");
             DateTime dateTime = DateTime.Now;
             listLogs = dbContext.Logs.Where(L=>L.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(L => new Logs 
             { 

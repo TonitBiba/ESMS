@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ESMS.Security
 {
-    public class Confidenciality
+    public static class Confidenciality
     {
         private static AesCryptoServiceProvider aesCrypto;
 
