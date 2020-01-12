@@ -6,7 +6,7 @@
     <DataSource Name="DataSource1">
       <DataSourceReference>sqlsrvDs</DataSourceReference>
       <rd:SecurityType>None</rd:SecurityType>
-      <rd:DataSourceID>af7ce9bc-482d-4afb-824b-177221f79b68</rd:DataSourceID>
+      <rd:DataSourceID>f20160e9-0de5-41d2-a83f-3ba31d8f06a4</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -40,18 +40,6 @@ WHERE        (P.month = @month) AND (DATEPART(yyyy, P.dtInserted) = DATEPART(yyy
           <DataField>IbanCode</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="salary">
-          <DataField>salary</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="Deduction">
-          <DataField>Deduction</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="SalaryAfterDeduction">
-          <DataField>SalaryAfterDeduction</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
         <Field Name="EmployeePension">
           <DataField>EmployeePension</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -60,16 +48,28 @@ WHERE        (P.month = @month) AND (DATEPART(yyyy, P.dtInserted) = DATEPART(yyy
           <DataField>EmployerPension</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
+        <Field Name="Deduction">
+          <DataField>Deduction</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="NetWage">
+          <DataField>NetWage</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="salary">
+          <DataField>salary</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="SalaryAfterDeduction">
+          <DataField>SalaryAfterDeduction</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="TaxableIncome">
           <DataField>TaxableIncome</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="WithholdingTax">
           <DataField>WithholdingTax</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="NetWage">
-          <DataField>NetWage</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>

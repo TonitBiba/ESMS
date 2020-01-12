@@ -4,10 +4,7 @@
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource2">
-      <ConnectionProperties>
-        <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=TONIT\SQLSRV2019;Initial Catalog=ESMS</ConnectString>
-      </ConnectionProperties>
+      <DataSourceReference>sqlsrvDs</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>8057ccad-3ffe-4816-92d1-013f7128cad3</rd:DataSourceID>
     </DataSource>

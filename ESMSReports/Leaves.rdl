@@ -4,10 +4,7 @@
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="DataSource2">
-      <ConnectionProperties>
-        <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=.\sqlsrv2019;Initial Catalog=ESMS</ConnectString>
-      </ConnectionProperties>
+      <DataSourceReference>sqlsrvDs</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>ccb62c9f-a6e9-4c00-95aa-289c817ddc16</rd:DataSourceID>
     </DataSource>
