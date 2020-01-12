@@ -3,7 +3,7 @@
   "Version": "15.0.30730.948",
   "ExtendedData": {
     "inputs": [
-      "http://tonit/reportserver/reportservice2010.asmx"
+      "http://localhost/reportserver/reportservice2010.asmx"
     ],
     "collectionTypes": [
       "System.Array",

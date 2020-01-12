@@ -54,7 +54,7 @@ namespace ESMS.Pages.Reports
                 string userGroupId = dbContext.AspNetUserRoles.Where(UR => UR.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).FirstOrDefault().RoleId;
                 client.UseDefaultCredentials = true;
                 client.Credentials = new System.Net.NetworkCredential("reportuser", "Esms2019.");
-                reportBytes = client.DownloadData("http://tonit/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fUsers&groupID=" + userGroupId + "&statusi=" + status + "&gender=" + gender + "&rs:Format=" + getFormatReport(f));
+                reportBytes = client.DownloadData("http://localhost/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fUsers&groupID=" + userGroupId + "&statusi=" + status + "&gender=" + gender + "&rs:Format=" + getFormatReport(f));
             }
 
             return File(reportBytes, "application/" + getFormatReport(f).ToLower(), f != 1 ? "Përdoruesit " + DateTime.Now.ToShortDateString() + getExtension(f) : "");

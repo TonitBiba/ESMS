@@ -85,6 +85,19 @@ namespace ESMS.Pages.Employees
             {
                 if (ModelState.IsValid)
                 {
+                    if (Input.Contract != null)
+                    {
+                        if (Input.Contract.Length / (1024 * 1024) > 1)
+                        {
+                            error = new Error { nError = 4, ErrorDescription = Resource.msgFileSize };
+                            return Page();
+                        }
+                        if (Path.GetExtension(Input.Contract.FileName) != ".pdf")
+                        {
+                            error = new Error { nError = 4, ErrorDescription = "Ju lutem bashkengjitni fajll të tipit PDF." };
+                            return Page();
+                        }
+                    }
                     userId = Confidenciality.Decrypt<string>(Input.UIEnc);
                     var user = dbContext.AspNetUsers.Where(U => U.Id == userId).FirstOrDefault();
                     dbContext.AspNetUsersHistory.Add(new AspNetUsersHistory

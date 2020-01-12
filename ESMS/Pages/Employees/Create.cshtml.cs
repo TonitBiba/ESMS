@@ -52,6 +52,11 @@ namespace ESMS.Pages.Employees
                 {
                     if (Input.Contract.Length / (1024 * 1024) <= 1)
                     {
+                        if (Path.GetExtension(Input.Contract.FileName) != ".pdf")
+                        {
+                            error = new Error { nError = 4, ErrorDescription = "Ju lutem bashkengjitni fajll të tipit PDF." };
+                            return Page();
+                        }
                         if (!dbContext.AspNetUsers.Any(U => U.Email == Input.EmailAdress))
                         {
                             DateTime birthday = DateTime.ParseExact(Input.BirthDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);

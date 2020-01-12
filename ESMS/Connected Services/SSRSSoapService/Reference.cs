@@ -13965,11 +13965,11 @@ namespace SSRSSoapService
         {
             if ((endpointConfiguration == EndpointConfiguration.ReportingService2010Soap))
             {
-                return new System.ServiceModel.EndpointAddress("http://tonit/ReportServer/ReportService2010.asmx");
+                return new System.ServiceModel.EndpointAddress("http://localhost/ReportServer/ReportService2010.asmx");
             }
             if ((endpointConfiguration == EndpointConfiguration.ReportingService2010Soap12))
             {
-                return new System.ServiceModel.EndpointAddress("http://tonit/ReportServer/ReportService2010.asmx");
+                return new System.ServiceModel.EndpointAddress("http://localhost/ReportServer/ReportService2010.asmx");
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }

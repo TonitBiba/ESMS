@@ -49,7 +49,7 @@ namespace ESMS.Pages.Reports
             {
                 client.UseDefaultCredentials = true;
                 client.Credentials = new System.Net.NetworkCredential("reportuser", "Esms2019.");
-                reportBytes = client.DownloadData("http://tonit/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fSalariesPaid&rs:Command=Render&userId=" + userId + "&dtFrom="+ startDate.ToString("yyyy-MM-dd")+ "&dtTo="+ endDate.ToString("yyyy-MM-dd")+"&rs:Format=" + getFormatReport(f));
+                reportBytes = client.DownloadData("http://localhost/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fSalariesPaid&rs:Command=Render&userId=" + userId + "&dtFrom="+ startDate.ToString("yyyy-MM-dd")+ "&dtTo="+ endDate.ToString("yyyy-MM-dd")+"&rs:Format=" + getFormatReport(f));
             }
 
             return File(reportBytes, "application/" + getFormatReport(f).ToLower(), f != 1 ? "Pagat " + DateTime.Now.ToShortDateString() + getExtension(f) : "");
