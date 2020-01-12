@@ -31,7 +31,7 @@ namespace ESMS.Pages.AnnualLeave
             this._hubContext = _hubContext;
         }
 
-        public async Task<IActionResult> OnGet()
+        public IActionResult OnGet()
         {
             int[] deniedStatuses = new int[] { 1, 4, 5};
             var hasAnyRequest = (from L in dbContext.Leaves
@@ -41,7 +41,7 @@ namespace ESMS.Pages.AnnualLeave
                                  ).Count();
             if (hasAnyRequest > 0)
             {
-                TempData.Set<Error>("error", new Error { nError = 3, ErrorDescription = "Keni një kërkesë në proces për pushim." });
+                TempData.Set<Error>("error", new Error { nError = 3, ErrorDescription = Resource.duplicateLeaveRequest });
                 return RedirectToPage("List");
             }
             return Page();
@@ -77,7 +77,7 @@ namespace ESMS.Pages.AnnualLeave
 
                     var notifications = dbContext.AspNetUsers.Where(u => u.AspNetUserRoles.FirstOrDefault().Role.Name == "Burimet_Njerzore").Select(U => new Notifications
                     {
-                        Title = "Kërkesë për pushim ",
+                        Title = "Kërkesa për pushim",
                         DtInserted = DateTime.Now,
                         VcIcon = "zmdi zmdi-store",
                         VcInsertedUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
@@ -99,13 +99,13 @@ namespace ESMS.Pages.AnnualLeave
             }
             catch (Exception ex)
             {
+                SaveLog(ex, HttpContext);
                 error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
             }
             return Page();
         }
 
         public Error error { get; set; }
-
 
         [BindProperty]
         public InputModel Input { get; set; }

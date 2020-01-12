@@ -3,12 +3,12 @@
 @using ESMS.Pages.Shared
 @using ESMS
 @{
-    ViewData["Title"] = "Raportet";
+    ViewData["Title"] = Resource.reports;
 }
 
 <div class="card">
     <div class="card-body card-block">
-        <h4> Kërkimi te raportet </h4>
+        <h4> @Resource.searchReport </h4>
         <hr />
             <div class="row">
                 <div class="col-md-4">
@@ -35,7 +35,7 @@
 @try
 {
     var rId = Request.Query["rID"].ToString();
-    if (rId != null)
+    if (rId != "")
     {
         <script>
              $('#raportParameters').load('@Url.Page("Read", "ReportParameters")&ReportType=@rId')   

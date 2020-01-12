@@ -81,7 +81,7 @@
                     }
                 </div>
                 <h4 class="name"><a href="/Identity/Account/Manage">@User.FindFirstValue(ClaimTypes.GivenName) @User.FindFirstValue(ClaimTypes.Surname)</a></h4>
-                <a href="/Identity/Account/Logout"><i class="fas fa-sign-out-alt"></i> Q'kyqu</a>
+                <a href="/Identity/Account/Logout"><i class="fas fa-sign-out-alt"></i> @Resource.logOf</a>
 
                 <div class="btn-group float-right">
                     <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.language</button>
@@ -107,12 +107,13 @@
                             </a>
                         </div>
                         <div class="header-button2">
-
+                            @if (User.IsInRole("Burimet_Njerzore"))
+                            {
                             <div class="header-button-item js-item-menu">
                                 <i class="zmdi zmdi-search"></i>
                                 <div class="search-dropdown js-dropdown">
                                     <form action="">
-                                        <input class="au-input au-input--full au-input--h65" type="text" id="searchInput" placeholder="Kërkimi i avancuar për raporte" />
+                                        <input class="au-input au-input--full au-input--h65" type="text" id="searchInput" placeholder="@Resource.searchReports" />
                                         <span class="search-dropdown__icon">
                                             <i class="zmdi zmdi-search"></i>
                                         </span>
@@ -122,7 +123,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            }
                             <partial name="~/Pages/Shared/_Notifications.cshtml" model="null" />
                             <div id="headerButton" class="header-button-item mr-0 js-sidebar-btn">
                                 <i class="zmdi zmdi-menu"></i>
@@ -152,7 +153,7 @@
                         }
                     </div>
                     <h4 class="name"><a href="/Identity/Account/Manage">@User.FindFirstValue(ClaimTypes.GivenName) @User.FindFirstValue(ClaimTypes.Surname)</a></h4>
-                    <a href="/Identity/Account/Logout">Q'kyqu</a>
+                    <a href="/Identity/Account/Logout">@Resource.logOf</a>
                 </div>
                 <nav class="navbar-sidebar2 loadMenu">
                     <partial name="~/Pages/Shared/_MenuList.cshtml" model="null" />
@@ -181,7 +182,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="copyright">
-                            &copy; 2019 - ESMS - <a asp-area="" asp-page="/Privacy">Privacy</a>
+                            &copy; @DateTime.Now.Year - ESMS - @Resource.developedBy
                         </div>
                     </div>
                 </div>
@@ -243,25 +244,25 @@
                     //Success
                     $('#alertIcon').addClass('far fa-thumbs-up')
                     $('#alertMetaData').addClass('alert-success')
-                    $('#alertTitle').text("Sukses!");
+                    $('#alertTitle').text("@Resource.success");
                     break;
                 case 2:
                     //Info
                     $('#alertIcon').addClass('fas fa-info-circle')
                     $('#alertMetaData').addClass('alert-primary')
-                    $('#alertTitle').text("Info!");
+                    $('#alertTitle').text("@Resource.info");
                     break;
                 case 3:
                     //Warning
                     $('#alertIcon').addClass('fas fa-exclamation-triangle')
                     $('#alertMetaData').addClass('alert-warning')
-                    $('#alertTitle').text("Kujdes!");
+                    $('#alertTitle').text("@Resource.warning");
                     break;
                 case 4:
                     //Error
                     $('#alertIcon').addClass('fas fa-times')
                     $('#alertMetaData').addClass('alert-danger')
-                    $('#alertTitle').text("Gabim!");
+                    $('#alertTitle').text("@Resource.error");
                     break;
             }
         }

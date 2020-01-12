@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,7 +25,7 @@ namespace ESMS.Pages.Configurations
             {
                 Controller = S.VcController,
                 Page = S.VcPage,
-                MenuName = S.NMenu.VcMenNameSq,
+                MenuName = CultureInfo.CurrentCulture.Name=="en-US" ? S.NMenu.VcMenuNameEn : S.NMenu.VcMenNameSq,
                 SubMenu_En = S.VcSubMenuEn,
                 SubMenu_Sq = S.VcSubMenuSq,
                 SMEnc = SMEnc
@@ -47,11 +48,12 @@ namespace ESMS.Pages.Configurations
                     subMenu.DtModify = DateTime.Now;
                     await dbContext.SaveChangesAsync();
                 }
-                TempData.Set("error", new Error { nError = 1, ErrorDescription = "Te dhenat jane ruajtur me sukses!" });
+                TempData.Set("error", new Error { nError = 1, ErrorDescription = Resource.msgRuajtjaSukses });
             }
             catch(Exception ex)
             {
-                TempData.Set("error", new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" });
+                SaveLog(ex, HttpContext);
+                TempData.Set("error", new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja });
             }
             return RedirectToPage("./Menu");
         }

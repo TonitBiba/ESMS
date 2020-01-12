@@ -40,12 +40,13 @@ namespace ESMS.Pages.Configurations
                     DtInserted = DateTime.Now, 
                     NInsertedId = User.FindFirstValue(ClaimTypes.NameIdentifier) });
                 await dbContext.SaveChangesAsync();
-                error = new Error { nError = 1, errorDescription = "Te dhenat jane regjistruar me sukses!" };
+                error = new Error { nError = 1, errorDescription = Resource.msgRuajtjaSukses };
             }
             catch (Exception ex)
             {
+                SaveLog(ex, HttpContext);
                 dbContext = new ESMSContext();
-                error = new Error { nError = 4, errorDescription = "Ka ndodhur nje gabim gjate ruajtjes se te dhenave!" };
+                error = new Error { nError = 4, errorDescription = Resource.msgGabimRuajtja };
             }
             menus = dbContext.Menu.ToList();
             subMenus = dbContext.SubMenu.ToList();
@@ -54,7 +55,7 @@ namespace ESMS.Pages.Configurations
 
         public JsonResult OnPostFshije(string MEnc)
         {
-            Error error = new Error { nError = 1, errorDescription = "Te dhenat jane ruajtur me sukses!" };
+            Error error = new Error { nError = 1, errorDescription = Resource.msgRuajtjaSukses };
             try
             {
                 int menuId = Confidenciality.Decrypt<int>(MEnc);
@@ -63,7 +64,7 @@ namespace ESMS.Pages.Configurations
             }
             catch (Exception ex)
             {
-                error = new Error { nError = 4, errorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" };
+                error = new Error { nError = 4, errorDescription = Resource.msgGabimRuajtja };
             }
             return new JsonResult(error);
         }

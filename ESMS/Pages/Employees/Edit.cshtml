@@ -1,9 +1,10 @@
 ﻿@page
 @using ESMS.Pages.Shared
-@using  System.Security.Claims
+@using System.Security.Claims
+@using System.Globalization
 @model ESMS.Pages.Employees.EditModel
 @{
-    ViewData["Title"] = "Ndryshimi i te dhenave";
+    ViewData["Title"] = Resource.ndryshimTeDhenave;
 }
 <div class="card">
     <form method="post" enctype="multipart/form-data">
@@ -12,7 +13,7 @@
             <h4>Ndryshim i te dhenave</h4>
             <hr />
             <br />
-            <h4>Të dhënat e përgjithshme për punëtorin</h4>
+            <h4>@Resource.generalDataEmployee</h4>
             <hr />
             <div class="row">
                 <div class="col-md-4">
@@ -90,8 +91,8 @@
                     <div class="btn-group w-100">
                         <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.veprimet</button>
                         <div class="dropdown-menu">
-                            <a href="Edit?handler=Document&docType=1&UIE=@Request.Query["UIEnc"]" target="_top" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; Shiko kontraten aktuale</a>
-                            <a onclick="$('#Input_Contract').trigger('click')" id="btnAttachContract" class="dropdown-item btn btn-secondary"> <i class="far fa-plus-square"></i>  &nbsp; Ngarko kontraten e re</a>
+                            <a href="Edit?handler=Document&docType=1&UIE=@Request.Query["UIEnc"]" target="_top" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; @Resource.seeCurrentContact</a>
+                            <a onclick="$('#Input_Contract').trigger('click')" id="btnAttachContract" class="dropdown-item btn btn-secondary"> <i class="far fa-plus-square"></i>  &nbsp; @Resource.attachNewContact</a>
                             <input type="file" style="display:none" asp-for="Input.Contract" class="form-control" />
                         </div>
                     </div>
@@ -102,8 +103,8 @@
                     <div class="btn-group w-100">
                         <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.veprimet</button>
                         <div class="dropdown-menu">
-                            <a href="Edit?handler=Document&docType=2&UIE=@Request.Query["UIEnc"]" target="_top" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; Shiko fotografine aktuale</a>
-                            <a onclick="$('#Input_UserProfileImg').trigger('click')" id="btnAttachImage" class="dropdown-item btn btn-secondary"> <i class="far fa-plus-square"></i>  &nbsp; Ngarko fotografine e re</a>
+                            <a href="Edit?handler=Document&docType=2&UIE=@Request.Query["UIEnc"]" target="_top" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; @Resource.seeCurrentPhoto</a>
+                            <a onclick="$('#Input_UserProfileImg').trigger('click')" id="btnAttachImage" class="dropdown-item btn btn-secondary"> <i class="far fa-plus-square"></i>  &nbsp; @Resource.attachNewPhoto</a>
                             <input type="file" style="display:none" asp-for="Input.UserProfileImg" class="form-control" />
                         </div>
                     </div>
@@ -113,7 +114,7 @@
         </div>
 
         <div class="card-body">
-            <h4>Adresa dhe kontakti</h4>
+            <h4>@Resource.addressContact</h4>
             <hr />
             <div class="row">
                 <div class="col-md-4">
@@ -169,7 +170,7 @@
         </div>
 
         <div class="card-body">
-            <h4>Pagesat</h4>
+            <h4>@Resource.payments</h4>
             <hr />
             <div class="row">
                 <div class="col-md-4">
@@ -182,7 +183,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.TaxGroupId)
-                        @Html.DropDownListFor(m => m.Input.TaxGroupId, BaseModel.GetTaxGroups(1), Resource.zgjedhe, new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.Input.TaxGroupId, BaseModel.GetTaxGroups(CultureInfo.CurrentCulture.Name=="en-US"?2:1), Resource.zgjedhe, new { @class = "form-control" })
                         <span class="text-danger" asp-validation-for="Input.TaxGroupId"></span>
                     </div>
                 </div>

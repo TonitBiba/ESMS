@@ -19,7 +19,7 @@
     <i class="zmdi zmdi-notifications"></i>
     <div class="notifi-dropdown js-dropdown">
         <div class="notifi__title">
-            <p>Njoftimet e fundit në sistem</p>
+            <p>@Resource.lastNotifications</p>
         </div>
         <div id="bodyNotifications">
             @foreach (var notification in listOfNotifications)
@@ -36,7 +36,7 @@
             }
         </div>
         <div class="notifi__footer">
-            <a href="#" id="showAllNotifications">Shiko të gjitha njoftimet</a>
+            <a href="#" id="showAllNotifications">@Resource.seeAllNotifications</a>
         </div>
     </div>
 </div>

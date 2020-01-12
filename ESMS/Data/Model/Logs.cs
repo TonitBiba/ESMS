@@ -14,5 +14,8 @@ namespace ESMS.Data.Model
         public string Method { get; set; }
         public string Url { get; set; }
         public int? StatusCode { get; set; }
+        public bool? BError { get; set; }
+        public string Exception { get; set; }
+        public string ExceptionDetail { get; set; }
     }
 }

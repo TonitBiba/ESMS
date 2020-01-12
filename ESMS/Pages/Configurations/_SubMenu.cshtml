@@ -46,17 +46,17 @@
         $('#tblListSubMenus').DataTable({
             "lengthChange":false,
             "language": {
-                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
-                "zeroRecords": "Nuk ka asnjë të dhënë",
-                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
-                "infoEmpty": "Nuk ka asnjë të dhënë",
-                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
-                "search": "Kërko",
+                "lengthMenu": "@Resource.dtlengthMenu",
+                "zeroRecords": "@Resource.dtZeroRecord",
+                "info": "@Resource.dtInfo",
+                "infoEmpty": "@Resource.dtInfoEmpty",
+                "infoFiltered": "@Resource.dtInfoFiltered",
+                "search": "@Resource.dtSearch",
                 "paginate": {
-                    "previous": "Prapa",
-                    "first": "E para",
-                    "last": "E fundit",
-                    "next": "Para"
+                    "previous": "@Resource.dtPrapa",
+                    "first": "@Resource.dtFirst",
+                    "last": "@Resource.dtLast",
+                    "next": "@Resource.dtNext"
                 }
             },
             responsive: true
@@ -65,10 +65,10 @@
     function DeleteSubMenu(SMEnc) {
         Swal.fire({
           icon: 'warning',
-          title: 'Kujdes!',
-          text: 'Fshirja e nen menus eshte veprim i pakthyeshem. Ju lutem konfirmojeni kete veprim',
-          confirmButtonText: "Ne rregull",
-          cancelButtonText: "Anulo",
+          title: '@Resource.warning',
+          text: '@Html.Raw(Resource.deleteSubMenuWarning)',
+          confirmButtonText: "@Html.Raw(Resource.neRregull)",
+          cancelButtonText: "@Resource.cancel",
           showCancelButton: true
         }).then(response => {
             if (response.value) {
@@ -79,7 +79,7 @@
                      }, function (response) {
                     if (response.nError == 1) {
                         Swal.fire(
-                          'Sukses!',
+                          '@Resource.success',
                           response.ErrorDescription,
                             'success').then(t => {
                                 window.location.href='/Configurations/Menu'
@@ -87,7 +87,7 @@
                     } else {
                         Swal.fire({
                           icon: 'error',
-                          title: 'Gabim',
+                          title: '@Resource.error',
                           text: response.ErrorDescription
                         })
                     }

@@ -26,8 +26,9 @@ namespace ESMS.Pages.Shared
     public class BaseModel : PageModel
     {
         protected SignInManager<ApplicationUser> signInManager;
-        protected UserManager<ApplicationUser> userManager;
 
+        protected UserManager<ApplicationUser> userManager;
+        
         public static byte[] userProfile;
 
         protected ESMSContext dbContext=null;
@@ -62,6 +63,27 @@ namespace ESMS.Pages.Shared
             dbContext.SaveChanges();
         }
 
+        public void SaveLog(Exception ex, HttpContext context)
+        {
+            using (ESMSContext esms = new ESMSContext())
+            {
+                esms.Logs.Add(new Logs
+                {
+                    BError = true,
+                    DtInserted = DateTime.Now,
+                    Exception = ex.Message,
+                    Hostname = context.Connection.RemoteIpAddress.ToString(),
+                    IpAdress = context.Connection.RemoteIpAddress.ToString(),
+                    Method = context.Request.Method,
+                    Page = context.Request.Path.Value,
+                    StatusCode = context.Response.StatusCode,
+                    Url = context.Request.Path.Value,
+                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    ExceptionDetail = ex.StackTrace
+                });
+                esms.SaveChanges();
+            }
+        }
 
         #region DropDownList
         public static List<SelectListItem> GetGroups(int nCase, string UID)
@@ -148,9 +170,9 @@ namespace ESMS.Pages.Shared
         public static List<SelectListItem> GetReportTypes()
         {
             return new List<SelectListItem> {
-                    new SelectListItem { Text = "Të punesuarit", Value = "1" },
-                    new SelectListItem { Text = "Pagesat", Value = "2"},
-                    new SelectListItem { Text = "Kerkesat per pushim", Value = "3"}
+                    new SelectListItem { Text = Resource.employers, Value = "1" },
+                    new SelectListItem { Text = Resource.payment, Value = "2"},
+                    new SelectListItem { Text = Resource.requestLeave, Value = "3"}
             };
         }
 

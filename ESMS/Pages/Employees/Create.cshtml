@@ -1,20 +1,19 @@
 ﻿@page
 @using System.Security.Claims
-
-
+@using System.Globalization
 @using ESMS.Pages.Shared
 
 @model ESMS.Pages.Employees.CreateModel
 @{
-    ViewData["Title"] = "Regjistrimi i punetoreve";
+    ViewData["Title"] = Resource.employeTitle;
 }
 <div class="card">
     <form method="post" enctype="multipart/form-data">
         <div class="card-body card-block">
-            <h4> Regjistrimi i punëtorëve</h4>
+            <h4> @Resource.employeTitle</h4>
             <hr />
             <br />
-            <h4>Të dhënat e përgjithshme për punëtorin</h4>
+            <h4>@Resource.generalDataEmployee</h4>
             <hr />
             <div class="row">
                 <div class="col-md-4">
@@ -105,9 +104,8 @@
                 </div>
             </div>
         </div>
-
         <div class="card-body">
-            <h4>Adresa dhe kontakti</h4>
+            <h4>@Resource.addressContact</h4>
             <hr />
             <div class="row">
                 <div class="col-md-4">
@@ -163,7 +161,7 @@
         </div>
 
         <div class="card-body">
-            <h4>Pagesat</h4>
+            <h4>@Resource.payments</h4>
             <hr />
             <div class="row">
                 <div class="col-md-4">
@@ -176,14 +174,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.TaxGroupId)
-                        @Html.DropDownListFor(m => m.Input.TaxGroupId, BaseModel.GetTaxGroups(1), Resource.zgjedhe, new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.Input.TaxGroupId, BaseModel.GetTaxGroups(CultureInfo.CurrentCulture.Name=="en-US"?2:1), Resource.zgjedhe, new { @class = "form-control" })
                         <span class="text-danger" asp-validation-for="Input.TaxGroupId"></span>
                     </div>
                 </div>
             </div>
         </div>
-
-        <input type="submit" class="btn btn-primary float-right m-4" id="btnRegister" value="Regjistro" />
+        <input type="submit" class="btn btn-primary float-right m-4" id="btnRegister" value="@Resource.register" />
     </form>
 </div>
 
@@ -230,5 +227,4 @@
             $('#btnAttachImage').text('@Resource.ngarkoFotografine')
         }
     })
-
 </script>

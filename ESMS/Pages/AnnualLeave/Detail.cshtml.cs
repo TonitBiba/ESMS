@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ESMS.Areas.Identity;
 using ESMS.Pages.Shared;
@@ -31,10 +33,10 @@ namespace ESMS.Pages.AnnualLeave
                              EndDate = L.EndDate,
                              FirstName = L.VcUserNavigation.FirstName,
                              LastName = L.VcUserNavigation.LastName,
-                             LeaveReason = L.NTypeOfLeavesNavigation.NameSq,
+                             LeaveReason = CultureInfo.CurrentCulture.Name == "en-US" ? L.NTypeOfLeavesNavigation.NameEn : L.NTypeOfLeavesNavigation.NameSq,
                              StarDate = L.StartDate,
                              LID = L.Id,
-                             Status = LD.NStatusNavigation.NameSq,
+                             Status = CultureInfo.CurrentCulture.Name=="en-US"? LD.NStatusNavigation.NameEn : LD.NStatusNavigation.NameSq,
                              dtInserted = L.DtInserted,
                              Comment = L.VcComment
                          }).FirstOrDefault();

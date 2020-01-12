@@ -102,6 +102,7 @@ namespace ESMS.Pages.Configurations
             }
             catch(Exception ex)
             {
+                SaveLog(ex, HttpContext);
                 error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
             }
             return new JsonResult(error);

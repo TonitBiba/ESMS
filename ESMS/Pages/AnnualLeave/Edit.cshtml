@@ -1,8 +1,9 @@
 ﻿@page
 @model ESMS.Pages.AnnualLeave.EditModel
 @using Pages.Shared
+@using System.Globalization
 @{
-    ViewData["Title"] = "Ndryshim i të dhënave";
+    ViewData["Title"] = Resource.ndryshimTeDhenave;
 }
 
 <div class="card">
@@ -15,7 +16,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.TypeOfLeaves)
-                        @Html.DropDownListFor(m => m.Input.TypeOfLeaves, BaseModel.GetLeaveTypes(1), Resource.zgjedhe, new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.Input.TypeOfLeaves, BaseModel.GetLeaveTypes(CultureInfo.CurrentCulture.Name=="en-US"?2:1), Resource.zgjedhe, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Input.TypeOfLeaves, null, new { @class = "text-danger" })
                     </div>
                 </div>
@@ -38,8 +39,8 @@
                     <div class="btn-group w-100">
                         <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.veprimet</button>
                         <div class="dropdown-menu">
-                            <a href="Edit?handler=Document&LIDEnc=@Request.Query["LIDEnc"]" target="_top" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; Shiko dokumentin aktual</a>
-                            <a onclick="$('#Input_Document').trigger('click')" id="btnAttachContract" class="dropdown-item btn btn-secondary"> <i class="far fa-plus-square"></i>  &nbsp; Ngarko dokumentin e ri</a>
+                            <a href="Edit?handler=Document&LIDEnc=@Request.Query["LIDEnc"]" target="_top" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; @Resource.seeCurrentDocument</a>
+                            <a onclick="$('#Input_Document').trigger('click')" id="btnAttachContract" class="dropdown-item btn btn-secondary"> <i class="far fa-plus-square"></i>  &nbsp; @Resource.uploadNewDocument</a>
                             <input type="file" style="display:none" asp-for="Input.Document" class="form-control" />
                         </div>
                     </div>

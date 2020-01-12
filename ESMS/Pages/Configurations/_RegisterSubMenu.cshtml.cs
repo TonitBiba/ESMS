@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace ESMS.Pages.Configurations
             int menuId = Confidenciality.Decrypt<int>(MEncId);
             Input = new InputModel
             {
-                MenuName = dbContext.Menu.Where(t => t.NMenuId == menuId).FirstOrDefault().VcMenNameSq,
+                MenuName = dbContext.Menu.Where(t => t.NMenuId == menuId).Select(S=>CultureInfo.CurrentCulture.Name=="en-US"?S.VcMenuNameEn:S.VcMenNameSq).FirstOrDefault(),
                 MEnc = MEncId
             };
         }
@@ -35,7 +36,7 @@ namespace ESMS.Pages.Configurations
             {
                 if(dbContext.SubMenu.Any(S=>S.VcClaim == Input.Claim))
                 {
-                    TempData.Set("error", new Error { nError = 4, ErrorDescription = "Claim vlera egziston ne sistem." });
+                    TempData.Set("error", new Error { nError = 4, ErrorDescription = Resource.claimRegisterError });
                     return RedirectToPage("Menu");
                 }
                 int menuId = Confidenciality.Decrypt<int>(Input.MEnc);
@@ -51,18 +52,19 @@ namespace ESMS.Pages.Configurations
                     VcClaim = Input.Claim
                 });
                 await dbContext.SaveChangesAsync();
-                TempData.Set("error", new Error { nError = 1, ErrorDescription = "Te dhenat jane ruajtur me sukses!" });
+                TempData.Set("error", new Error { nError = 1, ErrorDescription = Resource.msgRuajtjaSukses });
             }
             catch (Exception ex)
             {
-                TempData.Set("error", new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" });
+                SaveLog(ex, HttpContext);
+                TempData.Set("error", new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja });
             }
             return RedirectToPage("Menu");
         }
 
         public async Task<JsonResult> OnPostDeleteSub(string SMEnc)
         {
-            Error error = new Error { nError = 1, ErrorDescription = "Te dhenat jane ruajtur me sukses!" };
+            Error error = new Error { nError = 1, ErrorDescription = Resource.msgRuajtjaSukses };
 
             try
             {
@@ -72,7 +74,8 @@ namespace ESMS.Pages.Configurations
             }
             catch(Exception ex)
             {
-                error = new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" };
+                SaveLog(ex, HttpContext);
+                error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
             }
             return new JsonResult(error);
         }

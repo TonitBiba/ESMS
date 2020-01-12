@@ -30,14 +30,14 @@ namespace ESMS.Pages.Configurations
             policies = dbContext.Policy.ToList();
             if (!ModelState.IsValid)
             {
-                error = new Error { nError = 4, ErrorDescription = "Te dhenat nuk jane ne rregull!" };
+                error = new Error { nError = 4, ErrorDescription = Resource.msgRuajtjaSukses };
                 return Page();
             }
             try
             {
                 if(dbContext.Policy.Any(P=>P.VcPolicyName == Input.policyName))
                 {
-                    error = new Error { nError = 4, ErrorDescription = "Keni shtypur te dhena egzistuese!" };
+                    error = new Error { nError = 4, ErrorDescription = Resource.msgDuplicateData };
                     return Page();
                 }
                 dbContext.Policy.Add(new Policy
@@ -51,13 +51,14 @@ namespace ESMS.Pages.Configurations
                 });
                 await dbContext.SaveChangesAsync();
 
-                error = new Error { nError = 1, ErrorDescription= "Te dhenat jane regjistruar me sukses!" };
+                error = new Error { nError = 1, ErrorDescription= Resource.msgRuajtjaSukses };
                 policies = dbContext.Policy.ToList();
             }
             catch (Exception ex)
             {
+                SaveLog(ex, HttpContext);
                 dbContext = new ESMSContext();
-                error = new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes se te dhenave!" };
+                error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
             }
             return Page();
         }

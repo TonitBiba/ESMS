@@ -2,8 +2,9 @@
 @model ESMS.CreateModel
 @using ESMS.Pages.Shared
 @using ESMS.Security
+@using System.Globalization
 @{
-    ViewData["Title"] = "Lista pagave për egzekutim";
+    ViewData["Title"] = Resource.paymentList;
 }
 <script>
     var salaryDeduction = [];
@@ -11,7 +12,7 @@
 
 <div class="card">
     <div class="card-body card-block">
-        <h4> Egzekutimi pagave </h4>
+        <h4> @Resource.paymentExecution </h4>
         <hr />
         <form id="frmExecute" method="post">
             @Html.AntiForgeryToken()
@@ -19,7 +20,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         @Html.LabelFor(M=>M.Input.month)
-                        @Html.DropDownListFor(m => m.Input.month, BaseModel.GetMonths(1), Resource.zgjedhe, new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.Input.month, BaseModel.GetMonths(CultureInfo.CurrentCulture.Name=="en-US"?2:1), Resource.zgjedhe, new { @class = "form-control" })
                         <span asp-validation-for="Input.month" class="text-danger"></span>
                     </div>
                 </div>
@@ -31,23 +32,23 @@
         </form>
     </div>
     <div class="card-body">
-        <h4> Lista e pagave për ekzekutim</h4>
+        <h4> @Resource.paymentList</h4>
         <hr />
         <table id="table" class="table table-striped table-bordered" style="width:100%">
             <thead>
                 <tr>
-                    <th>Emri</th>
-                    <th>Mbiemri</th>
-                    <th>Numri personal</th>
-                    <th>Grupi</th>
-                    <th>Ndëshkimi(në përqindje)</th>
-                    <th>Paga për llogaritje</th>
-                    <th>Kontributi pensional i punetorit</th>
-                    <th>Kontributi pensional i punedhenesit</th>
-                    <th>Tatimi</th>
-                    <th>WithholdingTax</th>
-                    <th>Paga neto</th>
-                    <th>Pozita</th>
+                    <th>@Resource.emri</th>
+                    <th>@Resource.mbiemri</th>
+                    <th>@Resource.numriPersonal</th>
+                    <th>@Resource.grupi</th>
+                    <th>@Resource.deduction</th>
+                    <th>@Resource.salayForCalculation</th>
+                    <th>@Resource.pensionalContributionEmployer</th>
+                    <th>@Resource.pensionalContributionEmployee</th>
+                    <th>@Resource.tax</th>
+                    <th>@Resource.withholdTax</th>
+                    <th>@Resource.netoSalary</th>
+                    <th>@Resource.position</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,17 +78,17 @@
         $('#table').DataTable({
             "lengthChange": false,
             "language": {
-                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
-                "zeroRecords": "Nuk ka asnjë të dhënë",
-                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
-                "infoEmpty": "Nuk ka asnjë të dhënë",
-                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
-                "search": "Kërko",
+                "lengthMenu": "@Resource.dtlengthMenu",
+                "zeroRecords": "@Resource.dtZeroRecord",
+                "info": "@Resource.dtInfo",
+                "infoEmpty": "@Resource.dtInfoEmpty",
+                "infoFiltered": "@Resource.dtInfoFiltered",
+                "search": "@Resource.dtSearch",
                 "paginate": {
-                    "previous": "Prapa",
-                    "first": "E para",
-                    "last": "E fundit",
-                    "next": "Para"
+                    "previous": "@Resource.dtPrapa",
+                    "first": "@Resource.dtFirst",
+                    "last": "@Resource.dtLast",
+                    "next": "@Resource.dtNext"
                 }
             },
             responsive: true

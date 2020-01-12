@@ -131,11 +131,12 @@ namespace ESMS.Areas.Identity.Pages.Account
                     }
                     catch (Exception ex)
                     {
+                        ModelState.AddModelError(string.Empty, Resource.exceptionLogin);
                         return Page();
                     }
                 }
                 else {
-                    ModelState.AddModelError(string.Empty, "Ka deshtuar verifikimi antirobot nga ReCaptcha.");
+                    ModelState.AddModelError(string.Empty, Resource.captchaError);
                     return Page();
                 }
             }

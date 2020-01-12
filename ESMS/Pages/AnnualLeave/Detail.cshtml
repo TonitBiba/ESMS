@@ -43,7 +43,7 @@
                     <div class="btn-group w-100">
                         <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.veprimet</button>
                         <div class="dropdown-menu">
-                            <a href="Detail?handler=Document&LIDEnc=@Request.Query["LIDEnc"]" target="_top" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; Shiko dokumentin</a>
+                            <a href="Detail?handler=Document&LIDEnc=@Request.Query["LIDEnc"]" target="_top" class="dropdown-item btn btn-secondary"><i class="far fa-edit"></i>&nbsp; @Resource.seeDocument</a>
                             <input type="file" style="display:none" asp-for="viewModel.Document" class="form-control" />
                         </div>
                     </div>

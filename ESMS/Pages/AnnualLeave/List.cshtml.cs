@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -29,10 +30,10 @@ namespace ESMS.Pages.AnnualLeave
                                   EndDate = L.EndDate,
                                   FirstName = L.VcUserNavigation.FirstName,
                                   LastName = L.VcUserNavigation.LastName,
-                                  LeaveReason = L.NTypeOfLeavesNavigation.NameSq,
+                                  LeaveReason = CultureInfo.CurrentCulture.Name=="en-US"? L.NTypeOfLeavesNavigation.NameSq : L.NTypeOfLeavesNavigation.NameSq,
                                   StarDate = L.StartDate,
                                   LID = L.Id,
-                                  Status = LD.NStatusNavigation.NameSq,
+                                  Status = CultureInfo.CurrentCulture.Name == "en-US" ? LD.NStatusNavigation.NameEn : LD.NStatusNavigation.NameSq,
                                   dtInserted = L.DtInserted,
                                   FillIn = (LD.NStatus == 4 && L.VcUser == User.FindFirstValue(ClaimTypes.NameIdentifier) ? true : false),
                                   Review = ((LD.NStatus == 1 || LD.NStatus == 5) && User.IsInRole("Burimet_Njerzore") ? true : false)

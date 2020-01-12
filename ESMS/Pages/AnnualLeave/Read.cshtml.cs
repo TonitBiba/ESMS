@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -39,10 +40,10 @@ namespace ESMS.Pages.AnnualLeave
                              EndDate = L.EndDate,
                              FirstName = L.VcUserNavigation.FirstName,
                              LastName = L.VcUserNavigation.LastName,
-                             LeaveReason = L.NTypeOfLeavesNavigation.NameSq,
+                             LeaveReason = CultureInfo.CurrentCulture.Name=="en-US" ? L.NTypeOfLeavesNavigation.NameEn : L.NTypeOfLeavesNavigation.NameSq,
                              StarDate = L.StartDate,
                              LID = L.Id,
-                             Status = LD.NStatusNavigation.NameSq,
+                             Status = CultureInfo.CurrentCulture.Name == "en-US" ? LD.NStatusNavigation.NameEn : LD.NStatusNavigation.NameSq,
                              dtInserted = L.DtInserted
                          }).FirstOrDefault();
             Input = new InputModel { LidEnc = LIDEnc };
@@ -98,6 +99,7 @@ namespace ESMS.Pages.AnnualLeave
                 return RedirectToPage("List");
             }catch(Exception ex)
             {
+                SaveLog(ex, HttpContext);
                 return RedirectToPage("Read", new { LIDEnc = Input.LidEnc });
             }
         }

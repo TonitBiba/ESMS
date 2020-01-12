@@ -11,7 +11,7 @@
         <h4> @Resource.historikuPagave </h4>
         <hr />
         <div class="btn-group float-right">
-            <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">Shkarko listen</button>
+            <button type="button" class="btn btn-secondary dropdown-toggle w-100" data-toggle="dropdown">@Resource.downloadList</button>
             <div class="dropdown-menu">
                 <a href='List?handler=Report&f=1' target="_blank" class="dropdown-item btn btn-secondary"><i class="far fa-file-pdf"></i>&nbsp; PDF</a>
                 <a href='List?handler=Report&f=2' target="_blank" class="dropdown-item"><i class="far fa-file-excel"></i>&nbsp; Excel</a>
@@ -50,17 +50,17 @@
         $('#table').DataTable({
             "lengthChange": false,
             "language": {
-                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
-                "zeroRecords": "Nuk ka asnjë të dhënë",
-                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
-                "infoEmpty": "Nuk ka asnjë të dhënë",
-                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
-                "search": "Kërko",
+                "lengthMenu": "@Resource.dtlengthMenu",
+                "zeroRecords": "@Resource.dtZeroRecord",
+                "info": "@Resource.dtInfo",
+                "infoEmpty": "@Resource.dtInfoEmpty",
+                "infoFiltered": "@Resource.dtInfoFiltered",
+                "search": "@Resource.dtSearch",
                 "paginate": {
-                    "previous": "Prapa",
-                    "first": "E para",
-                    "last": "E fundit",
-                    "next": "Para"
+                    "previous": "@Resource.dtPrapa",
+                    "first": "@Resource.dtFirst",
+                    "last": "@Resource.dtLast",
+                    "next": "@Resource.dtNext"
                 }
             },
             responsive: true

@@ -1,5 +1,6 @@
 ﻿@using ESMS.Data.Model
 @using System.Security.Claims
+@using System.Globalization
 @{
     Layout = null;
     ESMSContext eSMS = new ESMSContext();
@@ -10,8 +11,8 @@
                        join SM in eSMS.SubMenu on M.NMenuId equals SM.NMenuId
                        select new
                        {
-                           menu = defaultLang== 1 ? M.VcMenNameSq : M.VcMenuNameEn,
-                           subMenu = defaultLang== 1 ? SM.VcSubMenuSq : SM.VcSubMenuEn,
+                           menu = CultureInfo.CurrentCulture.Name=="en-US" ? M.VcMenuNameEn : M.VcMenNameSq,
+                           subMenu = CultureInfo.CurrentCulture.Name=="en-US"?SM.VcSubMenuEn:SM.VcSubMenuSq,
                            controller = SM.VcController,
                            page = SM.VcPage,
                            icon = M.VcIcon,

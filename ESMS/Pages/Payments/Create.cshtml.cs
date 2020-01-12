@@ -115,18 +115,20 @@ namespace ESMS
                             error = new Error { nError = 1, ErrorDescription = Resource.msgRuajtjaSukses };
                         }
                         else
-                            error = new Error { nError = 4, ErrorDescription = "Ka deshtuar komunikimi me API!" };
+                            error = new Error { nError = 4, ErrorDescription = Resource.apiError };
                     }
                 }
                 else
-                    error = new Error { nError = 4, ErrorDescription = "Keni shtypur te dhena jo valide!" };
+                    error = new Error { nError = 4, ErrorDescription = Resource.invalidData };
             }
             catch(HttpRequestException httEx)
             {
-                error = new Error { nError = 4, ErrorDescription = "Ka deshtuar komunikimi me API për ekzekutim të pagesave." };
+                SaveLog(httEx, HttpContext);
+                error = new Error { nError = 4, ErrorDescription = Resource.apiError };
             }
             catch (Exception ex)
             {
+                SaveLog(ex, HttpContext);
                 error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
             }
             return new JsonResult(error);
@@ -142,27 +144,18 @@ namespace ESMS
                 reportBytes = client.DownloadData("http://tonit/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fAccountantReport&rs:Command=Render&rs:Format=Excel&month=" + m+ "&monthName="+dbContext.Month.Where(t=>t.Id == m).FirstOrDefault().MonthSq);
             }
 
-            return File(reportBytes, "application/Excel".ToLower(), "Listi kontabilistit " + DateTime.Now.ToShortDateString() + ".xls");
+            return File(reportBytes, "application/Excel".ToLower(), Resource.accountantList+" " + DateTime.Now.ToShortDateString() + ".xls");
         }
 
         public static string GetTaxGroupNameFromID(int taxgroupId)
         {
-
-            switch (taxgroupId)
+            return taxgroupId switch
             {
-                case 1:
-
-                    return "I rregullt me pension";
-
-                case 2:
-                    return "I rregullt pa pension";
-                case 3:
-                    return "Jo i rregullt me pension";
-
-                default:
-                    return "Jo i rregullt pa pension";
-
-            }
+                1 => Resource.pensionaRegular,
+                2 => Resource.noPensionRegular,
+                3 => Resource.nonRegularPension,
+                _ => Resource.nonRegularNoPension,
+            };
         }
 
         public Error error { get; set; }

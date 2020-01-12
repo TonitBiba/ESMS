@@ -35,10 +35,10 @@ namespace ESMS.Pages.Reports
                 Email = A.Email,
                 DtFrom = A.DtFrom,
                 DtTo = A.DtTo,
-                Gender = A.Gender == 1 ? "Mashkull" : "Femer",
+                Gender = A.Gender == 1 ? Resource.male : Resource.female,
                 PhoneNumber = A.PhoneNumber,
                 Salary = A.Salary,
-                statusEmployee = A.EmployeeStatus == 0 ? "Pasiv" : "Aktiv",
+                statusEmployee = A.EmployeeStatus == 0 ? Resource.pasiv : Resource.aktiv,
                 UserId = A.Id,
                 Role = A.AspNetUserRoles.FirstOrDefault().Role.Name
             }).ToList();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace ESMS
         {
             error = TempData.Get<Error>("error");
             payments = dbContext.Payments.Select(S => new Payments { 
-                 Month = S.MonthNavigation.MonthSq,
+                 Month = CultureInfo.CurrentCulture.Name=="en-US" ? S.MonthNavigation.MonthEn : S.MonthNavigation.MonthSq,
                  ExecutionDate = S.DtInserted,
                  FirstName = S.User.FirstName,
                  LastName = S.User.LastName,

@@ -47,10 +47,10 @@ namespace ESMS.Pages.Employees
                  Email = A.Email,
                  DtFrom = A.DtFrom,
                  DtTo = A.DtTo,
-                 Gender = A.Gender ==1?"Mashkull":"Femer",
+                 Gender = A.Gender ==1? Resource.male : Resource.female,
                  PhoneNumber = A.PhoneNumber,
                  Salary = A.Salary,
-                 statusEmployee = A.EmployeeStatus == 0?"Pasiv":"Aktiv",
+                 statusEmployee = A.EmployeeStatus == 0?Resource.pasiv:Resource.aktiv,
                  UserId = A.Id,
                  Role = A.AspNetUserRoles.FirstOrDefault().Role.Name
             }).ToList();
@@ -83,6 +83,7 @@ namespace ESMS.Pages.Employees
                 dbContext.SaveChanges();
             }catch(Exception ex)
             {
+                SaveLog(ex, HttpContext);
                 error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
             }
             return new JsonResult(error);

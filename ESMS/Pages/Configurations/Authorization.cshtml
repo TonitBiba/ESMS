@@ -4,13 +4,13 @@
     <div class="container-fluid p-0">
         <div class="card">
             <div class="card-body card-block">
-                <h4>Lista e autorizimeve në nivel të grupit</h4>
+                <h4>@Resource.authorizationTitle</h4>
                 <hr />
                 @Html.AntiForgeryToken()
                 <div class="row">
                     <div class="col-md-4">
                         <label>@Resource.grupi</label>
-                        @Html.DropDownList("groupiID", BaseModel.GetGroups(1, null), "Zgjedhe", new { @class = "form-control" })
+                        @Html.DropDownList("groupiID", BaseModel.GetGroups(1, null), Resource.zgjedhe, new { @class = "form-control" })
                     </div>
                 </div>
             </div>

@@ -111,12 +111,11 @@ namespace ESMS.Pages.AnnualLeave
                     return RedirectToPage("List");
                 }
                 else
-                {
                     error = new Error { nError = 4, ErrorDescription = Resource.invalidData };
-                }
             }
             catch (Exception ex)
             {
+                SaveLog(ex, HttpContext);
                 error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
             }
             return Page();
@@ -130,7 +129,9 @@ namespace ESMS.Pages.AnnualLeave
         public class InputModel
         {
             public string HRComment { get; set; }
+
             public string LidEnc { get; set; }
+
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             [Display(Name = "leaveReason", ResourceType = typeof(Resource))]
             public int TypeOfLeaves { get; set; }

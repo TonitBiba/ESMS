@@ -1,6 +1,7 @@
 ﻿@page
 @model ESMS.Pages.AnnualLeave.CreateModel
 @using Pages.Shared
+@using System.Globalization
 @{
     ViewData["Title"] = Resource.LeaveRequest;
 }
@@ -14,7 +15,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.TypeOfLeaves)
-                        @Html.DropDownListFor(m => m.Input.TypeOfLeaves, BaseModel.GetLeaveTypes(1), Resource.zgjedhe, new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.Input.TypeOfLeaves, BaseModel.GetLeaveTypes(CultureInfo.CurrentCulture.Name == "en-US" ? 2 : 1), Resource.zgjedhe, new { @class = "form-control" })
                         @Html.ValidationMessageFor(m => m.Input.TypeOfLeaves, null, new { @class = "text-danger" })
                     </div>
                 </div>
@@ -43,7 +44,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         @Html.LabelFor(m => m.Input.Comment)
-                        @Html.TextAreaFor(m => m.Input.Comment, new { @class = "form-control", rows="1" })
+                        @Html.TextAreaFor(m => m.Input.Comment, new { @class = "form-control", rows = "1" })
                         @Html.ValidationMessageFor(m => m.Input.Comment, null, new { @class = "text-danger" })
                     </div>
                 </div>

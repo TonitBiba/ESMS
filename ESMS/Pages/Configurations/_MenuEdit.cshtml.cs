@@ -37,11 +37,12 @@ namespace ESMS.Pages.Configurations
                 menuToChange.NModifyId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await dbContext.SaveChangesAsync();
 
-                TempData.Set("error", new Error { nError = 1, ErrorDescription = "Te dhenat jane ruajtur me sukses!" });
+                TempData.Set("error", new Error { nError = 1, ErrorDescription = Resource.msgRuajtjaSukses });
             }
             catch (Exception ex)
             {
-                TempData.Set("error", new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" });
+                SaveLog(ex, HttpContext);
+                TempData.Set("error", new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja });
             }
             return RedirectToPage("./Menu");
         }

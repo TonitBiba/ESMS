@@ -95,7 +95,7 @@ namespace ESMS.Pages.Employees
                             var result = await userManager.CreateAsync(user, Input.PersonalNumber);
 
                             if (!result.Succeeded)
-                                error = new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim gjate ruajtjes!" };
+                                error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
                             else
                             {
                                 string role = dbContext.AspNetRoles.Where(R => R.Id == Input.Position).FirstOrDefault().Name;
@@ -137,23 +137,24 @@ namespace ESMS.Pages.Employees
                             }
                         }
                         else
-                            error = new Error { nError = 4, ErrorDescription = "Egziston perdorues me kete email adress." };
+                            error = new Error { nError = 4, ErrorDescription = Resource.duplicateEmail };
                     }
                     else
-                        error = new Error { nError = 4, ErrorDescription = "Keni tejkaluar madhesine e fajllit." };
+                        error = new Error { nError = 4, ErrorDescription = Resource.msgFileSize };
                 }
                 else
                 {
                     var errors = ModelState.Select(x => x.Value.Errors)
                                .Where(y => y.Count > 0)
                                .ToList();
-                    error = new Error { nError = 4, ErrorDescription = "Keni shtypur te dhena jo valide." };
+                    error = new Error { nError = 4, ErrorDescription = Resource.invalidData };
                 }
                     
             }
             catch(Exception ex)
             {
-                error = new Error { nError = 4, ErrorDescription = "Ka ndodhur nje gabim." };
+                SaveLog(ex, HttpContext);
+                error = new Error { nError = 4, ErrorDescription = Resource.msgGabimRuajtja };
             }
             return Page();
         }
@@ -186,17 +187,17 @@ namespace ESMS.Pages.Employees
         {
             [Display(Name = "emri", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            [StringLength(maximumLength:40, MinimumLength = 1, ErrorMessage = "Gjatesia e emrit duhet te jete mes 1 dhe 40 karaktereve.")]
+            [StringLength(maximumLength:40, MinimumLength = 1, ErrorMessageResourceName = "stringLengthError", ErrorMessageResourceType = typeof(Resource))]
             public string FirstName { get; set; }
 
             [Display(Name = "mbiemri", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessage = "Gjatesia e mbiemrit duhet te jete mes 1 dhe 40 karaktereve.")]
+            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessageResourceName = "stringLengthError", ErrorMessageResourceType = typeof(Resource))]
             public string LastName { get; set; }
 
             [Display(Name = "pershkrimiPozites", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessage = "Gjatesia e pozicionit të punës duhet te jete mes 1 dhe 40 karaktereve.")]
+            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessageResourceName = "stringLengthError", ErrorMessageResourceType = typeof(Resource))]
             public string JobTitle { get; set; }
 
             [Display(Name = "gjinia", ResourceType = typeof(Resource))]
@@ -216,17 +217,17 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "adresa", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessage = "Gjatesia e adresës duhet te jete mes 1 dhe 40 karaktereve.")]
+            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessageResourceName = "stringLengthError", ErrorMessageResourceType = typeof(Resource))]
             public string Adress { get; set; }
 
             [Display(Name = "adresaOpsionale", ResourceType = typeof(Resource))]
-            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessage = "Gjatesia e adresës duhet te jete mes 1 dhe 40 karaktereve.")]
+            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessageResourceName = "stringLengthError", ErrorMessageResourceType = typeof(Resource))]
             public string AdressOpsional { get; set; }
 
             [Display(Name = "kodiPostal", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
             [DataType(DataType.PostalCode, ErrorMessageResourceName = "kontrolloFormatinKodiPostar", ErrorMessageResourceType = typeof(Resource))]
-            [Range(1, 9999, ErrorMessage = "Kodi postal nuk eshte valid.")]
+            [Range(1, 99999, ErrorMessageResourceName = "postalCodeError", ErrorMessageResourceType = typeof(Resource))]
             public int PostalCode { get; set; }
 
             [Display(Name = "qyteti", ResourceType = typeof(Resource))]
@@ -257,7 +258,7 @@ namespace ESMS.Pages.Employees
 
             [Display(Name = "pozitaPunes", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessage = "Gjatesia e pozitës duhet te jete mes 1 dhe 40 karaktereve.")]
+            [StringLength(maximumLength: 40, MinimumLength = 1, ErrorMessageResourceName = "stringLengthError", ErrorMessageResourceType = typeof(Resource))]
             public string Position { get; set; }
 
             [Display(Name = "kontrataPunes", ResourceType = typeof(Resource))]
@@ -265,7 +266,7 @@ namespace ESMS.Pages.Employees
             
             [Display(Name = "numriPersonal", ResourceType = typeof(Resource))]
             [Required(ErrorMessageResourceName = "fusheObligative", ErrorMessageResourceType = typeof(Resource))]
-            [StringLength(maximumLength: 10, MinimumLength = 10, ErrorMessage = "Gjatesia e numrit personal duhet te jete 10.")]
+            [StringLength(maximumLength: 10, MinimumLength = 10, ErrorMessageResourceName = "stringLengthIDError", ErrorMessageResourceType = typeof(Resource))]
             public string PersonalNumber { get; set; }
 
             [Display(Name = "fotoProfilit", ResourceType = typeof(Resource))]

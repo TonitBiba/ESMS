@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace ESMS.Pages.Reports
             var payments = dbContext.Payments.Where(S=>S.DtInserted>= startDate && S.DtInserted<= endDate 
                             && S.UserId == (userId == null ? S.UserId : userId)).Select(S => new Payments
             {
-                Month = S.MonthNavigation.MonthSq,
+                Month = CultureInfo.CurrentCulture.Name=="en-US" ? S.MonthNavigation.MonthEn : S.MonthNavigation.MonthSq,
                 ExecutionDate = S.DtInserted,
                 FirstName = S.User.FirstName,
                 LastName = S.User.LastName,

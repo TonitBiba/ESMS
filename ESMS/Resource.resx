@@ -117,17 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="access" xml:space="preserve">
+    <value>Qasja</value>
+  </data>
   <data name="accessDenied" xml:space="preserve">
     <value>Ju nuk jeni i autorizuar te qaseni kete faqe.</value>
   </data>
   <data name="accessDeniedTitle" xml:space="preserve">
     <value>Qasje e pa autorizuar</value>
   </data>
+  <data name="accountantList" xml:space="preserve">
+    <value>Lista kontabilistit</value>
+  </data>
   <data name="accountLockout" xml:space="preserve">
     <value>Kjo llogari është bllokuar, ju lutem provoni përsëri më vonë.</value>
   </data>
   <data name="accountLockoutTitle" xml:space="preserve">
     <value>Llogari e bllokuar</value>
+  </data>
+  <data name="addressContact" xml:space="preserve">
+    <value>Adresa dhe kontakti</value>
   </data>
   <data name="adresa" xml:space="preserve">
     <value>Adresa</value>
@@ -156,8 +165,20 @@
   <data name="anuloTOTP" xml:space="preserve">
     <value>Anulo autentifikimin 2-hapësh</value>
   </data>
+  <data name="apiError" xml:space="preserve">
+    <value>Ka deshtuar komunikimi me API për ekzekutim të pagesave!</value>
+  </data>
+  <data name="approvedRequest" xml:space="preserve">
+    <value>Kërkesa të miratuar</value>
+  </data>
   <data name="attachDocument" xml:space="preserve">
     <value>Ngarko dokumentin (opsional)</value>
+  </data>
+  <data name="attachNewContact" xml:space="preserve">
+    <value>Ngarko kontraten e re</value>
+  </data>
+  <data name="attachNewPhoto" xml:space="preserve">
+    <value>Ngarko fotografine e re</value>
   </data>
   <data name="autentifikatorTitle" xml:space="preserve">
     <value>Llogaria juaj mbrohet me aplikacionin për autentifikim. Shtypni kodin e autentifikatorit më poshtë.</value>
@@ -171,11 +192,26 @@
   <data name="authenticatorCode" xml:space="preserve">
     <value>Kodi për autentifikim</value>
   </data>
+  <data name="authorizationTitle" xml:space="preserve">
+    <value>Lista e autorizimeve në nivel të grupit</value>
+  </data>
   <data name="ballina" xml:space="preserve">
     <value>Ballina</value>
   </data>
+  <data name="cancel" xml:space="preserve">
+    <value>Anulo</value>
+  </data>
+  <data name="captchaError" xml:space="preserve">
+    <value>Ka deshtuar verifikimi antirobot nga ReCaptcha.</value>
+  </data>
+  <data name="chartTitle" xml:space="preserve">
+    <value>Shpenzimet për pagat sipas departamentit</value>
+  </data>
   <data name="claim" xml:space="preserve">
     <value>Claim</value>
+  </data>
+  <data name="claimRegisterError" xml:space="preserve">
+    <value>Claim vlera egziston ne sistem.</value>
   </data>
   <data name="claimValue" xml:space="preserve">
     <value>Claim vlera</value>
@@ -195,6 +231,12 @@
   <data name="confirmEmailChangeTitle" xml:space="preserve">
     <value>Konfirmimi i ndryshimit të email adresës</value>
   </data>
+  <data name="considering" xml:space="preserve">
+    <value>Shqyrtimi</value>
+  </data>
+  <data name="content" xml:space="preserve">
+    <value>Përmbajtja</value>
+  </data>
   <data name="controller" xml:space="preserve">
     <value>Kontrolleri</value>
   </data>
@@ -204,6 +246,24 @@
   <data name="dataPunesimitDeri" xml:space="preserve">
     <value>Data punësimit deri</value>
   </data>
+  <data name="deduction" xml:space="preserve">
+    <value>Ndëshkimi(në përqindje)</value>
+  </data>
+  <data name="deleteMenuWarning" xml:space="preserve">
+    <value>Fshirja e menus është veprim i pakthyeshëm. Ju lutem konfirmojeni këtë veprim.</value>
+  </data>
+  <data name="deleteSubMenuWarning" xml:space="preserve">
+    <value>Fshirja e nënmenus është veprim i pakthyeshëm. Ju lutem konfirmojeni këtë veprim.</value>
+  </data>
+  <data name="depFinanca" xml:space="preserve">
+    <value>Departamenti financave</value>
+  </data>
+  <data name="depHr" xml:space="preserve">
+    <value>Departamenti HR</value>
+  </data>
+  <data name="depIt" xml:space="preserve">
+    <value>Departamenti IT-së</value>
+  </data>
   <data name="dergo" xml:space="preserve">
     <value>Dërgo</value>
   </data>
@@ -212,6 +272,9 @@
   </data>
   <data name="detajet" xml:space="preserve">
     <value>Detajet</value>
+  </data>
+  <data name="developedBy" xml:space="preserve">
+    <value>Zhvilluar nga Tonit Biba &amp; Reshat Selmani</value>
   </data>
   <data name="ditaPunesimit" xml:space="preserve">
     <value>Dita e fillimit të punës</value>
@@ -225,11 +288,50 @@
   <data name="donotHaveAccessTOTP" xml:space="preserve">
     <value>Nuk keni qasje në pajisjen për autentifikim? Ju mundeni </value>
   </data>
+  <data name="downloadList" xml:space="preserve">
+    <value>Shkarko listën</value>
+  </data>
   <data name="dtEmployment" xml:space="preserve">
     <value>Data fillimit te punes</value>
   </data>
+  <data name="dtFirst" xml:space="preserve">
+    <value>E para</value>
+  </data>
+  <data name="dtInfo" xml:space="preserve">
+    <value>Duke shfaqur faqen _PAGE_ nga _PAGES_</value>
+  </data>
+  <data name="dtInfoEmpty" xml:space="preserve">
+    <value>Nuk ka asnjë të dhënë</value>
+  </data>
+  <data name="dtInfoFiltered" xml:space="preserve">
+    <value>(të filtruara nga _MAX_ rreshta)</value>
+  </data>
   <data name="dtInsertimit" xml:space="preserve">
     <value>Data insertimit</value>
+  </data>
+  <data name="dtLast" xml:space="preserve">
+    <value>E fundit</value>
+  </data>
+  <data name="dtlengthMenu" xml:space="preserve">
+    <value>Duke shfaqur _MENU_ rreshta për faqe</value>
+  </data>
+  <data name="dtNext" xml:space="preserve">
+    <value>Para</value>
+  </data>
+  <data name="dtPrapa" xml:space="preserve">
+    <value>Prapa</value>
+  </data>
+  <data name="dtSearch" xml:space="preserve">
+    <value>Kërko</value>
+  </data>
+  <data name="dtZeroRecord" xml:space="preserve">
+    <value>Nuk ka asnjë të dhënë</value>
+  </data>
+  <data name="duplicateEmail" xml:space="preserve">
+    <value>Egziston perdorues me kete email adress.</value>
+  </data>
+  <data name="duplicateLeaveRequest" xml:space="preserve">
+    <value>Keni një kërkesë në proces për pushim.</value>
   </data>
   <data name="email" xml:space="preserve">
     <value>Email</value>
@@ -248,6 +350,21 @@
   </data>
   <data name="emailVerificationSend" xml:space="preserve">
     <value>Imella për verifikim është dërguar. Ju lutem shikoni imellën.</value>
+  </data>
+  <data name="employee" xml:space="preserve">
+    <value>Punëtorët</value>
+  </data>
+  <data name="employeeDeleteMsg" xml:space="preserve">
+    <value>Ky veprim do ti largoj statusin si punëtorë aktiv personit që keni zgjedhur!</value>
+  </data>
+  <data name="employeReportSearch" xml:space="preserve">
+    <value>Kërkimi te raporti punëtorëve</value>
+  </data>
+  <data name="employers" xml:space="preserve">
+    <value>Të punesuarit</value>
+  </data>
+  <data name="employeTitle" xml:space="preserve">
+    <value>Regjistrimi i punetoreve</value>
   </data>
   <data name="employmentDate" xml:space="preserve">
     <value>Data fillimit te punes</value>
@@ -281,6 +398,15 @@
   </data>
   <data name="enterEmail" xml:space="preserve">
     <value>Shtypni email adresën.</value>
+  </data>
+  <data name="error" xml:space="preserve">
+    <value>Gabim</value>
+  </data>
+  <data name="errorText" xml:space="preserve">
+    <value>Ka ndodhur një gabim gjatë procesimit të kërkesës tuaj.</value>
+  </data>
+  <data name="exceptionLogin" xml:space="preserve">
+    <value>Ka ndodhur një gabim. Ju lutem provoni përsëri.</value>
   </data>
   <data name="executeSalaries" xml:space="preserve">
     <value>Ekzekuto pagat</value>
@@ -339,6 +465,9 @@
   <data name="gabimNdryshimiusername" xml:space="preserve">
     <value>Gabim gjatë ndryshimit të emrit të përdoruesit</value>
   </data>
+  <data name="generalDataEmployee" xml:space="preserve">
+    <value>Të dhënat e përgjithshme për punëtorin</value>
+  </data>
   <data name="gjatesiaFjalekalimit" xml:space="preserve">
     <value>{0} duhet të jetë minimum {2} dhe maksimum {1} karaktere i gjatë.</value>
   </data>
@@ -363,6 +492,9 @@
   <data name="historikuPagave" xml:space="preserve">
     <value>Historiku i pagave të egzekutuara</value>
   </data>
+  <data name="homePage" xml:space="preserve">
+    <value>Ballina</value>
+  </data>
   <data name="ibanKode" xml:space="preserve">
     <value>IBAN kodi</value>
   </data>
@@ -372,11 +504,17 @@
   <data name="ikona" xml:space="preserve">
     <value>Ikona</value>
   </data>
+  <data name="info" xml:space="preserve">
+    <value>Info!</value>
+  </data>
   <data name="invalidCodeTOTP" xml:space="preserve">
     <value>Kodi nuk është i saktë.</value>
   </data>
   <data name="invalidData" xml:space="preserve">
     <value>Të dhënat nuk janë valide!</value>
+  </data>
+  <data name="ipAdress" xml:space="preserve">
+    <value>Ip adresa</value>
   </data>
   <data name="juDuhet" xml:space="preserve">
     <value>Ju duhet</value>
@@ -432,17 +570,41 @@
   <data name="language" xml:space="preserve">
     <value>Gjuha</value>
   </data>
+  <data name="lastNotifications" xml:space="preserve">
+    <value>Njoftimet e fundit në sistem</value>
+  </data>
+  <data name="leaveEmploye" xml:space="preserve">
+    <value>Punëtorë në pushim</value>
+  </data>
   <data name="leaveReason" xml:space="preserve">
     <value>Arsyeja pushimit</value>
   </data>
   <data name="LeaveRequest" xml:space="preserve">
     <value>Regjistrimi i kërkesës për pushim</value>
   </data>
+  <data name="leaves" xml:space="preserve">
+    <value>Pushimet</value>
+  </data>
+  <data name="leavesSearchReport" xml:space="preserve">
+    <value>Kërkimi te raporti pagesave</value>
+  </data>
   <data name="listaPunetorve" xml:space="preserve">
     <value>Lista e punëtorve të regjistruar</value>
   </data>
+  <data name="listAuthorizations" xml:space="preserve">
+    <value>Lista e autorizimeve në nivel të grupit</value>
+  </data>
   <data name="listOfLeaves" xml:space="preserve">
     <value>Lista kërkesave për pushim</value>
+  </data>
+  <data name="listRegisterMenu" xml:space="preserve">
+    <value>Lista e menyve te regjistruara</value>
+  </data>
+  <data name="listRegisterSubMenu" xml:space="preserve">
+    <value>Lista e nen menyve te regjistruara</value>
+  </data>
+  <data name="listRules" xml:space="preserve">
+    <value>Lista e rregullave te regjistruara</value>
   </data>
   <data name="login" xml:space="preserve">
     <value>Kyqu</value>
@@ -455,6 +617,9 @@
   </data>
   <data name="loginText" xml:space="preserve">
     <value>Përdorni llogarinë për tu kyqur.</value>
+  </data>
+  <data name="logOf" xml:space="preserve">
+    <value>Q'kyqu</value>
   </data>
   <data name="logOutSuccess" xml:space="preserve">
     <value>Jeni q'kyqur me sukses.</value>
@@ -486,11 +651,26 @@
   <data name="menaxhoniLlogarine" xml:space="preserve">
     <value>Menaxhoni llogarinë tuaj</value>
   </data>
+  <data name="menuNameAl" xml:space="preserve">
+    <value>Emri menus shqip</value>
+  </data>
+  <data name="menuNameEn" xml:space="preserve">
+    <value>Emri menus anglisht</value>
+  </data>
+  <data name="menuRegistration" xml:space="preserve">
+    <value>Regjistrimi i menyve</value>
+  </data>
   <data name="metoda" xml:space="preserve">
     <value>Metoda</value>
   </data>
+  <data name="msgDuplicateData" xml:space="preserve">
+    <value>"Keni shtypur te dhena egzistuese!"</value>
+  </data>
   <data name="msgEmailAdresa" xml:space="preserve">
     <value>Email adresa për verifikim është dërguar. Ju lutem shikoni email adresën për verifikim.</value>
+  </data>
+  <data name="msgFileSize" xml:space="preserve">
+    <value>Keni tejkaluar madhesine e fajllit.</value>
   </data>
   <data name="msgGabimRuajtja" xml:space="preserve">
     <value>Ka ndodhur një gabim gjatë ruajtjes.</value>
@@ -516,6 +696,12 @@
   <data name="neAplikacionin2FA" xml:space="preserve">
     <value>në aplikacionin për autentifikim dy hapësh. Hapsirat dhe lidhëset nuk kanë rëndësi.</value>
   </data>
+  <data name="neRregull" xml:space="preserve">
+    <value>Në rregull</value>
+  </data>
+  <data name="netoSalary" xml:space="preserve">
+    <value>Paga neto</value>
+  </data>
   <data name="ngarkoFotografine" xml:space="preserve">
     <value>Ngarko fotografinë</value>
   </data>
@@ -524,6 +710,18 @@
   </data>
   <data name="njeKodMbetur" xml:space="preserve">
     <value>Ju keni një kod të mbetur.</value>
+  </data>
+  <data name="nonRegularNoPension" xml:space="preserve">
+    <value>Jo i rregullt pa pension</value>
+  </data>
+  <data name="nonRegularPension" xml:space="preserve">
+    <value>Jo i rregullt me pension</value>
+  </data>
+  <data name="noPensionRegular" xml:space="preserve">
+    <value>I rregullt pa pension</value>
+  </data>
+  <data name="notifications" xml:space="preserve">
+    <value>Njoftimet</value>
   </data>
   <data name="nrKaraktereve" xml:space="preserve">
     <value>Munde te shtypi 1 deri 100 karektere</value>
@@ -558,6 +756,30 @@
   <data name="pasiv" xml:space="preserve">
     <value>Pasiv</value>
   </data>
+  <data name="payment" xml:space="preserve">
+    <value>Pagesat</value>
+  </data>
+  <data name="paymentExecution" xml:space="preserve">
+    <value>Egzekutimi pagave</value>
+  </data>
+  <data name="paymentList" xml:space="preserve">
+    <value>Lista pagave për egzekutim</value>
+  </data>
+  <data name="payments" xml:space="preserve">
+    <value>Pagesat</value>
+  </data>
+  <data name="paymentSearchReport" xml:space="preserve">
+    <value>Kërkimi te raporti pagesave</value>
+  </data>
+  <data name="pensionalContributionEmployee" xml:space="preserve">
+    <value>Kontributi pensional i punedhenesit</value>
+  </data>
+  <data name="pensionalContributionEmployer" xml:space="preserve">
+    <value>Kontributi pensional i punetorit</value>
+  </data>
+  <data name="pensionaRegular" xml:space="preserve">
+    <value>I rregullt me pension</value>
+  </data>
   <data name="per" xml:space="preserve">
     <value>për</value>
   </data>
@@ -588,6 +810,12 @@
   <data name="policy" xml:space="preserve">
     <value>Rregulla</value>
   </data>
+  <data name="position" xml:space="preserve">
+    <value>Pozita</value>
+  </data>
+  <data name="postalCodeError" xml:space="preserve">
+    <value>Kodi postal nuk eshte valid.</value>
+  </data>
   <data name="pozitaPunes" xml:space="preserve">
     <value>Pozita e punës</value>
   </data>
@@ -600,6 +828,9 @@
   <data name="qyteti" xml:space="preserve">
     <value>Qyteti</value>
   </data>
+  <data name="register" xml:space="preserve">
+    <value>Regjistro</value>
+  </data>
   <data name="regjistrimiNenMenu" xml:space="preserve">
     <value>Regjistrimi nën menysë</value>
   </data>
@@ -609,8 +840,20 @@
   <data name="rememberMachine" xml:space="preserve">
     <value>Mbaj mend këtë kompjuter</value>
   </data>
+  <data name="reports" xml:space="preserve">
+    <value>Raportet</value>
+  </data>
   <data name="reportType" xml:space="preserve">
     <value>Lloji raportit</value>
+  </data>
+  <data name="requestForFullfillment" xml:space="preserve">
+    <value>Kërkesa për plotësim</value>
+  </data>
+  <data name="requestId" xml:space="preserve">
+    <value>Numri kërkesës:</value>
+  </data>
+  <data name="requestLeave" xml:space="preserve">
+    <value>Kërkesa për pushim</value>
   </data>
   <data name="reset" xml:space="preserve">
     <value>Rikthe</value>
@@ -645,8 +888,44 @@
   <data name="ruaj" xml:space="preserve">
     <value>Ruaj</value>
   </data>
+  <data name="rule" xml:space="preserve">
+    <value>Rregulla</value>
+  </data>
+  <data name="ruleName" xml:space="preserve">
+    <value>Emri rregulles</value>
+  </data>
+  <data name="ruleRegistration" xml:space="preserve">
+    <value>Regjistrimi i rregullave</value>
+  </data>
   <data name="safeRecoveryCodes" xml:space="preserve">
     <value>Vendosni këto kode në një vend të sigurtë.</value>
+  </data>
+  <data name="salayForCalculation" xml:space="preserve">
+    <value>Paga për llogaritje</value>
+  </data>
+  <data name="searchReport" xml:space="preserve">
+    <value>Kërkimi te raportet</value>
+  </data>
+  <data name="searchReports" xml:space="preserve">
+    <value>Kërkimi për raporte</value>
+  </data>
+  <data name="searchResult" xml:space="preserve">
+    <value>Rezultati kërkimit</value>
+  </data>
+  <data name="seeAllNotifications" xml:space="preserve">
+    <value>Shiko të gjitha njoftimet</value>
+  </data>
+  <data name="seeCurrentContact" xml:space="preserve">
+    <value>Shiko kontraten aktuale</value>
+  </data>
+  <data name="seeCurrentDocument" xml:space="preserve">
+    <value>Shiko dokumentin aktual</value>
+  </data>
+  <data name="seeCurrentPhoto" xml:space="preserve">
+    <value>Shiko fotografine aktuale</value>
+  </data>
+  <data name="seeDocument" xml:space="preserve">
+    <value>Shiko dokumentit</value>
   </data>
   <data name="shfletuesiFshire" xml:space="preserve">
     <value>Shfletuesi aktual është fshirë. Kur të kyqeni nga ky shfletues do të kërkohen kodet 2FA.</value>
@@ -675,14 +954,32 @@
   <data name="statusi" xml:space="preserve">
     <value>Statusi</value>
   </data>
+  <data name="stringLengthError" xml:space="preserve">
+    <value>Numri karaktereve duhet te jete mes 1 dhe 40.</value>
+  </data>
+  <data name="stringLengthIDError" xml:space="preserve">
+    <value>Gjatesia e numrit personal duhet te jete 10.</value>
+  </data>
+  <data name="success" xml:space="preserve">
+    <value>Sukses</value>
+  </data>
   <data name="tatimi" xml:space="preserve">
     <value>Tatimi</value>
+  </data>
+  <data name="tax" xml:space="preserve">
+    <value>Tatimi</value>
+  </data>
+  <data name="title" xml:space="preserve">
+    <value>Titulli</value>
   </data>
   <data name="TOTPDeaktivizuar" xml:space="preserve">
     <value>2FA është deaktivizuar. You mund të vendosni përsëri 2FA pasi ta konfiguroni aplikacionin për autentifikim.</value>
   </data>
   <data name="twoStepAuthenticationTitle" xml:space="preserve">
     <value>Autentifikimi dy hapësh</value>
+  </data>
+  <data name="uploadNewDocument" xml:space="preserve">
+    <value>Ngarko dokumentin e ri</value>
   </data>
   <data name="userExist" xml:space="preserve">
     <value>Ekziston përdorues i regjistruar me këtë email adresë.</value>
@@ -704,6 +1001,15 @@
   </data>
   <data name="verifiko" xml:space="preserve">
     <value>Verifiko</value>
+  </data>
+  <data name="warning" xml:space="preserve">
+    <value>Kujdes!</value>
+  </data>
+  <data name="withholdTax" xml:space="preserve">
+    <value>Tatimi në burim</value>
+  </data>
+  <data name="yesDelete" xml:space="preserve">
+    <value>Po, fshije!</value>
   </data>
   <data name="youMust" xml:space="preserve">
     <value>Ju patjeter duhet</value>

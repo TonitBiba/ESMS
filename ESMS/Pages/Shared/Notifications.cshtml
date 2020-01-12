@@ -4,7 +4,7 @@
 @{ Layout = null; }
 
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Njoftimet</h5>
+    <h5 class="modal-title" id="exampleModalLabel">@Resource.notifications</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -13,9 +13,9 @@
     <table id="tblListEmployees" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
-                <th>Titulli</th>
-                <th>Përmbajtja</th>
-                <th>Data</th>
+                <th>@Resource.title</th>
+                <th>@Resource.content</th>
+                <th>@Resource.data</th>
             </tr>
         </thead>
         <tbody>
@@ -38,17 +38,17 @@
     $(document).ready(function () {
         $('#tblListEmployees').DataTable({
             "language": {
-                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
-                "zeroRecords": "Nuk ka asnjë të dhënë",
-                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
-                "infoEmpty": "Nuk ka asnjë të dhënë",
-                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
-                "search": "Kërko",
+                "lengthMenu": "@Resource.dtlengthMenu",
+                "zeroRecords": "@Resource.dtZeroRecord",
+                "info": "@Resource.dtInfo",
+                "infoEmpty": "@Resource.dtInfoEmpty",
+                "infoFiltered": "@Resource.dtInfoFiltered",
+                "search": "@Resource.dtSearch",
                 "paginate": {
-                    "previous": "Prapa",
-                    "first": "E para",
-                    "last": "E fundit",
-                    "next": "Para"
+                    "previous": "@Resource.dtPrapa",
+                    "first": "@Resource.dtFirst",
+                    "last": "@Resource.dtLast",
+                    "next": "@Resource.dtNext"
                 }
             },
             responsive: true

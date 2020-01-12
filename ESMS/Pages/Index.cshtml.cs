@@ -30,8 +30,9 @@ namespace ESMS.Pages
             this._emailSender = _emailSender;
         }
 
-        public async Task OnGet()
+        public void OnGet()
         {
+            throw new System.ArgumentException("Parameter cannot be null", "original");
             DateTime dateTime = DateTime.Now;
             listLogs = dbContext.Logs.Where(L=>L.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(L => new Logs 
             { 
@@ -51,9 +52,9 @@ namespace ESMS.Pages
             {
                 statistics = new List<StatisticsModel> {
                      new StatisticsModel{ color ="statistic__item--green", Amount = string.Format(new CultureInfo("en-US"), "{0:C}", dbContext.AspNetUsers.Where(U=>U.Id == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(U=>U.Salary).FirstOrDefault()).Substring(1)+" €", Icon = "zmdi zmdi-money", Title = Resource.paga},
-                                     new StatisticsModel {color="statistic__item--blue", Amount = dbContext.LeavesDetails.Where(L=>L.BActive == true && (L.NStatus == 1 || L.NStatus == 5) && L.VcUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Count()+"", Title = "Kërkesa për pushim", Icon = "zmdi zmdi-assignment-o" },
-                                     new StatisticsModel {color="statistic__item--orange", Amount = dbContext.LeavesDetails.Where(L=>L.BActive == true && L.NStatus == 4 && L.VcUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Count()+"", Title = "Kërkesa për plotësim", Icon = "zmdi zmdi-assignment-o" },
-                                     new StatisticsModel {color="statistic__item--red", Amount = dbContext.LeavesDetails.Where(L=>L.BActive == true && L.NStatus == 2 && L.VcUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Count()+"", Title = "Kërkesa të miratuar", Icon = "zmdi zmdi-assignment-o" },
+                                     new StatisticsModel {color="statistic__item--blue", Amount = dbContext.LeavesDetails.Where(L=>L.BActive == true && (L.NStatus == 1 || L.NStatus == 5) && L.VcUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Count()+"", Title = Resource.requestLeave, Icon = "zmdi zmdi-assignment-o" },
+                                     new StatisticsModel {color="statistic__item--orange", Amount = dbContext.LeavesDetails.Where(L=>L.BActive == true && L.NStatus == 4 && L.VcUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Count()+"", Title = Resource.requestForFullfillment, Icon = "zmdi zmdi-assignment-o" },
+                                     new StatisticsModel {color="statistic__item--red", Amount = dbContext.LeavesDetails.Where(L=>L.BActive == true && L.NStatus == 2 && L.VcUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Count()+"", Title = Resource.approvedRequest, Icon = "zmdi zmdi-assignment-o" },
                     };
             }else if (User.IsInRole("Burimet_Njerzore"))
             {
@@ -64,27 +65,27 @@ namespace ESMS.Pages
                 statistics = new List<StatisticsModel> {
                      new StatisticsModel{ color ="statistic__item--green", Amount = (dbContext.AspNetUsers.Count() - 1).ToString(), Icon = "zmdi zmdi-account-o", Title = Resource.numriPerdoruesve},
                      new StatisticsModel{ color="statistic__item--orange", Amount = string.Format(new CultureInfo("en-US"), "{0:C}", dbContext.AspNetUsers.Where(S=>S.EmployeeStatus == 1).Sum(S=>S.Salary)).Substring(1)+" €", Icon = "zmdi zmdi-money", Title = Resource.shpenzimetPaga},
-                     new StatisticsModel {color="statistic__item--blue", Amount = dbContext.LeavesDetails.Where(L=>L.BActive == true && (L.NStatus == 1 || L.NStatus == 5)).Count()+"", Title = "Kërkesë për pushim", Icon = "zmdi zmdi-assignment-o" },
+                     new StatisticsModel {color="statistic__item--blue", Amount = dbContext.LeavesDetails.Where(L=>L.BActive == true && (L.NStatus == 1 || L.NStatus == 5)).Count()+"", Title = Resource.requestLeave, Icon = "zmdi zmdi-assignment-o" },
                      new StatisticsModel { color ="statistic__item--red", Amount = (from L in dbContext.Leaves
                                                     join LD in dbContext.LeavesDetails on L.Id equals LD.NLeaves
                                                     where LD.BActive == true && LD.NStatus == 2
                                                         && L.EndDate > dateTime
                                                         && L.StartDate < dateTime
-                                                    select L.Id).Count()+"", Title = "Punëtorë në pushim", Icon = "zmdi zmdi-assignment-o" }
+                                                    select L.Id).Count()+"", Title = Resource.leaveEmploye, Icon = "zmdi zmdi-assignment-o" }
                 };
             }
         }
 
         public JsonResult OnGetReportSearch(string param)
         {
-            List<SearchModel> searchModels = new List<SearchModel> { new SearchModel { Name = "Pagesat", Link = "/Reports/Read?rId=2" }, new SearchModel { Name = "Pushimet", Link = "/Reports/Read?rId=3" }, new SearchModel { Name = "Punëtorët", Link = "/Reports/Read?rId=1" } };
+            List<SearchModel> searchModels = new List<SearchModel> { new SearchModel { Name = Resource.payment, Link = "/Reports/Read?rId=2" }, new SearchModel { Name = Resource.leaves, Link = "/Reports/Read?rId=3" }, new SearchModel { Name = Resource.employee, Link = "/Reports/Read?rId=1" } };
             var filteredResults = searchModels.Where(S => S.Name.ToLower().Contains(param.ToLower())).ToList();
             return new JsonResult(filteredResults);
         }
 
         public IActionResult OnGetLanguage(string culture, string returnUrl)
         {
-            var cultureInfo = new System.Globalization.CultureInfo(culture);
+            var cultureInfo = new CultureInfo(culture);
             Thread.CurrentThread.CurrentCulture = cultureInfo;
             Thread.CurrentThread.CurrentUICulture = cultureInfo;
 
@@ -110,7 +111,6 @@ namespace ESMS.Pages
         }
 
         public List<StatisticsModel> statistics { get; set; }
-
 
         public class StatisticsModel
         {

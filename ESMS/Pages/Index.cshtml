@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = Resource.homePage;
 }
 <section class="statistic">
     <div class="section__content section__content--p30">
@@ -32,13 +32,13 @@
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Task', 'Hours per Day'],
-                ['Departamenti financave', @float.Parse(TempData["Financa"].ToString()) ],
-                ['Departamenti IT-së', @float.Parse(TempData["IT"].ToString()) ],
-                ['Departamenti HR', @float.Parse(TempData["HR"].ToString()) ],
+                ['@Resource.depFinanca', @float.Parse(TempData["Financa"].ToString()) ],
+                ['@Html.Raw(Resource.depIt)', @float.Parse(TempData["IT"].ToString()) ],
+                ['@Resource.depHr', @float.Parse(TempData["HR"].ToString()) ],
             ]);
 
             var options = {
-                title: 'Shpenzimet për paga sipas departamenteve',
+                title: '@Html.Raw(Resource.chartTitle)',
                 pieHole: 0.4,
             };
 
@@ -50,7 +50,6 @@
             drawChart();
         });
     </script>
-    @*<div class="card">*@
     <div class="row">
         <div class="col-md-6">
             <div class="card-body card-block">
@@ -67,7 +66,7 @@
                             <tr>
                                 <td>Url</td>
                                 <td>@Resource.dtInsertimit</td>
-                                <td>Ip address</td>
+                                <td>@Resource.ipAdress</td>
                                 <td>@Resource.emriKompjuterit</td>
                                 <td>@Resource.statusi</td>
                             </tr>
@@ -89,7 +88,6 @@
             </div>
         </div>
     </div>
-    @*</div>*@
 }
 else
 {
@@ -102,7 +100,7 @@ else
                     <tr>
                         <td>Url</td>
                         <td>@Resource.dtInsertimit</td>
-                        <td>Ip address</td>
+                        <td>@Resource.ipAdress</td>
                         <td>@Resource.emriKompjuterit</td>
                         <td>@Resource.statusi</td>
                     </tr>
@@ -131,17 +129,17 @@ else
             order: false,
             autoWidth: false,
             "language": {
-                "lengthMenu": "Duke shfaqur _MENU_ rreshta për faqe",
-                "zeroRecords": "Nuk ka asnjë të dhënë",
-                "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
-                "infoEmpty": "Nuk ka asnjë të dhënë",
-                "infoFiltered": "(të filtruara nga _MAX_ rreshta)",
-                "search": "Kërko",
+                "lengthMenu": "@Resource.dtlengthMenu",
+                "zeroRecords": "@Resource.dtZeroRecord",
+                "info": "@Resource.dtInfo",
+                "infoEmpty": "@Resource.dtInfoEmpty",
+                "infoFiltered": "@Resource.dtInfoFiltered",
+                "search": "@Resource.dtSearch",
                 "paginate": {
-                    "previous": "Prapa",
-                    "first": "E para",
-                    "last": "E fundit",
-                    "next": "Para"
+                    "previous": "@Resource.dtPrapa",
+                    "first": "@Resource.dtFirst",
+                    "last": "@Resource.dtLast",
+                    "next": "@Resource.dtNext"
                 }
             }
         });
