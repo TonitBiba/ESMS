@@ -140,8 +140,8 @@ namespace ESMS
             using (WebClient client = new WebClient())
             {
                 client.UseDefaultCredentials = true;
-                client.Credentials = new System.Net.NetworkCredential("reportuser", "Esms2019.");
-                reportBytes = client.DownloadData("http://tonit/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fAccountantReport&rs:Command=Render&rs:Format=Excel&month=" + m+ "&monthName="+dbContext.Month.Where(t=>t.Id == m).FirstOrDefault().MonthSq);
+                client.Credentials = new System.Net.NetworkCredential("username", "strongpassword");
+                reportBytes = client.DownloadData("httpReportServerReportViewer.aspx?%2fESMSReports%2fAccountantReport&rs:Command=Render&rs:Format=Excel&month=" + m+ "&monthName="+dbContext.Month.Where(t=>t.Id == m).FirstOrDefault().MonthSq);
             }
 
             return File(reportBytes, "application/Excel".ToLower(), Resource.accountantList+" " + DateTime.Now.ToShortDateString() + ".xls");
