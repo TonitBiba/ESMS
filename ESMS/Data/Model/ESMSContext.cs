@@ -47,7 +47,7 @@ namespace ESMS.Data.Model
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.\\sqlsrv2019;Database=ESMS;user id=superman; password = Esms2019.;MultipleActiveResultSets=true");
+                optionsBuilder.UseSqlServer("Server=.\\sqlsrv2019;Database=ESMS;user id=superman; password = StrongPassword;MultipleActiveResultSets=true");
             }
         }
 

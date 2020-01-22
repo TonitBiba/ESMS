@@ -57,7 +57,7 @@ namespace ESMS.Pages.Reports
             using (WebClient client = new WebClient())
             {
                 client.UseDefaultCredentials = true;
-                client.Credentials = new System.Net.NetworkCredential("reportuser", "Esms2019.");
+                client.Credentials = new System.Net.NetworkCredential("HelloUser", "StrongPassword");
                 
                 reportBytes = client.DownloadData("http://tonit/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fLeaves&rs:Command=Render&dtFrom=" + startDate.ToString("yyyy-MM-dd") + "&dtTo=" + endDate.ToString("yyyy-MM-dd") + "&rs:Format=" + getFormatReport(f));
             }
