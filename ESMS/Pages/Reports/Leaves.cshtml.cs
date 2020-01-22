@@ -59,7 +59,7 @@ namespace ESMS.Pages.Reports
                 client.UseDefaultCredentials = true;
                 client.Credentials = new System.Net.NetworkCredential("HelloUser", "StrongPassword");
                 
-                reportBytes = client.DownloadData("http://tonit/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fLeaves&rs:Command=Render&dtFrom=" + startDate.ToString("yyyy-MM-dd") + "&dtTo=" + endDate.ToString("yyyy-MM-dd") + "&rs:Format=" + getFormatReport(f));
+                reportBytes = client.DownloadData("http://localhost/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fLeaves&rs:Command=Render&dtFrom=" + startDate.ToString("yyyy-MM-dd") + "&dtTo=" + endDate.ToString("yyyy-MM-dd") + "&rs:Format=" + getFormatReport(f));
             }
 
             return File(reportBytes, "application/" + getFormatReport(f).ToLower(), f != 1 ? "Kerkesat per pushim " + DateTime.Now.ToShortDateString() + getExtension(f) : "");

@@ -4,11 +4,7 @@
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="SqlSrvDs">
-      <ConnectionProperties>
-        <DataProvider>SQL</DataProvider>
-        <ConnectString>Data Source=.\sqlsrv2019;Initial Catalog=ESMS</ConnectString>
-        <Prompt>Specify a user name and password for data source SqlSrvDs:</Prompt>
-      </ConnectionProperties>
+      <DataSourceReference>sqlsrvDs</DataSourceReference>
       <rd:SecurityType>DataBase</rd:SecurityType>
       <rd:DataSourceID>24a6fd6d-8c8e-4f87-ad39-0e1c9d8dae81</rd:DataSourceID>
     </DataSource>

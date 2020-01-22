@@ -44,7 +44,7 @@ namespace ESMS
             using (WebClient client = new WebClient())
             {
                 client.UseDefaultCredentials = true;
-                client.Credentials = new System.Net.NetworkCredential("HelloUser", "StrongPassword");
+                client.Credentials = new System.Net.NetworkCredential("reportuser", "Esms2019.");
                 reportBytes = client.DownloadData("http://tonit/ReportServer/Pages/ReportViewer.aspx?%2fESMSReports%2fSalariesPaid&rs:Command=Render&rs:Format=" + getFormatReport(f));
             }
 
